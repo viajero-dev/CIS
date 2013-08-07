@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+      
+    <property name="hibernate.hbm2ddl.auto">update</property>
+    <property name="hibernate.cache.use_second_level_cache">false</property>
+    <property name="hibernate.cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
+    <property name="hibernate.connection.zeroDateTimeBehavior">convertToNull</property>
+    
+    <!-- C3P0 Configuration -->
+    <property name="hibernate.c3p0.acquire_increment">5</property>
+    <property name="hibernate.c3p0.min_size">5</property>
+    <property name="hibernate.c3p0.max_size">30</property>
+    <property name="hibernate.c3p0.max_statements">50</property>
+    <property name="hibernate.c3p0.timeout">3000</property>
+    <property name="hibernate.c3p0.idle_test_period">300</property>
+    <!-- End of C3P0 Configuration -->
+    
+    <!-- Names the annotated entity class -->
+    <mapping class="com.vg.scfc.financing.cis.ent.Address"/>
+    <mapping class="com.vg.scfc.financing.cis.ent.Appliance"/>
+    <mapping class="com.vg.scfc.financing.cis.ent.Asset"/>
+    <mapping class="com.vg.scfc.financing.cis.ent.CharacterReference"/>
+    <mapping class="com.vg.scfc.financing.cis.ent.Company"/>
+    <mapping class="com.vg.scfc.financing.cis.ent.CreditRef"/>
+    <mapping class="com.vg.scfc.financing.cis.ent.Customer"/>
+    <mapping class="com.vg.scfc.financing.cis.ent.CustomerCashInfo"/>
+    <mapping class="com.vg.scfc.financing.cis.ent.Dependent"/>
+    <mapping class="com.vg.scfc.financing.cis.ent.Employment"/>
+    <mapping class="com.vg.scfc.financing.cis.ent.Expenditure"/>
+    <mapping class="com.vg.scfc.financing.cis.ent.ExpenditureType"/>
+    <mapping class="com.vg.scfc.financing.cis.ent.Family"/>
+    <mapping class="com.vg.scfc.financing.cis.ent.Land"/>
+    <mapping class="com.vg.scfc.financing.cis.ent.LandType"/>
+    <mapping class="com.vg.scfc.financing.cis.ent.Machinery"/>
+    <mapping class="com.vg.scfc.financing.cis.ent.MemoToFile"/>
+    <mapping class="com.vg.scfc.financing.cis.ent.PersonType"/>
+    <mapping class="com.vg.scfc.financing.cis.ent.PersonalInfo"/>
+    <mapping class="com.vg.scfc.financing.cis.ent.PurchaseOrder"/>
+    <mapping class="com.vg.scfc.financing.cis.ent.Religion"/>
+    <mapping class="com.vg.scfc.financing.cis.ent.RepresentativeEmployment"/>
+    <mapping class="com.vg.scfc.financing.cis.ent.Sibling"/>
+    <mapping class="com.vg.scfc.financing.cis.ent.SourceOfIncome"/>
+    <mapping class="com.vg.scfc.financing.cis.ent.TransactionForm"/>
+    <mapping class="com.vg.scfc.financing.cis.ent.TransactionMode"/>
+    <mapping class="com.vg.scfc.financing.cis.ent.Tribe"/>
+    <mapping class="com.vg.scfc.financing.cis.ent.Vehicle"/>
+    
+  </session-factory>
+</hibernate-configuration>
