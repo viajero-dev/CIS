@@ -7,6 +7,7 @@ package com.vg.scfc.financing.cis.ui.panel;
 
 import com.vg.scfc.financing.cis.ui.listener.BasicActionListener;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
+import java.util.Date;
 
 /**
  *
@@ -25,8 +26,12 @@ public class InstitutionalPanel extends javax.swing.JPanel {
         initRepresentative2PersonalInfoAddEditListener();
         initRepresentative2EmploymentAddEditListener();
     }
-    
+
     private void initCompanyInfoAddEditListener() {
+        panelCompanyInformation.setApplicationDate(applicationDate);
+        panelCompanyInformation.setFormSeries(formSeries);
+        panelCompanyInformation.setCompanyName(companyName);
+        
         addEditCompanyInfo.setBasicActionListener(new BasicActionListener() {
 
             @Override
@@ -38,7 +43,7 @@ public class InstitutionalPanel extends javax.swing.JPanel {
             @Override
             public boolean onSaveAdd() {
                 boolean isSaved = panelCompanyInformation.saveCompanyInfo();
-                if(!isSaved) {
+                if (!isSaved) {
                     UIValidator.promptErrorMessageOn("SAVE");
                 }
                 return isSaved;
@@ -58,7 +63,7 @@ public class InstitutionalPanel extends javax.swing.JPanel {
             @Override
             public boolean onSaveEdit() {
                 boolean isUpdated = panelCompanyInformation.updateCompanyInfo();
-                if(!isUpdated) {
+                if (!isUpdated) {
                     UIValidator.promptErrorMessageOn("EDIT");
                 }
                 return isUpdated;
@@ -71,11 +76,11 @@ public class InstitutionalPanel extends javax.swing.JPanel {
             }
         });
     }
-    
+
     private void initRepresentative1PersonalInfoAddEditListener() {
         addEditRepresentative1PersonalInfo.setBasicActionListener(new BasicActionListener() {
 
-             @Override
+            @Override
             public void onAdd() {
                 panelRepresentative1PersonalInformation.setFieldsEditable(true);
                 panelRepresentative1PersonalInformation.resetToDefault();
@@ -116,7 +121,7 @@ public class InstitutionalPanel extends javax.swing.JPanel {
             }
         });
     }
-    
+
     private void initRepresentative1EmploymentAddEditListener() {
         addEditRepresentative1Employment.setBasicActionListener(new BasicActionListener() {
 
@@ -129,7 +134,7 @@ public class InstitutionalPanel extends javax.swing.JPanel {
             @Override
             public boolean onSaveAdd() {
                 boolean isSaved = panelRepresentative1Employment.saveEmployment();
-                if(!isSaved) {
+                if (!isSaved) {
                     UIValidator.promptErrorMessageOn("SAVE");
                 }
                 return isSaved;
@@ -149,7 +154,7 @@ public class InstitutionalPanel extends javax.swing.JPanel {
             @Override
             public boolean onSaveEdit() {
                 boolean isUpdated = panelRepresentative1Employment.updateEmployment();
-                if(!isUpdated) {
+                if (!isUpdated) {
                     UIValidator.promptErrorMessageOn("EDIT");
                 }
                 return isUpdated;
@@ -162,11 +167,11 @@ public class InstitutionalPanel extends javax.swing.JPanel {
             }
         });
     }
-    
+
     private void initRepresentative2PersonalInfoAddEditListener() {
         addEditRepresentative2PersonalInfo.setBasicActionListener(new BasicActionListener() {
 
-             @Override
+            @Override
             public void onAdd() {
                 panelRepresentative2PersonalInformation.setFieldsEditable(true);
                 panelRepresentative2PersonalInformation.resetToDefault();
@@ -207,7 +212,7 @@ public class InstitutionalPanel extends javax.swing.JPanel {
             }
         });
     }
-    
+
     private void initRepresentative2EmploymentAddEditListener() {
         addEditRepresentative2Employment.setBasicActionListener(new BasicActionListener() {
 
@@ -220,7 +225,7 @@ public class InstitutionalPanel extends javax.swing.JPanel {
             @Override
             public boolean onSaveAdd() {
                 boolean isSaved = panelRepresentative2Employment.saveEmployment();
-                if(!isSaved) {
+                if (!isSaved) {
                     UIValidator.promptErrorMessageOn("SAVE");
                 }
                 return isSaved;
@@ -240,7 +245,7 @@ public class InstitutionalPanel extends javax.swing.JPanel {
             @Override
             public boolean onSaveEdit() {
                 boolean isUpdated = panelRepresentative2Employment.updateEmployment();
-                if(!isUpdated) {
+                if (!isUpdated) {
                     UIValidator.promptErrorMessageOn("EDIT");
                 }
                 return isUpdated;
@@ -351,4 +356,20 @@ public class InstitutionalPanel extends javax.swing.JPanel {
     private com.vg.scfc.financing.cis.ui.panel.EmploymentRepresentativePanel panelRepresentative2Employment;
     private com.vg.scfc.financing.cis.ui.reusable.PersonalInformationPanel panelRepresentative2PersonalInformation;
     // End of variables declaration//GEN-END:variables
+    private String formSeries;
+    private Date applicationDate;
+    private String companyName;
+
+    public void setFormSeries(String formSeries) {
+        this.formSeries = formSeries;
+    }
+
+    public void setApplicationDate(Date applicationDate) {
+        this.applicationDate = applicationDate;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
 }

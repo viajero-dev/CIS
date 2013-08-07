@@ -21,7 +21,7 @@
     <Property name="useNullLayout" type="boolean" value="false"/>
   </Layout>
   <SubComponents>
-    <Component class="com.vg.scfc.financing.cis.ui.panel.HeaderPanel" name="headerPanel1">
+    <Component class="com.vg.scfc.financing.cis.ui.reusable.HeaderPanel" name="headerPanel1">
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
           <AbsoluteConstraints x="-1" y="0" width="1040" height="-1"/>

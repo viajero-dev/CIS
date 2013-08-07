@@ -27,7 +27,7 @@ public class ApplicantForm extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        headerPanel1 = new com.vg.scfc.financing.cis.ui.panel.HeaderPanel();
+        headerPanel1 = new com.vg.scfc.financing.cis.ui.reusable.HeaderPanel();
         mainPanel1 = new com.vg.scfc.financing.cis.ui.panel.MainPanel();
 
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -38,7 +38,7 @@ public class ApplicantForm extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.vg.scfc.financing.cis.ui.panel.HeaderPanel headerPanel1;
+    private com.vg.scfc.financing.cis.ui.reusable.HeaderPanel headerPanel1;
     private com.vg.scfc.financing.cis.ui.panel.MainPanel mainPanel1;
     // End of variables declaration//GEN-END:variables
 }

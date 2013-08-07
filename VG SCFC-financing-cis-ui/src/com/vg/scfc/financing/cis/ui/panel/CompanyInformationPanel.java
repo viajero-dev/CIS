@@ -7,8 +7,10 @@ package com.vg.scfc.financing.cis.ui.panel;
 
 import com.vg.commons.util.DateUtil;
 import com.vg.scfc.financing.cis.ent.Company;
+import com.vg.scfc.financing.cis.ui.controller.CompanyController;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Date;
 
 /**
  *
@@ -162,6 +164,37 @@ public class CompanyInformationPanel extends javax.swing.JPanel implements KeyLi
     private javax.swing.JTextField txtTIN;
     private javax.swing.JTextField txtYearsOfOperation;
     // End of variables declaration//GEN-END:variables
+    private String president;
+    private String address;
+    private String natureOfBusiness;
+    private int yearsInOperation;
+    private String contactNo;
+    private String tin;
+    private String email;
+    private String businessPermit;
+    private Date issuedDate;
+    private Date expirationDate;
+    private String formSeries;
+    private Date applicationDate;
+    private String companyName;
+    private Company company;
+
+    public void setCompany(Company company) {
+        this.company = company;
+        setCompany(company);
+    }
+
+    public void setFormSeries(String formSeries) {
+        this.formSeries = formSeries;
+    }
+
+    public void setApplicationDate(Date applicationDate) {
+        this.applicationDate = applicationDate;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
 
     @Override
     public void keyTyped(KeyEvent e) {
@@ -262,12 +295,16 @@ public class CompanyInformationPanel extends javax.swing.JPanel implements KeyLi
             txtIssuedDate.setText(DateUtil.toString(c.getExpirationDate(), "MM/HH/yyyy"));
         }
     }
-    
+
     public boolean saveCompanyInfo() {
-        return true;
+        Object o = CompanyController.getInstance().createNew(president, address, natureOfBusiness, yearsInOperation, contactNo, tin, email, businessPermit, issuedDate, expirationDate, formSeries, applicationDate, companyName);
+        setCompany((Company) o);
+        return o != null;
     }
-    
+
     public boolean updateCompanyInfo() {
-        return true;
+        Object o = CompanyController.getInstance().update(company);
+        setCompany((Company) o);
+        return o != null;
     }
 }
