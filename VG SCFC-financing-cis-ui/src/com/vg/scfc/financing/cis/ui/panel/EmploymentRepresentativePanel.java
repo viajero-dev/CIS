@@ -5,7 +5,6 @@
  */
 package com.vg.scfc.financing.cis.ui.panel;
 
-import com.vg.scfc.financing.cis.ent.Employment;
 import com.vg.scfc.financing.cis.ent.RepresentativeEmployment;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -232,5 +231,13 @@ public class EmploymentRepresentativePanel extends javax.swing.JPanel implements
             txtYearInService.setText(r.getYearOfService() + "");
             txtMonthlyCompensation.setText(r.getSalary() + "");
         }
+    }
+    
+    public boolean saveEmployment() {
+        return true;
+    }
+    
+    public boolean updateEmployment() {
+        return true;
     }
 }
