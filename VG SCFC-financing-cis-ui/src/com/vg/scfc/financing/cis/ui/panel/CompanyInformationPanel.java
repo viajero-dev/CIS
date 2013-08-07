@@ -5,6 +5,8 @@
  */
 package com.vg.scfc.financing.cis.ui.panel;
 
+import com.vg.commons.util.DateUtil;
+import com.vg.scfc.financing.cis.ent.Company;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -12,7 +14,7 @@ import java.awt.event.KeyListener;
  *
  * @author rodel
  */
-public class CompanyInformationPanel extends javax.swing.JPanel implements KeyListener{
+public class CompanyInformationPanel extends javax.swing.JPanel implements KeyListener {
 
     /**
      * Creates new form CompanyInformationPanel
@@ -21,7 +23,7 @@ public class CompanyInformationPanel extends javax.swing.JPanel implements KeyLi
         initComponents();
         initKeyListener();
     }
-    
+
     private void initKeyListener() {
         txtOwnerPresident.addKeyListener(this);
         txtOfficeAddress.addKeyListener(this);
@@ -171,49 +173,101 @@ public class CompanyInformationPanel extends javax.swing.JPanel implements KeyLi
 
     @Override
     public void keyReleased(KeyEvent e) {
-       switch(e.getKeyCode()) {
-           case KeyEvent.VK_ENTER:
-               if(txtOwnerPresident.isFocusOwner()) {
-                   txtOfficeAddress.requestFocus();
-               } else if(txtOfficeAddress.isFocusOwner()) {
-                   txtBusinessNature.requestFocus();
-               } else if(txtBusinessNature.isFocusOwner()) {
-                   txtYearsOfOperation.requestFocus();
-               } else if(txtYearsOfOperation.isFocusOwner()) {
-                   txtContact.requestFocus();
-               } else if(txtContact.isFocusOwner()) {
-                   txtTIN.requestFocus();
-               } else if(txtTIN.isFocusOwner()) {
-                   txtEmail.requestFocus();
-               } else if(txtEmail.isFocusOwner()) {
-                   txtBussPermitNo.requestFocus();
-               } else if(txtBussPermitNo.isFocusOwner()) {
-                   txtIssuedDate.requestFocus();
-               } else if(txtIssuedDate.isFocusOwner()) {
-                   txtExpireDate.requestFocus();
-               }
-               break;
-           case KeyEvent.VK_UP:
-               if(txtExpireDate.isFocusOwner()) {
-                   txtIssuedDate.requestFocus();
-               } else if(txtIssuedDate.isFocusOwner()) {
-                   txtBussPermitNo.requestFocus();
-               } else if(txtBussPermitNo.isFocusOwner()) {
-                   txtEmail.requestFocus();
-               } else if(txtEmail.isFocusOwner()) {
-                   txtTIN.requestFocus();
-               } else if(txtTIN.isFocusOwner()) {
-                   txtContact.requestFocus();
-               } else if(txtContact.isFocusOwner()) {
-                   txtYearsOfOperation.requestFocus();
-               } else if(txtYearsOfOperation.isFocusOwner()) {
-                   txtBusinessNature.requestFocus();
-               } else if(txtBusinessNature.isFocusOwner()) {
-                   txtOfficeAddress.requestFocus();
-               } else if(txtOfficeAddress.isFocusOwner()) {
-                   txtOwnerPresident.requestFocus();
-               }
-               break;
-       }
+        switch (e.getKeyCode()) {
+            case KeyEvent.VK_ENTER:
+                if (txtOwnerPresident.isFocusOwner()) {
+                txtOfficeAddress.requestFocus();
+            } else if (txtOfficeAddress.isFocusOwner()) {
+                txtBusinessNature.requestFocus();
+            } else if (txtBusinessNature.isFocusOwner()) {
+                txtYearsOfOperation.requestFocus();
+            } else if (txtYearsOfOperation.isFocusOwner()) {
+                txtContact.requestFocus();
+            } else if (txtContact.isFocusOwner()) {
+                txtTIN.requestFocus();
+            } else if (txtTIN.isFocusOwner()) {
+                txtEmail.requestFocus();
+            } else if (txtEmail.isFocusOwner()) {
+                txtBussPermitNo.requestFocus();
+            } else if (txtBussPermitNo.isFocusOwner()) {
+                txtIssuedDate.requestFocus();
+            } else if (txtIssuedDate.isFocusOwner()) {
+                txtExpireDate.requestFocus();
+            }
+                break;
+            case KeyEvent.VK_UP:
+                if (txtExpireDate.isFocusOwner()) {
+                txtIssuedDate.requestFocus();
+            } else if (txtIssuedDate.isFocusOwner()) {
+                txtBussPermitNo.requestFocus();
+            } else if (txtBussPermitNo.isFocusOwner()) {
+                txtEmail.requestFocus();
+            } else if (txtEmail.isFocusOwner()) {
+                txtTIN.requestFocus();
+            } else if (txtTIN.isFocusOwner()) {
+                txtContact.requestFocus();
+            } else if (txtContact.isFocusOwner()) {
+                txtYearsOfOperation.requestFocus();
+            } else if (txtYearsOfOperation.isFocusOwner()) {
+                txtBusinessNature.requestFocus();
+            } else if (txtBusinessNature.isFocusOwner()) {
+                txtOfficeAddress.requestFocus();
+            } else if (txtOfficeAddress.isFocusOwner()) {
+                txtOwnerPresident.requestFocus();
+            }
+                break;
+        }
+    }
+
+    public void setFieldsEditable(boolean value) {
+        txtOwnerPresident.setEditable(value);
+        txtOfficeAddress.setEditable(value);
+        txtBusinessNature.setEditable(value);
+        txtYearsOfOperation.setEditable(value);
+        txtContact.setEditable(value);
+        txtTIN.setEditable(value);
+        txtEmail.setEditable(value);
+        txtBussPermitNo.setEditable(value);
+        txtIssuedDate.setEditable(value);
+        txtIssuedDate.setEditable(value);
+    }
+
+    public void resetToDefault() {
+        txtOwnerPresident.setText("");
+        txtOfficeAddress.setText("");
+        txtBusinessNature.setText("");
+        txtYearsOfOperation.setText("");
+        txtContact.setText("");
+        txtTIN.setText("");
+        txtEmail.setText("");
+        txtBussPermitNo.setText("");
+        txtIssuedDate.setText("");
+        txtIssuedDate.setText("");
+    }
+
+    public void setCompanyInfo(Object o) {
+        if (o == null) {
+            resetToDefault();
+        } else {
+            Company c = (Company) o;
+            txtOwnerPresident.setText(c.getPresident());
+            txtOfficeAddress.setText(c.getAddress());
+            txtBusinessNature.setText(c.getNatureOfBusiness());
+            txtYearsOfOperation.setText(c.getYearOfService() + "");
+            txtContact.setText(c.getContactNo());
+            txtTIN.setText(c.getTin());
+            txtEmail.setText(c.getEmail());
+            txtBussPermitNo.setText(c.getBusinessPermitNo());
+            txtIssuedDate.setText(DateUtil.toString(c.getIssuedDate(), "MM/HH/yyyy"));
+            txtIssuedDate.setText(DateUtil.toString(c.getExpirationDate(), "MM/HH/yyyy"));
+        }
+    }
+    
+    public boolean saveCompanyInfo() {
+        return true;
+    }
+    
+    public boolean updateCompanyInfo() {
+        return true;
     }
 }
