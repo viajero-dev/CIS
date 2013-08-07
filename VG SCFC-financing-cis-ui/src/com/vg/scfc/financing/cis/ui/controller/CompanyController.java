@@ -80,4 +80,29 @@ public class CompanyController {
         return result;
     }
 
+    public Object update(Company c) {
+        Object result = null;
+        try {
+            TransactionForm form = UISetting.getTransactionFormService().findByformNo(c.getTxFormNo());
+            Customer customer = UISetting.getCustomerService().findById(form.getClientNo());
+            boolean isUpdated = UISetting.getCustomerService().update(customer, c);
+            if (isUpdated) {
+                result = UISetting.getCompanyService().findByFormNo(form.getTxFormNo());
+            }
+        } catch (Exception e) {
+            UIValidator.log(e, CompanyController.class);
+        }
+        return result;
+    }
+
+    public Object findByFormNo(String formNo) {
+        Object result = null;
+        try {
+            result = UISetting.getCompanyService().findByFormNo(formNo);
+        } catch (Exception e) {
+            UIValidator.log(e, CompanyController.class);
+        }
+        return result;
+    }
+
 }
