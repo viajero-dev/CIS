@@ -6,10 +6,10 @@
 package com.vg.scfc.financing.cis.ui.reusable;
 
 import com.vg.scfc.financing.cis.ent.Employment;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import com.vg.scfc.financing.cis.ui.controller.EmploymentCotroller;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 /**
  *
@@ -196,6 +196,22 @@ public class EmploymentDataPanel extends javax.swing.JPanel implements KeyListen
     private String contactNo;
     private String natureOfBuss;
     private int yearInService;
+    private String formNo;
+    private String personType;
+    private Employment employment;
+
+    public void setFormNo(String formNo) {
+        this.formNo = formNo;
+    }
+
+    public void setPersonType(String personType) {
+        this.personType = personType;
+    }
+
+    public void setEmployment(Employment employment) {
+        this.employment = employment;
+        setEmploymentData(employment);
+    }
 
     @Override
     public void keyTyped(KeyEvent e) {
@@ -242,14 +258,14 @@ public class EmploymentDataPanel extends javax.swing.JPanel implements KeyListen
     }
 
     public boolean saveEmploymentData() {
-        Object o = EmploymentCotroller.getInstance().createNew(address, positionDept, companyEmployer, address, contactNo, natureOfBuss, yearInService);
-        setEmploymentData(o);
+        Object o = EmploymentCotroller.getInstance().createNew(address, positionDept, companyEmployer, address, contactNo, natureOfBuss, yearInService, personType, formNo);
+        setEmployment((Employment) o);
         return o != null;
     }
 
     public boolean updateEmploymentData() {
-        Object o = EmploymentCotroller.getInstance().update("", status, positionDept, companyEmployer, address, contactNo, natureOfBuss, yearInService);
-        setEmploymentData(o);
+        Object o = EmploymentCotroller.getInstance().update(formNo, employment);
+        setEmployment((Employment) o);
         return o != null;
     }
 

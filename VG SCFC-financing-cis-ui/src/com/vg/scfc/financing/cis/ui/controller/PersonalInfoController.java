@@ -5,8 +5,11 @@
  */
 package com.vg.scfc.financing.cis.ui.controller;
 
+import com.vg.scfc.financing.cis.ent.Customer;
 import com.vg.scfc.financing.cis.ent.PersonalInfo;
 import com.vg.scfc.financing.cis.ent.Religion;
+import com.vg.scfc.financing.cis.ent.TransactionForm;
+import com.vg.scfc.financing.cis.ent.TransactionMode;
 import com.vg.scfc.financing.cis.ent.Tribe;
 import com.vg.scfc.financing.cis.ui.settings.UISetting;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
@@ -29,24 +32,59 @@ public class PersonalInfoController {
         return instance;
     }
 
-    public Object createNew(String lastname, String firstname, String middlename, Date birthDate, String birthPlace, int age, String gender, String tribe, String religion,
-            String citizenship, String civilStatusOther, String educationalAttainment, String contactNo, String presentAddress, String previousAddress) {
+    public Object createNew(String lastname, String firstname, String middlename, Date birthDate, String birthPlace,
+            int age, String gender, String tribe, String religion, String citizenship, String civilStatusOther, String educationalAttainment,
+            String contactNo, String presentAddress, String previousAddress, String formSeries, Date applicationDate) {
+        Object result = null;
+        try {
+            /* Form Info */
+            String formNo = FormController.getInstance().newFormNo(UISetting.getStoreLocation().getId(), "2", formSeries);
+            TransactionForm form = new TransactionForm();
+            form.setTxFormNo(formNo);
+            form.setTxApplicationDate(applicationDate);
+            form.setUser(UISetting.getSystemUser());
+            form.setStation(UISetting.getComputerName());
+            form.setLocation(UISetting.getStoreLocation());
 
-        PersonalInfo p = new PersonalInfo();
-        p.setLastName(lastname);
-        p.setFirstName(firstname);
-        p.setMiddleName(middlename);
-        p.setDateOfBirth(birthDate);
-        p.setPlaceOfBirth(birthPlace);
-        p.setGender(gender);
-        p.setTribe(null);
-        p.setReligion(null);
-        p.setCitizenship(citizenship);
-        p.setCivilStatus(civilStatusOther);
-        p.setEducation(educationalAttainment);
-        p.setContactNo(contactNo);
+            /* Transaction Mode */
+            TransactionMode transactionMode = UISetting.getTransactionModeService().findByID(2);
 
-        return new Object();
+            /* Customer Info */
+            Customer customer = new Customer();
+            customer.setName(lastname + "," + firstname + " " + middlename);
+            customer.setTransactionMode(transactionMode);
+            customer.setUser(UISetting.getSystemUser());
+            customer.setLocation(UISetting.getStoreLocation());
+            customer.setStation(UISetting.getComputerName());
+
+            /* Personal Info */
+            PersonalInfo person = new PersonalInfo();
+            person.setLastName(lastname);
+            person.setFirstName(firstname);
+            person.setMiddleName(middlename);
+            person.setDateOfBirth(birthDate);
+            person.setPlaceOfBirth(birthPlace);
+            person.setGender(gender);
+            person.setTribe(null);
+            person.setReligion(null);
+            person.setCitizenship(citizenship);
+            person.setCivilStatus(civilStatusOther);
+            person.setEducation(educationalAttainment);
+            person.setContactNo(contactNo);
+            person.setPersonType(UISetting.getPersonTypeService().findById("APP"));
+            person.setUser(UISetting.getSystemUser());
+            person.setLocation(UISetting.getStoreLocation());
+            person.setStation(UISetting.getComputerName());
+
+            boolean isSaved = UISetting.getCustomerService().insert(customer, form, person);
+            if (isSaved) {
+//                result = UISetting.get
+            }
+        } catch (Exception ex) {
+            UIValidator.log(ex, PersonalInfoController.class);
+        }
+
+        return result;
     }
 
     public Object update(String clientNo, String lastname, String firstname, String middlename, Date birthDate, String birthPlace, int age, String gender, String tribe, String religion,

@@ -6,11 +6,12 @@
 package com.vg.scfc.financing.cis.ui.reusable;
 
 import com.vg.scfc.financing.cis.ent.Family;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.util.List;
 import com.vg.scfc.financing.cis.ui.controller.FamilyBackgroundController;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -228,6 +229,32 @@ public class FamilyBackgroundPanel extends javax.swing.JPanel implements KeyList
     private String mothersAddress;
     private String mothersOccupation;
     private int mothersAge;
+    private String personType;
+    private String formNo;
+    private Family father;
+    private Family mother;
+    private List<Family> families = new ArrayList<>();
+
+    public void setFamilies(List<Family> families) {
+        this.families = families;
+        setFamilyBackground(this.families);
+    }
+
+    public void setFather(Family father) {
+        this.father = father;
+    }
+
+    public void setMother(Family mother) {
+        this.mother = mother;
+    }
+
+    public void setPersonType(String personType) {
+        this.personType = personType;
+    }
+
+    public void setFormNo(String formNo) {
+        this.formNo = formNo;
+    }
 
     @Override
     public void keyTyped(KeyEvent e) {
@@ -277,24 +304,23 @@ public class FamilyBackgroundPanel extends javax.swing.JPanel implements KeyList
         }
     }
 
-    public void setFamilyBackground(List<Object> objects) {
-        if (objects == null || objects.isEmpty()) {
+    public void setFamilyBackground(List<Family> f) {
+        if (f == null || f.isEmpty()) {
             resetToDefault();
         } else {
-            for (Object object : objects) {
-                Family f = (Family) object;
-                switch (f.getFamRelation()) {
+            for (Family fm : f) {
+                switch (fm.getFamRelation()) {
                     case "FATHER":
-                        txtFatherName.setText(f.getFamName());
-                        txtFatherAddress.setText(f.getFamAddress());
-                        txtFatherOccupation.setText(f.getFamOccupation());
-//                        txtFatherAge.setText(f.getFamAge());
+                        txtFatherName.setText(fm.getFamName());
+                        txtFatherAddress.setText(fm.getFamAddress());
+                        txtFatherOccupation.setText(fm.getFamOccupation());
+                        txtFatherAge.setText(fm.getFamAge() + "");
                         break;
                     case "MOTHER":
-                        txtMotherName.setText(f.getFamName());
-                        txtMotherName.setText(f.getFamAddress());
-                        txtMotherName.setText(f.getFamOccupation());
-//                        txtMotherName.setText(f.getFamAge());
+                        txtMotherName.setText(fm.getFamName());
+                        txtMotherName.setText(fm.getFamAddress());
+                        txtMotherName.setText(fm.getFamOccupation());
+                        txtMotherName.setText(fm.getFamAge() + "");
                         break;
                 }
             }
@@ -324,14 +350,14 @@ public class FamilyBackgroundPanel extends javax.swing.JPanel implements KeyList
     }
 
     public boolean saveFamilyBackground() {
-        List<Object> objects = FamilyBackgroundController.getInstance().createNew(fathersName, fathersAddress, fathersOccupation, fathersAge, mothersName, mothersAddress, mothersOccupation, mothersAge);
-        setFamilyBackground(objects);
-        return objects != null && !objects.isEmpty();
+        List<Family> f = FamilyBackgroundController.getInstance().createNew(fathersName, fathersAddress, fathersOccupation, fathersAge, mothersName, mothersAddress, mothersOccupation, mothersAge, personType, formNo);
+        setFamilies(f);
+        return f != null && !f.isEmpty();
     }
 
     public boolean updateFamilyBackground() {
-        List<Object> objects = FamilyBackgroundController.getInstance().update("", fathersName, fathersAddress, fathersOccupation, fathersAge, mothersName, mothersAddress, mothersOccupation, mothersAge);
-        setFamilyBackground(objects);
-        return objects != null && !objects.isEmpty();
+        List<Family> f = FamilyBackgroundController.getInstance().update(father, mother);
+        setFamilyBackground(f);
+        return f != null && !f.isEmpty();
     }
 }

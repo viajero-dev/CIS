@@ -11,6 +11,6 @@ package com.vg.scfc.financing.cis.ui.frames;
  */
 public class TestClass {
     public static void main(String[] args) {
-        new ApplicantForm().setVisible(true);
+        new MainFrame().setVisible(true);
     }
 }

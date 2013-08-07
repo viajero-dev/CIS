@@ -10,11 +10,12 @@ import com.vg.scfc.financing.cis.ent.CreditRef;
 import com.vg.scfc.financing.cis.ent.Dependent;
 import com.vg.scfc.financing.cis.ent.PersonalInfo;
 import com.vg.scfc.financing.cis.ent.Sibling;
-import java.util.LinkedList;
-import org.jdesktop.observablecollections.ObservableCollections;
 import com.vg.scfc.financing.cis.ui.listener.AddEditChangeListener;
 import com.vg.scfc.financing.cis.ui.listener.BasicActionListener;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
+import java.util.Date;
+import java.util.LinkedList;
+import org.jdesktop.observablecollections.ObservableCollections;
 
 /**
  *
@@ -109,6 +110,8 @@ public class MainPanel extends javax.swing.JPanel {
     }
 
     private void initEmploymentDataAddEditListener() {
+        panelEmploymentData.setFormNo(formNo);
+        panelEmploymentData.setPersonType("APP");
         addEditEmployment.setBasicActionListener(new BasicActionListener() {
 
             @Override
@@ -157,6 +160,9 @@ public class MainPanel extends javax.swing.JPanel {
     }
 
     private void initFamilyBackgroundAddEditListener() {
+        panelFamilyBackground.setFormNo(formNo);
+        panelFamilyBackground.setPersonType("APP");
+        
         addEditFamily.setBasicActionListener(new BasicActionListener() {
 
             @Override
@@ -207,6 +213,8 @@ public class MainPanel extends javax.swing.JPanel {
     private void initSiblingAddEditListener() {
         panelSibling.setTableSibling(tableSibling);
         panelSibling.setSiblings(siblings);
+        panelSibling.setFormNo(formNo);
+        
         addEditSibling.setBasicActionListener(new BasicActionListener() {
 
             @Override
@@ -227,7 +235,7 @@ public class MainPanel extends javax.swing.JPanel {
             @Override
             public void onCancelAdd() {
                 panelSibling.setFieldsEditable(false);
-//                panelSibling.setSibling(ui);
+//                panelSibling.setSiblingInfo(ui);
                 panelSibling.resetToDefault();
             }
 
@@ -248,7 +256,7 @@ public class MainPanel extends javax.swing.JPanel {
             @Override
             public void onCancelEdit() {
                 panelSibling.setFieldsEditable(false);
-//                panelSibling.setSibling(ui);
+//                panelSibling.setSiblingInfo(ui);
                 panelSibling.resetToDefault();
             }
         });
@@ -257,6 +265,8 @@ public class MainPanel extends javax.swing.JPanel {
     private void initCharacterReferenceAddEditListener() {
         panelCharacterReference.setTableCharacterRef(tableCharacterRef);
         panelCharacterReference.setCharacterReferences(characterReferences);
+        panelCharacterReference.setFormNo(formNo);
+        
         addEditCharacterReference.setBasicActionListener(new BasicActionListener() {
 
             @Override
@@ -1363,7 +1373,7 @@ public class MainPanel extends javax.swing.JPanel {
             }
         });
     }
-    
+
     private void initCoMakerSpouseAddressAddEditChangeListener() {
         addEditChangeCoMakerSpouseAddress.setButtonListener(new AddEditChangeListener() {
 
@@ -1430,7 +1440,7 @@ public class MainPanel extends javax.swing.JPanel {
             }
         });
     }
-    
+
     private void initPurchaseOrderAddEditListener() {
         addEditPO.setBasicActionListener(new BasicActionListener() {
 
@@ -1443,7 +1453,7 @@ public class MainPanel extends javax.swing.JPanel {
             @Override
             public boolean onSaveAdd() {
                 boolean isSaved = panelPO.savePurchaseOrder();
-                if(!isSaved) {
+                if (!isSaved) {
                     UIValidator.promptErrorMessageOn("SAVE");
                 }
                 return isSaved;
@@ -1463,7 +1473,7 @@ public class MainPanel extends javax.swing.JPanel {
             @Override
             public boolean onSaveEdit() {
                 boolean isUpdated = panelPO.updatePurchaseOrder();
-                if(!isUpdated) {
+                if (!isUpdated) {
                     UIValidator.promptErrorMessageOn("EDIT");
                 }
                 return isUpdated;
@@ -2036,4 +2046,25 @@ public class MainPanel extends javax.swing.JPanel {
     private javax.swing.JTable tblVehicle4;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
+
+    private String formNo;
+
+    private Date applicationDate;
+
+    public Date getApplicationDate() {
+        return applicationDate;
+    }
+
+    public void setApplicationDate(Date applicationDate) {
+        this.applicationDate = applicationDate;
+    }
+
+    public String getFormNo() {
+        return formNo;
+    }
+
+    public void setFormNo(String formNo) {
+        this.formNo = formNo;
+    }
+
 }

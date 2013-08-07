@@ -33,7 +33,7 @@ public class CompanyController {
         try {
             /* Form Info */
             TransactionForm form = new TransactionForm();
-            String formNo = FormController.getInstance().newFormNo(UISetting.getStoreLocation().getId(), "02", formSeries);
+            String formNo = FormController.getInstance().newFormNo(UISetting.getStoreLocation().getId(), "3", formSeries);
             form.setTxFormNo(formNo);
             form.setTxApplicationDate(applicationDate);
             form.setUser(UISetting.getSystemUser());

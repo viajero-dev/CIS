@@ -6,6 +6,8 @@
 package com.vg.scfc.financing.cis.ui.reusable;
 
 import com.vg.scfc.financing.cis.ent.Sibling;
+import com.vg.scfc.financing.cis.ui.controller.SiblingController;
+import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.List;
@@ -13,8 +15,6 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import com.vg.scfc.financing.cis.ui.controller.SiblingController;
-import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 
 /**
  *
@@ -146,6 +146,17 @@ public class SiblingsPanel extends javax.swing.JPanel implements KeyListener {
     private JTable tableSibling;
     private int selectedIndex;
     private List<Sibling> siblings;
+    private String formNo;
+    private Sibling sibling;
+
+    public void setSibling(Sibling sibling) {
+        this.sibling = sibling;
+        setSibling(this.sibling);
+    }
+
+    public void setFormNo(String formNo) {
+        this.formNo = formNo;
+    }
 
     public void setTableSibling(JTable tableSibling) {
         this.tableSibling = tableSibling;
@@ -195,7 +206,7 @@ public class SiblingsPanel extends javax.swing.JPanel implements KeyListener {
         txtSiblingContact.setText("");
     }
 
-    public void setSibling(Object o) {
+    public void setSiblingInfo(Object o) {
         if (o == null) {
             resetToDefault();
         } else {
@@ -207,14 +218,14 @@ public class SiblingsPanel extends javax.swing.JPanel implements KeyListener {
     }
 
     public boolean saveSibling() {
-        Object o = SiblingController.getInstance().createNew(name, address, contact);
-        setSibling(o);
+        Object o = SiblingController.getInstance().createNew(name, address, contact, formNo);
+        setSibling((Sibling) o);
         return o != null;
     }
 
     public boolean updateSibling() {
-        Object o = SiblingController.getInstance().update("", name, address, contact);
-        setSibling(o);
+        Object o = SiblingController.getInstance().update(formNo, sibling);
+        setSibling((Sibling) o);
         return o != null;
     }
 

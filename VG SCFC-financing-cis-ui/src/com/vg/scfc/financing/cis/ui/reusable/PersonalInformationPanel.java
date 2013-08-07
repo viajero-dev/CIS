@@ -8,12 +8,12 @@ package com.vg.scfc.financing.cis.ui.reusable;
 import com.vg.scfc.financing.cis.ent.PersonalInfo;
 import com.vg.scfc.financing.cis.ent.Religion;
 import com.vg.scfc.financing.cis.ent.Tribe;
+import com.vg.scfc.financing.cis.ui.controller.PersonalInfoController;
+import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.Date;
 import java.util.List;
-import com.vg.scfc.financing.cis.ui.controller.PersonalInfoController;
-import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 
 /**
  *
@@ -33,7 +33,7 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
         initComboBoxValues();
         startUpSettings();
     }
-    
+
     private void startUpSettings() {
         setFieldsEditable(false);
     }
@@ -89,6 +89,7 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
     private void initComboBoxValues() {
         List<Tribe> tribes = PersonalInfoController.getInstance().Tribes();
         List<Religion> religions = PersonalInfoController.getInstance().Religions();
+        
         if (!tribes.isEmpty()) {
             comboTribe.removeAllItems();
             for (Tribe t : tribes) {
@@ -249,7 +250,6 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
         jPanel4.add(jLabel106, new org.netbeans.lib.awtextra.AbsoluteConstraints(625, 35, -1, -1));
 
         comboTribe.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
-        comboTribe.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jPanel4.add(comboTribe, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 30, 144, -1));
 
         jLabel107.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
@@ -257,7 +257,6 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
         jPanel4.add(jLabel107, new org.netbeans.lib.awtextra.AbsoluteConstraints(625, 60, -1, -1));
 
         comboReligion.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
-        comboReligion.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jPanel4.add(comboReligion, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 55, 144, -1));
 
         jLabel108.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
@@ -265,7 +264,6 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
         jPanel4.add(jLabel108, new org.netbeans.lib.awtextra.AbsoluteConstraints(625, 85, -1, -1));
 
         comboCitizenship.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
-        comboCitizenship.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jPanel4.add(comboCitizenship, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 80, 144, -1));
 
         jLabel109.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
@@ -523,6 +521,16 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
     private String citizenship;
     private String presentAddress;
     private String previousAddress;
+    private String formSeries;
+    private Date applicationDate;
+
+    public void setFormSeries(String formSeries) {
+        this.formSeries = formSeries;
+    }
+
+    public void setApplicationDate(Date applicationDate) {
+        this.applicationDate = applicationDate;
+    }
 
     @Override
     public void keyTyped(KeyEvent e) {
@@ -725,7 +733,7 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
     public boolean savePersonalInfo() {
         Object o = PersonalInfoController.getInstance().createNew(lastname, firstname, middlename, birthDate,
                 birthPlace, age, gender, tribe, religion, citizenship, civilStatus, educationalAttainment, contact,
-                presentAddress, previousAddress);
+                presentAddress, previousAddress, formSeries, applicationDate);
         setPersonalInfo(o);
         return o != null;
     }

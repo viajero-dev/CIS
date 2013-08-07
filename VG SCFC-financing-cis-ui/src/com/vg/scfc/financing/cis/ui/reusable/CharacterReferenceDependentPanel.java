@@ -7,6 +7,8 @@ package com.vg.scfc.financing.cis.ui.reusable;
 
 import com.vg.scfc.financing.cis.ent.CharacterReference;
 import com.vg.scfc.financing.cis.ent.Dependent;
+import com.vg.scfc.financing.cis.ui.controller.CharacterReferenceDependentController;
+import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.List;
@@ -14,8 +16,6 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import com.vg.scfc.financing.cis.ui.controller.CharacterReferenceDependentController;
-import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 
 /**
  *
@@ -192,6 +192,21 @@ public class CharacterReferenceDependentPanel extends javax.swing.JPanel impleme
     private List<Dependent> dependents;
     private JTable tableCharacterRef;
     private List<CharacterReference> characterReferences;
+    private String formNo;
+    private CharacterReference characterReference;
+    private Dependent dependent;
+
+    public void setDependent(Dependent dependent) {
+        this.dependent = dependent;
+    }
+
+    public void setCharacterReference(CharacterReference characterReference) {
+        this.characterReference = characterReference;
+    }
+
+    public void setFormNo(String formNo) {
+        this.formNo = formNo;
+    }
 
     public void setTableCharacterRef(JTable tableCharacterRef) {
         this.tableCharacterRef = tableCharacterRef;
@@ -256,15 +271,15 @@ public class CharacterReferenceDependentPanel extends javax.swing.JPanel impleme
     }
 
     public boolean saveDependent() {
-        Object o = CharacterReferenceDependentController.getInstance().createNew(name, address, contact, relationship, true);
-        setDependent(o);
-        return o != null;
+        List<Dependent> d = CharacterReferenceDependentController.getInstance().addDependent(name, address, contact, relationship, formNo);
+        refreshTableDependent(d);
+        return !d.isEmpty();
     }
 
     public boolean updateDependent() {
-        Object o = CharacterReferenceDependentController.getInstance().update("", name, address, contact, relationship, true);
-        setDependent(o);
-        return o != null;
+        List<Dependent> d = CharacterReferenceDependentController.getInstance().updateDependent(formNo, dependent);
+        refreshTableDependent(d);
+        return !d.isEmpty();
     }
 
     public void setDependent(Object o) {
@@ -280,13 +295,15 @@ public class CharacterReferenceDependentPanel extends javax.swing.JPanel impleme
     }
 
     public boolean saveCharacterReference() {
-        Object o = CharacterReferenceDependentController.getInstance().createNew(name, address, contact, relationship, false);
-        return o != null;
+        List<CharacterReference> c = CharacterReferenceDependentController.getInstance().addCharacterReference(name, address, contact, relationship, formNo);
+        refreshTableCharacterReference(c);
+        return !c.isEmpty();
     }
 
     public boolean updateCharacterReference() {
-        Object o = CharacterReferenceDependentController.getInstance().update("", name, address, contact, relationship, false);
-        return o != null;
+        List<CharacterReference> c = CharacterReferenceDependentController.getInstance().updateCharacterReference(formNo, characterReference);
+        refreshTableCharacterReference(c);
+        return !c.isEmpty();
     }
 
     public void setCharacterReference(Object o) {
