@@ -8,10 +8,11 @@ package com.vg.scfc.financing.cis.ui.controller;
 import com.vg.scfc.financing.cis.ent.PersonalInfo;
 import com.vg.scfc.financing.cis.ent.Religion;
 import com.vg.scfc.financing.cis.ent.Tribe;
+import com.vg.scfc.financing.cis.ui.settings.UISetting;
+import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import com.vg.scfc.financing.cis.ui.settings.UISetting;
 
 /**
  *
@@ -27,10 +28,10 @@ public class PersonalInfoController {
         }
         return instance;
     }
-    
+
     public Object createNew(String lastname, String firstname, String middlename, Date birthDate, String birthPlace, int age, String gender, String tribe, String religion,
             String citizenship, String civilStatusOther, String educationalAttainment, String contactNo, String presentAddress, String previousAddress) {
-        
+
         PersonalInfo p = new PersonalInfo();
         p.setLastName(lastname);
         p.setFirstName(firstname);
@@ -44,27 +45,36 @@ public class PersonalInfoController {
         p.setCivilStatus(civilStatusOther);
         p.setEducation(educationalAttainment);
         p.setContactNo(contactNo);
-        
-        
+
         return new Object();
     }
-    
+
     public Object update(String clientNo, String lastname, String firstname, String middlename, Date birthDate, String birthPlace, int age, String gender, String tribe, String religion,
             String citizenship, String civilStatusOther, String educationalAttainment, String contactNo, String presentAddress, String previousAddress) {
-         // TODO, find personal info by clientNo
+        // TODO, find personal info by clientNo
         // update info
         // return object
         return new Object();
     }
-    
+
     public List<Tribe> Tribes() {
-//        return all Tribes
-        return new ArrayList<>();
+        List<Tribe> tribes = new ArrayList<>();
+        try {
+            tribes = UISetting.getTribeService().getList();
+        } catch (Exception ex) {
+            UIValidator.log(ex, PersonalInfoController.class);
+        }
+        return tribes;
     }
-    
-     public List<Religion> Religions() {
-//        return all Religion
-        return new ArrayList<>();
+
+    public List<Religion> Religions() {
+        List<Religion> religions = new ArrayList<>();
+        try {
+            religions = UISetting.getReligionService().findAll();
+        } catch (Exception ex) {
+            UIValidator.log(ex, PersonalInfoController.class);
+        }
+        return religions;
     }
-     
+
 }
