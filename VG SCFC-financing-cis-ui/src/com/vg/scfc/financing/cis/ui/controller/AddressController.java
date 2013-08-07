@@ -6,10 +6,10 @@
 package com.vg.scfc.financing.cis.ui.controller;
 
 import com.vg.scfc.financing.cis.ent.Address;
-import java.util.ArrayList;
-import java.util.List;
 import com.vg.scfc.financing.cis.ui.settings.UISetting;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
