@@ -1621,6 +1621,9 @@ public class MainPanel extends javax.swing.JPanel {
         panelCoMakerAddress = new com.vg.scfc.financing.cis.ui.reusable.AddressPanel();
         addEditChangeCoMakerAddress = new com.vg.scfc.financing.cis.ui.reusable.AddEditChangeButtonPanel();
         addEditCoMakerPersonalInfo = new com.vg.scfc.financing.cis.ui.reusable.AddEditButtonPanel();
+        jPanel31 = new javax.swing.JPanel();
+        ridersToBuyerPanel1 = new com.vg.scfc.financing.cis.ui.reusable.RidersToBuyerPanel();
+        jButton1 = new javax.swing.JButton();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -1955,6 +1958,14 @@ public class MainPanel extends javax.swing.JPanel {
 
         tabMain.addTab("Co-Maker", jPanel18);
 
+        jPanel31.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel31.add(ridersToBuyerPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, -1, -1));
+
+        jButton1.setText("Agree");
+        jPanel31.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(795, 280, 130, -1));
+
+        tabMain.addTab("RIDERS TO BUYERS", jPanel31);
+
         add(tabMain, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 5, 1040, 600));
 
         bindingGroup.bind();
@@ -1993,6 +2004,7 @@ public class MainPanel extends javax.swing.JPanel {
     private java.util.List<PersonalInfo> comakers;
     private java.util.List<CreditRef> creditReferences;
     private java.util.List<Dependent> dependents;
+    private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
@@ -2017,6 +2029,7 @@ public class MainPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel29;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel30;
+    private javax.swing.JPanel jPanel31;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
@@ -2062,6 +2075,7 @@ public class MainPanel extends javax.swing.JPanel {
     private com.vg.scfc.financing.cis.ui.reusable.FamilyBackgroundPanel panelSpouseFamilyBackground;
     private com.vg.scfc.financing.cis.ui.reusable.PersonalInformationPanel panelSpousePersonalInfo;
     private com.vg.scfc.financing.cis.ui.reusable.VehiclePanel panelVehicle;
+    private com.vg.scfc.financing.cis.ui.reusable.RidersToBuyerPanel ridersToBuyerPanel1;
     private java.util.List<Sibling> siblings;
     private javax.swing.JTabbedPane tabMain;
     private javax.swing.JPanel tabPO;

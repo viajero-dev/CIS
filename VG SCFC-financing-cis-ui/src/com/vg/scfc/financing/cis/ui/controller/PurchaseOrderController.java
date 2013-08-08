@@ -10,6 +10,8 @@ import com.vg.scfc.financing.cis.ent.PurchaseOrder;
 import com.vg.scfc.financing.cis.ui.settings.UISetting;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 import java.math.BigDecimal;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -26,9 +28,9 @@ public class PurchaseOrderController {
         return instance;
     }
     
-    public Object createNew(String unitApplied, BigDecimal downpayment, BigDecimal insurance, int term, 
-            BigDecimal amortization, boolean isBrandNew, String purpose, String remarks, String status) {
-        Object result = null;
+    public PurchaseOrder createNew(String unitApplied, BigDecimal downpayment, BigDecimal insurance, int term, 
+            BigDecimal amortization, boolean isBrandNew, String purpose, String remarks, String status, String formNo) {
+        PurchaseOrder result = null;
         PurchaseOrder po = new PurchaseOrder();
         po.setEncodeDate(DateUtil.now());
         po.setUnitApplied(unitApplied);
@@ -40,6 +42,7 @@ public class PurchaseOrderController {
         po.setPurpose(purpose);
         po.setRemarks(remarks);
         po.setStatus(status);
+        po.setTxFormNo(formNo);
         /* For trail & Liveupdate */
         po.setLocation(UISetting.getStoreLocation());
         po.setStation(UISetting.getComputerName());
@@ -54,8 +57,14 @@ public class PurchaseOrderController {
         return result;
     }
     
-    public Object update() {
-        return new Object();
+    public PurchaseOrder update(String formNo, PurchaseOrder p) {
+        PurchaseOrder result = null;
+        try {
+            result = UISetting.getPurchaseOrderService().update(p);
+        } catch (Exception ex) {
+            UIValidator.log(ex, PurchaseOrderController.class);
+        }
+        return result;
     }
     
     public Object findByFormNo(String formNo) {

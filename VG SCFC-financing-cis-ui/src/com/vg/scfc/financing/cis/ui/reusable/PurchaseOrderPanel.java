@@ -6,11 +6,11 @@
 package com.vg.scfc.financing.cis.ui.reusable;
 
 import com.vg.scfc.financing.cis.ent.PurchaseOrder;
+import com.vg.scfc.financing.cis.ui.controller.PurchaseOrderController;
+import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.math.BigDecimal;
-import com.vg.scfc.financing.cis.ui.controller.PurchaseOrderController;
-import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 
 /**
  *
@@ -289,6 +289,17 @@ public class PurchaseOrderPanel extends javax.swing.JPanel implements KeyListene
     private String purpose;
     private String remarks;
     private String status;
+    private String formNo;
+    private PurchaseOrder purchaseOrder;
+
+    public void setFormNo(String formNo) {
+        this.formNo = formNo;
+    }
+
+    public void setPurchaseOrder(PurchaseOrder purchaseOrder) {
+        this.purchaseOrder = purchaseOrder;
+        setPurchaseOrderInfo(this.purchaseOrder);
+    }
 
     @Override
     public void keyTyped(KeyEvent e) {
@@ -372,7 +383,7 @@ public class PurchaseOrderPanel extends javax.swing.JPanel implements KeyListene
         checkDisApproved.setSelected(false);
     }
 
-    public void setPurchaseOrder(Object o) {
+    public void setPurchaseOrderInfo(Object o) {
         if (o == null) {
             resetToDefault();
         } else {
@@ -391,14 +402,14 @@ public class PurchaseOrderPanel extends javax.swing.JPanel implements KeyListene
     }
     
     public boolean savePurchaseOrder() {
-        Object o = PurchaseOrderController.getInstance().createNew(unitApplied, downpayment, insurance, term, amortization, isBrandNew, purpose, remarks, status);
-        setPurchaseOrder(o);
-        return o != null;
+        PurchaseOrder p = PurchaseOrderController.getInstance().createNew(unitApplied, downpayment, insurance, term, amortization, isBrandNew, purpose, remarks, status, formNo);
+        setPurchaseOrder(p);
+        return p != null;
     }
     
     public boolean updatePurchaseOrder() {
-        Object o = PurchaseOrderController.getInstance().update();
-        setPurchaseOrder(o);
-        return o != null;
+        PurchaseOrder p = PurchaseOrderController.getInstance().update(formNo, purchaseOrder);
+        setPurchaseOrder(p);
+        return p != null;
     }
 }

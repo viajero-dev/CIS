@@ -74,7 +74,7 @@ public class UISetting {
     private static TribeService tribeService;
     private static VehicleService vehicleService;
     private static PersonalInfoService personalInfoService;
-    private static AssetService assetService;
+    private static AssetService assetService; 
 
     public static AssetService getAssetService() {
         return assetService;

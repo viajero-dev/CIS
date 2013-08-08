@@ -8,9 +8,13 @@ package com.vg.scfc.financing.cis.ui.panel;
 import com.vg.commons.util.DateUtil;
 import com.vg.scfc.financing.cis.ent.Company;
 import com.vg.scfc.financing.cis.ui.controller.CompanyController;
+import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.text.ParseException;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -65,9 +69,17 @@ public class CompanyInformationPanel extends javax.swing.JPanel implements KeyLi
         jLabel8 = new javax.swing.JLabel();
         txtBussPermitNo = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        txtIssuedDate = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
-        txtExpireDate = new javax.swing.JTextField();
+        try {
+            txtIssuedDate = new com.vg.commons.formattedfields.FormattedSimpleDateField();
+        } catch (java.text.ParseException e1) {
+            e1.printStackTrace();
+        }
+        try {
+            txtExpireDate = new com.vg.commons.formattedfields.FormattedSimpleDateField();
+        } catch (java.text.ParseException e1) {
+            e1.printStackTrace();
+        }
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -76,6 +88,11 @@ public class CompanyInformationPanel extends javax.swing.JPanel implements KeyLi
         add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 10, -1, -1));
 
         txtOwnerPresident.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
+        txtOwnerPresident.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtOwnerPresidentFocusLost(evt);
+            }
+        });
         add(txtOwnerPresident, new org.netbeans.lib.awtextra.AbsoluteConstraints(125, 5, 255, -1));
 
         jLabel2.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
@@ -90,6 +107,11 @@ public class CompanyInformationPanel extends javax.swing.JPanel implements KeyLi
         add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 60, -1, -1));
 
         txtBusinessNature.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
+        txtBusinessNature.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtBusinessNatureFocusLost(evt);
+            }
+        });
         add(txtBusinessNature, new org.netbeans.lib.awtextra.AbsoluteConstraints(125, 55, 255, -1));
 
         jLabel4.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
@@ -97,6 +119,11 @@ public class CompanyInformationPanel extends javax.swing.JPanel implements KeyLi
         add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 60, -1, -1));
 
         txtYearsOfOperation.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
+        txtYearsOfOperation.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtYearsOfOperationFocusLost(evt);
+            }
+        });
         add(txtYearsOfOperation, new org.netbeans.lib.awtextra.AbsoluteConstraints(515, 55, 145, -1));
 
         jLabel5.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
@@ -104,6 +131,11 @@ public class CompanyInformationPanel extends javax.swing.JPanel implements KeyLi
         add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 85, -1, -1));
 
         txtContact.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
+        txtContact.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtContactFocusLost(evt);
+            }
+        });
         add(txtContact, new org.netbeans.lib.awtextra.AbsoluteConstraints(125, 80, 120, -1));
 
         jLabel6.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
@@ -111,6 +143,11 @@ public class CompanyInformationPanel extends javax.swing.JPanel implements KeyLi
         add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 85, -1, -1));
 
         txtTIN.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
+        txtTIN.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtTINFocusLost(evt);
+            }
+        });
         add(txtTIN, new org.netbeans.lib.awtextra.AbsoluteConstraints(295, 80, 140, -1));
 
         jLabel7.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
@@ -118,6 +155,11 @@ public class CompanyInformationPanel extends javax.swing.JPanel implements KeyLi
         add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 85, -1, -1));
 
         txtEmail.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
+        txtEmail.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtEmailFocusLost(evt);
+            }
+        });
         add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 80, 170, -1));
 
         jLabel8.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
@@ -125,22 +167,85 @@ public class CompanyInformationPanel extends javax.swing.JPanel implements KeyLi
         add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 110, -1, -1));
 
         txtBussPermitNo.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
+        txtBussPermitNo.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtBussPermitNoFocusLost(evt);
+            }
+        });
         add(txtBussPermitNo, new org.netbeans.lib.awtextra.AbsoluteConstraints(125, 105, 150, -1));
 
         jLabel9.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel9.setText("Issued on");
         add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 110, -1, -1));
 
-        txtIssuedDate.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
-        add(txtIssuedDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 105, 110, -1));
-
         jLabel10.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel10.setText("Expires On");
         add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 110, -1, -1));
 
+        txtIssuedDate.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
+        txtIssuedDate.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtIssuedDateFocusLost(evt);
+            }
+        });
+        add(txtIssuedDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 105, 110, -1));
+
         txtExpireDate.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
+        txtExpireDate.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtExpireDateFocusLost(evt);
+            }
+        });
         add(txtExpireDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 105, 110, -1));
     }// </editor-fold>//GEN-END:initComponents
+
+    private void txtEmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEmailFocusLost
+        if (!txtEmail.getText().equals("")) {
+            email = UIValidator.isValidEmail(txtEmail);
+        } else {
+            email = "";
+        }
+    }//GEN-LAST:event_txtEmailFocusLost
+
+    private void txtOwnerPresidentFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtOwnerPresidentFocusLost
+        president = UIValidator.validate(txtOwnerPresident);
+    }//GEN-LAST:event_txtOwnerPresidentFocusLost
+
+    private void txtBusinessNatureFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBusinessNatureFocusLost
+        natureOfBusiness = UIValidator.validate(txtBusinessNature);
+    }//GEN-LAST:event_txtBusinessNatureFocusLost
+
+    private void txtYearsOfOperationFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtYearsOfOperationFocusLost
+        yearsInOperation = Integer.parseInt(UIValidator.isNumeric(txtYearsOfOperation));
+    }//GEN-LAST:event_txtYearsOfOperationFocusLost
+
+    private void txtContactFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtContactFocusLost
+        contactNo = UIValidator.isNumeric(txtContact);
+    }//GEN-LAST:event_txtContactFocusLost
+
+    private void txtTINFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTINFocusLost
+        tin = UIValidator.isNumeric(txtTIN);
+    }//GEN-LAST:event_txtTINFocusLost
+
+    private void txtBussPermitNoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBussPermitNoFocusLost
+        businessPermit = UIValidator.isNumeric(txtBussPermitNo);
+    }//GEN-LAST:event_txtBussPermitNoFocusLost
+
+    private void txtIssuedDateFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtIssuedDateFocusLost
+        try {
+            issuedDate = txtIssuedDate.getDate();
+        } catch (ParseException ex) {
+            UIValidator.log(ex, CompanyInformationPanel.class);
+        }
+    }//GEN-LAST:event_txtIssuedDateFocusLost
+
+    private void txtExpireDateFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtExpireDateFocusLost
+        try {
+            expirationDate = txtExpireDate.getDate();
+        } catch (ParseException ex) {
+            UIValidator.log(ex, CompanyInformationPanel.class);
+        }
+    }//GEN-LAST:event_txtExpireDateFocusLost
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
@@ -157,8 +262,8 @@ public class CompanyInformationPanel extends javax.swing.JPanel implements KeyLi
     private javax.swing.JTextField txtBussPermitNo;
     private javax.swing.JTextField txtContact;
     private javax.swing.JTextField txtEmail;
-    private javax.swing.JTextField txtExpireDate;
-    private javax.swing.JTextField txtIssuedDate;
+    private com.vg.commons.formattedfields.FormattedSimpleDateField txtExpireDate;
+    private com.vg.commons.formattedfields.FormattedSimpleDateField txtIssuedDate;
     private javax.swing.JTextField txtOfficeAddress;
     private javax.swing.JTextField txtOwnerPresident;
     private javax.swing.JTextField txtTIN;

@@ -287,6 +287,9 @@ public class InstitutionalPanel extends javax.swing.JPanel {
         jPanel6 = new javax.swing.JPanel();
         addEditRepresentative2Employment = new com.vg.scfc.financing.cis.ui.reusable.AddEditButtonPanel();
         panelRepresentative2Employment = new com.vg.scfc.financing.cis.ui.panel.EmploymentRepresentativePanel();
+        jPanel7 = new javax.swing.JPanel();
+        ridersToBuyerPanel1 = new com.vg.scfc.financing.cis.ui.reusable.RidersToBuyerPanel();
+        jButton1 = new javax.swing.JButton();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         add(panelCompanyInformation, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -332,6 +335,14 @@ public class InstitutionalPanel extends javax.swing.JPanel {
 
         jTabbedPane1.addTab("2nd Representative", jPanel2);
 
+        jPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel7.add(ridersToBuyerPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, -1, -1));
+
+        jButton1.setText("Agree");
+        jPanel7.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 240, 130, -1));
+
+        jTabbedPane1.addTab("RIDERS TO BUYERS", jPanel7);
+
         add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 180, 1030, 350));
     }// </editor-fold>//GEN-END:initComponents
 
@@ -341,12 +352,14 @@ public class InstitutionalPanel extends javax.swing.JPanel {
     private com.vg.scfc.financing.cis.ui.reusable.AddEditButtonPanel addEditRepresentative1PersonalInfo;
     private com.vg.scfc.financing.cis.ui.reusable.AddEditButtonPanel addEditRepresentative2Employment;
     private com.vg.scfc.financing.cis.ui.reusable.AddEditButtonPanel addEditRepresentative2PersonalInfo;
+    private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTabbedPane jTabbedPane3;
@@ -355,6 +368,7 @@ public class InstitutionalPanel extends javax.swing.JPanel {
     private com.vg.scfc.financing.cis.ui.reusable.PersonalInformationPanel panelRepresentative1PersonalInformation;
     private com.vg.scfc.financing.cis.ui.panel.EmploymentRepresentativePanel panelRepresentative2Employment;
     private com.vg.scfc.financing.cis.ui.reusable.PersonalInformationPanel panelRepresentative2PersonalInformation;
+    private com.vg.scfc.financing.cis.ui.reusable.RidersToBuyerPanel ridersToBuyerPanel1;
     // End of variables declaration//GEN-END:variables
     private String formSeries;
     private Date applicationDate;

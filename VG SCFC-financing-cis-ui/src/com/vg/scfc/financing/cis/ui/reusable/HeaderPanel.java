@@ -5,6 +5,8 @@
  */
 package com.vg.scfc.financing.cis.ui.reusable;
 
+import java.awt.Color;
+
 /**
  *
  * @author rodel
@@ -16,6 +18,7 @@ public class HeaderPanel extends javax.swing.JPanel {
      */
     public HeaderPanel() {
         initComponents();
+        setApplicationStatus("");
     }
 
     /**
@@ -30,50 +33,62 @@ public class HeaderPanel extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        txtFormNo = new javax.swing.JTextField();
+        labelApplicationStatus = new javax.swing.JLabel();
+
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("SOUTHPOINT CREDIT AND FINANCE CORP.");
         jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(3, 5, 1040, -1));
 
         jLabel2.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("CREDIT APPLICATION FORM");
         jLabel2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(3, 28, 1040, -1));
 
         jLabel3.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("All Information will be treated confidential. Please print legibly and check appropriate boxes");
         jLabel3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(3, 48, 1040, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(3, 3, 3)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 620, Short.MAX_VALUE)
-                        .addGap(8, 8, 8))
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(5, 5, 5)
-                .addComponent(jLabel1)
-                .addGap(6, 6, 6)
-                .addComponent(jLabel2)
-                .addGap(6, 6, 6)
-                .addComponent(jLabel3))
-        );
+        txtFormNo.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
+        txtFormNo.setText("Form No");
+        add(txtFormNo, new org.netbeans.lib.awtextra.AbsoluteConstraints(888, 5, 140, -1));
+
+        labelApplicationStatus.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        labelApplicationStatus.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        labelApplicationStatus.setText("APPROVED");
+        add(labelApplicationStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(748, 35, 280, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel labelApplicationStatus;
+    private javax.swing.JTextField txtFormNo;
     // End of variables declaration//GEN-END:variables
+
+    public void setApplicationStatus(String status) {
+        switch(status) {
+            case "APPROVED":
+                labelApplicationStatus.setText("APPROVED");
+                labelApplicationStatus.setForeground(Color.DARK_GRAY);
+                break;
+            case "DISAPPROVED":
+                labelApplicationStatus.setText("DISAPPROVED");
+                labelApplicationStatus.setForeground(Color.RED);
+                break;
+                default:
+                    labelApplicationStatus.setText("PENDING");
+                    labelApplicationStatus.setForeground(Color.BLUE);
+                    break;
+        }
+    }
+
 }

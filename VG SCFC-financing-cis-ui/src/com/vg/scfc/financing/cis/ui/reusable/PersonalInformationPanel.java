@@ -12,8 +12,11 @@ import com.vg.scfc.financing.cis.ui.controller.PersonalInfoController;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -122,7 +125,6 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
         jLabel101 = new javax.swing.JLabel();
         txtMiddleName = new javax.swing.JTextField();
         jLabel102 = new javax.swing.JLabel();
-        txtBirthDate = new javax.swing.JTextField();
         jLabel103 = new javax.swing.JLabel();
         txtAge = new javax.swing.JTextField();
         jLabel104 = new javax.swing.JLabel();
@@ -150,6 +152,11 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
         txtBirthPlace = new javax.swing.JTextField();
         jLabel111 = new javax.swing.JLabel();
         txtPresentAddress = new javax.swing.JTextField();
+        try {
+            txtBirthDate = new com.vg.commons.formattedfields.FormattedSimpleDateField();
+        } catch (java.text.ParseException e1) {
+            e1.printStackTrace();
+        }
 
         jPanel4.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -193,14 +200,6 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
         jLabel102.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel102.setText("Birthdate");
         jPanel4.add(jLabel102, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 85, -1, -1));
-
-        txtBirthDate.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
-        txtBirthDate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtBirthDateActionPerformed(evt);
-            }
-        });
-        jPanel4.add(txtBirthDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(93, 80, 120, -1));
 
         jLabel103.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel103.setText("Age");
@@ -366,6 +365,14 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
         });
         jPanel4.add(txtPresentAddress, new org.netbeans.lib.awtextra.AbsoluteConstraints(125, 131, 710, -1));
 
+        txtBirthDate.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
+        txtBirthDate.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtBirthDateFocusLost(evt);
+            }
+        });
+        jPanel4.add(txtBirthDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(93, 80, 120, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -398,10 +405,6 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
     private void txtMiddleNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMiddleNameActionPerformed
         middlename = UIValidator.validate(txtMiddleName);
     }//GEN-LAST:event_txtMiddleNameActionPerformed
-
-    private void txtBirthDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBirthDateActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtBirthDateActionPerformed
 
     private void optionMaleItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_optionMaleItemStateChanged
         if (optionMale.isSelected()) {
@@ -467,6 +470,14 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
         previousAddress = UIValidator.validate(txtPreviousAddress);
     }//GEN-LAST:event_txtPreviousAddressFocusLost
 
+    private void txtBirthDateFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBirthDateFocusLost
+        try {
+            birthDate = txtBirthDate.getDate();
+        } catch (ParseException ex) {
+            UIValidator.log(ex, PersonalInfoController.class);
+        }
+    }//GEN-LAST:event_txtBirthDateFocusLost
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox comboCitizenship;
     private javax.swing.JComboBox comboEducationStatus;
@@ -497,7 +508,7 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
     private javax.swing.ButtonGroup optionGroupGender;
     private javax.swing.JRadioButton optionMale;
     private javax.swing.JTextField txtAge;
-    private javax.swing.JTextField txtBirthDate;
+    private com.vg.commons.formattedfields.FormattedSimpleDateField txtBirthDate;
     private javax.swing.JTextField txtBirthPlace;
     private javax.swing.JTextField txtContact;
     private javax.swing.JTextField txtFirstName;
