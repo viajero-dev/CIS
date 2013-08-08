@@ -104,7 +104,7 @@
 			<textField isBlankWhenNull="true">
 				<reportElement x="59" y="0" width="119" height="13"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Arial Narrow" size="9" isBold="true"/>
+					<font fontName="Arial Narrow" size="8" isBold="true"/>
 					<paragraph leftIndent="2"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{field}]]></textFieldExpression>
@@ -112,7 +112,7 @@
 			<textField isBlankWhenNull="true">
 				<reportElement x="59" y="13" width="119" height="13"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Arial Narrow" size="9" isBold="true"/>
+					<font fontName="Arial Narrow" size="8" isBold="true"/>
 					<paragraph leftIndent="2"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{field}]]></textFieldExpression>
@@ -120,7 +120,7 @@
 			<textField isBlankWhenNull="true">
 				<reportElement x="59" y="26" width="119" height="13"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Arial Narrow" size="9" isBold="true"/>
+					<font fontName="Arial Narrow" size="8" isBold="true"/>
 					<paragraph leftIndent="2"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{field}]]></textFieldExpression>
@@ -128,7 +128,7 @@
 			<textField isBlankWhenNull="true">
 				<reportElement x="59" y="39" width="119" height="13"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Arial Narrow" size="9" isBold="true"/>
+					<font fontName="Arial Narrow" size="8" isBold="true"/>
 					<paragraph leftIndent="2"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{field}]]></textFieldExpression>
@@ -136,7 +136,7 @@
 			<textField isBlankWhenNull="true">
 				<reportElement x="59" y="52" width="119" height="13"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Arial Narrow" size="9" isBold="true"/>
+					<font fontName="Arial Narrow" size="8" isBold="true"/>
 					<paragraph leftIndent="2"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{field}]]></textFieldExpression>
@@ -152,7 +152,7 @@
 			<textField isBlankWhenNull="true">
 				<reportElement x="59" y="78" width="119" height="13"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Arial Narrow" size="9" isBold="true"/>
+					<font fontName="Arial Narrow" size="8" isBold="true"/>
 					<paragraph leftIndent="2"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{field}]]></textFieldExpression>
@@ -160,7 +160,7 @@
 			<textField isBlankWhenNull="true">
 				<reportElement x="59" y="91" width="119" height="13"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Arial Narrow" size="9" isBold="true"/>
+					<font fontName="Arial Narrow" size="8" isBold="true"/>
 					<paragraph leftIndent="2"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{field}]]></textFieldExpression>
@@ -168,7 +168,7 @@
 			<textField isBlankWhenNull="true">
 				<reportElement x="59" y="104" width="119" height="13"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Arial Narrow" size="9" isBold="true"/>
+					<font fontName="Arial Narrow" size="8" isBold="true"/>
 					<paragraph leftIndent="2"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{field}]]></textFieldExpression>
@@ -176,7 +176,7 @@
 			<textField isBlankWhenNull="true">
 				<reportElement x="59" y="117" width="119" height="13"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Arial Narrow" size="9" isBold="true"/>
+					<font fontName="Arial Narrow" size="8" isBold="true"/>
 					<paragraph leftIndent="2"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{field}]]></textFieldExpression>
@@ -184,7 +184,7 @@
 			<textField isBlankWhenNull="true">
 				<reportElement x="59" y="130" width="119" height="13"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Arial Narrow" size="9" isBold="true"/>
+					<font fontName="Arial Narrow" size="8" isBold="true"/>
 					<paragraph leftIndent="2"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{field}]]></textFieldExpression>
@@ -224,7 +224,7 @@
 			<textField isBlankWhenNull="true">
 				<reportElement x="178" y="13" width="101" height="13"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Arial Narrow" size="9" isBold="true"/>
+					<font fontName="Arial Narrow" size="8" isBold="true"/>
 					<paragraph leftIndent="2"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{field}]]></textFieldExpression>
@@ -232,7 +232,7 @@
 			<textField isBlankWhenNull="true">
 				<reportElement x="178" y="39" width="101" height="13"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Arial Narrow" size="9" isBold="true"/>
+					<font fontName="Arial Narrow" size="8" isBold="true"/>
 					<paragraph leftIndent="2"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{field}]]></textFieldExpression>
@@ -240,7 +240,7 @@
 			<textField isBlankWhenNull="true">
 				<reportElement x="178" y="91" width="101" height="13"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Arial Narrow" size="9" isBold="true"/>
+					<font fontName="Arial Narrow" size="8" isBold="true"/>
 					<paragraph leftIndent="2"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{field}]]></textFieldExpression>
@@ -256,7 +256,7 @@
 			<textField isBlankWhenNull="true">
 				<reportElement x="178" y="117" width="101" height="13"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Arial Narrow" size="9" isBold="true"/>
+					<font fontName="Arial Narrow" size="8" isBold="true"/>
 					<paragraph leftIndent="2"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{field}]]></textFieldExpression>
@@ -272,7 +272,7 @@
 			<textField isBlankWhenNull="true">
 				<reportElement x="223" y="143" width="56" height="13"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Arial Narrow" size="9" isBold="true"/>
+					<font fontName="Arial Narrow" size="8" isBold="true"/>
 					<paragraph leftIndent="2"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{field}]]></textFieldExpression>

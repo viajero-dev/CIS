@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="applicant" pageWidth="612" pageHeight="936" columnWidth="562" leftMargin="25" rightMargin="25" topMargin="25" bottomMargin="25">
 	<property name="ireport.zoom" value="1.210000000000005"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="220"/>
+	<property name="ireport.y" value="48"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["/home/raffy/NetBeansProjects/Financing/VG SCFC-financing-cis-coremgr/reports/"]]></defaultValueExpression>
 	</parameter>
@@ -44,7 +44,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="11" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{field}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["RAFFY LOGRONIO"]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="72" y="24" width="417" height="14"/>
@@ -68,7 +68,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial Narrow" size="10" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{field}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["DONA SOLEDAD SUBD., GSC"]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="374" y="61" width="57" height="13"/>
@@ -88,7 +88,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="9"/>
 				</textElement>
-				<textFieldExpression><![CDATA[X]]></textFieldExpression>
+				<textFieldExpression><![CDATA["X"]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="88" y="61" width="35" height="13"/>
@@ -129,7 +129,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="9"/>
 				</textElement>
-				<textFieldExpression><![CDATA[X]]></textFieldExpression>
+				<textFieldExpression><![CDATA["X"]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="182" y="61" width="13" height="13"/>
@@ -142,7 +142,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="9"/>
 				</textElement>
-				<textFieldExpression><![CDATA[X]]></textFieldExpression>
+				<textFieldExpression><![CDATA["X"]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="323" y="61" width="13" height="13"/>
@@ -155,12 +155,12 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="9"/>
 				</textElement>
-				<textFieldExpression><![CDATA[X]]></textFieldExpression>
+				<textFieldExpression><![CDATA["X"]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="431" y="61" width="58" height="13"/>
-				<textElement/>
-				<textFieldExpression><![CDATA[$F{field}]]></textFieldExpression>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[4]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="72" y="94" width="100" height="14"/>
@@ -174,21 +174,15 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="9" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{field}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[new Date()]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="78" splitType="Stretch">
-			<subreport>
-				<reportElement x="0" y="0" width="562" height="72"/>
-				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "PurchaseOrder.jasper"]]></subreportExpression>
-			</subreport>
-		</band>
+		<band height="78" splitType="Stretch"/>
 	</columnHeader>
 	<detail>
-		<band height="301" splitType="Stretch">
+		<band height="308" splitType="Stretch">
 			<staticText>
 				<reportElement x="0" y="0" width="277" height="14"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
@@ -205,4 +199,7 @@
 			</staticText>
 		</band>
 	</detail>
+	<summary>
+		<band height="32"/>
+	</summary>
 </jasperReport>
