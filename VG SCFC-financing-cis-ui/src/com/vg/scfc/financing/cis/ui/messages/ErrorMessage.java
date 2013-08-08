@@ -16,4 +16,5 @@ public class ErrorMessage {
     public static final String ERROR_MESSAGE_TITLE = "SYSTEM MESSAGE";
     public static final String FAILED_TO_INSERT = "FAILED TO SAVED DATA.";
     public static final String FAILED_TO_UPDATE = "FAILED TO UPDATE DATA.";
+    public static final String INVALID_EMAIL = "INVALID E-MAIL";
 }
