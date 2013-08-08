@@ -6,11 +6,12 @@
 package com.vg.scfc.financing.cis.ui.reusable;
 
 import com.vg.scfc.financing.cis.ent.SourceOfIncome;
+import com.vg.scfc.financing.cis.ui.controller.SourceOfIncomeController;
+import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.math.BigDecimal;
-import com.vg.scfc.financing.cis.ui.controller.SourceOfIncomeController;
-import com.vg.scfc.financing.cis.ui.validator.UIValidator;
+import javax.swing.JTextField;
 
 /**
  *
@@ -443,6 +444,27 @@ public class SourceOfIncomePanel extends javax.swing.JPanel implements KeyListen
     private boolean isLiveStock;
     private String harvestSchedule;
     private String otherSource;
+    private String formNo;
+    private String personType;
+    private SourceOfIncome sourceOfIncome;
+    private JTextField txtTotalMonthlyIncome;
+
+    public void setTxtTotalMonthlyIncome(JTextField txtTotalMonthlyIncome) {
+        this.txtTotalMonthlyIncome = txtTotalMonthlyIncome;
+    }
+
+    public void setPersonType(String personType) {
+        this.personType = personType;
+    }
+
+    public void setFormNo(String formNo) {
+        this.formNo = formNo;
+    }
+
+    public void setSourceOfIncome(SourceOfIncome sourceOfIncome) {
+        this.sourceOfIncome = sourceOfIncome;
+        setSourceOfIncomeData(this.sourceOfIncome);
+    }
 
     @Override
     public void keyTyped(KeyEvent e) {
@@ -545,9 +567,10 @@ public class SourceOfIncomePanel extends javax.swing.JPanel implements KeyListen
         txtMonthlyIncomeForOtherSources.setText("");
     }
 
-    public void setSourceOfIncome(Object o) {
+    public void setSourceOfIncomeData(Object o) {
         if (o == null) {
             resetToDefault();
+            totalMonthlyIncome((SourceOfIncome) o);
         } else {
             SourceOfIncome s = (SourceOfIncome) o;
             /* Monthly Salary Compensation */
@@ -594,20 +617,25 @@ public class SourceOfIncomePanel extends javax.swing.JPanel implements KeyListen
             }
             txtOtherSourceDesc.setText(s.getIncOtherSource());
             txtMonthlyIncomeForOtherSources.setText(new BigDecimal(s.getIncOther()).toPlainString());
+            totalMonthlyIncome(s);
         }
     }
     
     public boolean saveSourceOfIncome() {
         Object o = SourceOfIncomeController.getInstance().createNew(avgMonthlyCompensation, natureOfBusiness,
-                isRegistered, avgBussMonthlyIncome, isAgri, isLiveStock, harvestSchedule, avgProductIncome, avgFarmMonthlyIncome, otherSource, avgOtherSourceMonthlyIncome);
-        setSourceOfIncome(o);
+                isRegistered, avgBussMonthlyIncome, isAgri, isLiveStock, harvestSchedule, avgProductIncome, avgFarmMonthlyIncome,
+                otherSource, avgOtherSourceMonthlyIncome, formNo, personType);
+        setSourceOfIncome((SourceOfIncome) o);
         return o != null;
     }
     
     public boolean updateSourceOfIncome() {
-        Object o = SourceOfIncomeController.getInstance().update("", avgMonthlyCompensation, natureOfBusiness,
-                isRegistered, avgBussMonthlyIncome, isAgri, isLiveStock, harvestSchedule, avgProductIncome, avgFarmMonthlyIncome, otherSource, avgOtherSourceMonthlyIncome);
-        setSourceOfIncome(o);
+        Object o = SourceOfIncomeController.getInstance().update(formNo, sourceOfIncome);
+        setSourceOfIncome((SourceOfIncome) o);
         return o != null;
+    }
+    
+    public void totalMonthlyIncome(SourceOfIncome s) {
+        txtTotalMonthlyIncome.setText(SourceOfIncomeController.getInstance().computeTotalMonthlyIncome(s).toPlainString());
     }
 }

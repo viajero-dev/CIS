@@ -13,6 +13,7 @@ import com.vg.scfc.financing.cis.ent.Sibling;
 import com.vg.scfc.financing.cis.ui.listener.AddEditChangeListener;
 import com.vg.scfc.financing.cis.ui.listener.BasicActionListener;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.LinkedList;
 import org.jdesktop.observablecollections.ObservableCollections;
@@ -367,6 +368,8 @@ public class MainPanel extends javax.swing.JPanel {
     private void initCreditReferenceAddEditListener() {
         panelCreditReference.setTableCreditReference(tableCreditReference);
         panelCreditReference.setCreditReferences(creditReferences);
+        panelCreditReference.setFormNo(formNo);
+        
         addEditCreditReference.setBasicActionListener(new BasicActionListener() {
 
             @Override
@@ -415,6 +418,10 @@ public class MainPanel extends javax.swing.JPanel {
     }
 
     private void initSourceOfIncomeAddEditListener() {
+        panelSourceOfIncome.setFormNo(formNo);
+        panelSourceOfIncome.setPersonType("APP");
+        panelSourceOfIncome.setTxtTotalMonthlyIncome(txtTotalMonthlyIncome);
+        
         addEditSourceOfInc.setBasicActionListener(new BasicActionListener() {
 
             @Override
@@ -435,7 +442,7 @@ public class MainPanel extends javax.swing.JPanel {
             @Override
             public void onCancelAdd() {
                 panelSourceOfIncome.setFieldsEditable(false);
-//                panelSourceOfIncome.setSourceOfIncome(ui);
+//                panelSourceOfIncome.setSourceOfIncomeData(ui);
                 panelSourceOfIncome.resetToDefault();
             }
 
@@ -456,13 +463,16 @@ public class MainPanel extends javax.swing.JPanel {
             @Override
             public void onCancelEdit() {
                 panelSourceOfIncome.setFieldsEditable(false);
-//                panelSourceOfIncome.setSourceOfIncome(ui);
+//                panelSourceOfIncome.setSourceOfIncomeData(ui);
                 panelSourceOfIncome.resetToDefault();
             }
         });
     }
 
     private void initExpendituresAddEditListener() {
+        panelExpenditures.setFormNo(formNo);
+        panelExpenditures.setTotalMonthlyIncome(totalMonthlyIncome);
+        
         addEditExpenditures.setBasicActionListener(new BasicActionListener() {
 
             @Override
@@ -483,7 +493,7 @@ public class MainPanel extends javax.swing.JPanel {
             @Override
             public void onCancelAdd() {
                 panelExpenditures.setFieldsEditable(false);
-//                panelExpenditures.setExpenditures(null);
+//                panelExpenditures.setExpenditureData(null);
                 panelExpenditures.resetToDefault();
             }
 
@@ -504,7 +514,7 @@ public class MainPanel extends javax.swing.JPanel {
             @Override
             public void onCancelEdit() {
                 panelExpenditures.setFieldsEditable(false);
-//                panelExpenditures.setExpenditures(null);
+//                panelExpenditures.setExpenditureData(null);
                 panelExpenditures.resetToDefault();
             }
         });
@@ -1005,7 +1015,7 @@ public class MainPanel extends javax.swing.JPanel {
             @Override
             public void onCancelAdd() {
                 panelCoMakerSourceOfIncome.setFieldsEditable(false);
-//                panelCoMakerSourceOfIncome.setSourceOfIncome(ui);
+//                panelCoMakerSourceOfIncome.setSourceOfIncomeData(ui);
                 panelCoMakerSourceOfIncome.resetToDefault();
             }
 
@@ -1026,7 +1036,7 @@ public class MainPanel extends javax.swing.JPanel {
             @Override
             public void onCancelEdit() {
                 panelCoMakerSourceOfIncome.setFieldsEditable(false);
-//                panelCoMakerSourceOfIncome.setSourceOfIncome(ui);
+//                panelCoMakerSourceOfIncome.setSourceOfIncomeData(ui);
                 panelCoMakerSourceOfIncome.resetToDefault();
             }
         });
@@ -1535,6 +1545,8 @@ public class MainPanel extends javax.swing.JPanel {
         jPanel8 = new javax.swing.JPanel();
         panelSourceOfIncome = new com.vg.scfc.financing.cis.ui.reusable.SourceOfIncomePanel();
         addEditSourceOfInc = new com.vg.scfc.financing.cis.ui.reusable.AddEditButtonPanel();
+        lblAvgMonthlyIncomeForOtherSources = new javax.swing.JLabel();
+        txtTotalMonthlyIncome = new javax.swing.JTextField();
         jPanel9 = new javax.swing.JPanel();
         panelExpenditures = new com.vg.scfc.financing.cis.ui.reusable.ExpendituresPanel();
         addEditExpenditures = new com.vg.scfc.financing.cis.ui.reusable.AddEditButtonPanel();
@@ -1757,8 +1769,17 @@ public class MainPanel extends javax.swing.JPanel {
         jTabbedPane1.addTab("Credit Reference", jPanel7);
 
         jPanel8.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel8.add(panelSourceOfIncome, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 5, -1, -1));
+        jPanel8.add(panelSourceOfIncome, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
         jPanel8.add(addEditSourceOfInc, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 240, -1, -1));
+
+        lblAvgMonthlyIncomeForOtherSources.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
+        lblAvgMonthlyIncomeForOtherSources.setText("Total Monthly Income");
+        jPanel8.add(lblAvgMonthlyIncomeForOtherSources, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 270, -1, -1));
+
+        txtTotalMonthlyIncome.setEditable(false);
+        txtTotalMonthlyIncome.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
+        txtTotalMonthlyIncome.setFocusable(false);
+        jPanel8.add(txtTotalMonthlyIncome, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 265, 127, -1));
 
         jTabbedPane1.addTab("Src. of Income", jPanel8);
 
@@ -2008,6 +2029,7 @@ public class MainPanel extends javax.swing.JPanel {
     private javax.swing.JTabbedPane jTabbedPane3;
     private javax.swing.JTabbedPane jTabbedPane4;
     private javax.swing.JTabbedPane jTabbedPane5;
+    private javax.swing.JLabel lblAvgMonthlyIncomeForOtherSources;
     private com.vg.scfc.financing.cis.ui.reusable.AddressPanel panelAddress;
     private com.vg.scfc.financing.cis.ui.reusable.AppliancesPanel panelAppliance;
     private com.vg.scfc.financing.cis.ui.reusable.CharacterReferenceDependentPanel panelCharacterReference;
@@ -2044,12 +2066,16 @@ public class MainPanel extends javax.swing.JPanel {
     private javax.swing.JTable tableDependent;
     private javax.swing.JTable tableSibling;
     private javax.swing.JTable tblVehicle4;
+    private javax.swing.JTextField txtTotalMonthlyIncome;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
-
     private String formNo;
-
     private Date applicationDate;
+    private BigDecimal totalMonthlyIncome;
+
+    public void setTotalMonthlyIncome(BigDecimal totalMonthlyIncome) {
+        this.totalMonthlyIncome = totalMonthlyIncome;
+    }
 
     public Date getApplicationDate() {
         return applicationDate;

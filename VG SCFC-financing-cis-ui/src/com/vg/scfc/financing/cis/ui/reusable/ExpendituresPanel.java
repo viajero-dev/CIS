@@ -5,6 +5,7 @@
  */
 package com.vg.scfc.financing.cis.ui.reusable;
 
+import com.vg.commons.util.NumberUtils;
 import com.vg.scfc.financing.cis.ent.Expenditure;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -29,7 +30,7 @@ public class ExpendituresPanel extends javax.swing.JPanel implements KeyListener
         initTextBoxesListener();
         startUpSettings();
     }
-    
+
     private void startUpSettings() {
         setFieldsEditable(false);
     }
@@ -338,6 +339,28 @@ public class ExpendituresPanel extends javax.swing.JPanel implements KeyListener
     private String maintenanceDesc;
     private String educationFor;
     private List<Expenditure> expenditures;
+    private String formNo;
+    private BigDecimal totalMonthlyIncome;
+
+    public BigDecimal getTotalMonthlyIncome() {
+        if (totalMonthlyIncome == null) {
+            totalMonthlyIncome = new BigDecimal("0");
+        }
+        return totalMonthlyIncome;
+    }
+
+    public void setTotalMonthlyIncome(BigDecimal totalMonthlyIncome) {
+        this.totalMonthlyIncome = totalMonthlyIncome;
+    }
+
+    public void setFormNo(String formNo) {
+        this.formNo = formNo;
+    }
+
+    public void setExpenditures(List<Expenditure> expenditures) {
+        this.expenditures = expenditures;
+        setExpenditureData(this.expenditures);
+    }
 
     @Override
     public void keyTyped(KeyEvent e) {
@@ -379,7 +402,7 @@ public class ExpendituresPanel extends javax.swing.JPanel implements KeyListener
                 }
             } else if (txtEducation.isFocusOwner()) {
                 txtOthers.requestFocus();
-            } 
+            }
                 break;
             case KeyEvent.VK_UP:
                 if (txtOthers.isFocusOwner()) {
@@ -417,11 +440,11 @@ public class ExpendituresPanel extends javax.swing.JPanel implements KeyListener
 
     private void computeTotalExpenditureAndNetIncome() {
         BigDecimal sumOfExpenditureValues = monthlyDeduction.add(monthlyHouseholdBill)
-                                                                                                                .add(amortization)
-                                                                                                                .add(maintenance)
-                                                                                                                .add(livingAllowance)
-                                                                                                                .add(education)
-                                                                                                                .add(others);
+                .add(amortization)
+                .add(maintenance)
+                .add(livingAllowance)
+                .add(education)
+                .add(others);
         txtTotalExpenditure.setText(sumOfExpenditureValues.round(MathContext.UNLIMITED).toString());
     }
 
@@ -436,7 +459,7 @@ public class ExpendituresPanel extends javax.swing.JPanel implements KeyListener
         txtEducationDesc.setEditable(value);
         txtOthers.setEditable(value);
     }
-    
+
     public void resetToDefault() {
         txtMonthlyDeduction.setText("");
         txtMonthlyHouseholdBill.setText("");
@@ -450,26 +473,61 @@ public class ExpendituresPanel extends javax.swing.JPanel implements KeyListener
         txtTotalExpenditure.setText("0");
         txtNetIncome.setText("0");
     }
-    
-    public void setExpenditures(List<Object> objects) {
-        if(objects == null || objects.isEmpty()) {
+
+    public void setExpenditureData(List<Expenditure> expenditures) {
+        if (expenditures == null || expenditures.isEmpty()) {
             resetToDefault();
         } else {
-            for (Object object : objects) {
-                Expenditure e = (Expenditure) object;
-                
+            for (Expenditure e : expenditures) {
+                switch (e.getExpenditureType().getId()) {
+                    case 1:
+                        /* Regular Monthly Salary Deduction */
+                        txtMonthlyDeduction.setText(NumberUtils.doubleToString(e.getAmount()));
+                        break;
+                    case 2:
+                        /* Monthly Household Bill */
+                        txtMonthlyHouseholdBill.setText(NumberUtils.doubleToString(e.getAmount()));
+                        break;
+                    case 3:
+                        /* Amortization */
+                        txtAmortization.setText(NumberUtils.doubleToString(e.getAmount()));
+                        break;
+                    case 4:
+                        /* Maintenance */
+                        txtMaintenance.setText(NumberUtils.doubleToString(e.getAmount()));
+                        txtMaintenanceDesc.setText(e.getAdditionalInfo());
+                        break;
+                    case 5:
+                        /* Living Allowance */
+                        txtLivingAllowance.setText(NumberUtils.doubleToString(e.getAmount()));
+                        break;
+                    case 6:
+                        /* Education */
+                        txtEducation.setText(NumberUtils.doubleToString(e.getAmount()));
+                        txtEducationDesc.setText(e.getAdditionalInfo());
+                        break;
+                    case 7:
+                        /* Others */
+                        txtOthers.setText(NumberUtils.doubleToString(e.getAmount()));
+                        break;
+                }
             }
+            BigDecimal totalExpenditures = ExpenditureController.getInstance().totalExpenditures(expenditures);
+            
+            txtTotalExpenditure.setText(totalExpenditures.toPlainString());
+            txtNetIncome.setText(getTotalMonthlyIncome().subtract(totalExpenditures).toPlainString());
         }
     }
-    
+
     public boolean saveExpenditures() {
-        List<Object> objects = ExpenditureController.getInstance().createNew(monthlyDeduction, monthlyHouseholdBill, amortization, maintenance, maintenanceDesc, livingAllowance, education, educationFor, others);
+        List<Expenditure> objects = ExpenditureController.getInstance().createNew(monthlyDeduction, monthlyHouseholdBill, amortization,
+                maintenance, maintenanceDesc, livingAllowance, education, educationFor, others, formNo);
         setExpenditures(objects);
-        return  !objects.isEmpty();
+        return !objects.isEmpty();
     }
-    
+
     public boolean updateExpenditures() {
-        List<Object> objects = ExpenditureController.getInstance().update("", monthlyDeduction, monthlyHouseholdBill, amortization, maintenance, maintenanceDesc, livingAllowance, education, educationFor, others);
+        List<Expenditure> objects = ExpenditureController.getInstance().update(formNo, expenditures);
         setExpenditures(objects);
         return !objects.isEmpty();
     }

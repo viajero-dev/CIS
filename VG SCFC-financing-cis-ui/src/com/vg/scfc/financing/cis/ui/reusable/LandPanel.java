@@ -5,13 +5,15 @@
  */
 package com.vg.scfc.financing.cis.ui.reusable;
 
+import com.vg.commons.util.NumberUtils;
 import com.vg.scfc.financing.cis.ent.Land;
+import com.vg.scfc.financing.cis.ui.controller.LandAssetController;
+import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
-import com.vg.scfc.financing.cis.ui.controller.LandAssetController;
-import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 
 /**
  *
@@ -28,7 +30,7 @@ public class LandPanel extends javax.swing.JPanel implements KeyListener {
         initResidentialOptions();
         startUpSettings();
     }
-    
+
     private void startUpSettings() {
         setFieldsEditable(false);
     }
@@ -428,25 +430,25 @@ public class LandPanel extends javax.swing.JPanel implements KeyListener {
     }//GEN-LAST:event_txtEstValueResidentialFocusLost
 
     private void optionHouseItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_optionHouseItemStateChanged
-        if(optionHouse.isSelected()) {
+        if (optionHouse.isSelected()) {
             additionalInfo = "HOUSE";
         }
     }//GEN-LAST:event_optionHouseItemStateChanged
 
     private void optionConcreteItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_optionConcreteItemStateChanged
-        if(optionConcrete.isSelected()) {
+        if (optionConcrete.isSelected()) {
             additionalInfo = "CONCRETE";
         }
     }//GEN-LAST:event_optionConcreteItemStateChanged
 
     private void optionSemiConcreteItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_optionSemiConcreteItemStateChanged
-        if(optionSemiConcrete.isSelected()) {
+        if (optionSemiConcrete.isSelected()) {
             additionalInfo = "SEMI CONCRETE";
         }
     }//GEN-LAST:event_optionSemiConcreteItemStateChanged
 
     private void optionShanityFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_optionShanityFocusLost
-        if(optionShanity.isSelected()) {
+        if (optionShanity.isSelected()) {
             additionalInfo = "SHANITY";
         }
     }//GEN-LAST:event_optionShanityFocusLost
@@ -494,13 +496,30 @@ public class LandPanel extends javax.swing.JPanel implements KeyListener {
     private String agriLocation;
     private BigDecimal agriValue;
     private BigDecimal comArea;
-    ;
     private String comLocation;
     private BigDecimal comValue;
     private BigDecimal resArea;
     private String resLocation;
     private BigDecimal resValue;
     private String additionalInfo;
+    private List<Land> lands;
+    private String formNo;
+
+    public void setFormNo(String formNo) {
+        this.formNo = formNo;
+    }
+
+    public List<Land> getLands() {
+        if (lands == null) {
+            lands = new ArrayList<>();
+        }
+        return lands;
+    }
+
+    public void setLands(List<Land> lands) {
+        this.lands = lands;
+        setLandAssets(this.lands);
+    }
 
     @Override
     public void keyTyped(KeyEvent e) {
@@ -616,12 +635,76 @@ public class LandPanel extends javax.swing.JPanel implements KeyListener {
         }
     }
 
-    public void setLandAssets() {
-        List<Land> landAssets = LandAssetController.getInstance().findAllLandAssets("");
-        if (landAssets.isEmpty()) {
+    public void setLandAssets(List<Land> l) {
+        if (l.isEmpty()) {
             resetToDefault();
         } else {
-            for (Land land : landAssets) {
+            for (Land land : l) {
+                switch (land.getLandType().getId()) {
+                    case 1:
+                        /* Agricultural */
+                        checkAgricultural.setSelected(true);
+                        txtAreaAgri.setText(NumberUtils.doubleToString(land.getArea()));
+                        txtLocationAgri.setText(land.getAddress());
+                        txtEstValueAgri.setText(NumberUtils.doubleToString(land.getAmount()));
+                        break;
+                    case 2:
+                        /* Commercial */
+                        checkCommercial.setSelected(true);
+                        txtAreaCommercial.setText(NumberUtils.doubleToString(land.getArea()));
+                        txtLocationCommercial.setText(land.getAddress());
+                        txtEstValueResidential.setText(NumberUtils.doubleToString(land.getAmount()));
+                        break;
+                    case 3:
+                        /* Residential */
+                        checkResidential.setSelected(true);
+                        txtAreaResidential.setText(NumberUtils.doubleToString(land.getArea()));
+                        txtLocationResidential.setText(land.getAddress());
+                        txtEstValueResidential.setText(NumberUtils.doubleToString(land.getAmount()));
+                        switch (land.getAdditionalInfo()) {
+                            case "HOUSE":
+                                optionHouse.setSelected(true);
+                                optionConcrete.setSelected(false);
+                                optionSemiConcrete.setSelected(false);
+                                optionShanity.setSelected(false);
+                                optionOthers.setSelected(false);
+                                txtOtherDesc.setEnabled(false);
+                                break;
+                            case "CONCRETE":
+                                optionHouse.setSelected(false);
+                                optionConcrete.setSelected(true);
+                                optionSemiConcrete.setSelected(false);
+                                optionShanity.setSelected(false);
+                                optionOthers.setSelected(false);
+                                txtOtherDesc.setEnabled(false);
+                                break;
+                            case "SEMI CONCRETE":
+                                optionHouse.setSelected(false);
+                                optionConcrete.setSelected(false);
+                                optionSemiConcrete.setSelected(true);
+                                optionShanity.setSelected(false);
+                                optionOthers.setSelected(false);
+                                txtOtherDesc.setEnabled(false);
+                                break;
+                            case "SHANITY":
+                                optionHouse.setSelected(false);
+                                optionConcrete.setSelected(false);
+                                optionSemiConcrete.setSelected(false);
+                                optionShanity.setSelected(true);
+                                optionOthers.setSelected(false);
+                                txtOtherDesc.setEnabled(false);
+                                break;
+                            default:
+                                optionHouse.setSelected(false);
+                                optionConcrete.setSelected(false);
+                                optionSemiConcrete.setSelected(false);
+                                optionShanity.setSelected(false);
+                                optionOthers.setSelected(true);
+                                txtOtherDesc.setText(land.getAdditionalInfo());
+                                break;
+                        }
+                        break;
+                }
             }
         }
     }
@@ -659,14 +742,15 @@ public class LandPanel extends javax.swing.JPanel implements KeyListener {
     }
 
     public boolean saveLandAssets() {
-        boolean isSaved = LandAssetController.getInstance().createNew(agriArea.doubleValue(), agriLocation, agriValue, comArea.doubleValue(), comLocation, comValue, resArea.doubleValue(), resLocation, resValue, additionalInfo);
-        setLandAssets();
-        return isSaved;
+        List<Land> l = LandAssetController.getInstance().createNew(agriArea.doubleValue(), agriLocation,
+                agriValue, comArea.doubleValue(), comLocation, comValue, resArea.doubleValue(), resLocation, resValue, additionalInfo, formNo);
+        setLands(l);
+        return !l.isEmpty();
     }
 
     public boolean updateLandAssets() {
-        boolean isUpdated = LandAssetController.getInstance().update("", agriArea.doubleValue(), agriLocation, agriValue, comArea.doubleValue(), comLocation, comValue, resArea.doubleValue(), resLocation, resValue, additionalInfo);
-        setLandAssets();
-        return isUpdated;
+        List<Land> l = LandAssetController.getInstance().update(lands);
+        setLands(l);
+        return !l.isEmpty();
     }
 }

@@ -6,8 +6,13 @@
 package com.vg.scfc.financing.cis.ui.controller;
 
 import com.vg.scfc.financing.cis.ent.SourceOfIncome;
+import com.vg.scfc.financing.cis.ent.TransactionForm;
+import com.vg.scfc.financing.cis.ui.settings.UISetting;
+import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 import java.math.BigDecimal;
-import java.util.Date;
+import java.math.MathContext;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -23,26 +28,65 @@ public class SourceOfIncomeController {
         }
         return instance;
     }
-    
+
     public Object createNew(BigDecimal salaryCompensation, String natureOfBusiness, boolean isRegistred,
-            BigDecimal businessInc, boolean isAgri, boolean isLiveStock, String harvestSched, BigDecimal productInc, BigDecimal farmInc, String otherSource, BigDecimal otherSourceInc) {
-        SourceOfIncome s = new SourceOfIncome();
-        s.setIncSalary(salaryCompensation.doubleValue());
-        s.setIncNature(natureOfBusiness);
-        s.setIncRegistered(isRegistred);
-        s.setIncBusiness(businessInc.doubleValue());
-        s.setIncArgriculture(isAgri);
-        s.setIncLiveStock(isLiveStock);
-        s.setIncHarvestDate(harvestSched);
-        s.setIncAverageProd(productInc.doubleValue());
-        s.setIncFarm(farmInc.doubleValue());
-        s.setIncOtherSource(otherSource);
-        s.setIncOther(otherSourceInc.doubleValue());
-        return new Object();
+            BigDecimal businessInc, boolean isAgri, boolean isLiveStock, String harvestSched, BigDecimal productInc,
+            BigDecimal farmInc, String otherSource, BigDecimal otherSourceInc, String formNo, String personType) {
+        SourceOfIncome result = null;
+        try {
+            SourceOfIncome s = new SourceOfIncome();
+            s.setIncSalary(salaryCompensation.doubleValue());
+            s.setIncNature(natureOfBusiness);
+            s.setIncRegistered(isRegistred);
+            s.setIncBusiness(businessInc.doubleValue());
+            s.setIncArgriculture(isAgri);
+            s.setIncLiveStock(isLiveStock);
+            s.setIncHarvestDate(harvestSched);
+            s.setIncAverageProd(productInc.doubleValue());
+            s.setIncFarm(farmInc.doubleValue());
+            s.setIncOtherSource(otherSource);
+            s.setIncOther(otherSourceInc.doubleValue());
+            s.setTxForm(UISetting.getTransactionFormService().findByformNo(formNo));
+            s.setPersonType(UISetting.getPersonTypeService().findById(personType));
+            s.setUser(UISetting.getSystemUser());
+            s.setLocation(UISetting.getStoreLocation());
+            s.setStation(UISetting.getComputerName());
+            result = UISetting.getSourceOfIncomeService().insert(s);
+        } catch (Exception ex) {
+            UIValidator.log(ex, SourceOfIncomeController.class);
+        }
+        return result;
     }
-    
-    public Object update(String formNo, BigDecimal salaryCompensation, String natureOfBusiness, boolean isRegistred,
-            BigDecimal businessInc, boolean isAgri, boolean isLiveStock, String harvestSched, BigDecimal productInc, BigDecimal farmInc, String otherSource, BigDecimal otherSourceInc) {
-        return new Object();
+
+    public Object update(String formNo, SourceOfIncome s) {
+        SourceOfIncome result = null;
+        try {
+            result = UISetting.getSourceOfIncomeService().update(s);
+        } catch (Exception ex) {
+            UIValidator.log(ex, SourceOfIncomeController.class);
+        }
+        return result;
+    }
+
+    public SourceOfIncome findByFormNoAndPersonType(String clientNo, String formNo, String personType) {
+        SourceOfIncome result = null;
+        try {
+            result = UISetting.getSourceOfIncomeService().findByClientFormNoPersonType(clientNo, formNo, personType);
+        } catch (Exception ex) {
+            UIValidator.log(ex, SourceOfIncomeController.class);
+        }
+        return result;
+    }
+
+    public BigDecimal computeTotalMonthlyIncome(SourceOfIncome s) {
+        if (s == null) {
+            return new BigDecimal("0");
+        } else {
+            BigDecimal monthlyCompensation = new BigDecimal(s.getIncSalary());
+            BigDecimal monthlyIncomeForBusiness = new BigDecimal(s.getIncBusiness());
+            BigDecimal monthlyIncomeForFarmProd = new BigDecimal(s.getIncFarm());
+            BigDecimal monthlyIncomeForOthers = new BigDecimal(s.getIncOther());
+            return monthlyCompensation.add(monthlyIncomeForBusiness).add(monthlyIncomeForFarmProd).add(monthlyIncomeForOthers).round(MathContext.UNLIMITED);
+        }
     }
 }

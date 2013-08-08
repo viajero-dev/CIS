@@ -54,7 +54,7 @@ public class CreditReferencePanel extends javax.swing.JPanel implements KeyListe
                     }
                 }
             });
-        } 
+        }
     }
 
     /**
@@ -256,9 +256,20 @@ public class CreditReferencePanel extends javax.swing.JPanel implements KeyListe
     private JTable tableCreditReference;
     private int selectedIndex;
     private List<CreditRef> creditReferences;
+    private String formNo;
+    private CreditRef creditReference;
+
+    public void setCreditReference(CreditRef creditReference) {
+        this.creditReference = creditReference;
+    }
+
+    public void setFormNo(String formNo) {
+        this.formNo = formNo;
+    }
 
     public void setCreditReferences(List<CreditRef> creditReferences) {
         this.creditReferences = creditReferences;
+        refreshTable(this.creditReferences);
     }
 
     public void setTableCreditReference(JTable tableCreditReference) {
@@ -352,15 +363,15 @@ public class CreditReferencePanel extends javax.swing.JPanel implements KeyListe
     }
 
     public boolean saveCreditReference() {
-        Object o = CreditReferenceController.getInstance().createNew(name, address, itemOnCredit, loanAmount, monthlyAmort, term, amountPaid, remainingBal);
-        setCreditReference(o);
-        return o != null;
+        List<CreditRef> c = CreditReferenceController.getInstance().createNew(name, address, itemOnCredit, loanAmount, monthlyAmort, term, amountPaid, remainingBal, formNo);
+        setCreditReferences(c);
+        return !c.isEmpty();
     }
 
     public boolean updateCreditReference() {
-        Object o = CreditReferenceController.getInstance().update("", name, address, itemOnCredit, loanAmount, monthlyAmort, term, amountPaid, remainingBal);
-        setCreditReference(o);
-        return o != null;
+        List<CreditRef> c = CreditReferenceController.getInstance().update(formNo, creditReference);
+        setCreditReferences(c);
+        return !c.isEmpty();
     }
 
     public void refreshTable(List<CreditRef> c) {
