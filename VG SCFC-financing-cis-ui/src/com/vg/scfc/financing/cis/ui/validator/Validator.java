@@ -40,6 +40,12 @@ public class Validator {
     public boolean isEmpty(String input) {
         return (input.length() <= 0);
     }
+    
+    public boolean isValidEmail(String input) {
+        Pattern pattern = Pattern.compile("^\\w+@[a-zA-Z_]+?\\.[a-zA-Z]{2,3}$");
+        Matcher matcher = pattern.matcher(input.trim().replace(" ", ""));
+        return matcher.matches();
+    }
 
     public String newLineRemover(String input) {
         String result = "";
