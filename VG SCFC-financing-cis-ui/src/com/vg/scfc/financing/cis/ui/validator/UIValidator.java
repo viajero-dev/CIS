@@ -5,10 +5,10 @@
  */
 package com.vg.scfc.financing.cis.ui.validator;
 
+import com.vg.scfc.financing.cis.ui.messages.ErrorMessage;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import org.slf4j.LoggerFactory;
-import com.vg.scfc.financing.cis.ui.messages.ErrorMessage;
 
 /**
  *
@@ -42,6 +42,16 @@ public class UIValidator {
                 field.setText("");
                 return "0";
             }
+        }
+    }
+    
+    public static String isValidEmail(JTextField field) {
+        String fieldValue = field.getText();
+        if(Validator.getInstance().isValidEmail(fieldValue)) {
+            return fieldValue;
+        } else {
+            JOptionPane.showMessageDialog(null, ErrorMessage.INVALID_EMAIL, ErrorMessage.ERROR_MESSAGE_TITLE, JOptionPane.WARNING_MESSAGE);
+            return "";
         }
     }
     
