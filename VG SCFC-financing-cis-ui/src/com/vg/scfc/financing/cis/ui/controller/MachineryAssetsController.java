@@ -6,7 +6,13 @@
 package com.vg.scfc.financing.cis.ui.controller;
 
 import com.vg.scfc.financing.cis.ent.Machinery;
+import com.vg.scfc.financing.cis.ui.settings.UISetting;
+import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -22,17 +28,44 @@ public class MachineryAssetsController {
         }
         return instance;
     }
-    
-    public Object createNew(String type, int qty, BigDecimal estimatedValue) {
-        Machinery m = new Machinery();
-        m.setType(type);
-        m.setQuantity(qty);
-        m.setAmount(estimatedValue.doubleValue());
-        return new Object();
+
+    public List<Machinery> createNew(String type, int qty, BigDecimal estimatedValue, String formNo) {
+        List<Machinery> results = new ArrayList<>();
+        try {
+            Machinery m = new Machinery();
+            m.setType(type);
+            m.setQuantity(qty);
+            m.setAmount(estimatedValue.doubleValue());
+            m.setUser(UISetting.getSystemUser());
+            m.setLocation(UISetting.getStoreLocation());
+            m.setStation(UISetting.getComputerName());
+            UISetting.getMachineryService().insert(formNo, m);
+            results = UISetting.getMachineryService().findByAsset(formNo);
+        } catch (Exception ex) {
+            UIValidator.log(ex, MachineryAssetsController.class);
+        }
+        return results;
+    }
+
+    public List<Machinery> update(String formNo, Machinery m) {
+        List<Machinery> results = new ArrayList<>();
+        try {
+            UISetting.getMachineryService().update(m);
+            results = UISetting.getMachineryService().findByAsset(formNo);
+        } catch (Exception ex) {
+            UIValidator.log(ex, MachineryAssetsController.class);
+        }
+        return results;
     }
     
-    public Object update(String formNo, String type, int qty, BigDecimal estimatedValue) {
-        return new Object();
+    public List<Machinery> findAll(String formNo) {
+        List<Machinery> results = new ArrayList<>();
+        try {
+            results = UISetting.getMachineryService().findByAsset(formNo);
+        } catch (Exception ex) {
+            UIValidator.log(ex, MachineryAssetsController.class);
+        }
+        return results;
     }
 
 }

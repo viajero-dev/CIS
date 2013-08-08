@@ -6,3 +6,11 @@
 [ERROR] 2013-08-08 09:17:54,701 com.vg.scfc.financing.cis.ui.controller.PersonalInfoController log - java.lang.NullPointerException
 [ERROR] 2013-08-08 09:17:54,732 com.vg.scfc.financing.cis.ui.controller.PersonalInfoController log - java.lang.NullPointerException
 [ERROR] 2013-08-08 09:17:54,732 com.vg.scfc.financing.cis.ui.controller.PersonalInfoController log - java.lang.NullPointerException
+[ERROR] 2013-08-08 15:14:37,617 com.vg.scfc.financing.cis.ui.controller.PersonalInfoController log - java.lang.NullPointerException
+[ERROR] 2013-08-08 15:14:37,619 com.vg.scfc.financing.cis.ui.controller.PersonalInfoController log - java.lang.NullPointerException
+[ERROR] 2013-08-08 15:14:37,839 com.vg.scfc.financing.cis.ui.controller.PersonalInfoController log - java.lang.NullPointerException
+[ERROR] 2013-08-08 15:14:37,840 com.vg.scfc.financing.cis.ui.controller.PersonalInfoController log - java.lang.NullPointerException
+[ERROR] 2013-08-08 15:14:37,880 com.vg.scfc.financing.cis.ui.controller.PersonalInfoController log - java.lang.NullPointerException
+[ERROR] 2013-08-08 15:14:37,880 com.vg.scfc.financing.cis.ui.controller.PersonalInfoController log - java.lang.NullPointerException
+[ERROR] 2013-08-08 15:14:37,911 com.vg.scfc.financing.cis.ui.controller.PersonalInfoController log - java.lang.NullPointerException
+[ERROR] 2013-08-08 15:14:37,911 com.vg.scfc.financing.cis.ui.controller.PersonalInfoController log - java.lang.NullPointerException

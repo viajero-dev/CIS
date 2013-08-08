@@ -6,6 +6,8 @@
 package com.vg.scfc.financing.cis.ui.reusable;
 
 import com.vg.scfc.financing.cis.ent.Appliance;
+import com.vg.scfc.financing.cis.ui.controller.ApplianceAssetsController;
+import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.math.BigDecimal;
@@ -16,8 +18,6 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import org.jdesktop.observablecollections.ObservableCollections;
-import com.vg.scfc.financing.cis.ui.controller.ApplianceAssetsController;
-import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 
 /**
  *
@@ -37,13 +37,13 @@ public class AppliancesPanel extends javax.swing.JPanel implements KeyListener {
         comboApplianceType.addKeyListener(this);
         txtEstValue.addKeyListener(this);
     }
-    
+
     private void startUpSettings() {
         setFieldsEditable(false);
         initKeyListeners();
         initApplianceTable();
     }
-    
+
     private void initApplianceTable() {
         tableAppliance.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         tableAppliance.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
@@ -178,6 +178,22 @@ public class AppliancesPanel extends javax.swing.JPanel implements KeyListener {
     private String type;
     private BigDecimal estimatedValue;
     private int selectedIndex;
+    private String formNo;
+    private Appliance appliance;
+
+    public void setAppliances(List<Appliance> appliances) {
+        this.appliances = appliances;
+        refreshTable(this.appliances);
+    }
+
+    public void setFormNo(String formNo) {
+        this.formNo = formNo;
+    }
+
+    public void setAppliance(Appliance appliance) {
+        this.appliance = appliance;
+        setApplianceAsset(this.appliance);
+    }
 
     @Override
     public void keyTyped(KeyEvent e) {
@@ -246,21 +262,21 @@ public class AppliancesPanel extends javax.swing.JPanel implements KeyListener {
     }
 
     public boolean saveApplianceAsset() {
-        Object o = ApplianceAssetsController.getInstance().createNew(type, estimatedValue);
-        setApplianceAsset(o);
-        return o != null;
+        List<Appliance> a = ApplianceAssetsController.getInstance().createNew(type, estimatedValue, formNo);
+        setAppliances(a);
+        return !a.isEmpty();
     }
 
     public boolean updateApplianceAsset() {
-        Object o = ApplianceAssetsController.getInstance().update("", type, estimatedValue);
-        setApplianceAsset(o);
-        return o != null;
+        List<Appliance> a = ApplianceAssetsController.getInstance().update(formNo, appliance);
+        setAppliances(a);
+        return !a.isEmpty();
     }
-    
+
     public void refreshTable(List<Appliance> a) {
         appliances.clear();
         appliances.addAll(a);
-        if(!appliances.isEmpty()) {
+        if (!appliances.isEmpty()) {
             tableAppliance.setRowSelectionInterval(0, 0);
         }
     }

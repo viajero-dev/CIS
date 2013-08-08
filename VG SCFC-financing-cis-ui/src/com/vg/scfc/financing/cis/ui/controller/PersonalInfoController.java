@@ -6,6 +6,7 @@
 package com.vg.scfc.financing.cis.ui.controller;
 
 import com.vg.scfc.financing.cis.ent.Customer;
+import com.vg.scfc.financing.cis.ent.PersonType;
 import com.vg.scfc.financing.cis.ent.PersonalInfo;
 import com.vg.scfc.financing.cis.ent.Religion;
 import com.vg.scfc.financing.cis.ent.TransactionForm;
@@ -35,7 +36,7 @@ public class PersonalInfoController {
     public Object createNew(String lastname, String firstname, String middlename, Date birthDate, String birthPlace,
             int age, String gender, String tribe, String religion, String citizenship, String civilStatusOther, String educationalAttainment,
             String contactNo, String presentAddress, String previousAddress, String formSeries, Date applicationDate) {
-        Object result = null;
+        PersonalInfo result = null;
         try {
             /* Form Info */
             String formNo = FormController.getInstance().newFormNo(UISetting.getStoreLocation().getId(), "2", formSeries);
@@ -57,6 +58,9 @@ public class PersonalInfoController {
             customer.setLocation(UISetting.getStoreLocation());
             customer.setStation(UISetting.getComputerName());
 
+            /* Person Type */
+            PersonType personType = UISetting.getPersonTypeService().findById("APP");
+            
             /* Personal Info */
             PersonalInfo person = new PersonalInfo();
             person.setLastName(lastname);
@@ -71,14 +75,14 @@ public class PersonalInfoController {
             person.setCivilStatus(civilStatusOther);
             person.setEducation(educationalAttainment);
             person.setContactNo(contactNo);
-            person.setPersonType(UISetting.getPersonTypeService().findById("APP"));
+            person.setPersonType(personType);
             person.setUser(UISetting.getSystemUser());
             person.setLocation(UISetting.getStoreLocation());
             person.setStation(UISetting.getComputerName());
 
             boolean isSaved = UISetting.getCustomerService().insert(customer, form, person);
             if (isSaved) {
-//                result = UISetting.get
+                result = UISetting.getPersonalInfoService().findByFormType(formNo, personType.getTypeID());
             }
         } catch (Exception ex) {
             UIValidator.log(ex, PersonalInfoController.class);
@@ -87,12 +91,27 @@ public class PersonalInfoController {
         return result;
     }
 
-    public Object update(String clientNo, String lastname, String firstname, String middlename, Date birthDate, String birthPlace, int age, String gender, String tribe, String religion,
-            String citizenship, String civilStatusOther, String educationalAttainment, String contactNo, String presentAddress, String previousAddress) {
-        // TODO, find personal info by clientNo
-        // update info
-        // return object
-        return new Object();
+    public Object update(PersonalInfo p) {
+        PersonalInfo result = null;
+        try {
+            boolean isUpdated = UISetting.getCustomerService().update(UISetting.getCustomerService().findById(p.getClientNo()), p);
+            if(isUpdated) {
+                result = UISetting.getPersonalInfoService().findByFormType(p.getTxFormNo(), p.getPersonType().getTypeID());
+            }
+        } catch (Exception ex) {
+            UIValidator.log(ex, PersonalInfoController.class);
+        }
+        return result;
+    }
+    
+    public PersonalInfo findByFormNo(String formNo, String personType) {
+        PersonalInfo result = null;
+        try {
+            result = UISetting.getPersonalInfoService().findByFormType(formNo, personType);
+        } catch (Exception ex) {
+            UIValidator.log(ex, PersonalInfoController.class);
+        }
+        return result;
     }
 
     public List<Tribe> Tribes() {

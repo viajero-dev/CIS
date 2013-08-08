@@ -521,6 +521,7 @@ public class MainPanel extends javax.swing.JPanel {
     }
 
     private void initLandAssetsAddEditListener() {
+        panelLandAssets.setFormNo(formNo);
         addEditLandAssets.setBasicActionListener(new BasicActionListener() {
 
             @Override
@@ -569,6 +570,7 @@ public class MainPanel extends javax.swing.JPanel {
     }
 
     private void initVehicleAssetsAddEditListener() {
+        panelVehicle.setFormNo(formNo);
         addEditVehicle.setBasicActionListener(new BasicActionListener() {
 
             @Override
@@ -617,6 +619,7 @@ public class MainPanel extends javax.swing.JPanel {
     }
 
     private void initApplianceAssetsAddEditListener() {
+        panelAppliance.setFormNo(formNo);
         addEditAppliance.setBasicActionListener(new BasicActionListener() {
 
             @Override
@@ -665,6 +668,7 @@ public class MainPanel extends javax.swing.JPanel {
     }
 
     private void initMachineryAssetsAddEditListener() {
+        panelMachinery.setFormNo(formNo);
         addEditMachinery.setBasicActionListener(new BasicActionListener() {
 
             @Override

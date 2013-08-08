@@ -27,12 +27,12 @@ public class MainFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        mainPanel1 = new com.vg.scfc.financing.cis.ui.panel.MainPanel();
+        installmentPanel1 = new com.vg.scfc.financing.cis.ui.panel.InstallmentPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(mainPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        getContentPane().add(installmentPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -73,6 +73,6 @@ public class MainFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.vg.scfc.financing.cis.ui.panel.MainPanel mainPanel1;
+    private com.vg.scfc.financing.cis.ui.panel.InstallmentPanel installmentPanel1;
     // End of variables declaration//GEN-END:variables
 }

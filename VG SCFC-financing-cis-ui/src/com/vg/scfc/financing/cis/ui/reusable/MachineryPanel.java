@@ -6,6 +6,8 @@
 package com.vg.scfc.financing.cis.ui.reusable;
 
 import com.vg.scfc.financing.cis.ent.Machinery;
+import com.vg.scfc.financing.cis.ui.controller.MachineryAssetsController;
+import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.math.BigDecimal;
@@ -15,8 +17,6 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import org.jdesktop.observablecollections.ObservableCollections;
-import com.vg.scfc.financing.cis.ui.controller.MachineryAssetsController;
-import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 
 /**
  *
@@ -182,6 +182,22 @@ public class MachineryPanel extends javax.swing.JPanel implements KeyListener {
     private int qty;
     private BigDecimal estimatedValue;
     private int selectedIndex;
+    private String formNo;
+    private Machinery machinery;
+
+    public void setMachineries(List<Machinery> machineries) {
+        this.machineries = machineries;
+        refreshTable(this.machineries);
+    }
+
+    public void setFormNo(String formNo) {
+        this.formNo = formNo;
+    }
+
+    public void setMachinery(Machinery machinery) {
+        this.machinery = machinery;
+        setMachineryInfo(this.machinery);
+    }
 
     @Override
     public void keyTyped(KeyEvent e) {
@@ -223,7 +239,7 @@ public class MachineryPanel extends javax.swing.JPanel implements KeyListener {
         txtMachineEstValue.setText("");
     }
 
-    public void setMachinery(Object o) {
+    public void setMachineryInfo(Object o) {
         if (o == null) {
             resetToDefault();
         } else {
@@ -235,15 +251,15 @@ public class MachineryPanel extends javax.swing.JPanel implements KeyListener {
     }
     
     public boolean saveMachinery() {
-        Object o = MachineryAssetsController.getInstance().createNew(type, qty, estimatedValue);
-        setMachinery(o);
-        return o != null;
+        List<Machinery> m = MachineryAssetsController.getInstance().createNew(type, qty, estimatedValue, formNo);
+        setMachineries(m);
+        return !m.isEmpty();
     }
     
     public boolean updateMachinery() {
-        Object o = MachineryAssetsController.getInstance().update("", type, qty, estimatedValue);
-        setMachinery(o);
-        return o != null;
+        List<Machinery> m = MachineryAssetsController.getInstance().update(formNo, machinery);
+        setMachineries(m);
+        return !m.isEmpty();
     }
     
     public void refreshTable(List<Machinery> m) {

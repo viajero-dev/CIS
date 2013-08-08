@@ -6,7 +6,11 @@
 package com.vg.scfc.financing.cis.ui.controller;
 
 import com.vg.scfc.financing.cis.ent.Appliance;
+import com.vg.scfc.financing.cis.ui.settings.UISetting;
+import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -22,16 +26,43 @@ public class ApplianceAssetsController {
         }
         return instance;
     }
-    
-    public Object createNew(String type, BigDecimal estimatedValue) {
-        Appliance a = new Appliance();
-        a.setType(type);
-        a.setAmount(estimatedValue.doubleValue());
-        return new Object();
+
+    public List<Appliance> createNew(String type, BigDecimal estimatedValue, String formNo) {
+        List<Appliance> results = new ArrayList<>();
+        try {
+            Appliance a = new Appliance();
+            a.setType(type);
+            a.setAmount(estimatedValue.doubleValue());
+            a.setUser(UISetting.getSystemUser());
+            a.setLocation(UISetting.getStoreLocation());
+            a.setStation(UISetting.getComputerName());
+            UISetting.getApplianceService().insert(formNo, a);
+            results = UISetting.getApplianceService().findByAsset(formNo);
+        } catch (Exception ex) {
+            UIValidator.log(ex, ApplianceAssetsController.class);
+        }
+        return results;
+    }
+
+    public List<Appliance> update(String formNo, Appliance a) {
+        List<Appliance> results = new ArrayList<>();
+        try {
+            UISetting.getApplianceService().update(a);
+            results = UISetting.getApplianceService().findByAsset(formNo);
+        } catch (Exception ex) {
+            UIValidator.log(ex, ApplianceAssetsController.class);
+        }
+        return results;
     }
     
-    public Object update(String formNo, String type, BigDecimal estimatedValue) {
-        return new Object();
+    public List<Appliance> findAll(String formNo) {
+        List<Appliance> results = new ArrayList<>();
+        try {
+            UISetting.getApplianceService().findByAsset(formNo);
+        } catch (Exception ex) {
+            UIValidator.log(ex, ApplianceAssetsController.class);
+        }
+        return results;
     }
 
 }

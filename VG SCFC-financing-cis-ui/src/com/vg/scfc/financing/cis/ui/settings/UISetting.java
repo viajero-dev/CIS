@@ -8,6 +8,7 @@ package com.vg.scfc.financing.cis.ui.settings;
 import com.vg.hrm.user.ent.Employee;
 import com.vg.scfc.financing.cis.service.AddressService;
 import com.vg.scfc.financing.cis.service.ApplianceService;
+import com.vg.scfc.financing.cis.service.AssetService;
 import com.vg.scfc.financing.cis.service.CharacterReferenceService;
 import com.vg.scfc.financing.cis.service.CompanyService;
 import com.vg.scfc.financing.cis.service.CreditRefService;
@@ -23,6 +24,7 @@ import com.vg.scfc.financing.cis.service.LandTypeService;
 import com.vg.scfc.financing.cis.service.MachineryService;
 import com.vg.scfc.financing.cis.service.MemoToFileService;
 import com.vg.scfc.financing.cis.service.PersonTypeService;
+import com.vg.scfc.financing.cis.service.PersonalInfoService;
 import com.vg.scfc.financing.cis.service.PurchaseOrderService;
 import com.vg.scfc.financing.cis.service.ReligionService;
 import com.vg.scfc.financing.cis.service.RepresentativeEmploymentService;
@@ -71,6 +73,24 @@ public class UISetting {
     private static TransactionModeService transactionModeService;
     private static TribeService tribeService;
     private static VehicleService vehicleService;
+    private static PersonalInfoService personalInfoService;
+    private static AssetService assetService;
+
+    public static AssetService getAssetService() {
+        return assetService;
+    }
+
+    public static void setAssetService(AssetService assetService) {
+        UISetting.assetService = assetService;
+    }
+
+    public static PersonalInfoService getPersonalInfoService() {
+        return personalInfoService;
+    }
+
+    public static void setPersonalInfoService(PersonalInfoService personalInfoService) {
+        UISetting.personalInfoService = personalInfoService;
+    }
 
     public static Location getStoreLocation() {
         return storeLocation;

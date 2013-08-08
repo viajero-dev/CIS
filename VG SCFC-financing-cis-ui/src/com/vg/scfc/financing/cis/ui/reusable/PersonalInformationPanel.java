@@ -89,7 +89,7 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
     private void initComboBoxValues() {
         List<Tribe> tribes = PersonalInfoController.getInstance().Tribes();
         List<Religion> religions = PersonalInfoController.getInstance().Religions();
-        
+
         if (!tribes.isEmpty()) {
             comboTribe.removeAllItems();
             for (Tribe t : tribes) {
@@ -523,6 +523,22 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
     private String previousAddress;
     private String formSeries;
     private Date applicationDate;
+    private String formNo;
+    private String personType;
+    private PersonalInfo personalInfo;
+
+    public void setFormNo(String formNo) {
+        this.formNo = formNo;
+    }
+
+    public void setPersonType(String personType) {
+        this.personType = personType;
+    }
+
+    public void setPersonalInfo(PersonalInfo personalInfo) {
+        this.personalInfo = personalInfo;
+        setPersonalInfoData(this.personalInfo);
+    }
 
     public void setFormSeries(String formSeries) {
         this.formSeries = formSeries;
@@ -653,14 +669,14 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
         comboStatus.setSelectedIndex(0);
         comboMarriedOption.setSelectedIndex(0);
         comboEducationStatus.setSelectedIndex(0);
-        comboTribe.setSelectedIndex(0);
-        comboReligion.setSelectedIndex(0);
-        comboCitizenship.setSelectedIndex(0);
+//        comboTribe.setSelectedIndex(0);
+//        comboReligion.setSelectedIndex(0);
+//        comboCitizenship.setSelectedIndex(0);
         txtPresentAddress.setText("");
         txtPreviousAddress.setText("");
     }
 
-    public void setPersonalInfo(Object o) {
+    public void setPersonalInfoData(Object o) {
         if (o == null) {
             resetToDefault();
         } else {
@@ -734,15 +750,13 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
         Object o = PersonalInfoController.getInstance().createNew(lastname, firstname, middlename, birthDate,
                 birthPlace, age, gender, tribe, religion, citizenship, civilStatus, educationalAttainment, contact,
                 presentAddress, previousAddress, formSeries, applicationDate);
-        setPersonalInfo(o);
+        setPersonalInfo((PersonalInfo) o);
         return o != null;
     }
 
     public boolean updatePersonalInfo() {
-        Object o = PersonalInfoController.getInstance().update("", lastname, firstname, middlename, birthDate,
-                birthPlace, age, gender, tribe, religion, citizenship, civilStatus, educationalAttainment, contact,
-                presentAddress, previousAddress);
-        setPersonalInfo(o);
+        Object o = PersonalInfoController.getInstance().update(personalInfo);
+        setPersonalInfo((PersonalInfo) o);
         return o != null;
     }
 

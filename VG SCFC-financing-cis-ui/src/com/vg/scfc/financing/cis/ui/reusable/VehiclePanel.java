@@ -6,6 +6,8 @@
 package com.vg.scfc.financing.cis.ui.reusable;
 
 import com.vg.scfc.financing.cis.ent.Vehicle;
+import com.vg.scfc.financing.cis.ui.controller.VehicleAssetsController;
+import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.math.BigDecimal;
@@ -15,8 +17,6 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import org.jdesktop.observablecollections.ObservableCollections;
-import com.vg.scfc.financing.cis.ui.controller.VehicleAssetsController;
-import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 
 /**
  *
@@ -31,13 +31,13 @@ public class VehiclePanel extends javax.swing.JPanel implements KeyListener {
         initComponents();
         startUpSettings();
     }
-    
+
     private void startUpSettings() {
         setFieldsEditable(false);
-         initKeyListeners();
+        initKeyListeners();
         initVehicleTable();
     }
-    
+
     private void initVehicleTable() {
         tableVehicle.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         tableVehicle.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
@@ -47,7 +47,7 @@ public class VehiclePanel extends javax.swing.JPanel implements KeyListener {
                 try {
                     selectedIndex = tableVehicle.getSelectedRow();
                     if (selectedIndex >= 0) {
-                        setVechicle(vehicles.get(selectedIndex));
+                        setVehicle(vehicles.get(selectedIndex));
                     }
                 } catch (Exception e) {
                     UIValidator.log(e, VehiclePanel.class);
@@ -195,6 +195,22 @@ public class VehiclePanel extends javax.swing.JPanel implements KeyListener {
     private BigDecimal estimatedValue;
     private String use;
     private int selectedIndex;
+    private String formNo;
+    private Vehicle vehicle;
+
+    public void setVehicle(Vehicle vehicle) {
+        this.vehicle = vehicle;
+        setVechicleInfo(this.vehicle);
+    }
+
+    public void setFormNo(String formNo) {
+        this.formNo = formNo;
+    }
+
+    public void setVehicles(List<Vehicle> vehicles) {
+        this.vehicles = vehicles;
+        refreshTable(this.vehicles);
+    }
 
     @Override
     public void keyTyped(KeyEvent e) {
@@ -242,7 +258,7 @@ public class VehiclePanel extends javax.swing.JPanel implements KeyListener {
         txtEstValue.setText("");
     }
 
-    public void setVechicle(Object o) {
+    public void setVechicleInfo(Object o) {
         if (o == null) {
             resetToDefault();
         } else {
@@ -262,21 +278,21 @@ public class VehiclePanel extends javax.swing.JPanel implements KeyListener {
     }
 
     public boolean saveVehicleAsset() {
-        Object o = VehicleAssetsController.getInstance().createNew(typeModel, yearsUsed.intValue(), use, estimatedValue);
-        setVechicle(o);
-        return o != null;
+        List<Vehicle> v = VehicleAssetsController.getInstance().createNew(typeModel, yearsUsed.intValue(), use, estimatedValue, formNo);
+        setVehicles(v);
+        return !v.isEmpty();
     }
 
     public boolean updateVehicleAsset() {
-        Object o = VehicleAssetsController.getInstance().update("", typeModel, yearsUsed.intValue(), use, estimatedValue);
-        setVechicle(o);
-        return o != null;
+        List<Vehicle> v = VehicleAssetsController.getInstance().update(formNo, vehicle);
+        setVehicles(v);
+        return !v.isEmpty();
     }
-    
+
     public void refreshTable(List<Vehicle> v) {
         vehicles.clear();
         vehicles.addAll(v);
-        if(!vehicles.isEmpty()) {
+        if (!vehicles.isEmpty()) {
             tableVehicle.setRowSelectionInterval(0, 0);
         }
     }
