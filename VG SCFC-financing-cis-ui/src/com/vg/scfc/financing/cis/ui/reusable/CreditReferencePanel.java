@@ -5,17 +5,20 @@
  */
 package com.vg.scfc.financing.cis.ui.reusable;
 
+import com.vg.commons.util.NumberUtils;
 import com.vg.scfc.financing.cis.ent.CreditRef;
+import com.vg.scfc.financing.cis.ui.controller.CreditReferenceController;
+import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.math.BigDecimal;
+import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import com.vg.scfc.financing.cis.ui.controller.CreditReferenceController;
-import com.vg.scfc.financing.cis.ui.validator.UIValidator;
+import org.jdesktop.observablecollections.ObservableCollections;
 
 /**
  *
@@ -68,6 +71,7 @@ public class CreditReferencePanel extends javax.swing.JPanel implements KeyListe
         txtCRTerm.addKeyListener(this);
         txtCRAmountPaid.addKeyListener(this);
         txtCRRemainingBal.addKeyListener(this);
+        txtCRAddress.addKeyListener(this);
     }
 
     /**
@@ -78,7 +82,9 @@ public class CreditReferencePanel extends javax.swing.JPanel implements KeyListe
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
+        creditReferences = ObservableCollections.observableList(new LinkedList<CreditRef>());
         jLabel1 = new javax.swing.JLabel();
         txtCRName = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -95,12 +101,14 @@ public class CreditReferencePanel extends javax.swing.JPanel implements KeyListe
         txtCRRemainingBal = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         txtCRAddress = new javax.swing.JTextField();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tableCreditReference = new javax.swing.JTable();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel1.setText("Name");
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 10, -1, -1));
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 105, -1, -1));
 
         txtCRName.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtCRName.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -108,11 +116,11 @@ public class CreditReferencePanel extends javax.swing.JPanel implements KeyListe
                 txtCRNameFocusLost(evt);
             }
         });
-        add(txtCRName, new org.netbeans.lib.awtextra.AbsoluteConstraints(105, 5, 359, -1));
+        add(txtCRName, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 100, 359, -1));
 
         jLabel2.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel2.setText("Item on credit");
-        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 60, -1, -1));
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 155, -1, -1));
 
         txtCRItemOnCredit.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtCRItemOnCredit.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -120,11 +128,11 @@ public class CreditReferencePanel extends javax.swing.JPanel implements KeyListe
                 txtCRItemOnCreditFocusLost(evt);
             }
         });
-        add(txtCRItemOnCredit, new org.netbeans.lib.awtextra.AbsoluteConstraints(105, 55, 127, -1));
+        add(txtCRItemOnCredit, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 150, 127, -1));
 
         jLabel3.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel3.setText("Loan Amount");
-        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 60, -1, -1));
+        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 155, -1, -1));
 
         txtCRLoanAmount.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtCRLoanAmount.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -132,11 +140,11 @@ public class CreditReferencePanel extends javax.swing.JPanel implements KeyListe
                 txtCRLoanAmountFocusLost(evt);
             }
         });
-        add(txtCRLoanAmount, new org.netbeans.lib.awtextra.AbsoluteConstraints(337, 55, 127, -1));
+        add(txtCRLoanAmount, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 150, 127, -1));
 
         jLabel4.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel4.setText("Monthly Amort.");
-        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 85, -1, -1));
+        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 180, -1, -1));
 
         txtCRMonthlyAmort.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtCRMonthlyAmort.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -144,11 +152,11 @@ public class CreditReferencePanel extends javax.swing.JPanel implements KeyListe
                 txtCRMonthlyAmortFocusLost(evt);
             }
         });
-        add(txtCRMonthlyAmort, new org.netbeans.lib.awtextra.AbsoluteConstraints(105, 80, 127, -1));
+        add(txtCRMonthlyAmort, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 175, 127, -1));
 
         jLabel5.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel5.setText("Term");
-        add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 85, -1, -1));
+        add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 180, -1, -1));
 
         txtCRTerm.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtCRTerm.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -156,11 +164,11 @@ public class CreditReferencePanel extends javax.swing.JPanel implements KeyListe
                 txtCRTermFocusLost(evt);
             }
         });
-        add(txtCRTerm, new org.netbeans.lib.awtextra.AbsoluteConstraints(337, 80, 127, -1));
+        add(txtCRTerm, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 175, 127, -1));
 
         jLabel6.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel6.setText("Amount paid");
-        add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 110, -1, -1));
+        add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 205, -1, -1));
 
         txtCRAmountPaid.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtCRAmountPaid.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -168,11 +176,11 @@ public class CreditReferencePanel extends javax.swing.JPanel implements KeyListe
                 txtCRAmountPaidFocusLost(evt);
             }
         });
-        add(txtCRAmountPaid, new org.netbeans.lib.awtextra.AbsoluteConstraints(105, 105, 127, -1));
+        add(txtCRAmountPaid, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 200, 127, -1));
 
         jLabel7.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel7.setText("Remaining Bal.");
-        add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 110, -1, -1));
+        add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 205, -1, -1));
 
         txtCRRemainingBal.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtCRRemainingBal.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -180,11 +188,11 @@ public class CreditReferencePanel extends javax.swing.JPanel implements KeyListe
                 txtCRRemainingBalFocusLost(evt);
             }
         });
-        add(txtCRRemainingBal, new org.netbeans.lib.awtextra.AbsoluteConstraints(337, 105, 127, -1));
+        add(txtCRRemainingBal, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 200, 127, -1));
 
         jLabel8.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel8.setText("Address");
-        add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 35, -1, -1));
+        add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 130, -1, -1));
 
         txtCRAddress.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtCRAddress.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -192,42 +200,58 @@ public class CreditReferencePanel extends javax.swing.JPanel implements KeyListe
                 txtCRAddressFocusLost(evt);
             }
         });
-        add(txtCRAddress, new org.netbeans.lib.awtextra.AbsoluteConstraints(105, 30, 359, -1));
+        add(txtCRAddress, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 125, 359, -1));
+
+        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, creditReferences, tableCreditReference);
+        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${creRefName}"));
+        columnBinding.setColumnName("Name");
+        columnBinding.setColumnClass(String.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${creRefAddress}"));
+        columnBinding.setColumnName("Address");
+        columnBinding.setColumnClass(String.class);
+        bindingGroup.addBinding(jTableBinding);
+        jTableBinding.bind();
+        jScrollPane4.setViewportView(tableCreditReference);
+
+        add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 5, 980, 90));
+
+        bindingGroup.bind();
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtCRItemOnCreditFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCRItemOnCreditFocusLost
-        itemOnCredit = UIValidator.validate(txtCRItemOnCredit);
+        txtCRItemOnCredit.setText(UIValidator.validate(txtCRItemOnCredit));
     }//GEN-LAST:event_txtCRItemOnCreditFocusLost
 
     private void txtCRMonthlyAmortFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCRMonthlyAmortFocusLost
-        monthlyAmort = new BigDecimal(UIValidator.isNumeric(txtCRMonthlyAmort));
+        txtCRMonthlyAmort.setText(NumberUtils.doubleToString(new BigDecimal(UIValidator.isNumeric(txtCRMonthlyAmort)).doubleValue()));
     }//GEN-LAST:event_txtCRMonthlyAmortFocusLost
 
     private void txtCRAmountPaidFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCRAmountPaidFocusLost
-        amountPaid = new BigDecimal(UIValidator.isNumeric(txtCRAmountPaid));
+        txtCRAmountPaid.setText(NumberUtils.doubleToString(new BigDecimal(UIValidator.isNumeric(txtCRAmountPaid)).doubleValue()));
     }//GEN-LAST:event_txtCRAmountPaidFocusLost
 
     private void txtCRLoanAmountFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCRLoanAmountFocusLost
-        loanAmount = new BigDecimal(UIValidator.isNumeric(txtCRLoanAmount));
+        txtCRLoanAmount.setText(NumberUtils.doubleToString(new BigDecimal(UIValidator.isNumeric(txtCRLoanAmount)).doubleValue()));
     }//GEN-LAST:event_txtCRLoanAmountFocusLost
 
     private void txtCRTermFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCRTermFocusLost
-        term = UIValidator.validate(txtCRTerm);
+        txtCRTerm.setText(UIValidator.validate(txtCRTerm));
     }//GEN-LAST:event_txtCRTermFocusLost
 
     private void txtCRRemainingBalFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCRRemainingBalFocusLost
-        remainingBal = new BigDecimal(UIValidator.isNumeric(txtCRRemainingBal));
+        txtCRRemainingBal.setText(NumberUtils.doubleToString(new BigDecimal(UIValidator.isNumeric(txtCRRemainingBal)).doubleValue()));
     }//GEN-LAST:event_txtCRRemainingBalFocusLost
 
     private void txtCRNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCRNameFocusLost
-        name = UIValidator.validate(txtCRName);
+        txtCRName.setText(UIValidator.validate(txtCRName));
     }//GEN-LAST:event_txtCRNameFocusLost
 
     private void txtCRAddressFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCRAddressFocusLost
-        address = UIValidator.validate(txtCRName);
+        txtCRAddress.setText(UIValidator.validate(txtCRAddress));
     }//GEN-LAST:event_txtCRAddressFocusLost
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private java.util.List<CreditRef> creditReferences;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -236,6 +260,8 @@ public class CreditReferencePanel extends javax.swing.JPanel implements KeyListe
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JTable tableCreditReference;
     private javax.swing.JTextField txtCRAddress;
     private javax.swing.JTextField txtCRAmountPaid;
     private javax.swing.JTextField txtCRItemOnCredit;
@@ -244,32 +270,18 @@ public class CreditReferencePanel extends javax.swing.JPanel implements KeyListe
     private javax.swing.JTextField txtCRName;
     private javax.swing.JTextField txtCRRemainingBal;
     private javax.swing.JTextField txtCRTerm;
+    private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
-    private String name;
-    private String address;
-    private String itemOnCredit;
-    private BigDecimal loanAmount;
-    private BigDecimal monthlyAmort;
-    private String term;
-    private BigDecimal amountPaid;
-    private BigDecimal remainingBal;
-    private JTable tableCreditReference;
     private int selectedIndex;
-    private List<CreditRef> creditReferences;
-    private String formNo;
     private CreditRef creditReference;
+    private HeaderPanel headerPanel;
+
+    public void setHeaderPanel(HeaderPanel headerPanel) {
+        this.headerPanel = headerPanel;
+    }
 
     public void setCreditReference(CreditRef creditReference) {
         this.creditReference = creditReference;
-    }
-
-    public void setFormNo(String formNo) {
-        this.formNo = formNo;
-    }
-
-    public void setCreditReferences(List<CreditRef> creditReferences) {
-        this.creditReferences = creditReferences;
-        refreshTable(this.creditReferences);
     }
 
     public void setTableCreditReference(JTable tableCreditReference) {
@@ -290,7 +302,7 @@ public class CreditReferencePanel extends javax.swing.JPanel implements KeyListe
             case KeyEvent.VK_ENTER:
                 if (txtCRName.isFocusOwner()) {
                 txtCRAddress.requestFocus();
-            } else if (txtCRItemOnCredit.isFocusOwner()) {
+            } else if (txtCRAddress.isFocusOwner()) {
                 txtCRItemOnCredit.requestFocus();
             } else if (txtCRItemOnCredit.isFocusOwner()) {
                 txtCRLoanAmount.requestFocus();
@@ -363,14 +375,14 @@ public class CreditReferencePanel extends javax.swing.JPanel implements KeyListe
     }
 
     public boolean saveCreditReference() {
-        List<CreditRef> c = CreditReferenceController.getInstance().createNew(name, address, itemOnCredit, loanAmount, monthlyAmort, term, amountPaid, remainingBal, formNo);
-        setCreditReferences(c);
+        List<CreditRef> c = CreditReferenceController.getInstance().createNew(createNew(new CreditRef()), headerPanel.getFormNo());
+        refreshTable(c);
         return !c.isEmpty();
     }
 
     public boolean updateCreditReference() {
-        List<CreditRef> c = CreditReferenceController.getInstance().update(formNo, creditReference);
-        setCreditReferences(c);
+        List<CreditRef> c = CreditReferenceController.getInstance().update(headerPanel.getFormNo(), createNew(creditReference));
+        refreshTable(c);
         return !c.isEmpty();
     }
 
@@ -380,5 +392,17 @@ public class CreditReferencePanel extends javax.swing.JPanel implements KeyListe
         if (!creditReferences.isEmpty()) {
             tableCreditReference.setRowSelectionInterval(0, 0);
         }
+    }
+
+    public CreditRef createNew(CreditRef c) {
+        c.setCreRefName(txtCRName.getText());
+        c.setCreRefAddress(txtCRAddress.getText());
+        c.setCreItem(txtCRItemOnCredit.getText());
+        c.setCreRefLoanAmount(new BigDecimal(UIValidator.MoneyCommaRemover(txtCRLoanAmount.getText())).doubleValue());
+        c.setCreRefMonthly(new BigDecimal(UIValidator.MoneyCommaRemover(txtCRMonthlyAmort.getText())).doubleValue());
+        c.setCreRefTerm(txtCRTerm.getText());
+        c.setCreRefAmountPaid(new BigDecimal(UIValidator.MoneyCommaRemover(txtCRAmountPaid.getText())).doubleValue());
+        c.setCreRefBalance(new BigDecimal(UIValidator.MoneyCommaRemover(txtCRRemainingBal.getText())).doubleValue());
+        return c;
     }
 }

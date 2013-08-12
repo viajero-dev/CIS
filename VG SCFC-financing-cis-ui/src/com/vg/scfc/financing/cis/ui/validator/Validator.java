@@ -83,4 +83,8 @@ public class Validator {
     public boolean maxLengthReach(int maxLength, String input) {
         return (input.length() > maxLength);
     }
+    
+    public String commaRemover(String input) {
+        return input.replace(",", "");
+    }
 }

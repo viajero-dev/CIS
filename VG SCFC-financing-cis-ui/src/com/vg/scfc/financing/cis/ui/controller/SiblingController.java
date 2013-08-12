@@ -33,17 +33,23 @@ public class SiblingController {
             s.setUser(UISetting.getSystemUser());
             s.setLocation(UISetting.getStoreLocation());
             s.setStation(UISetting.getComputerName());
-            UISetting.getSiblingService().insert(s);
-            results = UISetting.getSiblingService().findByFormNo(formNo);
+            Object o = UISetting.getSiblingService().insert(s);
+            if (o != null) {
+                results = UISetting.getSiblingService().findByFormNo(formNo);
+            }
         } catch (Exception ex) {
             UIValidator.log(ex, SiblingController.class);
         }
         return results;
     }
-    
+
     public List<Sibling> update(String formNo, Sibling s) {
         List<Sibling> results = new ArrayList<>();
         try {
+            s.setTxFormNo(formNo);
+            s.setUser(UISetting.getSystemUser());
+            s.setLocation(UISetting.getStoreLocation());
+            s.setStation(UISetting.getComputerName());
             UISetting.getSiblingService().update(s);
             results = UISetting.getSiblingService().findByFormNo(formNo);
         } catch (Exception ex) {
@@ -51,7 +57,7 @@ public class SiblingController {
         }
         return results;
     }
-    
+
     public List<Sibling> findAll(String formNo) {
         List<Sibling> results = new ArrayList<>();
         try {

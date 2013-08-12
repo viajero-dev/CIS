@@ -504,6 +504,11 @@ public class LandPanel extends javax.swing.JPanel implements KeyListener {
     private String additionalInfo;
     private List<Land> lands;
     private String formNo;
+    private HeaderPanel headerPanel;
+
+    public void setHeaderPanel(HeaderPanel headerPanel) {
+        this.headerPanel = headerPanel;
+    }
 
     public void setFormNo(String formNo) {
         this.formNo = formNo;
@@ -742,15 +747,122 @@ public class LandPanel extends javax.swing.JPanel implements KeyListener {
     }
 
     public boolean saveLandAssets() {
-        List<Land> l = LandAssetController.getInstance().createNew(agriArea.doubleValue(), agriLocation,
-                agriValue, comArea.doubleValue(), comLocation, comValue, resArea.doubleValue(), resLocation, resValue, additionalInfo, formNo);
+        List<Land> l = LandAssetController.getInstance().createNew(createNew(new ArrayList<Land>()), headerPanel.getFormNo());
         setLands(l);
         return !l.isEmpty();
     }
 
     public boolean updateLandAssets() {
-        List<Land> l = LandAssetController.getInstance().update(lands);
+        List<Land> l = LandAssetController.getInstance().update(createNew(lands));
         setLands(l);
         return !l.isEmpty();
+    }
+
+    private List<Land> createNew(List<Land> lands) {
+        if (lands.isEmpty()) {
+            List<Land> results = new ArrayList<>();
+            /* Agricultural Land */
+            if (!txtAreaAgri.getText().equals("")) {
+                Land agriLand = new Land();
+                agriLand.setArea(new BigDecimal(UIValidator.MoneyCommaRemover(txtAreaAgri.getText())).doubleValue());
+                agriLand.setAddress(txtLocationAgri.getText());
+                agriLand.setAmount(new BigDecimal(UIValidator.MoneyCommaRemover(txtEstValueAgri.getText())).doubleValue());
+                agriLand.setAdditionalInfo("");
+                agriLand.setLandType(LandAssetController.getInstance().findLandTypeByID(1));
+                results.add(agriLand);
+            }
+
+            /* Commercial Land */
+            if (!txtAreaCommercial.getText().equals("")) {
+                Land commLand = new Land();
+                commLand.setArea(new BigDecimal(UIValidator.MoneyCommaRemover(txtAreaCommercial.getText())).doubleValue());
+                commLand.setAddress(txtLocationCommercial.getText());
+                commLand.setAmount(new BigDecimal(UIValidator.MoneyCommaRemover(txtEstValueCommercial.getText())).doubleValue());
+                commLand.setAdditionalInfo("");
+                commLand.setLandType(LandAssetController.getInstance().findLandTypeByID(2));
+                results.add(commLand);
+            }
+
+            /* Residential Land */
+            if (!txtAreaResidential.getText().equals("")) {
+                Land resLand = new Land();
+                resLand.setArea(new BigDecimal(UIValidator.MoneyCommaRemover(txtAreaResidential.getText())).doubleValue());
+                resLand.setAddress(txtLocationResidential.getText());
+                resLand.setAmount(new BigDecimal(UIValidator.MoneyCommaRemover(txtEstValueResidential.getText())).doubleValue());
+                if (optionConcrete.isSelected()) {
+                    resLand.setAdditionalInfo("CONCRETE");
+                }
+                if (optionHouse.isSelected()) {
+                    resLand.setAdditionalInfo("HOUSE");
+                }
+                if (optionSemiConcrete.isSelected()) {
+                    resLand.setAdditionalInfo("SEMI CONCRETE");
+                }
+                if (optionShanity.isSelected()) {
+                    resLand.setAdditionalInfo("SHANITY");
+                }
+                if (optionOthers.isSelected()) {
+                    resLand.setAdditionalInfo(txtOtherDesc.getText());
+                }
+                resLand.setLandType(LandAssetController.getInstance().findLandTypeByID(3));
+                results.add(resLand);
+            }
+            return results;
+        } else {
+            for (Land land : lands) {
+                switch (land.getLandType().getId()) {
+                    case 1:
+                        if (checkAgricultural.isSelected()) {
+                        land.setArea(new BigDecimal(UIValidator.MoneyCommaRemover(txtAreaAgri.getText())).doubleValue());
+                        land.setAddress(txtLocationAgri.getText());
+                        land.setAmount(new BigDecimal(UIValidator.MoneyCommaRemover(txtEstValueAgri.getText())).doubleValue());
+                    } else {
+                        land.setArea(0);
+                        land.setAddress("");
+                        land.setAmount(0);
+                    }
+                        break;
+                    case 2:
+                        if (checkCommercial.isSelected()) {
+                        land.setArea(new BigDecimal(UIValidator.MoneyCommaRemover(txtAreaCommercial.getText())).doubleValue());
+                        land.setAddress(txtLocationCommercial.getText());
+                        land.setAmount(new BigDecimal(UIValidator.MoneyCommaRemover(txtEstValueAgri.getText())).doubleValue());
+                    } else {
+                        land.setArea(0);
+                        land.setAddress("");
+                        land.setAmount(0);
+                    }
+                        break;
+                    case 3:
+                        if (checkResidential.isSelected()) {
+                        land.setArea(new BigDecimal(UIValidator.MoneyCommaRemover(txtAreaResidential.getText())).doubleValue());
+                        land.setAddress(txtLocationResidential.getText());
+                        if (optionConcrete.isSelected()) {
+                            land.setAdditionalInfo("CONCRETE");
+                        }
+                        if (optionHouse.isSelected()) {
+                            land.setAdditionalInfo("HOUSE");
+                        }
+                        if (optionSemiConcrete.isSelected()) {
+                            land.setAdditionalInfo("SEMI CONCRETE");
+                        }
+                        if (optionShanity.isSelected()) {
+                            land.setAdditionalInfo("SHANITY");
+                        }
+                        if (optionOthers.isSelected()) {
+                            land.setAdditionalInfo(txtOtherDesc.getText());
+                        }
+                        land.setAmount(new BigDecimal(UIValidator.MoneyCommaRemover(txtEstValueResidential.getText())).doubleValue());
+                    } else {
+                        land.setArea(0);
+                        land.setAddress("");
+                        land.setAdditionalInfo("");
+                        land.setAmount(0);
+                    }
+                        break;
+                }
+            }
+            return lands;
+        }
     }
 }

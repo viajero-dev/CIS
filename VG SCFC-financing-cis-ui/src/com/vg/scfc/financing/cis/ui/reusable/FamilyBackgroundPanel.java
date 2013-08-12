@@ -172,35 +172,35 @@ public class FamilyBackgroundPanel extends javax.swing.JPanel implements KeyList
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtFatherNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFatherNameFocusLost
-        fathersName = UIValidator.validate(txtFatherName);
+        txtFatherName.setText(UIValidator.validate(txtFatherName));
     }//GEN-LAST:event_txtFatherNameFocusLost
 
     private void txtFatherAddressFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFatherAddressFocusLost
-        fathersAddress = UIValidator.validate(txtFatherAddress);
+        txtFatherAddress.setText(UIValidator.validate(txtFatherAddress));
     }//GEN-LAST:event_txtFatherAddressFocusLost
 
     private void txtFatherOccupationFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFatherOccupationFocusLost
-        fathersOccupation = UIValidator.validate(txtFatherOccupation);
+        txtFatherOccupation.setText(UIValidator.validate(txtFatherOccupation));
     }//GEN-LAST:event_txtFatherOccupationFocusLost
 
     private void txtFatherAgeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFatherAgeFocusLost
-        fathersAge = Integer.parseInt(UIValidator.isNumeric(txtFatherAge));
+        txtFatherAge.setText(UIValidator.isNumeric(txtFatherAge));
     }//GEN-LAST:event_txtFatherAgeFocusLost
 
     private void txtMotherNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtMotherNameFocusLost
-        mothersName = UIValidator.validate(txtMotherName);
+        txtMotherName.setText(UIValidator.validate(txtMotherName));
     }//GEN-LAST:event_txtMotherNameFocusLost
 
     private void txtMotherAddressFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtMotherAddressFocusLost
-        mothersAddress = UIValidator.validate(txtMotherAddress);
+        txtMotherAddress.setText(UIValidator.validate(txtMotherAddress));
     }//GEN-LAST:event_txtMotherAddressFocusLost
 
     private void txtMotherOccupationFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtMotherOccupationFocusLost
-        mothersOccupation = UIValidator.validate(txtMotherAddress);
+        txtMotherOccupation.setText(UIValidator.validate(txtMotherAddress));
     }//GEN-LAST:event_txtMotherOccupationFocusLost
 
     private void txtMotherAgeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtMotherAgeFocusLost
-        mothersAge = Integer.parseInt(UIValidator.isNumeric(txtMotherAge));
+        txtMotherAge.setText(UIValidator.isNumeric(txtMotherAge));
     }//GEN-LAST:event_txtMotherAgeFocusLost
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -221,39 +221,21 @@ public class FamilyBackgroundPanel extends javax.swing.JPanel implements KeyList
     private javax.swing.JTextField txtMotherName;
     private javax.swing.JTextField txtMotherOccupation;
     // End of variables declaration//GEN-END:variables
-    private String fathersName;
-    private String fathersAddress;
-    private String fathersOccupation;
-    private int fathersAge;
-    private String mothersName;
-    private String mothersAddress;
-    private String mothersOccupation;
-    private int mothersAge;
     private String personType;
-    private String formNo;
-    private Family father;
-    private Family mother;
     private List<Family> families = new ArrayList<>();
+    private HeaderPanel headerPanel;
+
+    public void setHeaderPanel(HeaderPanel headerPanel) {
+        this.headerPanel = headerPanel;
+    }
 
     public void setFamilies(List<Family> families) {
         this.families = families;
         setFamilyBackground(this.families);
     }
 
-    public void setFather(Family father) {
-        this.father = father;
-    }
-
-    public void setMother(Family mother) {
-        this.mother = mother;
-    }
-
     public void setPersonType(String personType) {
         this.personType = personType;
-    }
-
-    public void setFormNo(String formNo) {
-        this.formNo = formNo;
     }
 
     @Override
@@ -350,15 +332,59 @@ public class FamilyBackgroundPanel extends javax.swing.JPanel implements KeyList
     }
 
     public boolean saveFamilyBackground() {
-        List<Family> f = FamilyBackgroundController.getInstance().createNew(fathersName, fathersAddress, fathersOccupation, fathersAge, mothersName, mothersAddress, mothersOccupation, mothersAge, personType, formNo);
+        List<Family> f = FamilyBackgroundController.getInstance().createNew(createNew(new ArrayList<Family>()), personType, headerPanel.getFormNo());
         setFamilies(f);
         return f != null && !f.isEmpty();
     }
 
     public boolean updateFamilyBackground() {
-        List<Family> f = FamilyBackgroundController.getInstance().update(father, mother);
+        List<Family> f = FamilyBackgroundController.getInstance().update(createNew(new ArrayList<Family>()), headerPanel.getFormNo(), personType);
         setFamilyBackground(f);
         return f != null && !f.isEmpty();
+    }
+
+    private List<Family> createNew(List<Family> f) {
+        if (f.isEmpty()) {
+            List<Family> results = new ArrayList<>();
+
+            /* Father */
+            Family fther = new Family();
+            fther.setFamName(txtFatherName.getText());
+            fther.setFamAddress(txtFatherAddress.getText());
+            fther.setFamOccupation(txtFatherOccupation.getText());
+            fther.setFamAge(Integer.parseInt(txtFatherAge.getText()));
+            fther.setFamRelation("FATHER");
+            results.add(fther);
+
+            /* Mother */
+            Family mther = new Family();
+            mther.setFamName(txtMotherName.getText());
+            mther.setFamAddress(txtMotherAddress.getText());
+            mther.setFamOccupation(txtMotherOccupation.getText());
+            mther.setFamAge(Integer.parseInt(txtMotherAge.getText()));
+            mther.setFamRelation("MOTHER");
+            results.add(mther);
+
+            return results;
+        } else {
+            for (Family family : f) {
+                switch (family.getFamRelation()) {
+                    case "FATHER":
+                        family.setFamName(txtFatherName.getText());
+                        family.setFamAddress(txtFatherAddress.getText());
+                        family.setFamOccupation(txtFatherOccupation.getText());
+                        family.setFamAge(Integer.parseInt(txtFatherAge.getText()));
+                        break;
+                    case "MOTHER":
+                        family.setFamName(txtMotherName.getText());
+                        family.setFamAddress(txtMotherAddress.getText());
+                        family.setFamOccupation(txtMotherOccupation.getText());
+                        family.setFamAge(Integer.parseInt(txtMotherAge.getText()));
+                        break;
+                }
+            }
+            return f;
+        }
     }
 
 }

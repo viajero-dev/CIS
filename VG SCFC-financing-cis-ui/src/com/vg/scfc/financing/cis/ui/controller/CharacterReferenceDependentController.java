@@ -27,19 +27,14 @@ public class CharacterReferenceDependentController {
         return instance;
     }
 
-    public List<CharacterReference> addCharacterReference(String name, String address, String contact, String relationship, String formNo) {
+    public List<CharacterReference> addCharacterReference(CharacterReference c, String formNo) {
         List<CharacterReference> results = new ArrayList<>();
         try {
-            CharacterReference chr = new CharacterReference();
-            chr.setCharRefName(name);
-            chr.setCharRefAddress(address);
-            chr.setCharRefContactNo(contact);
-            chr.setCharRelationship(relationship);
-            chr.setTxFormNo(formNo);
-            chr.setUser(UISetting.getSystemUser());
-            chr.setLocation(UISetting.getStoreLocation());
-            chr.setStation(UISetting.getComputerName());
-            boolean isSaved = UISetting.getCharacterReferenceService().insert(chr);
+            c.setTxFormNo(formNo);
+            c.setUser(UISetting.getSystemUser());
+            c.setLocation(UISetting.getStoreLocation());
+            c.setStation(UISetting.getComputerName());
+            boolean isSaved = UISetting.getCharacterReferenceService().insert(c);
             if (isSaved) {
                 results = UISetting.getCharacterReferenceService().findByFormNo(formNo);
             }
@@ -49,14 +44,9 @@ public class CharacterReferenceDependentController {
         return results;
     }
 
-    public List<Dependent> addDependent(String name, String address, String contact, String relationship, String formNo) {
+    public List<Dependent> addDependent(Dependent d, String formNo) {
         List<Dependent> results = new ArrayList<>();
         try {
-            Dependent d = new Dependent();
-            d.setDepName(name);
-            d.setDepAddress(address);
-            d.setDepContactNo(contact);
-            d.setDepRelation(relationship);
             d.setTxFormNo(formNo);
             d.setUser(UISetting.getSystemUser());
             d.setLocation(UISetting.getStoreLocation());
@@ -74,8 +64,13 @@ public class CharacterReferenceDependentController {
     public List<CharacterReference> updateCharacterReference(String formNo, CharacterReference c) {
         List<CharacterReference> results = new ArrayList<>();
         try {
+            c.setTxFormNo(formNo);
+            c.setUser(UISetting.getSystemUser());
+            c.setLocation(UISetting.getStoreLocation());
+            c.setStation(UISetting.getComputerName());
+            
             boolean isUpdated = UISetting.getCharacterReferenceService().update(c);
-            if(isUpdated) {
+            if (isUpdated) {
                 results = UISetting.getCharacterReferenceService().findByFormNo(formNo);
             }
         } catch (Exception e) {
@@ -83,12 +78,16 @@ public class CharacterReferenceDependentController {
         }
         return results;
     }
-    
+
     public List<Dependent> updateDependent(String formNo, Dependent d) {
         List<Dependent> results = new ArrayList<>();
         try {
+            d.setTxFormNo(formNo);
+            d.setUser(UISetting.getSystemUser());
+            d.setLocation(UISetting.getStoreLocation());
+            d.setStation(UISetting.getComputerName());
             boolean isUpdated = UISetting.getDependentService().update(d);
-            if(isUpdated) {
+            if (isUpdated) {
                 results = UISetting.getDependentService().findByFormNo(formNo);
             }
         } catch (Exception e) {
@@ -96,5 +95,5 @@ public class CharacterReferenceDependentController {
         }
         return results;
     }
-    
+
 }

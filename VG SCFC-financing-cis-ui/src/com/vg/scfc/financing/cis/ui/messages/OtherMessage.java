@@ -12,4 +12,5 @@ package com.vg.scfc.financing.cis.ui.messages;
 public class OtherMessage {
 
     public final static String SUCCESSFUL_INSERT = "NEW RECORD SAVED.";
+    public final static String SUCCESSFUL_UPDATE = "RECORD HAS BEEN UPDATED.";
 }

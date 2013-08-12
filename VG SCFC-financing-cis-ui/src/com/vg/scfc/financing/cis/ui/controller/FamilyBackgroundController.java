@@ -26,61 +26,57 @@ public class FamilyBackgroundController {
         return instance;
     }
 
-    public List<Family> createNew(String fathersName, String fathersAddress, String fathersOccupation, int fathersAge,
-            String mothersName, String mothersAddress, String mothersOccupation, int mothersAge, String personType, String formNo) {
+    public List<Family> createNew(List<Family> families, String personType, String formNo) {
         List<Family> results = new ArrayList<>();
         try {
-            Family father = new Family();
-            father.setFamName(fathersName);
-            father.setFamAddress(fathersAddress);
-            father.setFamOccupation(fathersOccupation);
-            father.setFamAge(fathersAge);
-            father.setFamRelation("FATHER");
-            father.setPersonType(UISetting.getPersonTypeService().findById(personType));
-            father.setTxForm(formNo);
-            father.setUser(UISetting.getSystemUser());
-            father.setLocation(UISetting.getStoreLocation());
-            father.setStation(UISetting.getComputerName());
-            
-            boolean isFatherSaved = UISetting.getFamilyService().insert(father);
-            if(isFatherSaved) {
-                results.add(UISetting.getFamilyService().findById(formNo, personType, "FATHER"));
+            boolean hasError = false;
+            for (Family family : families) {
+                family.setPersonType(UISetting.getPersonTypeService().findById(personType));
+                family.setTxForm(formNo);
+                family.setUser(UISetting.getSystemUser());
+                family.setLocation(UISetting.getStoreLocation());
+                family.setStation(UISetting.getComputerName());
+
+                boolean isSaved = UISetting.getFamilyService().insert(family);
+                if (!isSaved) {
+                    hasError = true;
+                    break;
+                }
             }
-            
-            Family mother = new Family();
-            mother.setFamName(mothersName);
-            mother.setFamAddress(mothersAddress);
-            mother.setFamOccupation(mothersOccupation);
-            mother.setFamAge(mothersAge);
-            mother.setFamRelation("MOTHER");
-            mother.setPersonType(UISetting.getPersonTypeService().findById(personType));
-            mother.setTxForm(formNo);
-            mother.setUser(UISetting.getSystemUser());
-            mother.setLocation(UISetting.getStoreLocation());
-            mother.setStation(UISetting.getComputerName());
-            
-            boolean isMotherSaved = UISetting.getFamilyService().insert(mother);
-            if(isMotherSaved) {
-                results.add(UISetting.getFamilyService().findById(formNo, personType, "MOTHER"));
+
+            if (!hasError) {
+                results = UISetting.getFamilyService().findById(formNo, personType);
             }
         } catch (Exception ex) {
             UIValidator.log(ex, FamilyBackgroundController.class);
         }
         return results;
     }
-    
-    public List<Family> update(Family father, Family mother) {
+
+    public List<Family> update(List<Family> families, String formNo, String personType) {
         List<Family> results = new ArrayList<>();
         try {
-            boolean isFatherUpdated = UISetting.getFamilyService().update(father);
-            boolean isMotherUpdated = UISetting.getFamilyService().update(mother);
-            if(isFatherUpdated) {
-                results.add(UISetting.getFamilyService().findById(father.getTxFormNo(), father.getPersonType().getTypeID(), "FATHER"));
+            boolean hasError = false;
+            for (Family family : families) {
+                family.setPersonType(UISetting.getPersonTypeService().findById(personType));
+                family.setTxForm(formNo);
+                family.setUser(UISetting.getSystemUser());
+                family.setLocation(UISetting.getStoreLocation());
+                family.setStation(UISetting.getComputerName());
+
+                boolean isUpdated = UISetting.getFamilyService().update(family);
+                if (!isUpdated) {
+                    System.out.println("oopss... something went wrong.");
+                    hasError = true;
+                    break;
+                }
             }
-            if(isMotherUpdated) {
-                results.add(UISetting.getFamilyService().findById(mother.getTxFormNo(), mother.getPersonType().getTypeID(), "MOTHER"));
+
+            if (!hasError) {
+                results = UISetting.getFamilyService().findById(formNo, personType);
             }
         } catch (Exception e) {
+            e.printStackTrace();
             UIValidator.log(e, FamilyBackgroundController.class);
         }
         return results;

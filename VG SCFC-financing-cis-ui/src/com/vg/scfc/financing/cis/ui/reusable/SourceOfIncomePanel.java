@@ -5,12 +5,15 @@
  */
 package com.vg.scfc.financing.cis.ui.reusable;
 
+import com.vg.commons.util.DateUtil;
+import com.vg.commons.util.NumberUtils;
 import com.vg.scfc.financing.cis.ent.SourceOfIncome;
 import com.vg.scfc.financing.cis.ui.controller.SourceOfIncomeController;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.math.BigDecimal;
+import java.text.ParseException;
 import javax.swing.JTextField;
 
 /**
@@ -28,7 +31,7 @@ public class SourceOfIncomePanel extends javax.swing.JPanel implements KeyListen
         initKeyListener();
         startUpSettings();
     }
-    
+
     private void startUpSettings() {
         setFieldsEditable(false);
     }
@@ -76,7 +79,6 @@ public class SourceOfIncomePanel extends javax.swing.JPanel implements KeyListen
         checkMonthlySalaryCompensation = new javax.swing.JCheckBox();
         checkSourceBusiness = new javax.swing.JCheckBox();
         lblHarvestSched = new javax.swing.JLabel();
-        txtFarmHarvestSchedule = new javax.swing.JTextField();
         optionBusinessRegistered = new javax.swing.JRadioButton();
         optionBusinessNotRegistered = new javax.swing.JRadioButton();
         checkSourceFarmProducts = new javax.swing.JCheckBox();
@@ -97,6 +99,11 @@ public class SourceOfIncomePanel extends javax.swing.JPanel implements KeyListen
         txtMonthlyIncomeForFarmProducts = new javax.swing.JTextField();
         lblAvgMonthlyIncomeForFarmProducts = new javax.swing.JLabel();
         txtMonthlyIncomeForOtherSources = new javax.swing.JTextField();
+        try {
+            txtFarmHarvestSchedule = new com.vg.commons.formattedfields.FormattedSimpleDateField();
+        } catch (java.text.ParseException e1) {
+            e1.printStackTrace();
+        }
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -123,34 +130,15 @@ public class SourceOfIncomePanel extends javax.swing.JPanel implements KeyListen
         lblHarvestSched.setEnabled(false);
         add(lblHarvestSched, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 165, -1, -1));
 
-        txtFarmHarvestSchedule.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
-        txtFarmHarvestSchedule.setEnabled(false);
-        txtFarmHarvestSchedule.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtFarmHarvestScheduleFocusLost(evt);
-            }
-        });
-        add(txtFarmHarvestSchedule, new org.netbeans.lib.awtextra.AbsoluteConstraints(165, 160, 127, -1));
-
         optionBusinessRegistered.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         optionBusinessRegistered.setSelected(true);
         optionBusinessRegistered.setText("Registered");
         optionBusinessRegistered.setEnabled(false);
-        optionBusinessRegistered.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                optionBusinessRegisteredItemStateChanged(evt);
-            }
-        });
         add(optionBusinessRegistered, new org.netbeans.lib.awtextra.AbsoluteConstraints(45, 80, -1, -1));
 
         optionBusinessNotRegistered.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         optionBusinessNotRegistered.setText("Not Registered");
         optionBusinessNotRegistered.setEnabled(false);
-        optionBusinessNotRegistered.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                optionBusinessNotRegisteredItemStateChanged(evt);
-            }
-        });
         add(optionBusinessNotRegistered, new org.netbeans.lib.awtextra.AbsoluteConstraints(145, 80, -1, -1));
 
         checkSourceFarmProducts.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
@@ -165,21 +153,11 @@ public class SourceOfIncomePanel extends javax.swing.JPanel implements KeyListen
         checkFarmLiveStock.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         checkFarmLiveStock.setText("LiveStock");
         checkFarmLiveStock.setEnabled(false);
-        checkFarmLiveStock.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                checkFarmLiveStockItemStateChanged(evt);
-            }
-        });
         add(checkFarmLiveStock, new org.netbeans.lib.awtextra.AbsoluteConstraints(145, 135, -1, -1));
 
         checkFarmAgri.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         checkFarmAgri.setText("Agricultural");
         checkFarmAgri.setEnabled(false);
-        checkFarmAgri.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                checkFarmAgriItemStateChanged(evt);
-            }
-        });
         add(checkFarmAgri, new org.netbeans.lib.awtextra.AbsoluteConstraints(45, 135, -1, -1));
 
         lblNatureOfBusiness.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
@@ -288,6 +266,9 @@ public class SourceOfIncomePanel extends javax.swing.JPanel implements KeyListen
             }
         });
         add(txtMonthlyIncomeForOtherSources, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 240, 127, -1));
+
+        txtFarmHarvestSchedule.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
+        add(txtFarmHarvestSchedule, new org.netbeans.lib.awtextra.AbsoluteConstraints(165, 160, 127, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void checkMonthlySalaryCompensationItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_checkMonthlySalaryCompensationItemStateChanged
@@ -355,55 +336,31 @@ public class SourceOfIncomePanel extends javax.swing.JPanel implements KeyListen
     }//GEN-LAST:event_checkSourceOthersItemStateChanged
 
     private void txtMonthlySalaryCompensationFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtMonthlySalaryCompensationFocusLost
-        avgMonthlyCompensation = new BigDecimal(UIValidator.isNumeric(txtMonthlySalaryCompensation));
+        txtMonthlySalaryCompensation.setText(NumberUtils.doubleToString(new BigDecimal(UIValidator.isNumeric(txtMonthlySalaryCompensation)).doubleValue()));
     }//GEN-LAST:event_txtMonthlySalaryCompensationFocusLost
 
     private void txtMonthlyIncomeForBusinessFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtMonthlyIncomeForBusinessFocusLost
-        avgBussMonthlyIncome = new BigDecimal(UIValidator.isNumeric(txtMonthlyIncomeForBusiness));
+        txtMonthlyIncomeForBusiness.setText(NumberUtils.doubleToString(new BigDecimal(UIValidator.isNumeric(txtMonthlyIncomeForBusiness)).doubleValue()));
     }//GEN-LAST:event_txtMonthlyIncomeForBusinessFocusLost
 
     private void txtMonthlyIncomeForFarmProductsFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtMonthlyIncomeForFarmProductsFocusLost
-        avgFarmMonthlyIncome = new BigDecimal(UIValidator.isNumeric(txtMonthlyIncomeForFarmProducts));
+        txtMonthlyIncomeForFarmProducts.setText(NumberUtils.doubleToString(new BigDecimal(UIValidator.isNumeric(txtMonthlyIncomeForFarmProducts)).doubleValue()));
     }//GEN-LAST:event_txtMonthlyIncomeForFarmProductsFocusLost
 
     private void txtMonthlyIncomeForOtherSourcesFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtMonthlyIncomeForOtherSourcesFocusLost
-        avgOtherSourceMonthlyIncome = new BigDecimal(UIValidator.isNumeric(txtMonthlyIncomeForOtherSources));
+        txtMonthlyIncomeForOtherSources.setText(NumberUtils.doubleToString(new BigDecimal(UIValidator.isNumeric(txtMonthlyIncomeForOtherSources)).doubleValue()));
     }//GEN-LAST:event_txtMonthlyIncomeForOtherSourcesFocusLost
 
     private void txtFarmAvgProductIncomeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFarmAvgProductIncomeFocusLost
-        avgProductIncome = new BigDecimal(UIValidator.isNumeric(txtFarmAvgProductIncome));
+        txtFarmAvgProductIncome.setText(NumberUtils.doubleToString(new BigDecimal(UIValidator.isNumeric(txtFarmAvgProductIncome)).doubleValue()));
     }//GEN-LAST:event_txtFarmAvgProductIncomeFocusLost
 
     private void txtBusinessNatureFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBusinessNatureFocusLost
-        natureOfBusiness = UIValidator.validate(txtBusinessNature);
+        txtBusinessNature.setText(UIValidator.validate(txtBusinessNature));
     }//GEN-LAST:event_txtBusinessNatureFocusLost
 
-    private void optionBusinessRegisteredItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_optionBusinessRegisteredItemStateChanged
-        if (optionBusinessRegistered.isSelected()) {
-            isRegistered = true;
-        }
-    }//GEN-LAST:event_optionBusinessRegisteredItemStateChanged
-
-    private void optionBusinessNotRegisteredItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_optionBusinessNotRegisteredItemStateChanged
-        if (optionBusinessNotRegistered.isSelected()) {
-            isRegistered = true;
-        }
-    }//GEN-LAST:event_optionBusinessNotRegisteredItemStateChanged
-
-    private void checkFarmAgriItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_checkFarmAgriItemStateChanged
-        isAgri = checkFarmAgri.isSelected();
-    }//GEN-LAST:event_checkFarmAgriItemStateChanged
-
-    private void checkFarmLiveStockItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_checkFarmLiveStockItemStateChanged
-        isLiveStock = checkFarmLiveStock.isSelected();
-    }//GEN-LAST:event_checkFarmLiveStockItemStateChanged
-
-    private void txtFarmHarvestScheduleFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFarmHarvestScheduleFocusLost
-        harvestSchedule = UIValidator.validate(txtFarmHarvestSchedule);
-    }//GEN-LAST:event_txtFarmHarvestScheduleFocusLost
-
     private void txtOtherSourceDescFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtOtherSourceDescFocusLost
-        otherSource = UIValidator.validate(txtOtherSourceDesc);
+        txtOtherSourceDesc.setText(UIValidator.validate(txtOtherSourceDesc));
     }//GEN-LAST:event_txtOtherSourceDescFocusLost
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -426,28 +383,26 @@ public class SourceOfIncomePanel extends javax.swing.JPanel implements KeyListen
     private javax.swing.ButtonGroup optionBusinessRegistrationStatusGroup;
     private javax.swing.JTextField txtBusinessNature;
     private javax.swing.JTextField txtFarmAvgProductIncome;
-    private javax.swing.JTextField txtFarmHarvestSchedule;
+    private com.vg.commons.formattedfields.FormattedSimpleDateField txtFarmHarvestSchedule;
     private javax.swing.JTextField txtMonthlyIncomeForBusiness;
     private javax.swing.JTextField txtMonthlyIncomeForFarmProducts;
     private javax.swing.JTextField txtMonthlyIncomeForOtherSources;
     private javax.swing.JTextField txtMonthlySalaryCompensation;
     private javax.swing.JTextField txtOtherSourceDesc;
     // End of variables declaration//GEN-END:variables
-    private BigDecimal avgMonthlyCompensation;
-    private BigDecimal avgProductIncome;
-    private BigDecimal avgOtherSourceMonthlyIncome;
-    private BigDecimal avgFarmMonthlyIncome;
-    private BigDecimal avgBussMonthlyIncome;
-    private String natureOfBusiness;
-    private boolean isRegistered;
-    private boolean isAgri;
-    private boolean isLiveStock;
-    private String harvestSchedule;
-    private String otherSource;
-    private String formNo;
     private String personType;
+    private String clientNo;
     private SourceOfIncome sourceOfIncome;
     private JTextField txtTotalMonthlyIncome;
+    private HeaderPanel headerPanel;
+
+    public void setClientNo(String clientNo) {
+        this.clientNo = clientNo;
+    }
+
+    public void setHeaderPanel(HeaderPanel headerPanel) {
+        this.headerPanel = headerPanel;
+    }
 
     public void setTxtTotalMonthlyIncome(JTextField txtTotalMonthlyIncome) {
         this.txtTotalMonthlyIncome = txtTotalMonthlyIncome;
@@ -455,10 +410,6 @@ public class SourceOfIncomePanel extends javax.swing.JPanel implements KeyListen
 
     public void setPersonType(String personType) {
         this.personType = personType;
-    }
-
-    public void setFormNo(String formNo) {
-        this.formNo = formNo;
     }
 
     public void setSourceOfIncome(SourceOfIncome sourceOfIncome) {
@@ -608,9 +559,9 @@ public class SourceOfIncomePanel extends javax.swing.JPanel implements KeyListen
             txtFarmHarvestSchedule.setText(s.getIncHarvestDate());
             txtFarmAvgProductIncome.setText(new BigDecimal(s.getIncAverageProd()).toPlainString());
             txtMonthlyIncomeForFarmProducts.setText(new BigDecimal(s.getIncFarm()).toPlainString());
-            
+
             /* Other Sources */
-            if(s.getIncOther() > 0) {
+            if (s.getIncOther() > 0) {
                 checkSourceOthers.setSelected(true);
             } else {
                 checkSourceOthers.setSelected(false);
@@ -620,22 +571,57 @@ public class SourceOfIncomePanel extends javax.swing.JPanel implements KeyListen
             totalMonthlyIncome(s);
         }
     }
-    
+
     public boolean saveSourceOfIncome() {
-        Object o = SourceOfIncomeController.getInstance().createNew(avgMonthlyCompensation, natureOfBusiness,
-                isRegistered, avgBussMonthlyIncome, isAgri, isLiveStock, harvestSchedule, avgProductIncome, avgFarmMonthlyIncome,
-                otherSource, avgOtherSourceMonthlyIncome, formNo, personType);
+        Object o = null;
+        try {
+            o = SourceOfIncomeController.getInstance().createNew(createNew(new SourceOfIncome()), headerPanel.getFormNo(), personType, clientNo);
+        } catch (ParseException ex) {
+            UIValidator.log(ex, SourceOfIncomePanel.class);
+        }
         setSourceOfIncome((SourceOfIncome) o);
         return o != null;
     }
-    
+
     public boolean updateSourceOfIncome() {
-        Object o = SourceOfIncomeController.getInstance().update(formNo, sourceOfIncome);
+        Object o = null;
+        try {
+            o = SourceOfIncomeController.getInstance().update(headerPanel.getFormNo(), createNew(sourceOfIncome));
+        } catch (ParseException ex) {
+            UIValidator.log(ex, SourceOfIncomePanel.class);
+        }
         setSourceOfIncome((SourceOfIncome) o);
         return o != null;
     }
-    
+
     public void totalMonthlyIncome(SourceOfIncome s) {
         txtTotalMonthlyIncome.setText(SourceOfIncomeController.getInstance().computeTotalMonthlyIncome(s).toPlainString());
+    }
+
+    private SourceOfIncome createNew(SourceOfIncome s) throws ParseException {
+        s.setIncSalary(new BigDecimal(UIValidator.MoneyCommaRemover(txtMonthlySalaryCompensation.getText())).doubleValue());
+        s.setIncNature(txtBusinessNature.getText());
+        if (optionBusinessRegistered.isSelected()) {
+            s.setIncRegistered(true);
+        } else {
+            s.setIncRegistered(false);
+        }
+        s.setIncBusiness(new BigDecimal(UIValidator.MoneyCommaRemover(txtMonthlyIncomeForBusiness.getText())).doubleValue());
+        if (checkFarmAgri.isSelected()) {
+            s.setIncArgriculture(true);
+        } else {
+            s.setIncArgriculture(false);
+        }
+        if (checkFarmLiveStock.isSelected()) {
+            s.setIncLiveStock(true);
+        } else {
+            s.setIncLiveStock(false);
+        }
+        s.setIncHarvestDate(DateUtil.toString(txtFarmHarvestSchedule.getDate(), "yyyy-MM-dd"));
+        s.setIncAverageProd(new BigDecimal(UIValidator.MoneyCommaRemover(txtFarmAvgProductIncome.getText())).doubleValue());
+        s.setIncFarm(new BigDecimal(UIValidator.MoneyCommaRemover(txtMonthlyIncomeForFarmProducts.getText())).doubleValue());
+        s.setIncOtherSource(txtOtherSourceDesc.getText());
+        s.setIncOther(new BigDecimal(UIValidator.MoneyCommaRemover(txtMonthlyIncomeForOtherSources.getText())).doubleValue());
+        return s;
     }
 }

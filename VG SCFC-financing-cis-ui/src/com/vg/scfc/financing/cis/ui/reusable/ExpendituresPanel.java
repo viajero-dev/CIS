@@ -7,14 +7,16 @@ package com.vg.scfc.financing.cis.ui.reusable;
 
 import com.vg.commons.util.NumberUtils;
 import com.vg.scfc.financing.cis.ent.Expenditure;
+import com.vg.scfc.financing.cis.ent.ExpenditureType;
+import com.vg.scfc.financing.cis.ui.controller.ExpenditureController;
+import com.vg.scfc.financing.cis.ui.validator.UIValidator;
+import com.vg.scfc.financing.cis.ui.validator.Validator;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.math.BigDecimal;
 import java.math.MathContext;
+import java.util.ArrayList;
 import java.util.List;
-import com.vg.scfc.financing.cis.ui.controller.ExpenditureController;
-import com.vg.scfc.financing.cis.ui.validator.UIValidator;
-import com.vg.scfc.financing.cis.ui.validator.Validator;
 
 /**
  *
@@ -256,46 +258,46 @@ public class ExpendituresPanel extends javax.swing.JPanel implements KeyListener
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtMonthlyDeductionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtMonthlyDeductionFocusLost
-        monthlyDeduction = new BigDecimal(UIValidator.isNumeric(txtMonthlyDeduction));
-        computeTotalExpenditureAndNetIncome();
+        txtMonthlyDeduction.setText(NumberUtils.doubleToString(new BigDecimal(UIValidator.isNumeric(txtMonthlyDeduction)).doubleValue()));
+        computeTotalExpenditureAndNetIncome(UIValidator.MoneyCommaRemover(txtMonthlyDeduction.getText()));
     }//GEN-LAST:event_txtMonthlyDeductionFocusLost
 
     private void txtMonthlyHouseholdBillFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtMonthlyHouseholdBillFocusLost
-        monthlyHouseholdBill = new BigDecimal(UIValidator.isNumeric(txtMonthlyHouseholdBill));
-        computeTotalExpenditureAndNetIncome();
+        txtMonthlyHouseholdBill.setText(NumberUtils.doubleToString(new BigDecimal(UIValidator.isNumeric(txtMonthlyHouseholdBill)).doubleValue()));
+        computeTotalExpenditureAndNetIncome(UIValidator.MoneyCommaRemover(txtMonthlyHouseholdBill.getText()));
     }//GEN-LAST:event_txtMonthlyHouseholdBillFocusLost
 
     private void txtAmortizationFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtAmortizationFocusLost
-        amortization = new BigDecimal(UIValidator.isNumeric(txtAmortization));
-        computeTotalExpenditureAndNetIncome();
+        txtAmortization.setText(NumberUtils.doubleToString(new BigDecimal(UIValidator.isNumeric(txtAmortization)).doubleValue())); 
+        computeTotalExpenditureAndNetIncome(UIValidator.MoneyCommaRemover(txtAmortization.getText()));
     }//GEN-LAST:event_txtAmortizationFocusLost
 
     private void txtMaintenanceDescFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtMaintenanceDescFocusLost
-        maintenanceDesc = UIValidator.validate(txtMaintenanceDesc);
+        txtMaintenanceDesc.setText(UIValidator.validate(txtMaintenanceDesc));
     }//GEN-LAST:event_txtMaintenanceDescFocusLost
 
     private void txtMaintenanceFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtMaintenanceFocusLost
-        maintenance = new BigDecimal(UIValidator.isNumeric(txtMaintenance));
-        computeTotalExpenditureAndNetIncome();
+        txtMaintenance.setText(NumberUtils.doubleToString(new BigDecimal(UIValidator.isNumeric(txtMaintenance)).doubleValue())); 
+        computeTotalExpenditureAndNetIncome(UIValidator.MoneyCommaRemover(txtMaintenance.getText()));
     }//GEN-LAST:event_txtMaintenanceFocusLost
 
     private void txtLivingAllowanceFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtLivingAllowanceFocusLost
-        livingAllowance = new BigDecimal(UIValidator.isNumeric(txtLivingAllowance));
-        computeTotalExpenditureAndNetIncome();
+        txtLivingAllowance.setText(NumberUtils.doubleToString(new BigDecimal(UIValidator.isNumeric(txtLivingAllowance)).doubleValue())); 
+        computeTotalExpenditureAndNetIncome(UIValidator.MoneyCommaRemover(txtLivingAllowance.getText()));
     }//GEN-LAST:event_txtLivingAllowanceFocusLost
 
     private void txtEducationDescFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEducationDescFocusLost
-        educationFor = UIValidator.validate(txtEducationDesc);
+        txtEducationDesc.setText(UIValidator.validate(txtEducationDesc)); 
     }//GEN-LAST:event_txtEducationDescFocusLost
 
     private void txtEducationFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEducationFocusLost
-        education = new BigDecimal(UIValidator.isNumeric(txtEducation));
-        computeTotalExpenditureAndNetIncome();
+        txtEducation.setText(NumberUtils.doubleToString(new BigDecimal(UIValidator.isNumeric(txtEducation)).doubleValue())); 
+        computeTotalExpenditureAndNetIncome(UIValidator.MoneyCommaRemover(txtEducation.getText()));
     }//GEN-LAST:event_txtEducationFocusLost
 
     private void txtOthersFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtOthersFocusLost
-        others = new BigDecimal(UIValidator.isNumeric(txtOthers));
-        computeTotalExpenditureAndNetIncome();
+        txtOthers.setText(NumberUtils.doubleToString(new BigDecimal(UIValidator.isNumeric(txtOthers)).doubleValue()));
+        computeTotalExpenditureAndNetIncome(UIValidator.MoneyCommaRemover(txtOthers.getText()));
     }//GEN-LAST:event_txtOthersFocusLost
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -329,18 +331,15 @@ public class ExpendituresPanel extends javax.swing.JPanel implements KeyListener
     private javax.swing.JTextField txtOthers;
     private javax.swing.JTextField txtTotalExpenditure;
     // End of variables declaration//GEN-END:variables
-    private BigDecimal monthlyDeduction = new BigDecimal("0");
-    private BigDecimal monthlyHouseholdBill = new BigDecimal("0");
-    private BigDecimal amortization = new BigDecimal("0");
-    private BigDecimal maintenance = new BigDecimal("0");
-    private BigDecimal livingAllowance = new BigDecimal("0");
-    private BigDecimal education = new BigDecimal("0");
-    private BigDecimal others = new BigDecimal("0");
-    private String maintenanceDesc;
-    private String educationFor;
     private List<Expenditure> expenditures;
     private String formNo;
     private BigDecimal totalMonthlyIncome;
+    private HeaderPanel headerPanel;
+    private BigDecimal total = new BigDecimal("0");
+
+    public void setHeaderPanel(HeaderPanel headerPanel) {
+        this.headerPanel = headerPanel;
+    }
 
     public BigDecimal getTotalMonthlyIncome() {
         if (totalMonthlyIncome == null) {
@@ -438,14 +437,20 @@ public class ExpendituresPanel extends javax.swing.JPanel implements KeyListener
         }
     }
 
-    private void computeTotalExpenditureAndNetIncome() {
-        BigDecimal sumOfExpenditureValues = monthlyDeduction.add(monthlyHouseholdBill)
-                .add(amortization)
-                .add(maintenance)
-                .add(livingAllowance)
-                .add(education)
-                .add(others);
-        txtTotalExpenditure.setText(sumOfExpenditureValues.round(MathContext.UNLIMITED).toString());
+    private void computeTotalExpenditureAndNetIncome(String value) {
+//        BigDecimal sumOfExpenditureValues = toBigDecimal(UIValidator.MoneyCommaRemover(txtMonthlyDeduction.getText()))
+//                .add(toBigDecimal(UIValidator.MoneyCommaRemover(txtMonthlyHouseholdBill.getText())))
+//                .add(toBigDecimal(UIValidator.MoneyCommaRemover(txtAmortization.getText())))
+//                .add(toBigDecimal(UIValidator.MoneyCommaRemover(txtMaintenance.getText())))
+//                .add(toBigDecimal(UIValidator.MoneyCommaRemover(txtLivingAllowance.getText())))
+//                .add(toBigDecimal(UIValidator.MoneyCommaRemover(txtEducation.getText())))
+//                .add(toBigDecimal(UIValidator.MoneyCommaRemover(txtOthers.getText())));
+        total = total.add(toBigDecimal(value));
+        txtTotalExpenditure.setText(total.round(MathContext.UNLIMITED).toString());
+    }
+    
+    private BigDecimal toBigDecimal(String value) {
+        return new BigDecimal(value);
     }
 
     public void setFieldsEditable(boolean value) {
@@ -513,22 +518,171 @@ public class ExpendituresPanel extends javax.swing.JPanel implements KeyListener
                 }
             }
             BigDecimal totalExpenditures = ExpenditureController.getInstance().totalExpenditures(expenditures);
-            
+
             txtTotalExpenditure.setText(totalExpenditures.toPlainString());
             txtNetIncome.setText(getTotalMonthlyIncome().subtract(totalExpenditures).toPlainString());
         }
     }
 
     public boolean saveExpenditures() {
-        List<Expenditure> objects = ExpenditureController.getInstance().createNew(monthlyDeduction, monthlyHouseholdBill, amortization,
-                maintenance, maintenanceDesc, livingAllowance, education, educationFor, others, formNo);
+        List<Expenditure> objects = ExpenditureController.getInstance().createNew(createNew(new ArrayList<Expenditure>()), headerPanel.getFormNo());
         setExpenditures(objects);
         return !objects.isEmpty();
     }
 
     public boolean updateExpenditures() {
-        List<Expenditure> objects = ExpenditureController.getInstance().update(formNo, expenditures);
+        List<Expenditure> objects = ExpenditureController.getInstance().update(headerPanel.getFormNo(), createNew(expenditures));
         setExpenditures(objects);
         return !objects.isEmpty();
+    }
+
+    private List<Expenditure> createNew(List<Expenditure> e) {
+        List<Expenditure> results = new ArrayList<>();
+        if (e.isEmpty()) {
+            Expenditure ex;
+            /* Regular Monthly Salary Deduction */
+            if (!txtMonthlyDeduction.getText().equals("")) {
+                ExpenditureType eType = ExpenditureController.getInstance().findByID(1);
+                ex = new Expenditure();
+                ex.setExpenditureType(eType);
+                ex.setAdditionalInfo("");
+                ex.setAmount(new BigDecimal(UIValidator.MoneyCommaRemover(txtMonthlyDeduction.getText())).doubleValue());
+                ex.setTxFormNo(headerPanel.getFormNo());
+                results.add(ex);
+            }
+
+            /* Monthly Household Bill */
+            if (!txtMonthlyHouseholdBill.getText().equals("")) {
+                ExpenditureType eType = ExpenditureController.getInstance().findByID(2);
+                ex = new Expenditure();
+                ex.setExpenditureType(eType);
+                ex.setAdditionalInfo("");
+                ex.setAmount(new BigDecimal(UIValidator.MoneyCommaRemover(txtMonthlyHouseholdBill.getText())).doubleValue());
+                ex.setTxFormNo(headerPanel.getFormNo());
+                results.add(ex);
+            }
+
+            /* Amortization */
+            if (!txtAmortization.getText().equals("")) {
+                ExpenditureType eType = ExpenditureController.getInstance().findByID(3);
+                ex = new Expenditure();
+                ex.setExpenditureType(eType);
+                ex.setAdditionalInfo("");
+                ex.setAmount(new BigDecimal(UIValidator.MoneyCommaRemover(txtAmortization.getText())).doubleValue());
+                ex.setTxFormNo(headerPanel.getFormNo());
+                results.add(ex);
+            }
+
+            /* Maintenance */
+            if (!txtMaintenance.getText().equals("")) {
+                ExpenditureType eType = ExpenditureController.getInstance().findByID(4);
+                ex = new Expenditure();
+                ex.setExpenditureType(eType);
+                ex.setAdditionalInfo(txtMaintenanceDesc.getText());
+                ex.setAmount(new BigDecimal(UIValidator.MoneyCommaRemover(txtMaintenance.getText())).doubleValue());
+                ex.setTxFormNo(headerPanel.getFormNo());
+                results.add(ex);
+            }
+
+            /* Living allowance */
+            if (!txtLivingAllowance.getText().equals("")) {
+                ExpenditureType eType = ExpenditureController.getInstance().findByID(5);
+                ex = new Expenditure();
+                ex.setExpenditureType(eType);
+                ex.setAdditionalInfo("");
+                ex.setAmount(new BigDecimal(UIValidator.MoneyCommaRemover(txtLivingAllowance.getText())).doubleValue());
+                ex.setTxFormNo(headerPanel.getFormNo());
+                results.add(ex);
+            }
+
+            /* Education */
+            if (!txtEducation.getText().equals("")) {
+                ExpenditureType eType = ExpenditureController.getInstance().findByID(6);
+                ex = new Expenditure();
+                ex.setExpenditureType(eType);
+                ex.setAdditionalInfo(txtEducationDesc.getText());
+                ex.setAmount(new BigDecimal(UIValidator.MoneyCommaRemover(txtEducation.getText())).doubleValue());
+                ex.setTxFormNo(headerPanel.getFormNo());
+                results.add(ex);
+            }
+
+            /* Others */
+            if (!txtOthers.getText().equals("")) {
+                ExpenditureType eType = ExpenditureController.getInstance().findByID(7);
+                ex = new Expenditure();
+                ex.setExpenditureType(eType);
+                ex.setAdditionalInfo("");
+                ex.setAmount(new BigDecimal(UIValidator.MoneyCommaRemover(txtOthers.getText())).doubleValue());
+                ex.setTxFormNo(headerPanel.getFormNo());
+                results.add(ex);
+            }
+            return results;
+        } else {
+            for (Expenditure expenditure : e) {
+                switch (expenditure.getExpenditureType().getId()) {
+                    case 1:
+                        /* Regular Monthly Salary Deduction */
+                        if (!txtMonthlyDeduction.getText().equals("")) {
+                            expenditure.setAmount(new BigDecimal(UIValidator.MoneyCommaRemover(txtMonthlyDeduction.getText())).doubleValue());
+                        } else {
+                            expenditure.setAmount(0);
+                        }
+                        break;
+                    case 2:
+                        /* Monthly Household Bill */
+                        if (!txtMonthlyHouseholdBill.getText().equals("")) {
+                            expenditure.setAmount(new BigDecimal(UIValidator.MoneyCommaRemover(txtMonthlyHouseholdBill.getText())).doubleValue());
+                        } else {
+                            expenditure.setAmount(0);
+                        }
+                        break;
+                    case 3:
+                        /* Amortization */
+                        if (!txtAmortization.getText().equals("")) {
+                            expenditure.setAmount(new BigDecimal(UIValidator.MoneyCommaRemover(txtAmortization.getText())).doubleValue());
+                        } else {
+                            expenditure.setAmount(0);
+                        }
+                        break;
+                    case 4:
+                        /* Maintenance */
+                        if (!txtMaintenance.getText().equals("")) {
+                            expenditure.setAdditionalInfo(txtMaintenanceDesc.getText());
+                            expenditure.setAmount(new BigDecimal(UIValidator.MoneyCommaRemover(txtMaintenance.getText())).doubleValue());
+                        } else {
+                            expenditure.setAdditionalInfo("");
+                            expenditure.setAmount(0);
+                        }
+                        break;
+                    case 5:
+                        /* Living allowance */
+                        if (!txtLivingAllowance.getText().equals("")) {
+                            expenditure.setAmount(new BigDecimal(UIValidator.MoneyCommaRemover(txtLivingAllowance.getText())).doubleValue());
+                        } else {
+                            expenditure.setAmount(0);
+                        }
+                        break;
+                    case 6:
+                        /* Education */
+                        if (!txtEducation.getText().equals("")) {
+                            expenditure.setAdditionalInfo(txtEducationDesc.getText());
+                            expenditure.setAmount(new BigDecimal(UIValidator.MoneyCommaRemover(txtEducation.getText())).doubleValue());
+                        } else {
+                            expenditure.setAdditionalInfo("");
+                            expenditure.setAmount(0);
+                        }
+                        break;
+                   case 7:
+                       /* Others */
+                        if (!txtOthers.getText().equals("")) {
+                            expenditure.setAmount(new BigDecimal(UIValidator.MoneyCommaRemover(txtOthers.getText())).doubleValue());
+                        } else {
+                            expenditure.setAmount(0);
+                        }
+                       break;
+                }
+            }
+            return e;
+        }
     }
 }

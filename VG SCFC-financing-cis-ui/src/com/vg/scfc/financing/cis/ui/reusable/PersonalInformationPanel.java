@@ -12,6 +12,7 @@ import com.vg.scfc.financing.cis.ent.Religion;
 import com.vg.scfc.financing.cis.ent.Tribe;
 import com.vg.scfc.financing.cis.ui.controller.PersonalInfoController;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
+import interfaces.Caller;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.text.ParseException;
@@ -19,7 +20,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import ui.WebCamDlg;
-import interfaces.Caller;
 
 /**
  *

@@ -11,8 +11,6 @@ import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -28,26 +26,17 @@ public class CreditReferenceController {
         }
         return instance;
     }
-    
-    public List<CreditRef> createNew(String name, String address, String itemOnCredit, BigDecimal loanAmount, BigDecimal monthlyAmort, String term, BigDecimal amountPaid, BigDecimal remainingBal, String formNo) {
+
+    public List<CreditRef> createNew(CreditRef c, String formNo) {
         List<CreditRef> results = new ArrayList<>();
         try {
-            CreditRef cr = new CreditRef();
-            cr.setCreRefName(name);
-            cr.setCreRefAddress(address);
-            cr.setCreItem(itemOnCredit);
-            cr.setCreRefLoanAmount(loanAmount.doubleValue());
-            cr.setCreRefMonthly(monthlyAmort.doubleValue());
-            cr.setCreRefTerm(term);
-            cr.setCreRefAmountPaid(amountPaid.doubleValue());
-            cr.setCreRefBalance(remainingBal.doubleValue());
-            cr.setTxFormNo(formNo);
-            cr.setUser(UISetting.getSystemUser());
-            cr.setLocation(UISetting.getStoreLocation());
-            cr.setStation(UISetting.getComputerName());
-            
-            boolean isSaved = UISetting.getCreditRefService().insert(cr);
-            if(isSaved) {
+            c.setTxFormNo(formNo);
+            c.setUser(UISetting.getSystemUser());
+            c.setLocation(UISetting.getStoreLocation());
+            c.setStation(UISetting.getComputerName());
+
+            boolean isSaved = UISetting.getCreditRefService().insert(c);
+            if (isSaved) {
                 results = UISetting.getCreditRefService().findByFormNo(formNo);
             }
         } catch (Exception ex) {
@@ -55,12 +44,17 @@ public class CreditReferenceController {
         }
         return results;
     }
-    
+
     public List<CreditRef> update(String formNo, CreditRef c) {
         List<CreditRef> results = new ArrayList<>();
         try {
+            c.setTxFormNo(formNo);
+            c.setUser(UISetting.getSystemUser());
+            c.setLocation(UISetting.getStoreLocation());
+            c.setStation(UISetting.getComputerName());
+
             boolean isUpdated = UISetting.getCreditRefService().update(c);
-            if(isUpdated) {
+            if (isUpdated) {
                 results = UISetting.getCreditRefService().findByFormNo(formNo);
             }
         } catch (Exception ex) {
@@ -68,7 +62,7 @@ public class CreditReferenceController {
         }
         return results;
     }
-    
+
     public List<CreditRef> findAll(String formNo) {
         List<CreditRef> results = new ArrayList<>();
         try {

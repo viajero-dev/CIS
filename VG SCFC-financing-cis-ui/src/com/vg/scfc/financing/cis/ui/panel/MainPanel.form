@@ -2,30 +2,6 @@
 
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
   <NonVisualComponents>
-    <Component class="java.util.List" name="creditReferences">
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="ObservableCollections.observableList(new LinkedList&lt;CreditRef&gt;())"/>
-        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;CreditRef&gt;"/>
-      </AuxValues>
-    </Component>
-    <Component class="java.util.List" name="dependents">
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="ObservableCollections.observableList(new LinkedList&lt;Dependent&gt;())"/>
-        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Dependent&gt;"/>
-      </AuxValues>
-    </Component>
-    <Component class="java.util.List" name="characterReferences">
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="ObservableCollections.observableList(new LinkedList&lt;CharacterReference&gt;())"/>
-        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;CharacterReference&gt;"/>
-      </AuxValues>
-    </Component>
-    <Component class="java.util.List" name="siblings">
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="ObservableCollections.observableList(new LinkedList&lt;Sibling&gt;())"/>
-        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Sibling&gt;"/>
-      </AuxValues>
-    </Component>
     <Component class="java.util.List" name="comakers">
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="ObservableCollections.observableList(new LinkedList&lt;PersonalInfo&gt;())"/>
@@ -162,59 +138,10 @@
                     <Component class="com.vg.scfc.financing.cis.ui.reusable.SiblingsPanel" name="panelSibling">
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                          <AbsoluteConstraints x="0" y="100" width="-1" height="-1"/>
+                          <AbsoluteConstraints x="0" y="0" width="-1" height="-1"/>
                         </Constraint>
                       </Constraints>
                     </Component>
-                    <Container class="javax.swing.JScrollPane" name="jScrollPane1">
-                      <AuxValues>
-                        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-                      </AuxValues>
-                      <Constraints>
-                        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                          <AbsoluteConstraints x="10" y="5" width="390" height="90"/>
-                        </Constraint>
-                      </Constraints>
-
-                      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-                      <SubComponents>
-                        <Component class="javax.swing.JTable" name="tableSibling">
-                          <Properties>
-                            <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
-                              <TableColumnModel selectionModel="0">
-                                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                                  <Title/>
-                                  <Editor/>
-                                  <Renderer/>
-                                </Column>
-                                <Column maxWidth="150" minWidth="-1" prefWidth="150" resizable="true">
-                                  <Title/>
-                                  <Editor/>
-                                  <Renderer/>
-                                </Column>
-                              </TableColumnModel>
-                            </Property>
-                            <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
-                              <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
-                            </Property>
-                          </Properties>
-                          <BindingProperties>
-                            <BindingProperty name="elements" source="siblings" target="tableSibling" targetPath="elements" updateStrategy="0" immediately="true">
-                              <Subbinding sourcePath="${siblingName}">
-                                <BindingParameter name="NAME" value="Name"/>
-                                <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
-                                <BindingParameter name="javax.swing.binding.ParameterKeys.EDITABLE" value="false"/>
-                              </Subbinding>
-                              <Subbinding sourcePath="${siblingContactNo}">
-                                <BindingParameter name="NAME" value="Contact #"/>
-                                <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
-                                <BindingParameter name="javax.swing.binding.ParameterKeys.EDITABLE" value="false"/>
-                              </Subbinding>
-                            </BindingProperty>
-                          </BindingProperties>
-                        </Component>
-                      </SubComponents>
-                    </Container>
                     <Component class="com.vg.scfc.financing.cis.ui.reusable.AddEditButtonPanel" name="addEditSibling">
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -240,70 +167,10 @@
                     <Component class="com.vg.scfc.financing.cis.ui.reusable.CharacterReferenceDependentPanel" name="panelCharacterReference">
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                          <AbsoluteConstraints x="0" y="100" width="-1" height="-1"/>
+                          <AbsoluteConstraints x="0" y="0" width="-1" height="-1"/>
                         </Constraint>
                       </Constraints>
                     </Component>
-                    <Container class="javax.swing.JScrollPane" name="jScrollPane2">
-                      <AuxValues>
-                        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-                      </AuxValues>
-                      <Constraints>
-                        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                          <AbsoluteConstraints x="10" y="5" width="600" height="90"/>
-                        </Constraint>
-                      </Constraints>
-
-                      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-                      <SubComponents>
-                        <Component class="javax.swing.JTable" name="tableCharacterRef">
-                          <Properties>
-                            <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
-                              <TableColumnModel selectionModel="1">
-                                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                                  <Title/>
-                                  <Editor/>
-                                  <Renderer/>
-                                </Column>
-                                <Column maxWidth="180" minWidth="-1" prefWidth="180" resizable="true">
-                                  <Title/>
-                                  <Editor/>
-                                  <Renderer/>
-                                </Column>
-                                <Column maxWidth="150" minWidth="-1" prefWidth="150" resizable="true">
-                                  <Title/>
-                                  <Editor/>
-                                  <Renderer/>
-                                </Column>
-                              </TableColumnModel>
-                            </Property>
-                            <Property name="columnSelectionAllowed" type="boolean" value="true"/>
-                            <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
-                              <TableHeader reorderingAllowed="false" resizingAllowed="true"/>
-                            </Property>
-                          </Properties>
-                          <BindingProperties>
-                            <BindingProperty name="elements" source="characterReferences" target="tableCharacterRef" targetPath="elements" updateStrategy="0" immediately="true">
-                              <Subbinding sourcePath="${charRefName}">
-                                <BindingParameter name="NAME" value="Name"/>
-                                <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
-                                <BindingParameter name="javax.swing.binding.ParameterKeys.EDITABLE" value="false"/>
-                              </Subbinding>
-                              <Subbinding sourcePath="${charRelationship}">
-                                <BindingParameter name="NAME" value="Relationship"/>
-                                <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
-                                <BindingParameter name="javax.swing.binding.ParameterKeys.EDITABLE" value="false"/>
-                              </Subbinding>
-                              <Subbinding sourcePath="${charRefContactNo}">
-                                <BindingParameter name="NAME" value="Contact #"/>
-                                <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
-                                <BindingParameter name="javax.swing.binding.ParameterKeys.EDITABLE" value="false"/>
-                              </Subbinding>
-                            </BindingProperty>
-                          </BindingProperties>
-                        </Component>
-                      </SubComponents>
-                    </Container>
                     <Component class="com.vg.scfc.financing.cis.ui.reusable.AddEditButtonPanel" name="addEditCharacterReference">
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -326,78 +193,17 @@
                     <Property name="useNullLayout" type="boolean" value="false"/>
                   </Layout>
                   <SubComponents>
-                    <Component class="com.vg.scfc.financing.cis.ui.reusable.CharacterReferenceDependentPanel" name="panelDependents">
-                      <Constraints>
-                        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                          <AbsoluteConstraints x="0" y="100" width="-1" height="-1"/>
-                        </Constraint>
-                      </Constraints>
-                    </Component>
-                    <Container class="javax.swing.JScrollPane" name="jScrollPane3">
-                      <AuxValues>
-                        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-                      </AuxValues>
-                      <Constraints>
-                        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                          <AbsoluteConstraints x="10" y="5" width="600" height="90"/>
-                        </Constraint>
-                      </Constraints>
-
-                      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-                      <SubComponents>
-                        <Component class="javax.swing.JTable" name="tableDependent">
-                          <Properties>
-                            <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
-                              <TableColumnModel selectionModel="1">
-                                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                                  <Title/>
-                                  <Editor/>
-                                  <Renderer/>
-                                </Column>
-                                <Column maxWidth="180" minWidth="-1" prefWidth="180" resizable="true">
-                                  <Title/>
-                                  <Editor/>
-                                  <Renderer/>
-                                </Column>
-                                <Column maxWidth="150" minWidth="-1" prefWidth="150" resizable="true">
-                                  <Title/>
-                                  <Editor/>
-                                  <Renderer/>
-                                </Column>
-                              </TableColumnModel>
-                            </Property>
-                            <Property name="columnSelectionAllowed" type="boolean" value="true"/>
-                            <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
-                              <TableHeader reorderingAllowed="false" resizingAllowed="true"/>
-                            </Property>
-                          </Properties>
-                          <BindingProperties>
-                            <BindingProperty name="elements" source="dependents" target="tableDependent" targetPath="elements" updateStrategy="0" immediately="true">
-                              <Property name="name" type="java.lang.String" value=""/>
-                              <Subbinding sourcePath="${depName}">
-                                <BindingParameter name="NAME" value="Name"/>
-                                <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
-                                <BindingParameter name="javax.swing.binding.ParameterKeys.EDITABLE" value="false"/>
-                              </Subbinding>
-                              <Subbinding sourcePath="${depRelation}">
-                                <BindingParameter name="NAME" value="Relationship"/>
-                                <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
-                                <BindingParameter name="javax.swing.binding.ParameterKeys.EDITABLE" value="false"/>
-                              </Subbinding>
-                              <Subbinding sourcePath="${depContactNo}">
-                                <BindingParameter name="NAME" value="Contact #"/>
-                                <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
-                                <BindingParameter name="javax.swing.binding.ParameterKeys.EDITABLE" value="false"/>
-                              </Subbinding>
-                            </BindingProperty>
-                          </BindingProperties>
-                        </Component>
-                      </SubComponents>
-                    </Container>
                     <Component class="com.vg.scfc.financing.cis.ui.reusable.AddEditButtonPanel" name="addEditDependents">
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                          <AbsoluteConstraints x="92" y="215" width="-1" height="-1"/>
+                          <AbsoluteConstraints x="90" y="220" width="-1" height="-1"/>
+                        </Constraint>
+                      </Constraints>
+                    </Component>
+                    <Component class="com.vg.scfc.financing.cis.ui.reusable.DependentPanel" name="panelDependents">
+                      <Constraints>
+                        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                          <AbsoluteConstraints x="0" y="5" width="620" height="-1"/>
                         </Constraint>
                       </Constraints>
                     </Component>
@@ -419,118 +225,10 @@
                     <Component class="com.vg.scfc.financing.cis.ui.reusable.CreditReferencePanel" name="panelCreditReference">
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                          <AbsoluteConstraints x="0" y="100" width="-1" height="-1"/>
+                          <AbsoluteConstraints x="0" y="0" width="-1" height="-1"/>
                         </Constraint>
                       </Constraints>
                     </Component>
-                    <Container class="javax.swing.JScrollPane" name="jScrollPane4">
-                      <AuxValues>
-                        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-                      </AuxValues>
-                      <Constraints>
-                        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                          <AbsoluteConstraints x="10" y="5" width="980" height="90"/>
-                        </Constraint>
-                      </Constraints>
-
-                      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-                      <SubComponents>
-                        <Component class="javax.swing.JTable" name="tableCreditReference">
-                          <Properties>
-                            <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
-                              <TableColumnModel selectionModel="0">
-                                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                                  <Title/>
-                                  <Editor/>
-                                  <Renderer/>
-                                </Column>
-                                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                                  <Title/>
-                                  <Editor/>
-                                  <Renderer/>
-                                </Column>
-                                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                                  <Title/>
-                                  <Editor/>
-                                  <Renderer/>
-                                </Column>
-                                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                                  <Title/>
-                                  <Editor/>
-                                  <Renderer/>
-                                </Column>
-                                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                                  <Title/>
-                                  <Editor/>
-                                  <Renderer/>
-                                </Column>
-                                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                                  <Title/>
-                                  <Editor/>
-                                  <Renderer/>
-                                </Column>
-                                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                                  <Title/>
-                                  <Editor/>
-                                  <Renderer/>
-                                </Column>
-                                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                                  <Title/>
-                                  <Editor/>
-                                  <Renderer/>
-                                </Column>
-                              </TableColumnModel>
-                            </Property>
-                            <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
-                              <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
-                            </Property>
-                          </Properties>
-                          <BindingProperties>
-                            <BindingProperty name="elements" source="creditReferences" target="tableCreditReference" targetPath="elements" updateStrategy="0" immediately="true">
-                              <Subbinding sourcePath="${creRefName}">
-                                <BindingParameter name="NAME" value="Name"/>
-                                <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
-                                <BindingParameter name="javax.swing.binding.ParameterKeys.EDITABLE" value="false"/>
-                              </Subbinding>
-                              <Subbinding sourcePath="${creRefAddress}">
-                                <BindingParameter name="NAME" value="Address"/>
-                                <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
-                                <BindingParameter name="javax.swing.binding.ParameterKeys.EDITABLE" value="false"/>
-                              </Subbinding>
-                              <Subbinding sourcePath="${creItem}">
-                                <BindingParameter name="NAME" value="Item on Credit"/>
-                                <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
-                                <BindingParameter name="javax.swing.binding.ParameterKeys.EDITABLE" value="false"/>
-                              </Subbinding>
-                              <Subbinding sourcePath="${creRefLoanAmount}">
-                                <BindingParameter name="NAME" value="Loan Amount"/>
-                                <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="Double.class"/>
-                                <BindingParameter name="javax.swing.binding.ParameterKeys.EDITABLE" value="false"/>
-                              </Subbinding>
-                              <Subbinding sourcePath="${creRefMonthly}">
-                                <BindingParameter name="NAME" value="Monthly Amort"/>
-                                <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="Double.class"/>
-                                <BindingParameter name="javax.swing.binding.ParameterKeys.EDITABLE" value="false"/>
-                              </Subbinding>
-                              <Subbinding sourcePath="${creRefTerm}">
-                                <BindingParameter name="NAME" value="Term"/>
-                                <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
-                                <BindingParameter name="javax.swing.binding.ParameterKeys.EDITABLE" value="false"/>
-                              </Subbinding>
-                              <Subbinding sourcePath="${creRefAmountPaid}">
-                                <BindingParameter name="NAME" value="Amount Paid"/>
-                                <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="Double.class"/>
-                              </Subbinding>
-                              <Subbinding sourcePath="${creRefBalance}">
-                                <BindingParameter name="NAME" value="Balance"/>
-                                <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="Double.class"/>
-                                <BindingParameter name="javax.swing.binding.ParameterKeys.EDITABLE" value="false"/>
-                              </Subbinding>
-                            </BindingProperty>
-                          </BindingProperties>
-                        </Component>
-                      </SubComponents>
-                    </Container>
                     <Component class="com.vg.scfc.financing.cis.ui.reusable.AddEditButtonPanel" name="addEditCreditReference">
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">

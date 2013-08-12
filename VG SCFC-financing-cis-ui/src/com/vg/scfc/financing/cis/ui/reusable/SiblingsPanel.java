@@ -11,8 +11,13 @@ import com.vg.scfc.financing.cis.ui.panel.MainPanel;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import org.jdesktop.observablecollections.ObservableCollections;
 
 /**
  *
@@ -31,6 +36,7 @@ public class SiblingsPanel extends javax.swing.JPanel implements KeyListener {
     private void startUpSettings() {
         setFieldsEditable(false);
         initTextBoxesListener();
+        initTableSibling();
     }
 
     /**
@@ -42,6 +48,27 @@ public class SiblingsPanel extends javax.swing.JPanel implements KeyListener {
         txtSiblingContact.addKeyListener(this);
     }
 
+    private void initTableSibling() {
+        tableSibling.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        tableSibling.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+
+            @Override
+            public void valueChanged(ListSelectionEvent lse) {
+                try {
+                    selectedIndex = tableSibling.getSelectedRow();
+                    if (selectedIndex >= 0) {
+                        Sibling s = siblings.get(selectedIndex);
+                        if (s != null) {
+                            setSibling(s);
+                        }
+                    }
+                } catch (Exception e) {
+                    UIValidator.log(e, MainPanel.class);
+                }
+            }
+        });
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -50,19 +77,23 @@ public class SiblingsPanel extends javax.swing.JPanel implements KeyListener {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
+        siblings = ObservableCollections.observableList(new LinkedList<Sibling>());
         jLabel1 = new javax.swing.JLabel();
         txtSiblingName = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         txtSiblingAddress = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         txtSiblingContact = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tableSibling = new javax.swing.JTable();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel1.setText("Name");
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 10, -1, -1));
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 105, -1, -1));
 
         txtSiblingName.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtSiblingName.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -70,11 +101,11 @@ public class SiblingsPanel extends javax.swing.JPanel implements KeyListener {
                 txtSiblingNameFocusLost(evt);
             }
         });
-        add(txtSiblingName, new org.netbeans.lib.awtextra.AbsoluteConstraints(93, 5, 255, -1));
+        add(txtSiblingName, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 100, 255, -1));
 
         jLabel2.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel2.setText("Address");
-        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 35, -1, -1));
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, -1, -1));
 
         txtSiblingAddress.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtSiblingAddress.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -82,11 +113,11 @@ public class SiblingsPanel extends javax.swing.JPanel implements KeyListener {
                 txtSiblingAddressFocusLost(evt);
             }
         });
-        add(txtSiblingAddress, new org.netbeans.lib.awtextra.AbsoluteConstraints(93, 30, 255, -1));
+        add(txtSiblingAddress, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 125, 255, -1));
 
         jLabel3.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel3.setText("Contact");
-        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 60, -1, -1));
+        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 155, -1, -1));
 
         txtSiblingContact.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtSiblingContact.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -94,7 +125,22 @@ public class SiblingsPanel extends javax.swing.JPanel implements KeyListener {
                 txtSiblingContactFocusLost(evt);
             }
         });
-        add(txtSiblingContact, new org.netbeans.lib.awtextra.AbsoluteConstraints(93, 55, 140, -1));
+        add(txtSiblingContact, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 150, 140, -1));
+
+        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, siblings, tableSibling);
+        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${siblingName}"));
+        columnBinding.setColumnName("Name");
+        columnBinding.setColumnClass(String.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${siblingContactNo}"));
+        columnBinding.setColumnName("Contact #");
+        columnBinding.setColumnClass(String.class);
+        bindingGroup.addBinding(jTableBinding);
+        jTableBinding.bind();
+        jScrollPane1.setViewportView(tableSibling);
+
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 5, 390, 90));
+
+        bindingGroup.bind();
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtSiblingNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSiblingNameFocusLost
@@ -113,14 +159,22 @@ public class SiblingsPanel extends javax.swing.JPanel implements KeyListener {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JScrollPane jScrollPane1;
+    private java.util.List<Sibling> siblings;
+    private javax.swing.JTable tableSibling;
     private javax.swing.JTextField txtSiblingAddress;
     private javax.swing.JTextField txtSiblingContact;
     private javax.swing.JTextField txtSiblingName;
+    private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
-    private List<Sibling> siblings;
-    private String formNo;
     private Sibling sibling;
     private MainPanel mainPanel;
+    private HeaderPanel headerPanel;
+    private int selectedIndex = -1;
+
+    public void setHeaderPanel(HeaderPanel headerPanel) {
+        this.headerPanel = headerPanel;
+    }
 
     public MainPanel getMainPanel() {
         return mainPanel;
@@ -136,14 +190,6 @@ public class SiblingsPanel extends javax.swing.JPanel implements KeyListener {
         }
         this.sibling = sibling;
         setSiblingInfo(this.sibling);
-    }
-
-    public void setFormNo(String formNo) {
-        this.formNo = formNo;
-    }
-
-    public void setSiblings(List<Sibling> siblings) {
-        this.siblings = siblings;
     }
 
     @Override
@@ -198,23 +244,23 @@ public class SiblingsPanel extends javax.swing.JPanel implements KeyListener {
     }
 
     public boolean saveSibling() {
-        List<Sibling> s = SiblingController.getInstance().createNew(createNew(new Sibling()), formNo);
+        List<Sibling> s = SiblingController.getInstance().createNew(createNew(new Sibling()), headerPanel.getFormNo());
         refreshTable(s);
         return !s.isEmpty();
     }
 
     public boolean updateSibling() {
-        List<Sibling> s = SiblingController.getInstance().update(formNo, createNew(this.sibling));
+        List<Sibling> s = SiblingController.getInstance().update(headerPanel.getFormNo(), createNew(this.sibling));
         refreshTable(s);
         return !s.isEmpty();
     }
 
     public void refreshTable(List<Sibling> s) {
-        siblings.clear();
-        siblings.addAll(s);
-        if (!siblings.isEmpty()) {
-            mainPanel.getTableSibling().setRowSelectionInterval(0, 0);
-        }
+        if (!s.isEmpty()) {
+            siblings.clear();
+            siblings.addAll(s);
+            tableSibling.setRowSelectionInterval(0, 0);
+        } 
     }
 
     public Sibling createNew(Sibling s) {

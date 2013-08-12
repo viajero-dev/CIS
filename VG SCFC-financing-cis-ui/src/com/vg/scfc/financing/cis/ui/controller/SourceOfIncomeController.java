@@ -6,13 +6,10 @@
 package com.vg.scfc.financing.cis.ui.controller;
 
 import com.vg.scfc.financing.cis.ent.SourceOfIncome;
-import com.vg.scfc.financing.cis.ent.TransactionForm;
 import com.vg.scfc.financing.cis.ui.settings.UISetting;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 import java.math.BigDecimal;
 import java.math.MathContext;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -29,23 +26,10 @@ public class SourceOfIncomeController {
         return instance;
     }
 
-    public Object createNew(BigDecimal salaryCompensation, String natureOfBusiness, boolean isRegistred,
-            BigDecimal businessInc, boolean isAgri, boolean isLiveStock, String harvestSched, BigDecimal productInc,
-            BigDecimal farmInc, String otherSource, BigDecimal otherSourceInc, String formNo, String personType) {
+    public Object createNew(SourceOfIncome s, String formNo, String personType, String clientNo) {
         SourceOfIncome result = null;
         try {
-            SourceOfIncome s = new SourceOfIncome();
-            s.setIncSalary(salaryCompensation.doubleValue());
-            s.setIncNature(natureOfBusiness);
-            s.setIncRegistered(isRegistred);
-            s.setIncBusiness(businessInc.doubleValue());
-            s.setIncArgriculture(isAgri);
-            s.setIncLiveStock(isLiveStock);
-            s.setIncHarvestDate(harvestSched);
-            s.setIncAverageProd(productInc.doubleValue());
-            s.setIncFarm(farmInc.doubleValue());
-            s.setIncOtherSource(otherSource);
-            s.setIncOther(otherSourceInc.doubleValue());
+            s.setClientNo(clientNo);
             s.setTxForm(UISetting.getTransactionFormService().findByformNo(formNo));
             s.setPersonType(UISetting.getPersonTypeService().findById(personType));
             s.setUser(UISetting.getSystemUser());

@@ -9,17 +9,12 @@ import com.vg.scfc.financing.cis.ent.CharacterReference;
 import com.vg.scfc.financing.cis.ent.CreditRef;
 import com.vg.scfc.financing.cis.ent.Dependent;
 import com.vg.scfc.financing.cis.ent.PersonalInfo;
-import com.vg.scfc.financing.cis.ent.Sibling;
 import com.vg.scfc.financing.cis.ui.listener.AddEditChangeListener;
 import com.vg.scfc.financing.cis.ui.listener.BasicActionListener;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.LinkedList;
-import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import org.jdesktop.observablecollections.ObservableCollections;
 
 /**
@@ -32,9 +27,6 @@ public class MainPanel extends javax.swing.JPanel {
      * Creates new form MainPanel
      */
     public MainPanel() {
-        /* Tables */
-        initTableSibling();
-        
         /* Listeners */
         initComponents();
         initPersonalInfoAddEditListener();
@@ -89,7 +81,7 @@ public class MainPanel extends javax.swing.JPanel {
                 if (!isSaved) {
                     UIValidator.promptErrorMessageOn("SAVE");
                 } else {
-                    UIValidator.promptSucessMessage();
+                    UIValidator.promptSucessMessageFor("SAVE");
                 }
                 return isSaved;
             }
@@ -110,6 +102,8 @@ public class MainPanel extends javax.swing.JPanel {
                 boolean isUpdated = panelPersonalInfo.updatePersonalInfo();
                 if (!isUpdated) {
                     UIValidator.promptErrorMessageOn("EDIT");
+                } else {
+                    UIValidator.promptSucessMessageFor("EDIT");
                 }
                 return true;
             }
@@ -138,7 +132,7 @@ public class MainPanel extends javax.swing.JPanel {
                 if (!isSaved) {
                     UIValidator.promptErrorMessageOn("SAVE");
                 } else {
-                    UIValidator.promptSucessMessage();
+                    UIValidator.promptSucessMessageFor("SAVE");
                 }
                 return isSaved;
             }
@@ -160,6 +154,8 @@ public class MainPanel extends javax.swing.JPanel {
                 boolean isUpdated = panelEmploymentData.updateEmploymentData();
                 if (!isUpdated) {
                     UIValidator.promptErrorMessageOn("EDIT");
+                } else {
+                    UIValidator.promptSucessMessageFor("EDIT");
                 }
                 return isUpdated;
             }
@@ -174,7 +170,7 @@ public class MainPanel extends javax.swing.JPanel {
     }
 
     private void initFamilyBackgroundAddEditListener() {
-        panelFamilyBackground.setFormNo("000123");
+        panelFamilyBackground.setHeaderPanel(headerPanel);
         panelFamilyBackground.setPersonType("APP");
 
         addEditFamily.setBasicActionListener(new BasicActionListener() {
@@ -190,6 +186,8 @@ public class MainPanel extends javax.swing.JPanel {
                 boolean isSaved = panelFamilyBackground.saveFamilyBackground();
                 if (!isSaved) {
                     UIValidator.promptErrorMessageOn("SAVE");
+                } else {
+                    UIValidator.promptSucessMessageFor("SAVE");
                 }
                 return isSaved;
             }
@@ -211,6 +209,8 @@ public class MainPanel extends javax.swing.JPanel {
                 boolean isUpdated = panelFamilyBackground.updateFamilyBackground();
                 if (!isUpdated) {
                     UIValidator.promptErrorMessageOn("EDIT");
+                } else {
+                    UIValidator.promptSucessMessageFor("EDIT");
                 }
                 return isUpdated;
             }
@@ -225,9 +225,7 @@ public class MainPanel extends javax.swing.JPanel {
     }
 
     private void initSiblingAddEditListener() {
-        panelSibling.setSiblings(siblings);
-        panelSibling.setFormNo("0000123");
-
+        panelSibling.setHeaderPanel(headerPanel);
         addEditSibling.setBasicActionListener(new BasicActionListener() {
 
             @Override
@@ -241,6 +239,8 @@ public class MainPanel extends javax.swing.JPanel {
                 boolean isSaved = panelSibling.saveSibling();
                 if (!isSaved) {
                     UIValidator.promptErrorMessageOn("SAVE");
+                } else {
+                    UIValidator.promptSucessMessageFor("SAVE");
                 }
                 return isSaved;
             }
@@ -262,6 +262,8 @@ public class MainPanel extends javax.swing.JPanel {
                 boolean isUpdated = panelSibling.updateSibling();
                 if (!isUpdated) {
                     UIValidator.promptErrorMessageOn("EDIT");
+                } else {
+                    UIValidator.promptSucessMessageFor("EDIT");
                 }
                 return isUpdated;
             }
@@ -275,32 +277,8 @@ public class MainPanel extends javax.swing.JPanel {
         });
     }
 
-    private void initTableSibling() {
-        tableSibling = new JTable();
-        tableSibling.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        tableSibling.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-
-            @Override
-            public void valueChanged(ListSelectionEvent lse) {
-                try {
-                    selectedIndex = tableSibling.getSelectedRow();
-                    if (selectedIndex >= 0) {
-                        Sibling s = siblings.get(selectedIndex);
-                        if (s != null) {
-                            panelSibling.setSibling(s);
-                        }
-                    }
-                } catch (Exception e) {
-                    UIValidator.log(e, MainPanel.class);
-                }
-            }
-        });
-    }
-
     private void initCharacterReferenceAddEditListener() {
-        panelCharacterReference.setTableCharacterRef(tableCharacterRef);
-        panelCharacterReference.setCharacterReferences(characterReferences);
-        panelCharacterReference.setFormNo(formNo);
+        panelCharacterReference.setHeaderPanel(headerPanel);
 
         addEditCharacterReference.setBasicActionListener(new BasicActionListener() {
 
@@ -315,6 +293,8 @@ public class MainPanel extends javax.swing.JPanel {
                 boolean isSaved = panelCharacterReference.saveCharacterReference();
                 if (!isSaved) {
                     UIValidator.promptErrorMessageOn("SAVE");
+                } else {
+                    UIValidator.promptSucessMessageFor("SAVE");
                 }
                 return isSaved;
             }
@@ -336,6 +316,8 @@ public class MainPanel extends javax.swing.JPanel {
                 boolean isUpdated = panelCharacterReference.updateCharacterReference();
                 if (!isUpdated) {
                     UIValidator.promptErrorMessageOn("EDIT");
+                } else {
+                    UIValidator.promptSucessMessageFor("EDIT");
                 }
                 return isUpdated;
             }
@@ -350,8 +332,7 @@ public class MainPanel extends javax.swing.JPanel {
     }
 
     private void initDependentsAddEditListener() {
-        panelDependents.setTableDependent(tableDependent);
-        panelDependents.setDependents(dependents);
+        panelDependents.setHeaderPanel(headerPanel);
         addEditDependents.setBasicActionListener(new BasicActionListener() {
 
             @Override
@@ -400,10 +381,8 @@ public class MainPanel extends javax.swing.JPanel {
     }
 
     private void initCreditReferenceAddEditListener() {
-        panelCreditReference.setTableCreditReference(tableCreditReference);
-        panelCreditReference.setCreditReferences(creditReferences);
-        panelCreditReference.setFormNo(formNo);
-
+        panelCreditReference.setHeaderPanel(headerPanel);
+        
         addEditCreditReference.setBasicActionListener(new BasicActionListener() {
 
             @Override
@@ -452,9 +431,10 @@ public class MainPanel extends javax.swing.JPanel {
     }
 
     private void initSourceOfIncomeAddEditListener() {
-        panelSourceOfIncome.setFormNo(formNo);
+        panelSourceOfIncome.setHeaderPanel(headerPanel);
         panelSourceOfIncome.setPersonType("APP");
         panelSourceOfIncome.setTxtTotalMonthlyIncome(txtTotalMonthlyIncome);
+        panelSourceOfIncome.setClientNo("00001");
 
         addEditSourceOfInc.setBasicActionListener(new BasicActionListener() {
 
@@ -469,6 +449,8 @@ public class MainPanel extends javax.swing.JPanel {
                 boolean isSaved = panelSourceOfIncome.saveSourceOfIncome();
                 if (!isSaved) {
                     UIValidator.promptErrorMessageOn("SAVE");
+                } else {
+                    UIValidator.promptSucessMessageFor("SAVE");
                 }
                 return isSaved;
             }
@@ -504,7 +486,7 @@ public class MainPanel extends javax.swing.JPanel {
     }
 
     private void initExpendituresAddEditListener() {
-        panelExpenditures.setFormNo(formNo);
+        panelExpenditures.setHeaderPanel(headerPanel);
         panelExpenditures.setTotalMonthlyIncome(totalMonthlyIncome);
 
         addEditExpenditures.setBasicActionListener(new BasicActionListener() {
@@ -520,6 +502,8 @@ public class MainPanel extends javax.swing.JPanel {
                 boolean isSaved = panelExpenditures.saveExpenditures();
                 if (!isSaved) {
                     UIValidator.promptErrorMessageOn("SAVE");
+                } else {
+                    UIValidator.promptSucessMessageFor("SAVE");
                 }
                 return isSaved;
             }
@@ -541,6 +525,8 @@ public class MainPanel extends javax.swing.JPanel {
                 boolean isUpdated = panelExpenditures.updateExpenditures();
                 if (!isUpdated) {
                     UIValidator.promptErrorMessageOn("EDIT");
+                } else {
+                    UIValidator.promptSucessMessageFor("EDIT");
                 }
                 return isUpdated;
             }
@@ -555,7 +541,7 @@ public class MainPanel extends javax.swing.JPanel {
     }
 
     private void initLandAssetsAddEditListener() {
-        panelLandAssets.setFormNo(formNo);
+        panelLandAssets.setHeaderPanel(headerPanel);
         addEditLandAssets.setBasicActionListener(new BasicActionListener() {
 
             @Override
@@ -569,6 +555,8 @@ public class MainPanel extends javax.swing.JPanel {
                 boolean isSaved = panelLandAssets.saveLandAssets();
                 if (!isSaved) {
                     UIValidator.promptErrorMessageOn("SAVE");
+                } else {
+                    UIValidator.promptSucessMessageFor("SAVE");
                 }
                 return isSaved;
             }
@@ -590,6 +578,8 @@ public class MainPanel extends javax.swing.JPanel {
                 boolean isUpdated = panelLandAssets.updateLandAssets();
                 if (!isUpdated) {
                     UIValidator.promptErrorMessageOn("EDIT");
+                } else {
+                    UIValidator.promptSucessMessageFor("EDIT");
                 }
                 return isUpdated;
             }
@@ -1545,10 +1535,6 @@ public class MainPanel extends javax.swing.JPanel {
     private void initComponents() {
         bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
-        creditReferences = ObservableCollections.observableList(new LinkedList<CreditRef>());
-        dependents = ObservableCollections.observableList(new LinkedList<Dependent>());
-        characterReferences = ObservableCollections.observableList(new LinkedList<CharacterReference>());
-        siblings = ObservableCollections.observableList(new LinkedList<Sibling>());
         comakers = ObservableCollections.observableList(new LinkedList<PersonalInfo>());
         tabMain = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
@@ -1562,23 +1548,15 @@ public class MainPanel extends javax.swing.JPanel {
         addEditFamily = new com.vg.scfc.financing.cis.ui.reusable.AddEditButtonPanel();
         jPanel4 = new javax.swing.JPanel();
         panelSibling = new com.vg.scfc.financing.cis.ui.reusable.SiblingsPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tableSibling = new javax.swing.JTable();
         addEditSibling = new com.vg.scfc.financing.cis.ui.reusable.AddEditButtonPanel();
         jPanel5 = new javax.swing.JPanel();
         panelCharacterReference = new com.vg.scfc.financing.cis.ui.reusable.CharacterReferenceDependentPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tableCharacterRef = new javax.swing.JTable();
         addEditCharacterReference = new com.vg.scfc.financing.cis.ui.reusable.AddEditButtonPanel();
         jPanel6 = new javax.swing.JPanel();
-        panelDependents = new com.vg.scfc.financing.cis.ui.reusable.CharacterReferenceDependentPanel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        tableDependent = new javax.swing.JTable();
         addEditDependents = new com.vg.scfc.financing.cis.ui.reusable.AddEditButtonPanel();
+        panelDependents = new com.vg.scfc.financing.cis.ui.reusable.DependentPanel();
         jPanel7 = new javax.swing.JPanel();
         panelCreditReference = new com.vg.scfc.financing.cis.ui.reusable.CreditReferencePanel();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        tableCreditReference = new javax.swing.JTable();
         addEditCreditReference = new com.vg.scfc.financing.cis.ui.reusable.AddEditButtonPanel();
         jPanel8 = new javax.swing.JPanel();
         panelSourceOfIncome = new com.vg.scfc.financing.cis.ui.reusable.SourceOfIncomePanel();
@@ -1678,134 +1656,25 @@ public class MainPanel extends javax.swing.JPanel {
         jTabbedPane1.addTab("Family", jPanel3);
 
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel4.add(panelSibling, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, -1, -1));
-
-        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, siblings, tableSibling);
-        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${siblingName}"));
-        columnBinding.setColumnName("Name");
-        columnBinding.setColumnClass(String.class);
-        columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${siblingContactNo}"));
-        columnBinding.setColumnName("Contact #");
-        columnBinding.setColumnClass(String.class);
-        columnBinding.setEditable(false);
-        bindingGroup.addBinding(jTableBinding);
-        jTableBinding.bind();
-        jScrollPane1.setViewportView(tableSibling);
-        tableSibling.getColumnModel().getColumn(1).setPreferredWidth(150);
-        tableSibling.getColumnModel().getColumn(1).setMaxWidth(150);
-
-        jPanel4.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 5, 390, 90));
+        jPanel4.add(panelSibling, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
         jPanel4.add(addEditSibling, new org.netbeans.lib.awtextra.AbsoluteConstraints(92, 185, -1, -1));
 
         jTabbedPane1.addTab("Siblings", jPanel4);
 
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel5.add(panelCharacterReference, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, -1, -1));
-
-        tableCharacterRef.setColumnSelectionAllowed(true);
-        tableCharacterRef.getTableHeader().setReorderingAllowed(false);
-
-        jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, characterReferences, tableCharacterRef);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${charRefName}"));
-        columnBinding.setColumnName("Name");
-        columnBinding.setColumnClass(String.class);
-        columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${charRelationship}"));
-        columnBinding.setColumnName("Relationship");
-        columnBinding.setColumnClass(String.class);
-        columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${charRefContactNo}"));
-        columnBinding.setColumnName("Contact #");
-        columnBinding.setColumnClass(String.class);
-        columnBinding.setEditable(false);
-        bindingGroup.addBinding(jTableBinding);
-        jTableBinding.bind();
-        jScrollPane2.setViewportView(tableCharacterRef);
-        tableCharacterRef.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        tableCharacterRef.getColumnModel().getColumn(1).setPreferredWidth(180);
-        tableCharacterRef.getColumnModel().getColumn(1).setMaxWidth(180);
-        tableCharacterRef.getColumnModel().getColumn(2).setPreferredWidth(150);
-        tableCharacterRef.getColumnModel().getColumn(2).setMaxWidth(150);
-
-        jPanel5.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 5, 600, 90));
+        jPanel5.add(panelCharacterReference, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
         jPanel5.add(addEditCharacterReference, new org.netbeans.lib.awtextra.AbsoluteConstraints(92, 215, -1, -1));
 
         jTabbedPane1.addTab("Character Reference", jPanel5);
 
         jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel6.add(panelDependents, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, -1, -1));
-
-        tableDependent.setColumnSelectionAllowed(true);
-        tableDependent.getTableHeader().setReorderingAllowed(false);
-
-        jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, dependents, tableDependent, "");
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${depName}"));
-        columnBinding.setColumnName("Name");
-        columnBinding.setColumnClass(String.class);
-        columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${depRelation}"));
-        columnBinding.setColumnName("Relationship");
-        columnBinding.setColumnClass(String.class);
-        columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${depContactNo}"));
-        columnBinding.setColumnName("Contact #");
-        columnBinding.setColumnClass(String.class);
-        columnBinding.setEditable(false);
-        bindingGroup.addBinding(jTableBinding);
-        jTableBinding.bind();
-        jScrollPane3.setViewportView(tableDependent);
-        tableDependent.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        tableDependent.getColumnModel().getColumn(1).setPreferredWidth(180);
-        tableDependent.getColumnModel().getColumn(1).setMaxWidth(180);
-        tableDependent.getColumnModel().getColumn(2).setPreferredWidth(150);
-        tableDependent.getColumnModel().getColumn(2).setMaxWidth(150);
-
-        jPanel6.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 5, 600, 90));
-        jPanel6.add(addEditDependents, new org.netbeans.lib.awtextra.AbsoluteConstraints(92, 215, -1, -1));
+        jPanel6.add(addEditDependents, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 220, -1, -1));
+        jPanel6.add(panelDependents, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 5, 620, -1));
 
         jTabbedPane1.addTab("Dependents", jPanel6);
 
         jPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel7.add(panelCreditReference, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, -1, -1));
-
-        jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, creditReferences, tableCreditReference);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${creRefName}"));
-        columnBinding.setColumnName("Name");
-        columnBinding.setColumnClass(String.class);
-        columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${creRefAddress}"));
-        columnBinding.setColumnName("Address");
-        columnBinding.setColumnClass(String.class);
-        columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${creItem}"));
-        columnBinding.setColumnName("Item on Credit");
-        columnBinding.setColumnClass(String.class);
-        columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${creRefLoanAmount}"));
-        columnBinding.setColumnName("Loan Amount");
-        columnBinding.setColumnClass(Double.class);
-        columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${creRefMonthly}"));
-        columnBinding.setColumnName("Monthly Amort");
-        columnBinding.setColumnClass(Double.class);
-        columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${creRefTerm}"));
-        columnBinding.setColumnName("Term");
-        columnBinding.setColumnClass(String.class);
-        columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${creRefAmountPaid}"));
-        columnBinding.setColumnName("Amount Paid");
-        columnBinding.setColumnClass(Double.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${creRefBalance}"));
-        columnBinding.setColumnName("Balance");
-        columnBinding.setColumnClass(Double.class);
-        columnBinding.setEditable(false);
-        bindingGroup.addBinding(jTableBinding);
-        jTableBinding.bind();
-        jScrollPane4.setViewportView(tableCreditReference);
-
-        jPanel7.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 5, 980, 90));
+        jPanel7.add(panelCreditReference, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
         jPanel7.add(addEditCreditReference, new org.netbeans.lib.awtextra.AbsoluteConstraints(105, 240, -1, -1));
 
         jTabbedPane1.addTab("Credit Reference", jPanel7);
@@ -1908,8 +1777,8 @@ public class MainPanel extends javax.swing.JPanel {
 
         jPanel18.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, comakers, tblVehicle4);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${lastName}"));
+        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, comakers, tblVehicle4);
+        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${lastName}"));
         columnBinding.setColumnName("Last Name");
         columnBinding.setColumnClass(String.class);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${firstName}"));
@@ -2036,10 +1905,7 @@ public class MainPanel extends javax.swing.JPanel {
     private com.vg.scfc.financing.cis.ui.reusable.AddEditButtonPanel addEditSpouseFamilyBackground;
     private com.vg.scfc.financing.cis.ui.reusable.AddEditButtonPanel addEditSpousePersonalInfo;
     private com.vg.scfc.financing.cis.ui.reusable.AddEditButtonPanel addEditVehicle;
-    private java.util.List<CharacterReference> characterReferences;
     private java.util.List<PersonalInfo> comakers;
-    private java.util.List<CreditRef> creditReferences;
-    private java.util.List<Dependent> dependents;
     private com.vg.scfc.financing.cis.ui.reusable.HeaderPanel headerPanel;
     private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
@@ -2073,10 +1939,6 @@ public class MainPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
@@ -2097,7 +1959,7 @@ public class MainPanel extends javax.swing.JPanel {
     private com.vg.scfc.financing.cis.ui.reusable.FamilyBackgroundPanel panelCoMakerSpouseFamilyBackground;
     private com.vg.scfc.financing.cis.ui.reusable.PersonalInformationPanel panelCoMakerSpousePersonalInformation;
     private com.vg.scfc.financing.cis.ui.reusable.CreditReferencePanel panelCreditReference;
-    private com.vg.scfc.financing.cis.ui.reusable.CharacterReferenceDependentPanel panelDependents;
+    private com.vg.scfc.financing.cis.ui.reusable.DependentPanel panelDependents;
     private com.vg.scfc.financing.cis.ui.reusable.EmploymentDataPanel panelEmploymentData;
     private com.vg.scfc.financing.cis.ui.reusable.ExpendituresPanel panelExpenditures;
     private com.vg.scfc.financing.cis.ui.reusable.FamilyBackgroundPanel panelFamilyBackground;
@@ -2113,13 +1975,8 @@ public class MainPanel extends javax.swing.JPanel {
     private com.vg.scfc.financing.cis.ui.reusable.PersonalInformationPanel panelSpousePersonalInfo;
     private com.vg.scfc.financing.cis.ui.reusable.VehiclePanel panelVehicle;
     private com.vg.scfc.financing.cis.ui.reusable.RidersToBuyerPanel ridersToBuyerPanel1;
-    private java.util.List<Sibling> siblings;
     private javax.swing.JTabbedPane tabMain;
     private javax.swing.JPanel tabPO;
-    private javax.swing.JTable tableCharacterRef;
-    private javax.swing.JTable tableCreditReference;
-    private javax.swing.JTable tableDependent;
-    private javax.swing.JTable tableSibling;
     private javax.swing.JTable tblVehicle4;
     private javax.swing.JTextField txtTotalMonthlyIncome;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
@@ -2131,10 +1988,6 @@ public class MainPanel extends javax.swing.JPanel {
 
     public void setSelectdIndex(int selectdIndex) {
         this.selectedIndex = selectdIndex;
-    }
-
-    public JTable getTableSibling() {
-        return tableSibling;
     }
 
     public void setTotalMonthlyIncome(BigDecimal totalMonthlyIncome) {

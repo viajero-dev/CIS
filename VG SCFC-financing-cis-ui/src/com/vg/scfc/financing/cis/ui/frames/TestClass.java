@@ -5,11 +5,14 @@
  */
 package com.vg.scfc.financing.cis.ui.frames;
 
+import java.math.BigDecimal;
+
 /**
  *
  * @author rodel
  */
 public class TestClass {
     public static void main(String[] args) {
+        new BigDecimal("100.00");
     }
 }
