@@ -24,17 +24,9 @@ public class EmploymentCotroller {
         return instance;
     }
 
-    public Object createNew(String status, String positionDept, String companyEmployer, String address, String contactNo, String natureOfBuss, int yearsInService, String personType, String formNo) {
+    public Object createNew(Employment e, String personType, String formNo) {
         Object result = null;
         try {
-            Employment e = new Employment();
-            e.setEmpStatus(status);
-            e.setEmpPosition(positionDept);
-            e.setEmpCompany(companyEmployer);
-            e.setEmpAddress(address);
-            e.setEmpContactNo(contactNo);
-            e.setEmpNature(status);
-            e.setEmpYearsInService(yearsInService);
             e.setPersonType(UISetting.getPersonTypeService().findById(personType));
             e.setTxFormNo(formNo);
             e.setUser(UISetting.getSystemUser());

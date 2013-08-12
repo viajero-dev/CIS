@@ -5,6 +5,9 @@
  */
 package com.vg.scfc.financing.cis.ui.panel;
 
+import com.vg.scfc.financing.cis.ui.reusable.HeaderPanel;
+import java.util.Date;
+
 /**
  *
  * @author rodel
@@ -16,6 +19,7 @@ public class InstallmentPanel extends javax.swing.JPanel {
      */
     public InstallmentPanel() {
         initComponents();
+//        getMainPanel().setHeaderPanel(getHeaderPanel());
     }
 
     /**
@@ -27,16 +31,32 @@ public class InstallmentPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        headerPanel1 = new com.vg.scfc.financing.cis.ui.reusable.HeaderPanel();
-        mainPanel1 = new com.vg.scfc.financing.cis.ui.panel.MainPanel();
+        mainPanel = new com.vg.scfc.financing.cis.ui.panel.MainPanel();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        add(headerPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1040, -1));
-        add(mainPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, -1, -1));
+        add(mainPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.vg.scfc.financing.cis.ui.reusable.HeaderPanel headerPanel1;
-    private com.vg.scfc.financing.cis.ui.panel.MainPanel mainPanel1;
+    private com.vg.scfc.financing.cis.ui.panel.MainPanel mainPanel;
     // End of variables declaration//GEN-END:variables
+    private String formNo;
+    private Date applicationDate;
+
+    public String getFormNo() {
+        return formNo;
+    }
+
+    public void setFormNo(String formNo) {
+        this.formNo = formNo;
+    }
+
+    public Date getApplicationDate() {
+        return applicationDate;
+    }
+
+    public void setApplicationDate(Date applicationDate) {
+        this.applicationDate = applicationDate;
+    }
+
 }

@@ -5,7 +5,12 @@
  */
 package com.vg.scfc.financing.cis.ui.reusable;
 
+import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 import java.awt.Color;
+import java.text.ParseException;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -35,6 +40,13 @@ public class HeaderPanel extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         txtFormNo = new javax.swing.JTextField();
         labelApplicationStatus = new javax.swing.JLabel();
+        try {
+            txtAppDate = new com.vg.commons.formattedfields.FormattedSimpleDateField();
+        } catch (java.text.ParseException e1) {
+            e1.printStackTrace();
+        }
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -57,25 +69,40 @@ public class HeaderPanel extends javax.swing.JPanel {
         add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(3, 48, 1040, -1));
 
         txtFormNo.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
-        txtFormNo.setText("Form No");
-        add(txtFormNo, new org.netbeans.lib.awtextra.AbsoluteConstraints(888, 5, 140, -1));
+        txtFormNo.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtFormNo.setText("00000");
+        add(txtFormNo, new org.netbeans.lib.awtextra.AbsoluteConstraints(958, 35, 70, -1));
 
         labelApplicationStatus.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         labelApplicationStatus.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         labelApplicationStatus.setText("APPROVED");
-        add(labelApplicationStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(748, 35, 280, -1));
+        add(labelApplicationStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(748, 5, 280, -1));
+
+        txtAppDate.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
+        add(txtAppDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(958, 60, 70, -1));
+
+        jLabel4.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
+        jLabel4.setText("Application Date");
+        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 65, -1, -1));
+
+        jLabel5.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
+        jLabel5.setText("Form No");
+        add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 40, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel labelApplicationStatus;
+    private com.vg.commons.formattedfields.FormattedSimpleDateField txtAppDate;
     private javax.swing.JTextField txtFormNo;
     // End of variables declaration//GEN-END:variables
 
     public void setApplicationStatus(String status) {
-        switch(status) {
+        switch (status) {
             case "APPROVED":
                 labelApplicationStatus.setText("APPROVED");
                 labelApplicationStatus.setForeground(Color.DARK_GRAY);
@@ -84,11 +111,25 @@ public class HeaderPanel extends javax.swing.JPanel {
                 labelApplicationStatus.setText("DISAPPROVED");
                 labelApplicationStatus.setForeground(Color.RED);
                 break;
-                default:
-                    labelApplicationStatus.setText("PENDING");
-                    labelApplicationStatus.setForeground(Color.BLUE);
-                    break;
+            default:
+                labelApplicationStatus.setText("PENDING");
+                labelApplicationStatus.setForeground(Color.BLUE);
+                break;
         }
+    }
+
+    public String getFormNo() {
+        return txtFormNo.getText().toUpperCase().trim();
+    }
+
+    public Date getApplicationDate() {
+        Date result = new Date();
+        try {
+            result = txtAppDate.getDate();
+        } catch (ParseException ex) {
+            UIValidator.log(ex, HeaderPanel.class);
+        }
+        return result;
     }
 
 }

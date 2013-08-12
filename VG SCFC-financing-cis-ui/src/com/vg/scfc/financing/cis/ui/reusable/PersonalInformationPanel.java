@@ -5,6 +5,8 @@
  */
 package com.vg.scfc.financing.cis.ui.reusable;
 
+import classes.VgImageIcon;
+import com.googlecode.javacv.cpp.opencv_core.IplImage;
 import com.vg.scfc.financing.cis.ent.PersonalInfo;
 import com.vg.scfc.financing.cis.ent.Religion;
 import com.vg.scfc.financing.cis.ent.Tribe;
@@ -13,16 +15,17 @@ import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import ui.WebCamDlg;
+import interfaces.Caller;
 
 /**
  *
  * @author rodel
  */
-public class PersonalInformationPanel extends javax.swing.JPanel implements KeyListener {
+public class PersonalInformationPanel extends javax.swing.JPanel implements KeyListener, Caller {
 
     /**
      * Creates new form PersonalInformationPanel
@@ -90,8 +93,8 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
      * Set all Combo Box values
      */
     private void initComboBoxValues() {
-        List<Tribe> tribes = PersonalInfoController.getInstance().Tribes();
-        List<Religion> religions = PersonalInfoController.getInstance().Religions();
+        tribes = PersonalInfoController.getInstance().Tribes();
+        religions = PersonalInfoController.getInstance().Religions();
 
         if (!tribes.isEmpty()) {
             comboTribe.removeAllItems();
@@ -146,8 +149,6 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
         jLabel113 = new javax.swing.JLabel();
         txtContact = new javax.swing.JTextField();
         jLabel114 = new javax.swing.JLabel();
-        jPanel5 = new javax.swing.JPanel();
-        jLabel115 = new javax.swing.JLabel();
         jLabel116 = new javax.swing.JLabel();
         txtBirthPlace = new javax.swing.JTextField();
         jLabel111 = new javax.swing.JLabel();
@@ -157,6 +158,8 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
         } catch (java.text.ParseException e1) {
             e1.printStackTrace();
         }
+        btnTakePicture = new javax.swing.JButton();
+        lblPhoto = new javax.swing.JLabel();
 
         jPanel4.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -242,7 +245,7 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
                 optionFemaleItemStateChanged(evt);
             }
         });
-        jPanel4.add(optionFemale, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 5, -1, -1));
+        jPanel4.add(optionFemale, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 5, 70, -1));
 
         jLabel106.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel106.setText("Tribe");
@@ -316,31 +319,6 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
         jLabel114.setText("Education");
         jPanel4.add(jLabel114, new org.netbeans.lib.awtextra.AbsoluteConstraints(625, 10, -1, -1));
 
-        jPanel5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        jLabel115.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
-        jLabel115.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel115.setText("Image");
-
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel115, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(54, 54, 54)
-                .addComponent(jLabel115)
-                .addContainerGap(57, Short.MAX_VALUE))
-        );
-
-        jPanel4.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(845, 5, 150, 130));
-
         jLabel116.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel116.setText("Present Address");
         jPanel4.add(jLabel116, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 136, -1, -1));
@@ -373,6 +351,15 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
         });
         jPanel4.add(txtBirthDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(93, 80, 120, -1));
 
+        btnTakePicture.setText("Take Picture");
+        btnTakePicture.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTakePictureActionPerformed(evt);
+            }
+        });
+        jPanel4.add(btnTakePicture, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 140, 140, -1));
+        jPanel4.add(lblPhoto, new org.netbeans.lib.awtextra.AbsoluteConstraints(845, 10, 160, 120));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -395,14 +382,17 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
     }//GEN-LAST:event_comboStatusFocusLost
 
     private void txtLastNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtLastNameFocusLost
+        txtLastName.setText(UIValidator.validate(txtLastName));
         lastname = UIValidator.validate(txtLastName);
     }//GEN-LAST:event_txtLastNameFocusLost
 
     private void txtFirstNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFirstNameFocusLost
+        txtFirstName.setText(UIValidator.validate(txtFirstName));
         firstname = UIValidator.validate(txtFirstName);
     }//GEN-LAST:event_txtFirstNameFocusLost
 
     private void txtMiddleNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMiddleNameActionPerformed
+        txtMiddleName.setText(UIValidator.validate(txtMiddleName));
         middlename = UIValidator.validate(txtMiddleName);
     }//GEN-LAST:event_txtMiddleNameActionPerformed
 
@@ -459,14 +449,17 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
     }//GEN-LAST:event_comboEducationStatusItemStateChanged
 
     private void txtBirthPlaceFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBirthPlaceFocusLost
+        txtBirthPlace.setText(UIValidator.validate(txtBirthPlace));
         birthPlace = UIValidator.validate(txtBirthPlace);
     }//GEN-LAST:event_txtBirthPlaceFocusLost
 
     private void txtPresentAddressFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPresentAddressFocusLost
+        txtPresentAddress.setText(UIValidator.validate(txtPresentAddress));
         presentAddress = UIValidator.validate(txtPresentAddress);
     }//GEN-LAST:event_txtPresentAddressFocusLost
 
     private void txtPreviousAddressFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPreviousAddressFocusLost
+        txtPreviousAddress.setText(UIValidator.validate(txtPreviousAddress));
         previousAddress = UIValidator.validate(txtPreviousAddress);
     }//GEN-LAST:event_txtPreviousAddressFocusLost
 
@@ -478,7 +471,21 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
         }
     }//GEN-LAST:event_txtBirthDateFocusLost
 
+    private WebCamDlg dlg;
+    private void btnTakePictureActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTakePictureActionPerformed
+        if (dlg == null) {
+            dlg = new WebCamDlg(null, true);
+        }
+        dlg.setCaller(this);
+        dlg.setFilename("123");
+        if (!dlg.isVisible()) {
+            dlg.setVisible(true);
+        }
+        dlg.setPath("/home/rodel");
+    }//GEN-LAST:event_btnTakePictureActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnTakePicture;
     private javax.swing.JComboBox comboCitizenship;
     private javax.swing.JComboBox comboEducationStatus;
     private javax.swing.JComboBox comboMarriedOption;
@@ -500,10 +507,9 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
     private javax.swing.JLabel jLabel111;
     private javax.swing.JLabel jLabel113;
     private javax.swing.JLabel jLabel114;
-    private javax.swing.JLabel jLabel115;
     private javax.swing.JLabel jLabel116;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
+    private javax.swing.JLabel lblPhoto;
     private javax.swing.JRadioButton optionFemale;
     private javax.swing.ButtonGroup optionGroupGender;
     private javax.swing.JRadioButton optionMale;
@@ -532,11 +538,16 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
     private String citizenship;
     private String presentAddress;
     private String previousAddress;
-    private String formSeries;
-    private Date applicationDate;
     private String formNo;
     private String personType;
     private PersonalInfo personalInfo;
+    List<Tribe> tribes = new ArrayList<>();
+    List<Religion> religions = new ArrayList<>();
+    private HeaderPanel headerPanel;
+
+    public void setHeaderPanel(HeaderPanel headerPanel) {
+        this.headerPanel = headerPanel;
+    }
 
     public void setFormNo(String formNo) {
         this.formNo = formNo;
@@ -549,14 +560,6 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
     public void setPersonalInfo(PersonalInfo personalInfo) {
         this.personalInfo = personalInfo;
         setPersonalInfoData(this.personalInfo);
-    }
-
-    public void setFormSeries(String formSeries) {
-        this.formSeries = formSeries;
-    }
-
-    public void setApplicationDate(Date applicationDate) {
-        this.applicationDate = applicationDate;
     }
 
     @Override
@@ -749,8 +752,8 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
                     comboEducationStatus.setSelectedIndex(3);
                     break;
             }
-//            comboTribe.setSelectedIndex(0);
-//            comboReligion.setSelectedIndex(0);
+            comboTribe.setSelectedIndex(0);
+            comboReligion.setSelectedIndex(0);
 //            comboCitizenship.setSelectedIndex(0);
 //            txtPresentAddress.setText(p.get);
 //            txtPreviousAddress.setText("");
@@ -758,9 +761,7 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
     }
 
     public boolean savePersonalInfo() {
-        Object o = PersonalInfoController.getInstance().createNew(lastname, firstname, middlename, birthDate,
-                birthPlace, age, gender, tribe, religion, citizenship, civilStatus, educationalAttainment, contact,
-                presentAddress, previousAddress, formSeries, applicationDate);
+        Object o = PersonalInfoController.getInstance().createNew(createNew(new PersonalInfo()), headerPanel.getFormNo(), headerPanel.getApplicationDate());
         setPersonalInfo((PersonalInfo) o);
         return o != null;
     }
@@ -769,6 +770,53 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
         Object o = PersonalInfoController.getInstance().update(personalInfo);
         setPersonalInfo((PersonalInfo) o);
         return o != null;
+    }
+
+    private PersonalInfo createNew(PersonalInfo p) {
+        p.setLastName(txtLastName.getText());
+        p.setFirstName(txtFirstName.getText());
+        p.setMiddleName(txtMiddleName.getText());
+        p.setDateOfBirth(birthDate);
+        p.setPlaceOfBirth(birthPlace);
+        if (optionMale.isSelected()) {
+            gender = "MALE";
+        } else {
+            gender = "FEMALE";
+        }
+        p.setGender(gender);
+        p.setTribe(PersonalInfoController.getInstance().findTribeByDesc((String) comboTribe.getSelectedItem(), tribes));
+        p.setReligion(PersonalInfoController.getInstance().findReligionByDesc((String) comboReligion.getSelectedItem(), religions));
+        p.setCitizenship(citizenship);
+        if (comboStatus.getSelectedIndex() == 1) {
+            switch (comboMarriedOption.getSelectedIndex()) {
+                case 0:
+                    civilStatus = "LIVING TOGETHER";
+                    break;
+                case 1:
+                    civilStatus = "WIDOWER";
+                    break;
+                case 2:
+                    civilStatus = "LEGALLY SEPERATED";
+                    break;
+                case 3:
+                    civilStatus = "MUTUALLY SEPERATED";
+                    break;
+            }
+        } else {
+            civilStatus = "SINGLE";
+        }
+        p.setCivilStatus(civilStatus);
+        p.setEducation(educationalAttainment);
+        p.setContactNo(txtContact.getText());
+
+        return p;
+    }
+
+    @Override
+    public void setPhoto(IplImage image) {
+        if (image != null) {
+            lblPhoto.setIcon(new VgImageIcon(image.getBufferedImage()));
+        }
     }
 
 }

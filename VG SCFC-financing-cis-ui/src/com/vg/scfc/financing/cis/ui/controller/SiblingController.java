@@ -26,32 +26,30 @@ public class SiblingController {
         return instance;
     }
 
-    public Object createNew(String name, String address, String contact, String formNo) {
-        Sibling result = null;
+    public List<Sibling> createNew(Sibling s, String formNo) {
+        List<Sibling> results = new ArrayList<>();
         try {
-            Sibling s = new Sibling();
-            s.setSiblingName(name);
-            s.setSiblingAddress(address);
-            s.setSiblingContactNo(contact);
             s.setTxFormNo(formNo);
             s.setUser(UISetting.getSystemUser());
             s.setLocation(UISetting.getStoreLocation());
             s.setStation(UISetting.getComputerName());
-            result = UISetting.getSiblingService().insert(s);
+            UISetting.getSiblingService().insert(s);
+            results = UISetting.getSiblingService().findByFormNo(formNo);
         } catch (Exception ex) {
             UIValidator.log(ex, SiblingController.class);
         }
-        return result;
+        return results;
     }
     
-    public Object update(String formNo, Sibling s) {
-        Sibling result = null;
+    public List<Sibling> update(String formNo, Sibling s) {
+        List<Sibling> results = new ArrayList<>();
         try {
-            result = UISetting.getSiblingService().update(s);
+            UISetting.getSiblingService().update(s);
+            results = UISetting.getSiblingService().findByFormNo(formNo);
         } catch (Exception ex) {
             UIValidator.log(ex, SiblingController.class);
         }
-        return result;
+        return results;
     }
     
     public List<Sibling> findAll(String formNo) {

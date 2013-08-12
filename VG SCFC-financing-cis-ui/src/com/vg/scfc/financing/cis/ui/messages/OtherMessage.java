@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.vg.scfc.financing.cis.ui.frames;
+package com.vg.scfc.financing.cis.ui.messages;
 
 /**
  *
  * @author rodel
  */
-public class TestClass {
-    public static void main(String[] args) {
-    }
+public class OtherMessage {
+
+    public final static String SUCCESSFUL_INSERT = "NEW RECORD SAVED.";
 }

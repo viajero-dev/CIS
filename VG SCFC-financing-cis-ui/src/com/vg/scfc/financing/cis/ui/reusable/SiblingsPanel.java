@@ -7,14 +7,12 @@ package com.vg.scfc.financing.cis.ui.reusable;
 
 import com.vg.scfc.financing.cis.ent.Sibling;
 import com.vg.scfc.financing.cis.ui.controller.SiblingController;
+import com.vg.scfc.financing.cis.ui.panel.MainPanel;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.List;
 import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 
 /**
  *
@@ -30,30 +28,9 @@ public class SiblingsPanel extends javax.swing.JPanel implements KeyListener {
         startUpSettings();
     }
 
-    private void initTableSibling() {
-        if (tableSibling != null) {
-            tableSibling.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-            tableSibling.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-
-                @Override
-                public void valueChanged(ListSelectionEvent lse) {
-                    try {
-                        selectedIndex = tableSibling.getSelectedRow();
-                        if (selectedIndex >= 0) {
-                            setSibling(siblings.get(selectedIndex));
-                        }
-                    } catch (Exception e) {
-                        UIValidator.log(e, SiblingsPanel.class);
-                    }
-                }
-            });
-        }
-    }
-
     private void startUpSettings() {
         setFieldsEditable(false);
         initTextBoxesListener();
-        initTableSibling();
     }
 
     /**
@@ -121,15 +98,15 @@ public class SiblingsPanel extends javax.swing.JPanel implements KeyListener {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtSiblingNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSiblingNameFocusLost
-        name = UIValidator.validate(txtSiblingName);
+        txtSiblingName.setText(UIValidator.validate(txtSiblingName));
     }//GEN-LAST:event_txtSiblingNameFocusLost
 
     private void txtSiblingAddressFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSiblingAddressFocusLost
-        address = UIValidator.validate(txtSiblingAddress);
+        txtSiblingAddress.setText(UIValidator.validate(txtSiblingAddress));
     }//GEN-LAST:event_txtSiblingAddressFocusLost
 
     private void txtSiblingContactFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSiblingContactFocusLost
-        contact = UIValidator.isNumeric(txtSiblingContact);
+        txtSiblingContact.setText(UIValidator.isNumeric(txtSiblingContact));
     }//GEN-LAST:event_txtSiblingContactFocusLost
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -140,26 +117,29 @@ public class SiblingsPanel extends javax.swing.JPanel implements KeyListener {
     private javax.swing.JTextField txtSiblingContact;
     private javax.swing.JTextField txtSiblingName;
     // End of variables declaration//GEN-END:variables
-    private String name;
-    private String address;
-    private String contact;
-    private JTable tableSibling;
-    private int selectedIndex;
     private List<Sibling> siblings;
     private String formNo;
     private Sibling sibling;
+    private MainPanel mainPanel;
+
+    public MainPanel getMainPanel() {
+        return mainPanel;
+    }
+
+    public void setMainPanel(MainPanel mainPanel) {
+        this.mainPanel = mainPanel;
+    }
 
     public void setSibling(Sibling sibling) {
+        if (sibling == null) {
+            sibling = new Sibling();
+        }
         this.sibling = sibling;
-        setSibling(this.sibling);
+        setSiblingInfo(this.sibling);
     }
 
     public void setFormNo(String formNo) {
         this.formNo = formNo;
-    }
-
-    public void setTableSibling(JTable tableSibling) {
-        this.tableSibling = tableSibling;
     }
 
     public void setSiblings(List<Sibling> siblings) {
@@ -218,22 +198,29 @@ public class SiblingsPanel extends javax.swing.JPanel implements KeyListener {
     }
 
     public boolean saveSibling() {
-        Object o = SiblingController.getInstance().createNew(name, address, contact, formNo);
-        setSibling((Sibling) o);
-        return o != null;
+        List<Sibling> s = SiblingController.getInstance().createNew(createNew(new Sibling()), formNo);
+        refreshTable(s);
+        return !s.isEmpty();
     }
 
     public boolean updateSibling() {
-        Object o = SiblingController.getInstance().update(formNo, sibling);
-        setSibling((Sibling) o);
-        return o != null;
+        List<Sibling> s = SiblingController.getInstance().update(formNo, createNew(this.sibling));
+        refreshTable(s);
+        return !s.isEmpty();
     }
 
     public void refreshTable(List<Sibling> s) {
         siblings.clear();
         siblings.addAll(s);
         if (!siblings.isEmpty()) {
-            tableSibling.setRowSelectionInterval(0, 0);
+            mainPanel.getTableSibling().setRowSelectionInterval(0, 0);
         }
+    }
+
+    public Sibling createNew(Sibling s) {
+        s.setSiblingName(txtSiblingName.getText());
+        s.setSiblingAddress(txtSiblingAddress.getText());
+        s.setSiblingContactNo(txtSiblingContact.getText());
+        return s;
     }
 }

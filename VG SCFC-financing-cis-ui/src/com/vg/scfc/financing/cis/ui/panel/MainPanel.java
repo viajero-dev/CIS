@@ -16,6 +16,10 @@ import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.LinkedList;
+import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import org.jdesktop.observablecollections.ObservableCollections;
 
 /**
@@ -28,6 +32,10 @@ public class MainPanel extends javax.swing.JPanel {
      * Creates new form MainPanel
      */
     public MainPanel() {
+        /* Tables */
+        initTableSibling();
+        
+        /* Listeners */
         initComponents();
         initPersonalInfoAddEditListener();
         initApplicantPersonalInfo();
@@ -66,6 +74,7 @@ public class MainPanel extends javax.swing.JPanel {
     }
 
     private void initPersonalInfoAddEditListener() {
+        panelPersonalInfo.setHeaderPanel(headerPanel);
         addEditPersonalInfo.setBasicActionListener(new BasicActionListener() {
 
             @Override
@@ -79,6 +88,8 @@ public class MainPanel extends javax.swing.JPanel {
                 boolean isSaved = panelPersonalInfo.savePersonalInfo();
                 if (!isSaved) {
                     UIValidator.promptErrorMessageOn("SAVE");
+                } else {
+                    UIValidator.promptSucessMessage();
                 }
                 return isSaved;
             }
@@ -111,7 +122,7 @@ public class MainPanel extends javax.swing.JPanel {
     }
 
     private void initEmploymentDataAddEditListener() {
-        panelEmploymentData.setFormNo(formNo);
+        panelEmploymentData.setFormNo("");
         panelEmploymentData.setPersonType("APP");
         addEditEmployment.setBasicActionListener(new BasicActionListener() {
 
@@ -126,6 +137,8 @@ public class MainPanel extends javax.swing.JPanel {
                 boolean isSaved = panelEmploymentData.saveEmploymentData();
                 if (!isSaved) {
                     UIValidator.promptErrorMessageOn("SAVE");
+                } else {
+                    UIValidator.promptSucessMessage();
                 }
                 return isSaved;
             }
@@ -161,9 +174,9 @@ public class MainPanel extends javax.swing.JPanel {
     }
 
     private void initFamilyBackgroundAddEditListener() {
-        panelFamilyBackground.setFormNo(formNo);
+        panelFamilyBackground.setFormNo("000123");
         panelFamilyBackground.setPersonType("APP");
-        
+
         addEditFamily.setBasicActionListener(new BasicActionListener() {
 
             @Override
@@ -212,10 +225,9 @@ public class MainPanel extends javax.swing.JPanel {
     }
 
     private void initSiblingAddEditListener() {
-        panelSibling.setTableSibling(tableSibling);
         panelSibling.setSiblings(siblings);
-        panelSibling.setFormNo(formNo);
-        
+        panelSibling.setFormNo("0000123");
+
         addEditSibling.setBasicActionListener(new BasicActionListener() {
 
             @Override
@@ -263,11 +275,33 @@ public class MainPanel extends javax.swing.JPanel {
         });
     }
 
+    private void initTableSibling() {
+        tableSibling = new JTable();
+        tableSibling.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        tableSibling.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+
+            @Override
+            public void valueChanged(ListSelectionEvent lse) {
+                try {
+                    selectedIndex = tableSibling.getSelectedRow();
+                    if (selectedIndex >= 0) {
+                        Sibling s = siblings.get(selectedIndex);
+                        if (s != null) {
+                            panelSibling.setSibling(s);
+                        }
+                    }
+                } catch (Exception e) {
+                    UIValidator.log(e, MainPanel.class);
+                }
+            }
+        });
+    }
+
     private void initCharacterReferenceAddEditListener() {
         panelCharacterReference.setTableCharacterRef(tableCharacterRef);
         panelCharacterReference.setCharacterReferences(characterReferences);
         panelCharacterReference.setFormNo(formNo);
-        
+
         addEditCharacterReference.setBasicActionListener(new BasicActionListener() {
 
             @Override
@@ -369,7 +403,7 @@ public class MainPanel extends javax.swing.JPanel {
         panelCreditReference.setTableCreditReference(tableCreditReference);
         panelCreditReference.setCreditReferences(creditReferences);
         panelCreditReference.setFormNo(formNo);
-        
+
         addEditCreditReference.setBasicActionListener(new BasicActionListener() {
 
             @Override
@@ -421,7 +455,7 @@ public class MainPanel extends javax.swing.JPanel {
         panelSourceOfIncome.setFormNo(formNo);
         panelSourceOfIncome.setPersonType("APP");
         panelSourceOfIncome.setTxtTotalMonthlyIncome(txtTotalMonthlyIncome);
-        
+
         addEditSourceOfInc.setBasicActionListener(new BasicActionListener() {
 
             @Override
@@ -472,7 +506,7 @@ public class MainPanel extends javax.swing.JPanel {
     private void initExpendituresAddEditListener() {
         panelExpenditures.setFormNo(formNo);
         panelExpenditures.setTotalMonthlyIncome(totalMonthlyIncome);
-        
+
         addEditExpenditures.setBasicActionListener(new BasicActionListener() {
 
             @Override
@@ -570,7 +604,7 @@ public class MainPanel extends javax.swing.JPanel {
     }
 
     private void initVehicleAssetsAddEditListener() {
-        panelVehicle.setFormNo(formNo);
+        panelVehicle.setFormNo("0001123");
         addEditVehicle.setBasicActionListener(new BasicActionListener() {
 
             @Override
@@ -1624,6 +1658,7 @@ public class MainPanel extends javax.swing.JPanel {
         jPanel31 = new javax.swing.JPanel();
         ridersToBuyerPanel1 = new com.vg.scfc.financing.cis.ui.reusable.RidersToBuyerPanel();
         jButton1 = new javax.swing.JButton();
+        headerPanel = new com.vg.scfc.financing.cis.ui.reusable.HeaderPanel();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -1966,7 +2001,8 @@ public class MainPanel extends javax.swing.JPanel {
 
         tabMain.addTab("RIDERS TO BUYERS", jPanel31);
 
-        add(tabMain, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 5, 1040, 600));
+        add(tabMain, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 85, 1040, 600));
+        add(headerPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         bindingGroup.bind();
     }// </editor-fold>//GEN-END:initComponents
@@ -2004,6 +2040,7 @@ public class MainPanel extends javax.swing.JPanel {
     private java.util.List<PersonalInfo> comakers;
     private java.util.List<CreditRef> creditReferences;
     private java.util.List<Dependent> dependents;
+    private com.vg.scfc.financing.cis.ui.reusable.HeaderPanel headerPanel;
     private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
@@ -2090,6 +2127,15 @@ public class MainPanel extends javax.swing.JPanel {
     private String formNo;
     private Date applicationDate;
     private BigDecimal totalMonthlyIncome;
+    private int selectedIndex;
+
+    public void setSelectdIndex(int selectdIndex) {
+        this.selectedIndex = selectdIndex;
+    }
+
+    public JTable getTableSibling() {
+        return tableSibling;
+    }
 
     public void setTotalMonthlyIncome(BigDecimal totalMonthlyIncome) {
         this.totalMonthlyIncome = totalMonthlyIncome;

@@ -8,11 +8,8 @@ package com.vg.scfc.financing.cis.ui.controller;
 import com.vg.scfc.financing.cis.ent.Vehicle;
 import com.vg.scfc.financing.cis.ui.settings.UISetting;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -29,20 +26,16 @@ public class VehicleAssetsController {
         return instance;
     }
 
-    public List<Vehicle> createNew(String type, int age, String use, BigDecimal amount, String formNo) {
+    public List<Vehicle> createNew(String formNo, Vehicle v) {
         List<Vehicle> results = new ArrayList<>();
         try {
-            Vehicle v = new Vehicle();
-            v.setType(type);
-            v.setAge(age);
-            v.setUse(use);
-            v.setAmount(amount.doubleValue());
             v.setUser(UISetting.getSystemUser());
             v.setLocation(UISetting.getStoreLocation());
             v.setStation(UISetting.getComputerName());
             UISetting.getVehicleService().insert(formNo, v);
             results = UISetting.getVehicleService().findByAsset(formNo);
         } catch (Exception ex) {
+            ex.printStackTrace();
             UIValidator.log(ex, VehicleAssetsController.class);
         }
         return results;

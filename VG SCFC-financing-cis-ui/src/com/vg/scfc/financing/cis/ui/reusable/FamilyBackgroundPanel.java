@@ -27,7 +27,7 @@ public class FamilyBackgroundPanel extends javax.swing.JPanel implements KeyList
         initTextBoxListener();
         startUpSettings();
     }
-    
+
     private void startUpSettings() {
         setFieldsEditable(false);
     }
@@ -360,4 +360,5 @@ public class FamilyBackgroundPanel extends javax.swing.JPanel implements KeyList
         setFamilyBackground(f);
         return f != null && !f.isEmpty();
     }
+
 }

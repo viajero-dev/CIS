@@ -25,7 +25,7 @@ public class EmploymentDataPanel extends javax.swing.JPanel implements KeyListen
         initUIListener();
         startUpSettings();
     }
-    
+
     private void startUpSettings() {
         setFieldsEditable(false);
     }
@@ -258,13 +258,13 @@ public class EmploymentDataPanel extends javax.swing.JPanel implements KeyListen
     }
 
     public boolean saveEmploymentData() {
-        Object o = EmploymentCotroller.getInstance().createNew(address, positionDept, companyEmployer, address, contactNo, natureOfBuss, yearInService, personType, formNo);
+        Object o = EmploymentCotroller.getInstance().createNew(createNew(new Employment()), personType, formNo);
         setEmployment((Employment) o);
         return o != null;
     }
 
     public boolean updateEmploymentData() {
-        Object o = EmploymentCotroller.getInstance().update(formNo, employment);
+        Object o = EmploymentCotroller.getInstance().update(formNo, createNew(employment));
         setEmployment((Employment) o);
         return o != null;
     }
@@ -323,5 +323,16 @@ public class EmploymentDataPanel extends javax.swing.JPanel implements KeyListen
         txtYearInService.setText("");
 
         comboEmploymentStatus.requestFocus();
+    }
+
+    public Employment createNew(Employment e) {
+        e.setEmpStatus((String) comboEmploymentStatus.getSelectedItem());
+        e.setEmpPosition(txtPositionDepartment.getText());
+        e.setEmpCompany(txtCompanyEmployer.getText());
+        e.setEmpAddress(txtEmployerAddress.getText());
+        e.setEmpContactNo(txtEmployerContact.getText());
+        e.setEmpNature(txtEmployerBusinessNature.getText());
+        e.setEmpYearsInService(Integer.parseInt(txtYearInService.getText()));
+        return e;
     }
 }

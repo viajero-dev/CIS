@@ -33,13 +33,12 @@ public class PersonalInfoController {
         return instance;
     }
 
-    public Object createNew(String lastname, String firstname, String middlename, Date birthDate, String birthPlace,
-            int age, String gender, String tribe, String religion, String citizenship, String civilStatusOther, String educationalAttainment,
-            String contactNo, String presentAddress, String previousAddress, String formSeries, Date applicationDate) {
+    public Object createNew(PersonalInfo p, String formSeries, Date applicationDate) {
         PersonalInfo result = null;
         try {
             /* Form Info */
             String formNo = FormController.getInstance().newFormNo(UISetting.getStoreLocation().getId(), "2", formSeries);
+            
             TransactionForm form = new TransactionForm();
             form.setTxFormNo(formNo);
             form.setTxApplicationDate(applicationDate);
@@ -52,7 +51,7 @@ public class PersonalInfoController {
 
             /* Customer Info */
             Customer customer = new Customer();
-            customer.setName(lastname + "," + firstname + " " + middlename);
+            customer.setName(p.getLastName().toUpperCase() + "," + p.getFirstName().toUpperCase() + " " + p.getMiddleName().toUpperCase());
             customer.setTransactionMode(transactionMode);
             customer.setUser(UISetting.getSystemUser());
             customer.setLocation(UISetting.getStoreLocation());
@@ -62,30 +61,20 @@ public class PersonalInfoController {
             PersonType personType = UISetting.getPersonTypeService().findById("APP");
             
             /* Personal Info */
-            PersonalInfo person = new PersonalInfo();
-            person.setLastName(lastname);
-            person.setFirstName(firstname);
-            person.setMiddleName(middlename);
-            person.setDateOfBirth(birthDate);
-            person.setPlaceOfBirth(birthPlace);
-            person.setGender(gender);
-            person.setTribe(null);
-            person.setReligion(null);
-            person.setCitizenship(citizenship);
-            person.setCivilStatus(civilStatusOther);
-            person.setEducation(educationalAttainment);
-            person.setContactNo(contactNo);
-            person.setPersonType(personType);
-            person.setUser(UISetting.getSystemUser());
-            person.setLocation(UISetting.getStoreLocation());
-            person.setStation(UISetting.getComputerName());
+            p.setPersonType(personType);
+            p.setTxFormNo(formNo);
+            p.setUser(UISetting.getSystemUser());
+            p.setLocation(UISetting.getStoreLocation());
+            p.setStation(UISetting.getComputerName());
 
-            boolean isSaved = UISetting.getCustomerService().insert(customer, form, person);
+            boolean isSaved = UISetting.getCustomerService().insert(customer, form, p);
             if (isSaved) {
+                System.out.println("Find result by type: " + personType.getTypeID());
                 result = UISetting.getPersonalInfoService().findByFormType(formNo, personType.getTypeID());
             }
         } catch (Exception ex) {
             UIValidator.log(ex, PersonalInfoController.class);
+            ex.printStackTrace();
         }
 
         return result;
@@ -133,5 +122,25 @@ public class PersonalInfoController {
         }
         return religions;
     }
-
+    
+    public Tribe findTribeByDesc(String desc, List<Tribe> t) {
+        Tribe result = null;
+        for (Tribe tribe : t) {
+            if(tribe.getTribeDesc().equals(desc)) {
+                result = tribe;
+            }
+        }
+        return result;
+    }
+    
+    public Religion findReligionByDesc(String desc, List<Religion> t) {
+        Religion result = null;
+        for (Religion religion : t) {
+            if(religion.getReligionDesc().equals(desc)) {
+                result = religion;
+            }
+        }
+        return result;
+    }
+    
 }

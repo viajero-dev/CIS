@@ -6,6 +6,7 @@
 package com.vg.scfc.financing.cis.ui.validator;
 
 import com.vg.scfc.financing.cis.ui.messages.ErrorMessage;
+import com.vg.scfc.financing.cis.ui.messages.OtherMessage;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import org.slf4j.LoggerFactory;
@@ -64,6 +65,10 @@ public class UIValidator {
                 JOptionPane.showMessageDialog(null, ErrorMessage.FAILED_TO_UPDATE, ErrorMessage.ERROR_MESSAGE_TITLE, JOptionPane.WARNING_MESSAGE);
                 break;
         }
+    }
+    
+    public static void promptSucessMessage() {
+        JOptionPane.showMessageDialog(null, OtherMessage.SUCCESSFUL_INSERT, ErrorMessage.ERROR_MESSAGE_TITLE, JOptionPane.INFORMATION_MESSAGE);
     }
     
     public static void log(Exception e, Class c) {

@@ -278,13 +278,13 @@ public class VehiclePanel extends javax.swing.JPanel implements KeyListener {
     }
 
     public boolean saveVehicleAsset() {
-        List<Vehicle> v = VehicleAssetsController.getInstance().createNew(typeModel, yearsUsed.intValue(), use, estimatedValue, formNo);
+        List<Vehicle> v = VehicleAssetsController.getInstance().createNew(formNo, createNew(new Vehicle()));
         setVehicles(v);
         return !v.isEmpty();
     }
 
     public boolean updateVehicleAsset() {
-        List<Vehicle> v = VehicleAssetsController.getInstance().update(formNo, vehicle);
+        List<Vehicle> v = VehicleAssetsController.getInstance().update(formNo, createNew(vehicle));
         setVehicles(v);
         return !v.isEmpty();
     }
@@ -295,6 +295,14 @@ public class VehiclePanel extends javax.swing.JPanel implements KeyListener {
         if (!vehicles.isEmpty()) {
             tableVehicle.setRowSelectionInterval(0, 0);
         }
+    }
+
+    public Vehicle createNew(Vehicle v) {
+        v.setType(txtTypeModel.getText());
+        v.setAge(Integer.parseInt(txtYrsUsed.getText()));
+        v.setUse((String) comboUsed.getSelectedItem());
+        v.setAmount(new BigDecimal(txtEstValue.getText()).doubleValue());
+        return v;
     }
 
 }

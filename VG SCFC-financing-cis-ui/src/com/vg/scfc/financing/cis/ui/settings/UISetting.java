@@ -324,4 +324,9 @@ public class UISetting {
         UISetting.vehicleService = vehicleService;
     }
 
+    public static void printSettingValues() {
+        System.out.println("User: " + getSystemUser().getId());
+        System.out.println("Location: " + getStoreLocation().getId());
+        System.out.println("Station: " + getComputerName());
+    }
 }
