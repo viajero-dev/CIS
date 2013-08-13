@@ -6,10 +6,13 @@
 package com.vg.scfc.financing.cis.ui.controller;
 
 import com.vg.scfc.financing.cis.ent.Address;
+import com.vg.scfc.financing.cis.ent.PersonType;
 import com.vg.scfc.financing.cis.ui.settings.UISetting;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -26,33 +29,37 @@ public class AddressController {
         return instance;
     }
 
-    public Object createNew(String brgyCode, String zipCode, String street, String description, String status, int yearsOfStay) {
-        Object result = null;
-        Address a = new Address();
-        a.setBrgyCode(brgyCode);
-        a.setZipCode(zipCode);
-        a.setAddress(street);
-        a.setDescription(description);
-        a.setStatus(status);
-        a.setYearsOfStay(yearsOfStay + "");
-        
+    public List<Address> createNew(String formNo, String personType, Address a) {
+        List<Address> results = new ArrayList<>();
         try {
+            PersonType p = UISetting.getPersonTypeService().findById(personType);
+            System.out.println(p == null);
+            a.setPersonType(p);
+            a.setTxFormNo(formNo);
+            a.setUser(UISetting.getSystemUser());
+            a.setLocation(UISetting.getStoreLocation());
+            a.setStation(UISetting.getComputerName());
             boolean isSaved = UISetting.getAddressService().insert(a);
-            if(isSaved) {
-                result = UISetting.getAddressService().findById("");
+            if (isSaved) {
+                results = UISetting.getAddressService().filterBy(formNo, personType);
             }
         } catch (Exception ex) {
             UIValidator.log(ex, AddressController.class);
         }
-
-        return result;
+        return results;
     }
 
     public Object update(Address a) {
         return new Object();
     }
 
-    public List<Address> findByFormNo(String formNo) {
-        return new ArrayList<>();
+    public List<Address> findByFormNo(String formNo, String personType) {
+        List<Address> results = new ArrayList<>();
+        try {
+            results = UISetting.getAddressService().filterBy(formNo, personType);
+        } catch (Exception ex) {
+            UIValidator.log(ex, AddressController.class);
+        }
+        return results;
     }
 }

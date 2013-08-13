@@ -463,6 +463,16 @@ public class ExpendituresPanel extends javax.swing.JPanel implements KeyListener
         txtEducation.setEditable(value);
         txtEducationDesc.setEditable(value);
         txtOthers.setEditable(value);
+        
+        txtMonthlyDeduction.setFocusable(value);
+        txtMonthlyHouseholdBill.setFocusable(value);
+        txtAmortization.setFocusable(value);
+        txtMaintenance.setFocusable(value);
+        txtMaintenanceDesc.setFocusable(value);
+        txtLivingAllowance.setFocusable(value);
+        txtEducation.setFocusable(value);
+        txtEducationDesc.setFocusable(value);
+        txtOthers.setFocusable(value);
     }
 
     public void resetToDefault() {

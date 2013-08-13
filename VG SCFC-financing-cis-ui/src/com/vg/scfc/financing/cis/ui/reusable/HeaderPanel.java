@@ -9,8 +9,6 @@ import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 import java.awt.Color;
 import java.text.ParseException;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -118,6 +116,10 @@ public class HeaderPanel extends javax.swing.JPanel {
         }
     }
 
+    public void setFormNo(String formNo) {
+        txtFormNo.setText(formNo);
+    }
+    
     public String getFormNo() {
         return txtFormNo.getText().toUpperCase().trim();
     }

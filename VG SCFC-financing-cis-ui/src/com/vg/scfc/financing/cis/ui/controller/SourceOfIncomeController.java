@@ -29,8 +29,7 @@ public class SourceOfIncomeController {
     public Object createNew(SourceOfIncome s, String formNo, String personType, String clientNo) {
         SourceOfIncome result = null;
         try {
-            s.setClientNo(clientNo);
-            s.setTxForm(UISetting.getTransactionFormService().findByformNo(formNo));
+            s.setTxFormNo(formNo);
             s.setPersonType(UISetting.getPersonTypeService().findById(personType));
             s.setUser(UISetting.getSystemUser());
             s.setLocation(UISetting.getStoreLocation());
@@ -55,7 +54,7 @@ public class SourceOfIncomeController {
     public SourceOfIncome findByFormNoAndPersonType(String clientNo, String formNo, String personType) {
         SourceOfIncome result = null;
         try {
-            result = UISetting.getSourceOfIncomeService().findByClientFormNoPersonType(clientNo, formNo, personType);
+            result = UISetting.getSourceOfIncomeService().findByFormNoPersonType(formNo, personType);
         } catch (Exception ex) {
             UIValidator.log(ex, SourceOfIncomeController.class);
         }

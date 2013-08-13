@@ -35,7 +35,6 @@ public class VehicleAssetsController {
             UISetting.getVehicleService().insert(formNo, v);
             results = UISetting.getVehicleService().findByAsset(formNo);
         } catch (Exception ex) {
-            ex.printStackTrace();
             UIValidator.log(ex, VehicleAssetsController.class);
         }
         return results;
@@ -44,7 +43,20 @@ public class VehicleAssetsController {
     public List<Vehicle> update(String formNo, Vehicle v) {
         List<Vehicle> results = new ArrayList<>();
         try {
+            v.setUser(UISetting.getSystemUser());
+            v.setLocation(UISetting.getStoreLocation());
+            v.setStation(UISetting.getComputerName());
             UISetting.getVehicleService().update(v);
+            results = UISetting.getVehicleService().findByAsset(formNo);
+        } catch (Exception ex) {
+            UIValidator.log(ex, VehicleAssetsController.class);
+        }
+        return results;
+    }
+
+    public List<Vehicle> findByFormNo(String formNo) {
+        List<Vehicle> results = new ArrayList<>();
+        try {
             results = UISetting.getVehicleService().findByAsset(formNo);
         } catch (Exception ex) {
             UIValidator.log(ex, VehicleAssetsController.class);

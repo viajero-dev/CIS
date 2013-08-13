@@ -34,7 +34,7 @@ public class InstallmentPanel extends javax.swing.JPanel {
         mainPanel = new com.vg.scfc.financing.cis.ui.panel.MainPanel();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        add(mainPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        add(mainPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 700));
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

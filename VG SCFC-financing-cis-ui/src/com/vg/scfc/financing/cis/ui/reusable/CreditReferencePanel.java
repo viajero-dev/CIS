@@ -41,23 +41,21 @@ public class CreditReferencePanel extends javax.swing.JPanel implements KeyListe
     }
 
     private void initCreditReferenceTable() {
-        if (tableCreditReference != null) {
-            tableCreditReference.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-            tableCreditReference.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+        tableCreditReference.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        tableCreditReference.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 
-                @Override
-                public void valueChanged(ListSelectionEvent lse) {
-                    try {
-                        selectedIndex = tableCreditReference.getSelectedRow();
-                        if (selectedIndex >= 0) {
-                            setCreditReference(creditReferences.get(selectedIndex));
-                        }
-                    } catch (Exception e) {
-                        UIValidator.log(e, CreditReferencePanel.class);
+            @Override
+            public void valueChanged(ListSelectionEvent lse) {
+                try {
+                    selectedIndex = tableCreditReference.getSelectedRow();
+                    if (selectedIndex >= 0) {
+                        setCreditReference(creditReferences.get(selectedIndex));
                     }
+                } catch (Exception e) {
+                    UIValidator.log(e, CreditReferencePanel.class);
                 }
-            });
-        }
+            }
+        });
     }
 
     /**
@@ -282,6 +280,7 @@ public class CreditReferencePanel extends javax.swing.JPanel implements KeyListe
 
     public void setCreditReference(CreditRef creditReference) {
         this.creditReference = creditReference;
+        setCreditReferenceData(this.creditReference);
     }
 
     public void setTableCreditReference(JTable tableCreditReference) {
@@ -345,6 +344,15 @@ public class CreditReferencePanel extends javax.swing.JPanel implements KeyListe
         txtCRTerm.setEditable(value);
         txtCRAmountPaid.setEditable(value);
         txtCRRemainingBal.setEditable(value);
+
+        txtCRName.setFocusable(value);
+        txtCRAddress.setFocusable(value);
+        txtCRItemOnCredit.setFocusable(value);
+        txtCRLoanAmount.setFocusable(value);
+        txtCRMonthlyAmort.setFocusable(value);
+        txtCRTerm.setFocusable(value);
+        txtCRAmountPaid.setFocusable(value);
+        txtCRRemainingBal.setFocusable(value);
     }
 
     public void resetToDefault() {
@@ -358,14 +366,14 @@ public class CreditReferencePanel extends javax.swing.JPanel implements KeyListe
         txtCRRemainingBal.setText("");
     }
 
-    public void setCreditReference(Object o) {
+    public void setCreditReferenceData(Object o) {
         if (o == null) {
             resetToDefault();
         } else {
             CreditRef cr = (CreditRef) o;
             txtCRName.setText(cr.getCreRefName());
             txtCRAddress.setText(cr.getCreRefAddress());
-            txtCRItemOnCredit.setText("");
+            txtCRItemOnCredit.setText(cr.getCreItem());
             txtCRLoanAmount.setText(new BigDecimal(cr.getCreRefLoanAmount()).toPlainString());
             txtCRMonthlyAmort.setText(new BigDecimal(cr.getCreRefMonthly()).toPlainString());
             txtCRTerm.setText(cr.getCreRefTerm());

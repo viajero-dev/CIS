@@ -33,7 +33,7 @@ public class PersonalInfoController {
         return instance;
     }
 
-    public Object createNew(PersonalInfo p, String formSeries, Date applicationDate) {
+    public PersonalInfo createNew(PersonalInfo p, String formSeries, Date applicationDate) {
         PersonalInfo result = null;
         try {
             /* Form Info */
@@ -74,13 +74,22 @@ public class PersonalInfoController {
             }
         } catch (Exception ex) {
             UIValidator.log(ex, PersonalInfoController.class);
-            ex.printStackTrace();
         }
 
         return result;
     }
+    
+    public PersonalInfo findByFormNoAndPersonType(String formNo, String personType) {
+        PersonalInfo result = null;
+        try {
+            result = UISetting.getPersonalInfoService().findByFormType(formNo, personType);
+        } catch (Exception ex) {
+            UIValidator.log(ex, PersonalInfoController.class);
+        }
+        return result;
+    }
 
-    public Object update(PersonalInfo p) {
+    public PersonalInfo update(PersonalInfo p) {
         PersonalInfo result = null;
         try {
             boolean isUpdated = UISetting.getCustomerService().update(UISetting.getCustomerService().findById(p.getClientNo()), p);
@@ -93,16 +102,6 @@ public class PersonalInfoController {
         return result;
     }
     
-    public PersonalInfo findByFormNo(String formNo, String personType) {
-        PersonalInfo result = null;
-        try {
-            result = UISetting.getPersonalInfoService().findByFormType(formNo, personType);
-        } catch (Exception ex) {
-            UIValidator.log(ex, PersonalInfoController.class);
-        }
-        return result;
-    }
-
     public List<Tribe> Tribes() {
         List<Tribe> tribes = new ArrayList<>();
         try {

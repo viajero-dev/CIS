@@ -9,12 +9,12 @@ package com.vg.scfc.financing.cis.ui.frames;
  *
  * @author rodel
  */
-public class ApplicantForm extends javax.swing.JInternalFrame {
+public class InstallmentFrame extends javax.swing.JInternalFrame {
 
     /**
-     * Creates new form ApplicantForm
+     * Creates new form InstallmentFrame
      */
-    public ApplicantForm() {
+    public InstallmentFrame() {
         initComponents();
     }
 
@@ -27,18 +27,15 @@ public class ApplicantForm extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        headerPanel1 = new com.vg.scfc.financing.cis.ui.reusable.HeaderPanel();
-        mainPanel1 = new com.vg.scfc.financing.cis.ui.panel.MainPanel();
+        installmentPanel1 = new com.vg.scfc.financing.cis.ui.panel.InstallmentPanel();
 
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(headerPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-1, 0, 1040, -1));
-        getContentPane().add(mainPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 65, -1, -1));
+        getContentPane().add(installmentPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.vg.scfc.financing.cis.ui.reusable.HeaderPanel headerPanel1;
-    private com.vg.scfc.financing.cis.ui.panel.MainPanel mainPanel1;
+    private com.vg.scfc.financing.cis.ui.panel.InstallmentPanel installmentPanel1;
     // End of variables declaration//GEN-END:variables
 }

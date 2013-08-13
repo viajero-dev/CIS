@@ -32,7 +32,9 @@ public class MainFrame extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(installmentPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        installmentPanel1.setBorder(null);
+        getContentPane().add(installmentPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1320, 690));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

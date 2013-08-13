@@ -10,6 +10,8 @@ import com.vg.scfc.financing.cis.ui.settings.UISetting;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -76,8 +78,17 @@ public class FamilyBackgroundController {
                 results = UISetting.getFamilyService().findById(formNo, personType);
             }
         } catch (Exception e) {
-            e.printStackTrace();
             UIValidator.log(e, FamilyBackgroundController.class);
+        }
+        return results;
+    }
+    
+    public List<Family> findByFormNoAndPersonType(String formNo, String personType) {
+        List<Family> results = new ArrayList<>();
+        try {
+            results = UISetting.getFamilyService().findById(formNo, personType);
+        } catch (Exception ex) {
+            UIValidator.log(ex, FamilyBackgroundController.class);
         }
         return results;
     }

@@ -17,7 +17,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import ui.WebCamDlg;
 
@@ -32,15 +31,15 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
      */
     public PersonalInformationPanel() {
         initComponents();
+        startUpSettings();
+    }
+
+    private void startUpSettings() {
         initGenderOption();
         initTextBoxListener();
         initComboBoxListener();
         initRadioButtonListener();
         initComboBoxValues();
-        startUpSettings();
-    }
-
-    private void startUpSettings() {
         setFieldsEditable(false);
     }
 
@@ -231,20 +230,10 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
         optionMale.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         optionMale.setSelected(true);
         optionMale.setText("Male");
-        optionMale.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                optionMaleItemStateChanged(evt);
-            }
-        });
         jPanel4.add(optionMale, new org.netbeans.lib.awtextra.AbsoluteConstraints(455, 5, -1, -1));
 
         optionFemale.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         optionFemale.setText("Female");
-        optionFemale.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                optionFemaleItemStateChanged(evt);
-            }
-        });
         jPanel4.add(optionFemale, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 5, 70, -1));
 
         jLabel106.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
@@ -296,11 +285,6 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
 
         comboEducationStatus.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         comboEducationStatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Elementary", "High School", "Some College", "College Graduate" }));
-        comboEducationStatus.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                comboEducationStatusItemStateChanged(evt);
-            }
-        });
         jPanel4.add(comboEducationStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 5, 144, -1));
 
         jLabel113.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
@@ -377,95 +361,43 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
             comboMarriedOption.setEnabled(true);
         } else {
             comboMarriedOption.setEnabled(false);
-            civilStatus = "SINGLE";
         }
     }//GEN-LAST:event_comboStatusFocusLost
 
     private void txtLastNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtLastNameFocusLost
         txtLastName.setText(UIValidator.validate(txtLastName));
-        lastname = UIValidator.validate(txtLastName);
     }//GEN-LAST:event_txtLastNameFocusLost
 
     private void txtFirstNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFirstNameFocusLost
         txtFirstName.setText(UIValidator.validate(txtFirstName));
-        firstname = UIValidator.validate(txtFirstName);
     }//GEN-LAST:event_txtFirstNameFocusLost
 
     private void txtMiddleNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMiddleNameActionPerformed
         txtMiddleName.setText(UIValidator.validate(txtMiddleName));
-        middlename = UIValidator.validate(txtMiddleName);
     }//GEN-LAST:event_txtMiddleNameActionPerformed
 
-    private void optionMaleItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_optionMaleItemStateChanged
-        if (optionMale.isSelected()) {
-            gender = "MALE";
-        }
-    }//GEN-LAST:event_optionMaleItemStateChanged
-
-    private void optionFemaleItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_optionFemaleItemStateChanged
-        if (optionFemale.isSelected()) {
-            gender = "FEMALE";
-        }
-    }//GEN-LAST:event_optionFemaleItemStateChanged
-
     private void txtContactActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtContactActionPerformed
-        contact = UIValidator.isNumeric(txtContact);
+        txtContact.setText(UIValidator.isNumeric(txtContact));
     }//GEN-LAST:event_txtContactActionPerformed
 
     private void comboMarriedOptionItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboMarriedOptionItemStateChanged
-        if (comboMarriedOption.isEnabled()) {
-            switch (comboMarriedOption.getSelectedIndex()) {
-                case 0:
-                    civilStatus = "LIVING TOGETHER";
-                    break;
-                case 1:
-                    civilStatus = "WIDOWER";
-                    break;
-                case 2:
-                    civilStatus = "LEGALLY SEPERATED";
-                    break;
-                case 3:
-                    civilStatus = "MUTUALLY SEPERATED";
-                    break;
-            }
-        }
     }//GEN-LAST:event_comboMarriedOptionItemStateChanged
-
-    private void comboEducationStatusItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboEducationStatusItemStateChanged
-        switch (comboEducationStatus.getSelectedIndex()) {
-            case 0:
-                educationalAttainment = "ELEMENTARY";
-                break;
-            case 1:
-                educationalAttainment = "HIGH SCHOOL";
-                break;
-            case 2:
-                educationalAttainment = "SOME COLLEGE";
-                break;
-            case 3:
-                educationalAttainment = "COLLEGE GRADUATE";
-                break;
-        }
-    }//GEN-LAST:event_comboEducationStatusItemStateChanged
 
     private void txtBirthPlaceFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBirthPlaceFocusLost
         txtBirthPlace.setText(UIValidator.validate(txtBirthPlace));
-        birthPlace = UIValidator.validate(txtBirthPlace);
     }//GEN-LAST:event_txtBirthPlaceFocusLost
 
     private void txtPresentAddressFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPresentAddressFocusLost
         txtPresentAddress.setText(UIValidator.validate(txtPresentAddress));
-        presentAddress = UIValidator.validate(txtPresentAddress);
     }//GEN-LAST:event_txtPresentAddressFocusLost
 
     private void txtPreviousAddressFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPreviousAddressFocusLost
         txtPreviousAddress.setText(UIValidator.validate(txtPreviousAddress));
-        previousAddress = UIValidator.validate(txtPreviousAddress);
     }//GEN-LAST:event_txtPreviousAddressFocusLost
 
     private void txtBirthDateFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBirthDateFocusLost
         try {
-            birthDate = txtBirthDate.getDate();
+            txtBirthDate.setDate(txtBirthDate.getDate());
         } catch (ParseException ex) {
             UIValidator.log(ex, PersonalInfoController.class);
         }
@@ -523,23 +455,6 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
     private javax.swing.JTextField txtPresentAddress;
     private javax.swing.JTextField txtPreviousAddress;
     // End of variables declaration//GEN-END:variables
-    private String lastname;
-    private String firstname;
-    private String middlename;
-    private Date birthDate;
-    private int age;
-    private String birthPlace;
-    private String gender;
-    private String contact;
-    private String civilStatus;
-    private String educationalAttainment;
-    private String tribe;
-    private String religion;
-    private String citizenship;
-    private String presentAddress;
-    private String previousAddress;
-    private String formNo;
-    private String personType;
     private PersonalInfo personalInfo;
     List<Tribe> tribes = new ArrayList<>();
     List<Religion> religions = new ArrayList<>();
@@ -547,14 +462,6 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
 
     public void setHeaderPanel(HeaderPanel headerPanel) {
         this.headerPanel = headerPanel;
-    }
-
-    public void setFormNo(String formNo) {
-        this.formNo = formNo;
-    }
-
-    public void setPersonType(String personType) {
-        this.personType = personType;
     }
 
     public void setPersonalInfo(PersonalInfo personalInfo) {
@@ -668,6 +575,23 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
         txtPresentAddress.setEditable(value);
         txtPreviousAddress.setEditable(value);
 
+        txtLastName.setFocusable(value);
+        txtFirstName.setFocusable(value);
+        txtMiddleName.setFocusable(value);
+        txtBirthDate.setFocusable(value);
+        txtBirthPlace.setFocusable(value);
+        optionMale.setFocusable(value);
+        optionFemale.setFocusable(value);
+        txtContact.setFocusable(value);
+        comboStatus.setFocusable(value);
+        comboMarriedOption.setFocusable(value);
+        comboEducationStatus.setFocusable(value);
+        comboTribe.setFocusable(value);
+        comboReligion.setFocusable(value);
+        comboCitizenship.setFocusable(value);
+        txtPresentAddress.setFocusable(value);
+        txtPreviousAddress.setFocusable(value);
+
         txtLastName.requestFocus();
     }
 
@@ -694,8 +618,9 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
         if (o == null) {
             resetToDefault();
         } else {
-            //TODO, set personal info values from object pass
             PersonalInfo p = (PersonalInfo) o;
+            System.out.println(p.getLastName());
+            System.out.println(p.getFirstName());
             txtLastName.setText(p.getLastName());
             txtFirstName.setText(p.getFirstName());
             txtMiddleName.setText(p.getMiddleName());
@@ -711,7 +636,7 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
                     optionFemale.setSelected(true);
                     break;
             }
-//            txtContact.setText(p.get);            
+            txtContact.setText(p.getContactNo());
             switch (p.getCivilStatus()) {
                 case "SINGLE":
                     comboStatus.setSelectedIndex(0);
@@ -761,8 +686,8 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
     }
 
     public boolean savePersonalInfo() {
-        Object o = PersonalInfoController.getInstance().createNew(createNew(new PersonalInfo()), headerPanel.getFormNo(), headerPanel.getApplicationDate());
-        setPersonalInfo((PersonalInfo) o);
+        PersonalInfo o = PersonalInfoController.getInstance().createNew(createNew(new PersonalInfo()), headerPanel.getFormNo(), headerPanel.getApplicationDate());
+        setPersonalInfo(o);
         return o != null;
     }
 
@@ -776,37 +701,39 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
         p.setLastName(txtLastName.getText());
         p.setFirstName(txtFirstName.getText());
         p.setMiddleName(txtMiddleName.getText());
-        p.setDateOfBirth(birthDate);
-        p.setPlaceOfBirth(birthPlace);
-        if (optionMale.isSelected()) {
-            gender = "MALE";
-        } else {
-            gender = "FEMALE";
+        try {
+            p.setDateOfBirth(txtBirthDate.getDate());
+        } catch (ParseException ex) {
+            UIValidator.log(ex, PersonalInformationPanel.class);
         }
-        p.setGender(gender);
+        p.setPlaceOfBirth(txtBirthPlace.getText());
+        if (optionMale.isSelected()) {
+            p.setGender("MALE");
+        } else {
+            p.setGender("FEMALE");
+        }
         p.setTribe(PersonalInfoController.getInstance().findTribeByDesc((String) comboTribe.getSelectedItem(), tribes));
         p.setReligion(PersonalInfoController.getInstance().findReligionByDesc((String) comboReligion.getSelectedItem(), religions));
-        p.setCitizenship(citizenship);
+//        p.setCitizenship(citizenship);
         if (comboStatus.getSelectedIndex() == 1) {
             switch (comboMarriedOption.getSelectedIndex()) {
                 case 0:
-                    civilStatus = "LIVING TOGETHER";
+                    p.setCivilStatus("LIVING TOGETHER");
                     break;
                 case 1:
-                    civilStatus = "WIDOWER";
+                    p.setCivilStatus("WIDOWER");
                     break;
                 case 2:
-                    civilStatus = "LEGALLY SEPERATED";
+                    p.setCivilStatus("LEGALLY SEPERATED");
                     break;
                 case 3:
-                    civilStatus = "MUTUALLY SEPERATED";
+                    p.setCivilStatus("MUTUALLY SEPERATED");
                     break;
             }
         } else {
-            civilStatus = "SINGLE";
+            p.setCivilStatus("SINGLE");
         }
-        p.setCivilStatus(civilStatus);
-        p.setEducation(educationalAttainment);
+        p.setEducation((String) comboEducationStatus.getSelectedItem());
         p.setContactNo(txtContact.getText());
 
         return p;

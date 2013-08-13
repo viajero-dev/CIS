@@ -6,10 +6,10 @@
 package com.vg.scfc.financing.cis.ui.panel;
 
 import com.vg.scfc.financing.cis.ent.RepresentativeEmployment;
+import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.math.BigDecimal;
-import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 
 /**
  *
@@ -209,6 +209,12 @@ public class EmploymentRepresentativePanel extends javax.swing.JPanel implements
         txtDepartment.setEditable(value);
         txtYearInService.setEditable(value);
         txtMonthlyCompensation.setEditable(value);
+        
+        comboEmploymentStatus.setFocusable(value);
+        txtPosition.setFocusable(value);
+        txtDepartment.setFocusable(value);
+        txtYearInService.setFocusable(value);
+        txtMonthlyCompensation.setFocusable(value);
     }
 
     public void resetToDefault() {

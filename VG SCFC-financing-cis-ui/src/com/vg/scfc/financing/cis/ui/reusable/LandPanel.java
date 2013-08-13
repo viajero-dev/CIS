@@ -7,6 +7,7 @@ package com.vg.scfc.financing.cis.ui.reusable;
 
 import com.vg.commons.util.NumberUtils;
 import com.vg.scfc.financing.cis.ent.Land;
+import com.vg.scfc.financing.cis.ent.LandType;
 import com.vg.scfc.financing.cis.ui.controller.LandAssetController;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 import java.awt.event.KeyEvent;
@@ -394,39 +395,39 @@ public class LandPanel extends javax.swing.JPanel implements KeyListener {
     }//GEN-LAST:event_optionOthersItemStateChanged
 
     private void txtAreaAgriFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtAreaAgriFocusLost
-        agriArea = new BigDecimal(UIValidator.isNumeric(txtAreaAgri));
+        txtAreaAgri.setText(NumberUtils.doubleToString(new BigDecimal(UIValidator.isNumeric(txtAreaAgri)).doubleValue()));
     }//GEN-LAST:event_txtAreaAgriFocusLost
 
     private void txtLocationAgriFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtLocationAgriFocusLost
-        agriLocation = UIValidator.validate(txtLocationAgri);
+        txtLocationAgri.setText(UIValidator.validate(txtLocationAgri));
     }//GEN-LAST:event_txtLocationAgriFocusLost
 
     private void txtEstValueAgriFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEstValueAgriFocusLost
-        agriValue = new BigDecimal(UIValidator.isNumeric(txtEstValueAgri));
+        txtEstValueAgri.setText(NumberUtils.doubleToString(new BigDecimal(UIValidator.isNumeric(txtEstValueAgri)).doubleValue())); 
     }//GEN-LAST:event_txtEstValueAgriFocusLost
 
     private void txtAreaCommercialFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtAreaCommercialFocusLost
-        comArea = new BigDecimal(UIValidator.isNumeric(txtAreaCommercial));
+        txtAreaCommercial.setText(NumberUtils.doubleToString(new BigDecimal(UIValidator.isNumeric(txtAreaCommercial)).doubleValue())); 
     }//GEN-LAST:event_txtAreaCommercialFocusLost
 
     private void txtLocationCommercialFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtLocationCommercialFocusLost
-        comLocation = UIValidator.validate(txtLocationCommercial);
+        txtLocationAgri.setText(UIValidator.validate(txtLocationCommercial));
     }//GEN-LAST:event_txtLocationCommercialFocusLost
 
     private void txtEstValueCommercialFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEstValueCommercialFocusLost
-        comValue = new BigDecimal(UIValidator.isNumeric(txtEstValueCommercial));
+        txtEstValueCommercial.setText(NumberUtils.doubleToString(new BigDecimal(UIValidator.isNumeric(txtEstValueCommercial)).doubleValue()));
     }//GEN-LAST:event_txtEstValueCommercialFocusLost
 
     private void txtAreaResidentialFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtAreaResidentialFocusLost
-        resArea = new BigDecimal(UIValidator.isNumeric(txtAreaResidential));
+       txtAreaResidential.setText(NumberUtils.doubleToString(new BigDecimal(UIValidator.isNumeric(txtAreaResidential)).doubleValue()));
     }//GEN-LAST:event_txtAreaResidentialFocusLost
 
     private void txtLocationResidentialFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtLocationResidentialFocusLost
-        resLocation = UIValidator.validate(txtLocationResidential);
+        txtLocationResidential.setText(UIValidator.validate(txtLocationResidential));
     }//GEN-LAST:event_txtLocationResidentialFocusLost
 
     private void txtEstValueResidentialFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEstValueResidentialFocusLost
-        resValue = new BigDecimal(UIValidator.isNumeric(txtEstValueResidential));
+        txtEstValueResidential.setText(NumberUtils.doubleToString(new BigDecimal(UIValidator.isNumeric(txtEstValueResidential)).doubleValue()));
     }//GEN-LAST:event_txtEstValueResidentialFocusLost
 
     private void optionHouseItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_optionHouseItemStateChanged
@@ -753,7 +754,7 @@ public class LandPanel extends javax.swing.JPanel implements KeyListener {
     }
 
     public boolean updateLandAssets() {
-        List<Land> l = LandAssetController.getInstance().update(createNew(lands));
+        List<Land> l = LandAssetController.getInstance().update(createNew(new ArrayList<Land>()), headerPanel.getFormNo());
         setLands(l);
         return !l.isEmpty();
     }
@@ -768,7 +769,9 @@ public class LandPanel extends javax.swing.JPanel implements KeyListener {
                 agriLand.setAddress(txtLocationAgri.getText());
                 agriLand.setAmount(new BigDecimal(UIValidator.MoneyCommaRemover(txtEstValueAgri.getText())).doubleValue());
                 agriLand.setAdditionalInfo("");
-                agriLand.setLandType(LandAssetController.getInstance().findLandTypeByID(1));
+                LandType l = LandAssetController.getInstance().findLandTypeByID(1);
+                System.out.println(l == null);
+                agriLand.setLandType(l);
                 results.add(agriLand);
             }
 

@@ -6,6 +6,8 @@
 package com.vg.scfc.financing.cis.ui.reusable;
 
 import com.vg.scfc.financing.cis.ent.Address;
+import com.vg.scfc.financing.cis.ui.controller.AddressController;
+import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.LinkedList;
@@ -14,7 +16,6 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import org.jdesktop.observablecollections.ObservableCollections;
-import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 
 /**
  *
@@ -349,6 +350,16 @@ public class AddressPanel extends javax.swing.JPanel implements KeyListener {
     private String status;
     private int yearsOfStay;
     private int selectedIndex;
+    private HeaderPanel headerPanel;
+    private String personType;
+
+    public void setPersonType(String personType) {
+        this.personType = personType;
+    }
+
+    public void setHeaderPanel(HeaderPanel headerPanel) {
+        this.headerPanel = headerPanel;
+    }
 
     @Override
     public void keyTyped(KeyEvent e) {
@@ -419,6 +430,17 @@ public class AddressPanel extends javax.swing.JPanel implements KeyListener {
         txtYrsOfStay.setEditable(value);
         optionPresent.setEnabled(value);
         optionPrevious.setEnabled(value);
+        
+        txtBrgy.setFocusable(value);
+        txtZipcode.setFocusable(value);
+        txtStreet.setFocusable(value);
+        optionAddressOwned.setFocusable(value);
+        optionAddressRenting.setFocusable(value);
+        optionAddressLiving.setFocusable(value);
+        optionAddressOthers.setFocusable(value);
+        txtYrsOfStay.setFocusable(value);
+        optionPresent.setFocusable(value);
+        optionPrevious.setFocusable(value);
     }
 
     public void resetToDefault() {
@@ -474,7 +496,9 @@ public class AddressPanel extends javax.swing.JPanel implements KeyListener {
     }
 
     public boolean saveAddress() {
-        return true;
+        List<Address> a = AddressController.getInstance().createNew(headerPanel.getFormNo(), personType, createNew(new Address()));
+        refreshTable(a);
+        return !a.isEmpty();
     }
 
     public boolean updateAddress() {
@@ -491,6 +515,27 @@ public class AddressPanel extends javax.swing.JPanel implements KeyListener {
         if (!addresses.isEmpty()) {
             tableAddress.setRowSelectionInterval(0, 0);
         }
+    }
+    
+    private Address createNew(Address a) {
+        a.setBrgyCode(txtBrgy.getText());
+        a.setZipCode(txtZipcode.getText());
+        a.setAddress(txtStreet.getText());
+        a.setDescription(txtDesc.getText());
+        if (optionAddressOwned.isSelected()) {
+           a.setStatus("OWNED");
+        }
+        if (optionAddressRenting.isSelected()) {
+            a.setStatus("RENTING");
+        }
+        if (optionAddressLiving.isSelected()) {
+            a.setStatus("LIVING WITH PARENTS/RELATIVES");
+        }
+        if (optionAddressOthers.isSelected()) {
+            a.setStatus("OTHERS");
+        }
+        a.setYearsOfStay(txtYrsOfStay.getText());
+        return a;
     }
 
 }

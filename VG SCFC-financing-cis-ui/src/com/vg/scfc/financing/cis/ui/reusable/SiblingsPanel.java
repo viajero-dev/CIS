@@ -13,7 +13,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.LinkedList;
 import java.util.List;
-import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -224,6 +223,10 @@ public class SiblingsPanel extends javax.swing.JPanel implements KeyListener {
         txtSiblingName.setEditable(value);
         txtSiblingAddress.setEditable(value);
         txtSiblingContact.setEditable(value);
+        
+        txtSiblingName.setFocusable(value);
+        txtSiblingAddress.setFocusable(value);
+        txtSiblingContact.setFocusable(value);
     }
 
     public void resetToDefault() {

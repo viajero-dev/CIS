@@ -6,7 +6,7 @@
 package com.vg.scfc.financing.cis.ui.reusable;
 
 import com.vg.scfc.financing.cis.ent.Employment;
-import com.vg.scfc.financing.cis.ui.controller.EmploymentCotroller;
+import com.vg.scfc.financing.cis.ui.controller.EmploymentController;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -150,27 +150,27 @@ public class EmploymentDataPanel extends javax.swing.JPanel implements KeyListen
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtPositionDepartmentFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPositionDepartmentFocusLost
-        positionDept = UIValidator.validate(txtPositionDepartment);
+        txtPositionDepartment.setText(UIValidator.validate(txtPositionDepartment));
     }//GEN-LAST:event_txtPositionDepartmentFocusLost
 
     private void txtCompanyEmployerFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCompanyEmployerFocusLost
-        companyEmployer = UIValidator.validate(txtCompanyEmployer);
+        txtCompanyEmployer.setText(UIValidator.validate(txtCompanyEmployer));
     }//GEN-LAST:event_txtCompanyEmployerFocusLost
 
     private void txtEmployerAddressFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEmployerAddressFocusLost
-        address = UIValidator.validate(txtEmployerAddress);
+        txtEmployerAddress.setText(UIValidator.validate(txtEmployerAddress)); 
     }//GEN-LAST:event_txtEmployerAddressFocusLost
 
     private void txtEmployerContactFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEmployerContactFocusLost
-        contactNo = UIValidator.isNumeric(txtEmployerContact);
+        txtEmployerContact.setText(UIValidator.isNumeric(txtEmployerContact));
     }//GEN-LAST:event_txtEmployerContactFocusLost
 
     private void txtEmployerBusinessNatureFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEmployerBusinessNatureFocusLost
-        natureOfBuss = UIValidator.validate(txtEmployerBusinessNature);
+        txtEmployerBusinessNature.setText(UIValidator.validate(txtEmployerBusinessNature)); 
     }//GEN-LAST:event_txtEmployerBusinessNatureFocusLost
 
     private void txtYearInServiceFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtYearInServiceFocusLost
-        yearInService = Integer.parseInt(UIValidator.isNumeric(txtYearInService));
+        txtYearInService.setText(UIValidator.isNumeric(txtYearInService));
     }//GEN-LAST:event_txtYearInServiceFocusLost
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -199,6 +199,11 @@ public class EmploymentDataPanel extends javax.swing.JPanel implements KeyListen
     private String formNo;
     private String personType;
     private Employment employment;
+    private HeaderPanel headerPanel;
+
+    public void setHeaderPanel(HeaderPanel headerPanel) {
+        this.headerPanel = headerPanel;
+    }
 
     public void setFormNo(String formNo) {
         this.formNo = formNo;
@@ -258,13 +263,13 @@ public class EmploymentDataPanel extends javax.swing.JPanel implements KeyListen
     }
 
     public boolean saveEmploymentData() {
-        Object o = EmploymentCotroller.getInstance().createNew(createNew(new Employment()), personType, formNo);
+        Object o = EmploymentController.getInstance().createNew(createNew(new Employment()), personType, headerPanel.getFormNo());
         setEmployment((Employment) o);
         return o != null;
     }
 
     public boolean updateEmploymentData() {
-        Object o = EmploymentCotroller.getInstance().update(formNo, createNew(employment));
+        Object o = EmploymentController.getInstance().update(headerPanel.getFormNo(), personType, createNew(employment));
         setEmployment((Employment) o);
         return o != null;
     }

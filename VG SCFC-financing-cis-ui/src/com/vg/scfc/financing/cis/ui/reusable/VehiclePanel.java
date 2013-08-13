@@ -197,6 +197,11 @@ public class VehiclePanel extends javax.swing.JPanel implements KeyListener {
     private int selectedIndex;
     private String formNo;
     private Vehicle vehicle;
+    private HeaderPanel headerPanel;
+
+    public void setHeaderPanel(HeaderPanel headerPanel) {
+        this.headerPanel = headerPanel;
+    }
 
     public void setVehicle(Vehicle vehicle) {
         this.vehicle = vehicle;
@@ -249,6 +254,11 @@ public class VehiclePanel extends javax.swing.JPanel implements KeyListener {
         txtYrsUsed.setEditable(value);
         comboUsed.setEnabled(value);
         txtEstValue.setEditable(value);
+        
+        txtTypeModel.setFocusable(value);
+        txtYrsUsed.setFocusable(value);
+        comboUsed.setFocusable(value);
+        txtEstValue.setFocusable(value);
     }
 
     public void resetToDefault() {
@@ -278,14 +288,14 @@ public class VehiclePanel extends javax.swing.JPanel implements KeyListener {
     }
 
     public boolean saveVehicleAsset() {
-        List<Vehicle> v = VehicleAssetsController.getInstance().createNew(formNo, createNew(new Vehicle()));
-        setVehicles(v);
+        List<Vehicle> v = VehicleAssetsController.getInstance().createNew(headerPanel.getFormNo(), createNew(new Vehicle()));
+        refreshTable(v);
         return !v.isEmpty();
     }
 
     public boolean updateVehicleAsset() {
-        List<Vehicle> v = VehicleAssetsController.getInstance().update(formNo, createNew(vehicle));
-        setVehicles(v);
+        List<Vehicle> v = VehicleAssetsController.getInstance().update(headerPanel.getFormNo(), createNew(vehicle));
+        refreshTable(v);
         return !v.isEmpty();
     }
 
@@ -302,6 +312,7 @@ public class VehiclePanel extends javax.swing.JPanel implements KeyListener {
         v.setAge(Integer.parseInt(txtYrsUsed.getText()));
         v.setUse((String) comboUsed.getSelectedItem());
         v.setAmount(new BigDecimal(txtEstValue.getText()).doubleValue());
+        
         return v;
     }
 

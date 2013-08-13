@@ -33,23 +33,21 @@ public class CharacterReferenceDependentPanel extends javax.swing.JPanel impleme
     }
 
     private void initTableCharacterReference() {
-        if (tableCharacterRef != null) {
-            tableCharacterRef.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-            tableCharacterRef.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+        tableCharacterRef.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        tableCharacterRef.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 
-                @Override
-                public void valueChanged(ListSelectionEvent lse) {
-                    try {
-                        selectedIndex = tableCharacterRef.getSelectedRow();
-                        if (selectedIndex >= 0) {
-                            setCharacterReference(characterReferences.get(selectedIndex));
-                        }
-                    } catch (Exception e) {
-                        UIValidator.log(e, CharacterReferenceDependentPanel.class);
+            @Override
+            public void valueChanged(ListSelectionEvent lse) {
+                try {
+                    selectedIndex = tableCharacterRef.getSelectedRow();
+                    if (selectedIndex >= 0) {
+                        setCharacterReference(characterReferences.get(selectedIndex));
                     }
+                } catch (Exception e) {
+                    UIValidator.log(e, CharacterReferenceDependentPanel.class);
                 }
-            });
-        }
+            }
+        });
     }
 
     /**
@@ -164,19 +162,19 @@ public class CharacterReferenceDependentPanel extends javax.swing.JPanel impleme
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtRefNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtRefNameFocusLost
-        name = UIValidator.validate(txtRefName);
+        txtRefName.setText(UIValidator.validate(txtRefName));
     }//GEN-LAST:event_txtRefNameFocusLost
 
     private void txtRefAddressFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtRefAddressFocusLost
-        address = UIValidator.validate(txtRefAddress);
+        txtRefAddress.setText(UIValidator.validate(txtRefAddress));
     }//GEN-LAST:event_txtRefAddressFocusLost
 
     private void txtRefContactFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtRefContactFocusLost
-        contact = UIValidator.isNumeric(txtRefContact);
+        txtRefContact.setText(UIValidator.isNumeric(txtRefContact));
     }//GEN-LAST:event_txtRefContactFocusLost
 
     private void txtRefRelationshipFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtRefRelationshipFocusLost
-        relationship = UIValidator.validate(txtRefRelationship);
+        txtRefRelationship.setText(UIValidator.validate(txtRefRelationship));
     }//GEN-LAST:event_txtRefRelationshipFocusLost
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -251,6 +249,11 @@ public class CharacterReferenceDependentPanel extends javax.swing.JPanel impleme
         txtRefAddress.setEditable(value);
         txtRefContact.setEditable(value);
         txtRefRelationship.setEditable(value);
+
+        txtRefName.setFocusable(value);
+        txtRefAddress.setFocusable(value);
+        txtRefContact.setFocusable(value);
+        txtRefRelationship.setFocusable(value);
     }
 
     public void resetToDefault() {

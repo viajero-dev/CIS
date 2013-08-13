@@ -39,7 +39,7 @@ public class MachineryAssetsController {
             m.setUser(UISetting.getSystemUser());
             m.setLocation(UISetting.getStoreLocation());
             m.setStation(UISetting.getComputerName());
-            UISetting.getMachineryService().insert(formNo, m);
+//            UISetting.getMachineryService().insert(formNo, m);
             results = UISetting.getMachineryService().findByAsset(formNo);
         } catch (Exception ex) {
             UIValidator.log(ex, MachineryAssetsController.class);
@@ -50,7 +50,7 @@ public class MachineryAssetsController {
     public List<Machinery> update(String formNo, Machinery m) {
         List<Machinery> results = new ArrayList<>();
         try {
-            UISetting.getMachineryService().update(m);
+//            UISetting.getMachineryService().update(m);
             results = UISetting.getMachineryService().findByAsset(formNo);
         } catch (Exception ex) {
             UIValidator.log(ex, MachineryAssetsController.class);

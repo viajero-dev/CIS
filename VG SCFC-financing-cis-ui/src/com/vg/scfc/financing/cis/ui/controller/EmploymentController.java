@@ -8,24 +8,26 @@ package com.vg.scfc.financing.cis.ui.controller;
 import com.vg.scfc.financing.cis.ent.Employment;
 import com.vg.scfc.financing.cis.ui.settings.UISetting;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author rodel
  */
-public class EmploymentCotroller {
+public class EmploymentController {
 
-    private static EmploymentCotroller instance;
+    private static EmploymentController instance;
 
-    public static EmploymentCotroller getInstance() {
+    public static EmploymentController getInstance() {
         if (instance == null) {
-            instance = new EmploymentCotroller();
+            instance = new EmploymentController();
         }
         return instance;
     }
 
-    public Object createNew(Employment e, String personType, String formNo) {
-        Object result = null;
+    public Employment createNew(Employment e, String personType, String formNo) {
+        Employment result = null;
         try {
             e.setPersonType(UISetting.getPersonTypeService().findById(personType));
             e.setTxFormNo(formNo);
@@ -35,23 +37,33 @@ public class EmploymentCotroller {
 
             boolean isSaved = UISetting.getEmploymentService().insert(e);
             if (isSaved) {
-                result = UISetting.getEmploymentService().findByFormNo(formNo);
+                result = UISetting.getEmploymentService().findById(formNo, personType);
             }
         } catch (Exception ex) {
-            UIValidator.log(ex, EmploymentCotroller.class);
+            UIValidator.log(ex, EmploymentController.class);
         }
         return result;
     }
 
-    public Object update(String formNo, Employment e) {
+    public Object update(String formNo, String personType, Employment e) {
         Object result = null;
         try {
             boolean isUpdated = UISetting.getEmploymentService().update(e);
             if (isUpdated) {
-                result = UISetting.getEmploymentService().findByFormNo(formNo);
+                result = UISetting.getEmploymentService().findById(formNo, personType);
             }
         } catch (Exception ex) {
-            UIValidator.log(ex, EmploymentCotroller.class);
+            UIValidator.log(ex, EmploymentController.class);
+        }
+        return result;
+    }
+    
+    public Employment findByFormNoAndPersonType(String formNo, String personType) {
+        Employment result = null;
+        try {
+            result = UISetting.getEmploymentService().findById(formNo, personType);
+        } catch (Exception ex) {
+            UIValidator.log(ex, EmploymentController.class);
         }
         return result;
     }

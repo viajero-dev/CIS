@@ -250,6 +250,11 @@ public class DependentPanel extends javax.swing.JPanel implements KeyListener {
         txtRefAddress.setEditable(value);
         txtRefContact.setEditable(value);
         txtRefRelationship.setEditable(value);
+        
+        txtRefName.setFocusable(value);
+        txtRefAddress.setFocusable(value);
+        txtRefContact.setFocusable(value);
+        txtRefRelationship.setFocusable(value);
     }
 
     public void resetToDefault() {

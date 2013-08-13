@@ -36,7 +36,7 @@ public class ApplianceAssetsController {
             a.setUser(UISetting.getSystemUser());
             a.setLocation(UISetting.getStoreLocation());
             a.setStation(UISetting.getComputerName());
-            UISetting.getApplianceService().insert(formNo, a);
+//            UISetting.getApplianceService().insert(formNo, a);
             results = UISetting.getApplianceService().findByAsset(formNo);
         } catch (Exception ex) {
             UIValidator.log(ex, ApplianceAssetsController.class);
@@ -47,7 +47,7 @@ public class ApplianceAssetsController {
     public List<Appliance> update(String formNo, Appliance a) {
         List<Appliance> results = new ArrayList<>();
         try {
-            UISetting.getApplianceService().update(a);
+//            UISetting.getApplianceService().update(a);
             results = UISetting.getApplianceService().findByAsset(formNo);
         } catch (Exception ex) {
             UIValidator.log(ex, ApplianceAssetsController.class);

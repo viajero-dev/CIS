@@ -497,6 +497,23 @@ public class SourceOfIncomePanel extends javax.swing.JPanel implements KeyListen
         checkSourceOthers.setEnabled(value);
         txtOtherSourceDesc.setEditable(value);
         txtMonthlyIncomeForOtherSources.setEditable(value);
+        
+        checkMonthlySalaryCompensation.setFocusable(value);
+        txtMonthlySalaryCompensation.setFocusable(value);
+        checkSourceBusiness.setFocusable(value);
+        txtBusinessNature.setFocusable(value);
+        optionBusinessRegistered.setFocusable(value);
+        optionBusinessNotRegistered.setFocusable(value);
+        txtMonthlyIncomeForBusiness.setFocusable(value);
+        checkSourceFarmProducts.setFocusable(value);
+        checkFarmAgri.setFocusable(value);
+        checkFarmLiveStock.setFocusable(value);
+        txtFarmHarvestSchedule.setFocusable(value);
+        txtFarmAvgProductIncome.setFocusable(value);
+        txtMonthlyIncomeForFarmProducts.setFocusable(value);
+        checkSourceOthers.setFocusable(value);
+        txtOtherSourceDesc.setFocusable(value);
+        txtMonthlyIncomeForOtherSources.setFocusable(value);
     }
 
     public void resetToDefault() {

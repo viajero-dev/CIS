@@ -8,7 +8,6 @@ package com.vg.scfc.financing.cis.ui.controller;
 import com.vg.scfc.financing.cis.ent.CreditRef;
 import com.vg.scfc.financing.cis.ui.settings.UISetting;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 

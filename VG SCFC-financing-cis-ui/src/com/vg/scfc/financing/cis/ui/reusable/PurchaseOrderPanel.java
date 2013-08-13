@@ -5,6 +5,8 @@
  */
 package com.vg.scfc.financing.cis.ui.reusable;
 
+import com.vg.commons.util.DateUtil;
+import com.vg.commons.util.NumberUtils;
 import com.vg.scfc.financing.cis.ent.PurchaseOrder;
 import com.vg.scfc.financing.cis.ui.controller.PurchaseOrderController;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
@@ -41,6 +43,17 @@ public class PurchaseOrderPanel extends javax.swing.JPanel implements KeyListene
         txtRemarks.addKeyListener(this);
         checkApproved.addKeyListener(this);
         checkDisApproved.addKeyListener(this);
+    }
+    
+    private void resetCombos() {
+        comboMotorStatus.removeAllItems();
+        comboMotorStatus.addItem("REPO");
+        comboMotorStatus.addItem("BRAND NEW");
+        
+        comboPurpose.removeAllItems();
+        comboPurpose.addItem("PERSONAL");
+        comboPurpose.addItem("BUSINESS");
+        comboPurpose.addItem("OTHERS");
     }
 
     /**
@@ -130,12 +143,7 @@ public class PurchaseOrderPanel extends javax.swing.JPanel implements KeyListene
         add(txtRemarks, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 30, 230, -1));
 
         comboPurpose.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
-        comboPurpose.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Personal", "Business", "Others" }));
-        comboPurpose.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                comboPurposeItemStateChanged(evt);
-            }
-        });
+        comboPurpose.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "PERSONAL", "BUSINESS", "OTHERS" }));
         add(comboPurpose, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 5, 140, -1));
 
         jLabel4.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
@@ -143,12 +151,7 @@ public class PurchaseOrderPanel extends javax.swing.JPanel implements KeyListene
         add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 10, -1, -1));
 
         comboMotorStatus.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
-        comboMotorStatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Repo", "Brand New" }));
-        comboMotorStatus.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                comboMotorStatusItemStateChanged(evt);
-            }
-        });
+        comboMotorStatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "REPO", "BRAND NEW" }));
         add(comboMotorStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(325, 55, 140, -1));
 
         jLabel5.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
@@ -195,68 +198,37 @@ public class PurchaseOrderPanel extends javax.swing.JPanel implements KeyListene
         if (checkApproved.isSelected()) {
             checkApproved.setSelected(true);
             checkDisApproved.setSelected(false);
-            status = "APPROVED";
-        } else {
-            status = "PENDING";
         }
     }//GEN-LAST:event_checkApprovedItemStateChanged
 
     private void txtUnitAppliedFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtUnitAppliedFocusLost
-        unitApplied = UIValidator.validate(txtUnitApplied);
+        txtUnitApplied.setText(UIValidator.validate(txtUnitApplied));
     }//GEN-LAST:event_txtUnitAppliedFocusLost
 
     private void txtDownpaymentFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDownpaymentFocusLost
-        downpayment = new BigDecimal(UIValidator.isNumeric(txtDownpayment));
+        txtDownpayment.setText(NumberUtils.doubleToString(new BigDecimal(UIValidator.isNumeric(txtDownpayment)).doubleValue()));
     }//GEN-LAST:event_txtDownpaymentFocusLost
 
     private void txtInsuranceFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtInsuranceFocusLost
-        insurance = new BigDecimal(UIValidator.isNumeric(txtInsurance));
+        txtInsurance.setText(NumberUtils.doubleToString(new BigDecimal(UIValidator.isNumeric(txtInsurance)).doubleValue()));
     }//GEN-LAST:event_txtInsuranceFocusLost
 
     private void txtTermFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTermFocusLost
-        term = Integer.parseInt(UIValidator.isNumeric(txtTerm));
+        txtTerm.setText(UIValidator.isNumeric(txtTerm));
     }//GEN-LAST:event_txtTermFocusLost
 
     private void txtAmortFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtAmortFocusLost
-        amortization = new BigDecimal(UIValidator.isNumeric(txtAmort));
+        txtAmort.setText(NumberUtils.doubleToString(new BigDecimal(UIValidator.isNumeric(txtAmort)).doubleValue()));
     }//GEN-LAST:event_txtAmortFocusLost
 
-    private void comboMotorStatusItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboMotorStatusItemStateChanged
-        switch (comboMotorStatus.getSelectedIndex()) {
-            case 0:
-                isBrandNew = false;
-                break;
-            case 1:
-                isBrandNew = true;
-                break;
-        }
-    }//GEN-LAST:event_comboMotorStatusItemStateChanged
-
-    private void comboPurposeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboPurposeItemStateChanged
-        switch (comboPurpose.getSelectedIndex()) {
-            case 0:
-                purpose = "PERSONAL";
-                break;
-            case 1:
-                purpose = "BUSINESS";
-                break;
-            case 2:
-                purpose = "OTHERS";
-                break;
-        }
-    }//GEN-LAST:event_comboPurposeItemStateChanged
-
     private void txtRemarksFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtRemarksFocusLost
-        remarks = UIValidator.validate(txtRemarks);
+        txtRemarks.setText(UIValidator.validate(txtRemarks));
     }//GEN-LAST:event_txtRemarksFocusLost
 
     private void checkDisApprovedItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_checkDisApprovedItemStateChanged
         if (checkDisApproved.isSelected()) {
             checkApproved.setSelected(false);
             checkDisApproved.setSelected(true);
-            status = "DISAPPROVED";
-        } else {
-            status = "PENDING";
         }
     }//GEN-LAST:event_checkDisApprovedItemStateChanged
 
@@ -280,20 +252,11 @@ public class PurchaseOrderPanel extends javax.swing.JPanel implements KeyListene
     private javax.swing.JTextField txtTerm;
     private javax.swing.JTextField txtUnitApplied;
     // End of variables declaration//GEN-END:variables
-    private String unitApplied;
-    private BigDecimal downpayment;
-    private BigDecimal insurance;
-    private int term;
-    private BigDecimal amortization;
-    private boolean isBrandNew;
-    private String purpose;
-    private String remarks;
-    private String status;
-    private String formNo;
     private PurchaseOrder purchaseOrder;
+    private HeaderPanel headerPanel;
 
-    public void setFormNo(String formNo) {
-        this.formNo = formNo;
+    public void setHeaderPanel(HeaderPanel headerPanel) {
+        this.headerPanel = headerPanel;
     }
 
     public void setPurchaseOrder(PurchaseOrder purchaseOrder) {
@@ -388,28 +351,74 @@ public class PurchaseOrderPanel extends javax.swing.JPanel implements KeyListene
             resetToDefault();
         } else {
             PurchaseOrder po = (PurchaseOrder) o;
-            txtUnitApplied.setText("");
-            txtDownpayment.setText("");
-            txtInsurance.setText("");
-            txtTerm.setText("");
-            txtAmort.setText("");
-            comboMotorStatus.setSelectedIndex(0);
-            comboPurpose.setSelectedIndex(0);
-            txtRemarks.setText("");
-            checkApproved.setSelected(false);
-            checkDisApproved.setSelected(false);
+            txtUnitApplied.setText(po.getUnitApplied());
+            txtDownpayment.setText(NumberUtils.doubleToString(po.getDownPayment()));
+            txtInsurance.setText(NumberUtils.doubleToString(po.getInsurance()));
+            txtTerm.setText(po.getTerm() + "");
+            txtAmort.setText(NumberUtils.doubleToString(po.getMonthlyAmortization()));
+            comboMotorStatus.removeAllItems();
+            if (po.isBrandNew()) {
+                comboMotorStatus.addItem("BRAND NEW");
+            } else {
+                comboMotorStatus.addItem("REPO");
+            }
+            comboPurpose.removeAllItems();
+            comboPurpose.addItem(po.getPurpose());
+            txtRemarks.setText(po.getRemarks());
+            switch (po.getStatus()) {
+                case "APPROVED":
+                    checkApproved.setSelected(true);
+                    checkDisApproved.setSelected(false);
+                    headerPanel.setApplicationStatus("APPROVED");
+                    break;
+                case "DISAPPROVED":
+                    checkApproved.setSelected(false);
+                    checkDisApproved.setSelected(true);
+                    headerPanel.setApplicationStatus("DISAPPROVED");
+                    break;
+                default:
+                    checkApproved.setSelected(false);
+                    checkDisApproved.setSelected(false);
+                    headerPanel.setApplicationStatus("PENDING");
+                    break;
+            }
         }
     }
-    
+
     public boolean savePurchaseOrder() {
-        PurchaseOrder p = PurchaseOrderController.getInstance().createNew(unitApplied, downpayment, insurance, term, amortization, isBrandNew, purpose, remarks, status, formNo);
+        PurchaseOrder p = PurchaseOrderController.getInstance().createNew(headerPanel.getFormNo(), createNew(new PurchaseOrder()));
         setPurchaseOrder(p);
         return p != null;
     }
-    
+
     public boolean updatePurchaseOrder() {
-        PurchaseOrder p = PurchaseOrderController.getInstance().update(formNo, purchaseOrder);
+        PurchaseOrder p = PurchaseOrderController.getInstance().update(headerPanel.getFormNo(), createNew(purchaseOrder));
         setPurchaseOrder(p);
         return p != null;
+    }
+
+    private PurchaseOrder createNew(PurchaseOrder p) {
+        p.setEncodeDate(DateUtil.now());
+        p.setUnitApplied(txtUnitApplied.getText());
+        p.setDownPayment(new BigDecimal(UIValidator.MoneyCommaRemover(txtDownpayment.getText())).doubleValue());
+        p.setInsurance(new BigDecimal(UIValidator.MoneyCommaRemover(txtInsurance.getText())).doubleValue());
+        p.setTerm(Integer.parseInt(txtTerm.getText()));
+        p.setMonthlyAmortization(new BigDecimal(UIValidator.MoneyCommaRemover(txtAmort.getText())).doubleValue());
+        if (((String) comboMotorStatus.getSelectedItem()).equals("REPO")) {
+            p.setBrandNew(false);
+        } else {
+            p.setBrandNew(true);
+        }
+        p.setPurpose((String) comboPurpose.getSelectedItem());
+        p.setRemarks(txtRemarks.getText());
+        if (checkApproved.isSelected()) {
+            p.setStatus("APPROVED");
+        } else if (checkDisApproved.isSelected()) {
+            p.setStatus("DISAPPROVED");
+        } else {
+            p.setStatus("PENDING");
+        }
+
+        return p;
     }
 }

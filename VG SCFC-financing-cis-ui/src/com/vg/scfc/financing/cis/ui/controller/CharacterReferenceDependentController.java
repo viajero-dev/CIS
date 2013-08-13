@@ -11,6 +11,8 @@ import com.vg.scfc.financing.cis.ui.settings.UISetting;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -92,6 +94,26 @@ public class CharacterReferenceDependentController {
             }
         } catch (Exception e) {
             UIValidator.log(e, CharacterReferenceDependentController.class);
+        }
+        return results;
+    }
+    
+    public List<CharacterReference> findCharacterReferencesByFormNo(String formNo) {
+        List<CharacterReference> results = new ArrayList<>();
+        try {
+            results = UISetting.getCharacterReferenceService().findByFormNo(formNo);
+        } catch (Exception ex) {
+            UIValidator.log(ex, CharacterReferenceDependentController.class);
+        }
+        return results;
+    }
+    
+    public List<Dependent> findDependentsByFormNo(String formNo) {
+        List<Dependent> results = new ArrayList<>();
+        try {
+            results = UISetting.getDependentService().findByFormNo(formNo);
+        } catch (Exception ex) {
+            UIValidator.log(ex, CharacterReferenceDependentController.class);
         }
         return results;
     }

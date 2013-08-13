@@ -318,6 +318,15 @@ public class FamilyBackgroundPanel extends javax.swing.JPanel implements KeyList
         txtMotherAddress.setEditable(value);
         txtMotherAge.setEditable(value);
         txtMotherOccupation.setEditable(value);
+        
+        txtFatherName.setFocusable(value);
+        txtFatherAddress.setFocusable(value);
+        txtFatherOccupation.setFocusable(value);
+        txtFatherAge.setFocusable(value);
+        txtMotherName.setFocusable(value);
+        txtMotherAddress.setFocusable(value);
+        txtMotherAge.setFocusable(value);
+        txtMotherOccupation.setFocusable(value);
     }
 
     public void resetToDefault() {
