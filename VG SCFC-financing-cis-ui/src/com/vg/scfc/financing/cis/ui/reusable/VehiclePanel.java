@@ -259,6 +259,7 @@ public class VehiclePanel extends javax.swing.JPanel implements KeyListener {
         txtYrsUsed.setFocusable(value);
         comboUsed.setFocusable(value);
         txtEstValue.setFocusable(value);
+        tableVehicle.setFocusable(value);
     }
 
     public void resetToDefault() {

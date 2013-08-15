@@ -398,6 +398,7 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
     private void txtBirthDateFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBirthDateFocusLost
         try {
             txtBirthDate.setDate(txtBirthDate.getDate());
+//            txtAge.setText(StringUtils.);
         } catch (ParseException ex) {
             UIValidator.log(ex, PersonalInfoController.class);
         }
@@ -459,6 +460,16 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
     List<Tribe> tribes = new ArrayList<>();
     List<Religion> religions = new ArrayList<>();
     private HeaderPanel headerPanel;
+    private String personType;
+    private String clientNo;
+
+    public void setClientNo(String clientNo) {
+        this.clientNo = clientNo;
+    }
+
+    public void setPersonType(String personType) {
+        this.personType = personType;
+    }
 
     public void setHeaderPanel(HeaderPanel headerPanel) {
         this.headerPanel = headerPanel;
@@ -566,12 +577,12 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
         optionMale.setEnabled(value);
         optionFemale.setEnabled(value);
         txtContact.setEditable(value);
-        comboStatus.setEditable(value);
-        comboMarriedOption.setEditable(value);
-        comboEducationStatus.setEditable(value);
-        comboTribe.setEditable(value);
-        comboReligion.setEditable(value);
-        comboCitizenship.setEditable(value);
+        comboStatus.setEnabled(value);
+        comboMarriedOption.setEnabled(value);
+        comboEducationStatus.setEnabled(value);
+        comboTribe.setEnabled(value);
+        comboReligion.setEnabled(value);
+        comboCitizenship.setEnabled(value);
         txtPresentAddress.setEditable(value);
         txtPreviousAddress.setEditable(value);
 
@@ -602,13 +613,13 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
         txtBirthDate.setText("");
         txtBirthPlace.setText("");
         optionMale.setSelected(true);
-        optionFemale.setText("");
+        optionFemale.setSelected(true);
         txtContact.setText("");
         comboStatus.setSelectedIndex(0);
         comboMarriedOption.setSelectedIndex(0);
         comboEducationStatus.setSelectedIndex(0);
-//        comboTribe.setSelectedIndex(0);
-//        comboReligion.setSelectedIndex(0);
+        comboTribe.setSelectedIndex(0);
+        comboReligion.setSelectedIndex(0);
 //        comboCitizenship.setSelectedIndex(0);
         txtPresentAddress.setText("");
         txtPreviousAddress.setText("");
@@ -686,7 +697,7 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
     }
 
     public boolean savePersonalInfo() {
-        PersonalInfo o = PersonalInfoController.getInstance().createNew(createNew(new PersonalInfo()), headerPanel.getFormNo(), headerPanel.getApplicationDate());
+        PersonalInfo o = PersonalInfoController.getInstance().createNew(createNew(new PersonalInfo()), headerPanel.getFormNo(), headerPanel.getApplicationDate(), personType);
         setPersonalInfo(o);
         return o != null;
     }
@@ -695,6 +706,18 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
         Object o = PersonalInfoController.getInstance().update(personalInfo);
         setPersonalInfo((PersonalInfo) o);
         return o != null;
+    }
+    
+    public boolean saveSpousePersonalInfo() {
+        PersonalInfo p = PersonalInfoController.getInstance().createNew(createNew(new PersonalInfo()), headerPanel.getFormNo(), personType, clientNo);
+        setPersonalInfo(p);
+        return p != null;
+    }
+    
+    public boolean updateSpousePersonalInfo() {
+        PersonalInfo p = PersonalInfoController.getInstance().update(headerPanel.getFormNo(), personType, createNew(personalInfo));
+        setPersonalInfo( p);
+        return p != null;
     }
 
     private PersonalInfo createNew(PersonalInfo p) {
@@ -712,8 +735,10 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
         } else {
             p.setGender("FEMALE");
         }
-        p.setTribe(PersonalInfoController.getInstance().findTribeByDesc((String) comboTribe.getSelectedItem(), tribes));
-        p.setReligion(PersonalInfoController.getInstance().findReligionByDesc((String) comboReligion.getSelectedItem(), religions));
+        Tribe t = PersonalInfoController.getInstance().findTribeByDesc((String) comboTribe.getSelectedItem(), tribes);
+        p.setTribe(t);
+        Religion r = PersonalInfoController.getInstance().findReligionByDesc((String) comboReligion.getSelectedItem(), religions);
+        p.setReligion(r);
 //        p.setCitizenship(citizenship);
         if (comboStatus.getSelectedIndex() == 1) {
             switch (comboMarriedOption.getSelectedIndex()) {
@@ -733,6 +758,7 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
         } else {
             p.setCivilStatus("SINGLE");
         }
+        
         p.setEducation((String) comboEducationStatus.getSelectedItem());
         p.setContactNo(txtContact.getText());
 

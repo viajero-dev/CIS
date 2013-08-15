@@ -7,13 +7,16 @@ package com.vg.scfc.financing.cis.ui.panel;
 
 import com.vg.scfc.financing.cis.ent.PersonalInfo;
 import com.vg.scfc.financing.cis.ent.PurchaseOrder;
+import com.vg.scfc.financing.cis.ent.TransactionForm;
 import com.vg.scfc.financing.cis.ui.controller.AddressController;
+import com.vg.scfc.financing.cis.ui.controller.ApplianceAssetsController;
 import com.vg.scfc.financing.cis.ui.controller.CharacterReferenceDependentController;
 import com.vg.scfc.financing.cis.ui.controller.CreditReferenceController;
 import com.vg.scfc.financing.cis.ui.controller.EmploymentController;
 import com.vg.scfc.financing.cis.ui.controller.ExpenditureController;
 import com.vg.scfc.financing.cis.ui.controller.FamilyBackgroundController;
 import com.vg.scfc.financing.cis.ui.controller.LandAssetController;
+import com.vg.scfc.financing.cis.ui.controller.MachineryAssetsController;
 import com.vg.scfc.financing.cis.ui.controller.PersonalInfoController;
 import com.vg.scfc.financing.cis.ui.controller.PurchaseOrderController;
 import com.vg.scfc.financing.cis.ui.controller.SiblingController;
@@ -40,7 +43,7 @@ public class MainPanel extends javax.swing.JPanel {
         /* Listeners */
         initComponents();
         initPersonalInfoAddEditListener();
-        initApplicantPersonalInfo();
+        initFields();
         initEmploymentDataAddEditListener();
         initFamilyBackgroundAddEditListener();
         initSiblingAddEditListener();
@@ -68,20 +71,39 @@ public class MainPanel extends javax.swing.JPanel {
         initCoMakerAddressAddEditChangeListener();
         initCoMakerSpouseAddressAddEditChangeListener();
         initPurchaseOrderAddEditListener();
+        /* Fill Values */
+        fillValue(searchPanel.getTransactionForm());
     }
 
-    private void initApplicantPersonalInfo() {
+    private void initFields() {
         panelPersonalInfo.setFieldsEditable(false);
+        panelEmploymentData.setFieldsEditable(false);
+        panelFamilyBackground.setFieldsEditable(false);
+        panelSibling.setFieldsEditable(false);
+        panelCharacterReference.setFieldsEditable(false);
+        panelDependents.setFieldsEditable(false);
+        panelCreditReference.setFieldsEditable(false);
+        panelSourceOfIncome.setFieldsEditable(false);
+        panelExpenditures.setFieldsEditable(false);
+        panelLandAssets.setFieldsEditable(false);
+        panelVehicle.setFieldsEditable(false);
+        panelAppliance.setFieldsEditable(false);
+        panelMachinery.setFieldsEditable(false);
+        panelAddress.setFieldsEditable(false);
+        panelPO.setFieldsEditable(false);
+
+        panelSpousePersonalInfo.setFieldsEditable(false);
+        panelSpouseEmployment.setFieldsEditable(false);
+        panelSpouseFamilyBackground.setFieldsEditable(false);
+
+        panelCoMakerPersonalInformation.setFieldsEditable(false);
+        panelCoMakerEmploymentData.setFieldsEditable(false);
+        panelCoMakerFamilyBackground.setFieldsEditable(false);
+        panelCoMakerSourceOfIncome.setFieldsEditable(false);
     }
 
     private void initPersonalInfoAddEditListener() {
         panelPersonalInfo.setHeaderPanel(headerPanel);
-        if (searchPanel.getTransactionForm() != null) {
-            System.out.println("Setting personal info value...");
-            headerPanel.setFormNo(searchPanel.getTransactionForm().getTxFormNo());
-            panelPersonalInfo.setPersonalInfo(PersonalInfoController.getInstance().findByFormNoAndPersonType(searchPanel.getTransactionForm().getTxFormNo(), "APP"));
-        }
-
         addEditPersonalInfo.setBasicActionListener(new BasicActionListener() {
 
             @Override
@@ -133,10 +155,6 @@ public class MainPanel extends javax.swing.JPanel {
     private void initEmploymentDataAddEditListener() {
         panelEmploymentData.setHeaderPanel(headerPanel);
         panelEmploymentData.setPersonType("APP");
-        if (searchPanel.getTransactionForm() != null) {
-            panelEmploymentData.setEmployment(EmploymentController.getInstance().findByFormNoAndPersonType(searchPanel.getTransactionForm().getTxFormNo(), "APP"));
-        }
-
         addEditEmployment.setBasicActionListener(new BasicActionListener() {
 
             @Override
@@ -191,10 +209,6 @@ public class MainPanel extends javax.swing.JPanel {
     private void initFamilyBackgroundAddEditListener() {
         panelFamilyBackground.setHeaderPanel(headerPanel);
         panelFamilyBackground.setPersonType("APP");
-        if (searchPanel.getTransactionForm() != null) {
-            panelFamilyBackground.setFamilies(FamilyBackgroundController.getInstance().findByFormNoAndPersonType(searchPanel.getTransactionForm().getTxFormNo(), "APP"));
-        }
-
         addEditFamily.setBasicActionListener(new BasicActionListener() {
 
             @Override
@@ -248,10 +262,6 @@ public class MainPanel extends javax.swing.JPanel {
 
     private void initSiblingAddEditListener() {
         panelSibling.setHeaderPanel(headerPanel);
-        if (searchPanel.getTransactionForm() != null) {
-            panelSibling.refreshTable(SiblingController.getInstance().findAll(searchPanel.getTransactionForm().getTxFormNo()));
-        }
-
         addEditSibling.setBasicActionListener(new BasicActionListener() {
 
             @Override
@@ -305,10 +315,6 @@ public class MainPanel extends javax.swing.JPanel {
 
     private void initCharacterReferenceAddEditListener() {
         panelCharacterReference.setHeaderPanel(headerPanel);
-        if (searchPanel.getTransactionForm() != null) {
-            panelCharacterReference.refreshTableCharacterReference(CharacterReferenceDependentController.getInstance().findCharacterReferencesByFormNo(searchPanel.getTransactionForm().getTxFormNo()));
-        }
-
         addEditCharacterReference.setBasicActionListener(new BasicActionListener() {
 
             @Override
@@ -364,10 +370,6 @@ public class MainPanel extends javax.swing.JPanel {
 
     private void initDependentsAddEditListener() {
         panelDependents.setHeaderPanel(headerPanel);
-        if (searchPanel.getTransactionForm() != null) {
-            panelDependents.refreshTableDependent(CharacterReferenceDependentController.getInstance().findDependentsByFormNo(searchPanel.getTransactionForm().getTxFormNo()));
-        }
-
         addEditDependents.setBasicActionListener(new BasicActionListener() {
 
             @Override
@@ -423,10 +425,6 @@ public class MainPanel extends javax.swing.JPanel {
 
     private void initCreditReferenceAddEditListener() {
         panelCreditReference.setHeaderPanel(headerPanel);
-        if (searchPanel.getTransactionForm() != null) {
-            panelCreditReference.refreshTable(CreditReferenceController.getInstance().findAll(searchPanel.getTransactionForm().getTxFormNo()));
-        }
-
         addEditCreditReference.setBasicActionListener(new BasicActionListener() {
 
             @Override
@@ -484,10 +482,6 @@ public class MainPanel extends javax.swing.JPanel {
         panelSourceOfIncome.setHeaderPanel(headerPanel);
         panelSourceOfIncome.setPersonType("APP");
         panelSourceOfIncome.setTxtTotalMonthlyIncome(txtTotalMonthlyIncome);
-        if(searchPanel.getTransactionForm() != null) {
-            panelSourceOfIncome.setSourceOfIncome(SourceOfIncomeController.getInstance().findByFormNoAndPersonType("", searchPanel.getTransactionForm().getTxFormNo(), "APP"));
-        }
-
         addEditSourceOfInc.setBasicActionListener(new BasicActionListener() {
 
             @Override
@@ -544,10 +538,6 @@ public class MainPanel extends javax.swing.JPanel {
     private void initExpendituresAddEditListener() {
         panelExpenditures.setHeaderPanel(headerPanel);
         panelExpenditures.setTotalMonthlyIncome(totalMonthlyIncome);
-        if(searchPanel.getTransactionForm() != null) {
-            panelExpenditures.setExpenditures(ExpenditureController.getInstance().findByFormNo(searchPanel.getTransactionForm().getTxFormNo()));
-        }
-
         addEditExpenditures.setBasicActionListener(new BasicActionListener() {
 
             @Override
@@ -603,10 +593,6 @@ public class MainPanel extends javax.swing.JPanel {
 
     private void initLandAssetsAddEditListener() {
         panelLandAssets.setHeaderPanel(headerPanel);
-        if(searchPanel.getTransactionForm() != null) {
-            panelLandAssets.setLands(LandAssetController.getInstance().findAllLandAssets(searchPanel.getTransactionForm().getTxFormNo()));
-        }
-        
         addEditLandAssets.setBasicActionListener(new BasicActionListener() {
 
             @Override
@@ -662,10 +648,6 @@ public class MainPanel extends javax.swing.JPanel {
 
     private void initVehicleAssetsAddEditListener() {
         panelVehicle.setHeaderPanel(headerPanel);
-        if(searchPanel.getTransactionForm() != null) {
-            panelVehicle.refreshTable(VehicleAssetsController.getInstance().findByFormNo(searchPanel.getTransactionForm().getTxFormNo()));
-        }
-        
         addEditVehicle.setBasicActionListener(new BasicActionListener() {
 
             @Override
@@ -720,7 +702,7 @@ public class MainPanel extends javax.swing.JPanel {
     }
 
     private void initApplianceAssetsAddEditListener() {
-        panelAppliance.setFormNo(formNo);
+        panelAppliance.setHeaderPanel(headerPanel);
         addEditAppliance.setBasicActionListener(new BasicActionListener() {
 
             @Override
@@ -734,6 +716,9 @@ public class MainPanel extends javax.swing.JPanel {
                 boolean isSaved = panelAppliance.saveApplianceAsset();
                 if (!isSaved) {
                     UIValidator.promptErrorMessageOn("SAVE");
+                } else {
+                    UIValidator.promptSucessMessageFor("SAVE");
+                    panelAppliance.setFieldsEditable(false);
                 }
                 return isSaved;
             }
@@ -755,6 +740,9 @@ public class MainPanel extends javax.swing.JPanel {
                 boolean isUpdated = panelAppliance.updateApplianceAsset();
                 if (!isUpdated) {
                     UIValidator.promptErrorMessageOn("EDIT");
+                } else {
+                    UIValidator.promptSucessMessageFor("EDIT");
+                    panelAppliance.setFieldsEditable(false);
                 }
                 return isUpdated;
             }
@@ -769,7 +757,7 @@ public class MainPanel extends javax.swing.JPanel {
     }
 
     private void initMachineryAssetsAddEditListener() {
-        panelMachinery.setFormNo(formNo);
+        panelMachinery.setHeaderPanel(headerPanel);
         addEditMachinery.setBasicActionListener(new BasicActionListener() {
 
             @Override
@@ -817,7 +805,10 @@ public class MainPanel extends javax.swing.JPanel {
         });
     }
 
+    /* Spouse Information */
     private void initSpousePersonalInfoAddEditListener() {
+        panelSpousePersonalInfo.setHeaderPanel(headerPanel);
+        panelSpousePersonalInfo.setPersonType("SPO");
         addEditSpousePersonalInfo.setBasicActionListener(new BasicActionListener() {
 
             @Override
@@ -828,9 +819,12 @@ public class MainPanel extends javax.swing.JPanel {
 
             @Override
             public boolean onSaveAdd() {
-                boolean isSaved = panelSpousePersonalInfo.savePersonalInfo();
+                boolean isSaved = panelSpousePersonalInfo.saveSpousePersonalInfo();
                 if (!isSaved) {
                     UIValidator.promptErrorMessageOn("SAVE");
+                } else {
+                    UIValidator.promptSucessMessageFor("SAVE");
+                    panelSpousePersonalInfo.setFieldsEditable(false);
                 }
                 return isSaved;
             }
@@ -848,9 +842,12 @@ public class MainPanel extends javax.swing.JPanel {
 
             @Override
             public boolean onSaveEdit() {
-                boolean isUpdated = panelSpousePersonalInfo.updatePersonalInfo();
+                boolean isUpdated = panelSpousePersonalInfo.updateSpousePersonalInfo();
                 if (!isUpdated) {
                     UIValidator.promptErrorMessageOn("EDIT");
+                } else {
+                    UIValidator.promptSucessMessageFor("EDIT");
+                    panelSpousePersonalInfo.setFieldsEditable(false);
                 }
                 return true;
             }
@@ -863,6 +860,8 @@ public class MainPanel extends javax.swing.JPanel {
     }
 
     private void initSpouseEmploymentAddEditListener() {
+        panelSpouseEmployment.setHeaderPanel(headerPanel);
+        panelSpouseEmployment.setPersonType("SPO");
         addEditSpouseEmployment.setBasicActionListener(new BasicActionListener() {
 
             @Override
@@ -876,6 +875,9 @@ public class MainPanel extends javax.swing.JPanel {
                 boolean isSaved = panelSpouseEmployment.saveEmploymentData();
                 if (!isSaved) {
                     UIValidator.promptErrorMessageOn("SAVE");
+                } else {
+                    UIValidator.promptSucessMessageFor("SAVE");
+                    panelSpouseEmployment.setFieldsEditable(false);
                 }
                 return isSaved;
             }
@@ -897,6 +899,9 @@ public class MainPanel extends javax.swing.JPanel {
                 boolean isUpdated = panelSpouseEmployment.updateEmploymentData();
                 if (!isUpdated) {
                     UIValidator.promptErrorMessageOn("EDIT");
+                } else {
+                    UIValidator.promptSucessMessageFor("EDIT");
+                    panelSpouseEmployment.setFieldsEditable(false);
                 }
                 return isUpdated;
             }
@@ -911,6 +916,8 @@ public class MainPanel extends javax.swing.JPanel {
     }
 
     private void initSpouseFamilyBackgroundAddEditListener() {
+        panelSpouseFamilyBackground.setHeaderPanel(headerPanel);
+        panelSpouseFamilyBackground.setPersonType("SPO");
         addEditSpouseFamilyBackground.setBasicActionListener(new BasicActionListener() {
 
             @Override
@@ -924,6 +931,9 @@ public class MainPanel extends javax.swing.JPanel {
                 boolean isSaved = panelSpouseFamilyBackground.saveFamilyBackground();
                 if (!isSaved) {
                     UIValidator.promptErrorMessageOn("SAVE");
+                } else {
+                    UIValidator.promptSucessMessageFor("SAVE");
+                    panelSpouseFamilyBackground.setFieldsEditable(false);
                 }
                 return isSaved;
             }
@@ -945,6 +955,9 @@ public class MainPanel extends javax.swing.JPanel {
                 boolean isUpdated = panelSpouseFamilyBackground.updateFamilyBackground();
                 if (!isUpdated) {
                     UIValidator.promptErrorMessageOn("EDIT");
+                } else {
+                    UIValidator.promptSucessMessageFor("EDIT");
+                    panelSpouseFamilyBackground.setFieldsEditable(false);
                 }
                 return isUpdated;
             }
@@ -958,6 +971,7 @@ public class MainPanel extends javax.swing.JPanel {
         });
     }
 
+    /* Co Maker Information */
     private void initCoMakerPersonalInfoAddEditListener() {
         addEditCoMakerPersonalInfo.setBasicActionListener(new BasicActionListener() {
 
@@ -1099,6 +1113,7 @@ public class MainPanel extends javax.swing.JPanel {
         });
     }
 
+    /* Co Maker Spouse Information */
     private void initCoMakerSourceOfIncomeAddEditListener() {
         addEditCoMakerSourceOfIncome.setBasicActionListener(new BasicActionListener() {
 
@@ -1288,13 +1303,10 @@ public class MainPanel extends javax.swing.JPanel {
         });
     }
 
+    /* Address Information */
     private void initAddressAddEditChangeListener() {
         panelAddress.setHeaderPanel(headerPanel);
         panelAddress.setPersonType("APP");
-        if(searchPanel.getTransactionForm() != null) {
-            panelAddress.refreshTable(AddressController.getInstance().findByFormNo(searchPanel.getTransactionForm().getTxFormNo(), "APP"));
-        }
-        
         addEditChangeAddress.setButtonListener(new AddEditChangeListener() {
 
             @Override
@@ -1308,6 +1320,9 @@ public class MainPanel extends javax.swing.JPanel {
                 boolean isSaved = panelAddress.saveAddress();
                 if (!isSaved) {
                     UIValidator.promptErrorMessageOn("SAVE");
+                } else {
+                    UIValidator.promptSucessMessageFor("SAVE");
+                    panelAddress.setFieldsEditable(false);
                 }
                 return isSaved;
             }
@@ -1328,6 +1343,9 @@ public class MainPanel extends javax.swing.JPanel {
                 boolean isUpdated = panelAddress.updateAddress();
                 if (!isUpdated) {
                     UIValidator.promptErrorMessageOn("EDIT");
+                } else {
+                    UIValidator.promptSucessMessageFor("EDIT");
+                    panelAddress.setFieldsEditable(false);
                 }
                 return isUpdated;
             }
@@ -1362,6 +1380,8 @@ public class MainPanel extends javax.swing.JPanel {
     }
 
     private void initSpouseAddressAddEditChangeListener() {
+        panelSpouseAddress.setHeaderPanel(headerPanel);
+        panelSpouseAddress.setPersonType("SPO");
         addEditChangeSpouseAddress.setButtonListener(new AddEditChangeListener() {
 
             @Override
@@ -1375,6 +1395,9 @@ public class MainPanel extends javax.swing.JPanel {
                 boolean isSaved = panelSpouseAddress.saveAddress();
                 if (!isSaved) {
                     UIValidator.promptErrorMessageOn("SAVE");
+                } else {
+                    UIValidator.promptSucessMessageFor("SAVE");
+                    panelSpouseAddress.setFieldsEditable(false);
                 }
                 return isSaved;
             }
@@ -1395,6 +1418,9 @@ public class MainPanel extends javax.swing.JPanel {
                 boolean isUpdated = panelSpouseAddress.updateAddress();
                 if (!isUpdated) {
                     UIValidator.promptErrorMessageOn("EDIT");
+                } else {
+                    UIValidator.promptSucessMessageFor("EDIT");
+                    panelSpouseAddress.setFieldsEditable(false);
                 }
                 return isUpdated;
             }
@@ -1562,9 +1588,9 @@ public class MainPanel extends javax.swing.JPanel {
         });
     }
 
+    /* Purchase Order  */
     private void initPurchaseOrderAddEditListener() {
         panelPO.setHeaderPanel(headerPanel);
-        panelPO.setPurchaseOrder((PurchaseOrder) PurchaseOrderController.getInstance().findByFormNo("00001"));
         addEditPO.setBasicActionListener(new BasicActionListener() {
 
             @Override
@@ -1578,6 +1604,9 @@ public class MainPanel extends javax.swing.JPanel {
                 boolean isSaved = panelPO.savePurchaseOrder();
                 if (!isSaved) {
                     UIValidator.promptErrorMessageOn("SAVE");
+                } else {
+                    UIValidator.promptSucessMessageFor("SAVE");
+                    panelPO.setFieldsEditable(false);
                 }
                 return isSaved;
             }
@@ -1598,6 +1627,9 @@ public class MainPanel extends javax.swing.JPanel {
                 boolean isUpdated = panelPO.updatePurchaseOrder();
                 if (!isUpdated) {
                     UIValidator.promptErrorMessageOn("EDIT");
+                } else {
+                    UIValidator.promptSucessMessageFor("EDIT");
+                    panelPO.setFieldsEditable(false);
                 }
                 return isUpdated;
             }
@@ -1608,6 +1640,44 @@ public class MainPanel extends javax.swing.JPanel {
                 // TODO, reset ui
             }
         });
+    }
+
+    /* Riders to Buyers */
+    private void initRidersToBuyersListener() {
+    }
+
+    /* Set all Data by Search */
+    private void fillValue(TransactionForm form) {
+        if (form != null) {
+            headerPanel.setFormNo(form.getTxFormNo());
+            headerPanel.setApplicationDate(form.getTxApplicationDate());
+            headerPanel.enableFields(false);
+            /* Applicant */
+            panelPersonalInfo.setPersonalInfo(PersonalInfoController.getInstance().findByFormNoAndPersonType(form.getTxFormNo(), "APP"));
+            panelEmploymentData.setEmployment(EmploymentController.getInstance().findByFormNoAndPersonType(form.getTxFormNo(), "APP"));
+            panelFamilyBackground.setFamilies(FamilyBackgroundController.getInstance().findByFormNoAndPersonType(form.getTxFormNo(), "APP"));
+            panelSibling.refreshTable(SiblingController.getInstance().findAll(form.getTxFormNo()));
+            panelCharacterReference.refreshTableCharacterReference(CharacterReferenceDependentController.getInstance().findCharacterReferencesByFormNo(form.getTxFormNo()));
+            panelDependents.refreshTableDependent(CharacterReferenceDependentController.getInstance().findDependentsByFormNo(form.getTxFormNo()));
+            panelCreditReference.refreshTable(CreditReferenceController.getInstance().findAll(form.getTxFormNo()));
+            panelSourceOfIncome.setSourceOfIncome(SourceOfIncomeController.getInstance().findByFormNoAndPersonType("", form.getTxFormNo(), "APP"));
+            panelExpenditures.setExpenditures(ExpenditureController.getInstance().findByFormNo(form.getTxFormNo()));
+            panelLandAssets.setLands(LandAssetController.getInstance().findAllLandAssets(form.getTxFormNo()));
+            panelVehicle.refreshTable(VehicleAssetsController.getInstance().findByFormNo(form.getTxFormNo()));
+            panelAppliance.refreshTable(ApplianceAssetsController.getInstance().findAll(form.getTxFormNo()));
+            panelMachinery.refreshTable(MachineryAssetsController.getInstance().findAll(form.getTxFormNo()));
+            panelAddress.refreshTable(AddressController.getInstance().findByFormNo(form.getTxFormNo(), "APP"));
+            PurchaseOrder p = PurchaseOrderController.getInstance().findByFormNo(form.getTxFormNo());
+            panelPO.setPurchaseOrder(p);
+            /* Spouse */
+            if (searchPanel.getCustomer() != null) {
+                panelSpousePersonalInfo.setClientNo(searchPanel.getCustomer().getClientNo());
+            }
+            panelSpousePersonalInfo.setPersonalInfo(PersonalInfoController.getInstance().findByFormNoAndPersonType(form.getTxFormNo(), "SPO"));
+            panelSpouseEmployment.setEmployment(EmploymentController.getInstance().findByFormNoAndPersonType(form.getTxFormNo(), "SPO"));
+            panelSpouseFamilyBackground.setFamilies(FamilyBackgroundController.getInstance().findByFormNoAndPersonType(form.getTxFormNo(), "SPO"));
+            panelSpouseAddress.refreshTable(AddressController.getInstance().findByFormNo(form.getTxFormNo(), "SPO"));
+        }
     }
 
     /**
@@ -2072,11 +2142,6 @@ public class MainPanel extends javax.swing.JPanel {
     private String formNo;
     private Date applicationDate;
     private BigDecimal totalMonthlyIncome;
-    private int selectedIndex;
-
-    public void setSelectdIndex(int selectdIndex) {
-        this.selectedIndex = selectdIndex;
-    }
 
     public void setTotalMonthlyIncome(BigDecimal totalMonthlyIncome) {
         this.totalMonthlyIncome = totalMonthlyIncome;

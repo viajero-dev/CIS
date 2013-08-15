@@ -316,6 +316,14 @@ public class EmploymentDataPanel extends javax.swing.JPanel implements KeyListen
         txtEmployerContact.setEditable(value);
         txtEmployerBusinessNature.setEditable(value);
         txtYearInService.setEditable(value);
+        
+        comboEmploymentStatus.setFocusable(value);
+        txtPositionDepartment.setFocusable(value);
+        txtCompanyEmployer.setFocusable(value);
+        txtEmployerAddress.setFocusable(value);
+        txtEmployerContact.setFocusable(value);
+        txtEmployerBusinessNature.setFocusable(value);
+        txtYearInService.setFocusable(value);
     }
 
     public void resetToDefault() {

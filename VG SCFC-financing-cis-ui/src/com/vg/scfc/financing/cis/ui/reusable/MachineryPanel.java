@@ -5,6 +5,7 @@
  */
 package com.vg.scfc.financing.cis.ui.reusable;
 
+import com.vg.commons.util.NumberUtils;
 import com.vg.scfc.financing.cis.ent.Machinery;
 import com.vg.scfc.financing.cis.ui.controller.MachineryAssetsController;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
@@ -31,13 +32,13 @@ public class MachineryPanel extends javax.swing.JPanel implements KeyListener {
         initComponents();
         startUpSettings();
     }
-    
+
     private void startUpSettings() {
         setFieldsEditable(false);
         initKeyListeners();
         initMachineryTable();
     }
-    
+
     private void initMachineryTable() {
         tableMachinery.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         tableMachinery.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
@@ -92,9 +93,11 @@ public class MachineryPanel extends javax.swing.JPanel implements KeyListener {
 
         org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, machineries, tableMachinery);
         org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${type}"));
-        columnBinding.setColumnName("Type of Unit");
+        columnBinding.setColumnName("Type");
         columnBinding.setColumnClass(String.class);
-        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${amount}"));
+        columnBinding.setColumnName("Amount");
+        columnBinding.setColumnClass(Double.class);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
         jScrollPane1.setViewportView(tableMachinery);
@@ -152,15 +155,15 @@ public class MachineryPanel extends javax.swing.JPanel implements KeyListener {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtMachineTypeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtMachineTypeFocusLost
-        type = UIValidator.validate(txtMachineType);
+        txtMachineType.setText(UIValidator.validate(txtMachineType));
     }//GEN-LAST:event_txtMachineTypeFocusLost
 
     private void txtMachineQtyFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtMachineQtyFocusLost
-        qty = Integer.parseInt(UIValidator.isNumeric(txtMachineQty));
+        txtMachineQty.setText(UIValidator.isNumeric(txtMachineQty));
     }//GEN-LAST:event_txtMachineQtyFocusLost
 
     private void txtMachineEstValueFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtMachineEstValueFocusLost
-        estimatedValue = new BigDecimal(UIValidator.isNumeric(txtMachineEstValue));
+        txtMachineEstValue.setText(NumberUtils.doubleToString(new BigDecimal(UIValidator.isNumeric(txtMachineEstValue)).doubleValue()));
     }//GEN-LAST:event_txtMachineEstValueFocusLost
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -178,20 +181,12 @@ public class MachineryPanel extends javax.swing.JPanel implements KeyListener {
     private javax.swing.JTextField txtTotalEstValue;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
-    private String type;
-    private int qty;
-    private BigDecimal estimatedValue;
     private int selectedIndex;
-    private String formNo;
     private Machinery machinery;
+    private HeaderPanel headerPanel;
 
-    public void setMachineries(List<Machinery> machineries) {
-        this.machineries = machineries;
-        refreshTable(this.machineries);
-    }
-
-    public void setFormNo(String formNo) {
-        this.formNo = formNo;
+    public void setHeaderPanel(HeaderPanel headerPanel) {
+        this.headerPanel = headerPanel;
     }
 
     public void setMachinery(Machinery machinery) {
@@ -231,6 +226,15 @@ public class MachineryPanel extends javax.swing.JPanel implements KeyListener {
         txtMachineType.setEditable(value);
         txtMachineQty.setEditable(value);
         txtMachineEstValue.setEditable(value);
+        
+        txtMachineType.setFocusable(value);
+        txtMachineQty.setFocusable(value);
+        txtMachineEstValue.setFocusable(value);
+        tableMachinery.setFocusable(value);
+        
+        if(value) {
+            txtMachineType.requestFocus();
+        }
     }
 
     public void resetToDefault() {
@@ -246,27 +250,34 @@ public class MachineryPanel extends javax.swing.JPanel implements KeyListener {
             Machinery m = (Machinery) o;
             txtMachineType.setText(m.getType());
             txtMachineQty.setText(m.getQuantity() + "");
-            txtMachineEstValue.setText(m.getAmount() + "");
+            txtMachineEstValue.setText(NumberUtils.doubleToString(m.getAmount()));
         }
     }
-    
+
     public boolean saveMachinery() {
-        List<Machinery> m = MachineryAssetsController.getInstance().createNew(type, qty, estimatedValue, formNo);
-        setMachineries(m);
+        List<Machinery> m = MachineryAssetsController.getInstance().createNew(headerPanel.getFormNo(), createNew(new Machinery()));
+        refreshTable(m);
         return !m.isEmpty();
     }
-    
+
     public boolean updateMachinery() {
-        List<Machinery> m = MachineryAssetsController.getInstance().update(formNo, machinery);
-        setMachineries(m);
+        List<Machinery> m = MachineryAssetsController.getInstance().update(headerPanel.getFormNo(), createNew(machinery));
+        refreshTable(m);
         return !m.isEmpty();
     }
-    
+
     public void refreshTable(List<Machinery> m) {
         machineries.clear();
         machineries.addAll(m);
-        if(!machineries.isEmpty()) {
+        if (!machineries.isEmpty()) {
             tableMachinery.setRowSelectionInterval(0, 0);
         }
+    }
+
+    private Machinery createNew(Machinery m) {
+        m.setType(txtMachineType.getText());
+        m.setQuantity(Integer.parseInt(txtMachineQty.getText()));
+        m.setAmount(new BigDecimal(UIValidator.MoneyCommaRemover(txtMachineEstValue.getText())).doubleValue());
+        return m;
     }
 }

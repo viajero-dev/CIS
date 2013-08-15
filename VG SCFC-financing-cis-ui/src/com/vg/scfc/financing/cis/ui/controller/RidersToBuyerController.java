@@ -7,7 +7,10 @@ package com.vg.scfc.financing.cis.ui.controller;
 
 import com.vg.scfc.financing.cis.ent.Identification;
 import com.vg.scfc.financing.cis.ui.settings.UISetting;
+import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -24,17 +27,22 @@ public class RidersToBuyerController {
         return instance;
     }
     
-    public boolean saveAgreement(String competentOfEvidence, String IdNo, String placeOfIssue, Date issueDate, String formNo) {
-        Identification i = new Identification();
-        i.setDateOfIssue(issueDate);
-        i.setIdNo(IdNo);
-        i.setPlaceOfIssue(placeOfIssue);
-        i.setUser(UISetting.getSystemUser());
-        i.setLocation(UISetting.getStoreLocation());
-        i.setStation(UISetting.getComputerName());
-        i.setTxFormNo(formNo);
-//        UISetting.geti
-        return true;
+    public Identification saveAgreement(String formNo, String personTypeID, Identification i) {
+        Identification result = null;
+        try {
+            i.setTxFormNo(formNo);
+            i.setPersonType(UISetting.getPersonTypeService().findById(personTypeID));
+            i.setUser(UISetting.getSystemUser());
+            i.setLocation(UISetting.getStoreLocation());
+            i.setStation(UISetting.getComputerName());
+            boolean isSaved = UISetting.getIdentificationService().insert(i);
+            if(isSaved) {
+                result = UISetting.getIdentificationService().findById(formNo, personTypeID);
+            }
+        } catch (Exception ex) {
+            UIValidator.log(ex, RidersToBuyerController.class);
+        }
+        return result;
     }
 
 }

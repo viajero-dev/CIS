@@ -11,8 +11,6 @@ import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -29,17 +27,13 @@ public class MachineryAssetsController {
         return instance;
     }
 
-    public List<Machinery> createNew(String type, int qty, BigDecimal estimatedValue, String formNo) {
+    public List<Machinery> createNew(String formNo, Machinery m) {
         List<Machinery> results = new ArrayList<>();
         try {
-            Machinery m = new Machinery();
-            m.setType(type);
-            m.setQuantity(qty);
-            m.setAmount(estimatedValue.doubleValue());
             m.setUser(UISetting.getSystemUser());
             m.setLocation(UISetting.getStoreLocation());
             m.setStation(UISetting.getComputerName());
-//            UISetting.getMachineryService().insert(formNo, m);
+            UISetting.getMachineryService().insert(formNo, m);
             results = UISetting.getMachineryService().findByAsset(formNo);
         } catch (Exception ex) {
             UIValidator.log(ex, MachineryAssetsController.class);
@@ -50,7 +44,10 @@ public class MachineryAssetsController {
     public List<Machinery> update(String formNo, Machinery m) {
         List<Machinery> results = new ArrayList<>();
         try {
-//            UISetting.getMachineryService().update(m);
+            m.setUser(UISetting.getSystemUser());
+            m.setLocation(UISetting.getStoreLocation());
+            m.setStation(UISetting.getComputerName());
+            UISetting.getMachineryService().update(m);
             results = UISetting.getMachineryService().findByAsset(formNo);
         } catch (Exception ex) {
             UIValidator.log(ex, MachineryAssetsController.class);

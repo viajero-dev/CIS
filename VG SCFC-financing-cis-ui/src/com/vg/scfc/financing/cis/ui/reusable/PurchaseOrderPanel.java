@@ -331,6 +331,17 @@ public class PurchaseOrderPanel extends javax.swing.JPanel implements KeyListene
         txtRemarks.setEditable(value);
         checkApproved.setEnabled(value);
         checkDisApproved.setEnabled(value);
+        
+        txtUnitApplied.setFocusable(value);
+        txtDownpayment.setFocusable(value);
+        txtInsurance.setFocusable(value);
+        txtTerm.setFocusable(value);
+        txtAmort.setFocusable(value);
+        comboMotorStatus.setFocusable(value);
+        comboPurpose.setFocusable(value);
+        txtRemarks.setFocusable(value);
+        checkApproved.setFocusable(value);
+        checkDisApproved.setFocusable(value);
     }
 
     public void resetToDefault() {

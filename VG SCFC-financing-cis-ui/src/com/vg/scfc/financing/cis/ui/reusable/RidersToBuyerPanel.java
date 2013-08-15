@@ -5,11 +5,18 @@
  */
 package com.vg.scfc.financing.cis.ui.reusable;
 
+import com.vg.scfc.financing.cis.ent.Identification;
+import com.vg.scfc.financing.cis.ui.controller.RidersToBuyerController;
+import com.vg.scfc.financing.cis.ui.validator.UIValidator;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.text.ParseException;
+
 /**
  *
  * @author rodel
  */
-public class RidersToBuyerPanel extends javax.swing.JPanel {
+public class RidersToBuyerPanel extends javax.swing.JPanel implements KeyListener {
 
     /**
      * Creates new form RidersToBuyerPanel
@@ -90,6 +97,11 @@ public class RidersToBuyerPanel extends javax.swing.JPanel {
         add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(465, 45, 80, -1));
 
         txtPlaceOfIssue.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
+        txtPlaceOfIssue.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtPlaceOfIssueFocusLost(evt);
+            }
+        });
         add(txtPlaceOfIssue, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 42, 150, -1));
 
         jLabel6.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
@@ -114,6 +126,11 @@ public class RidersToBuyerPanel extends javax.swing.JPanel {
         add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 95, 480, -1));
 
         txtIdNo.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
+        txtIdNo.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtIdNoFocusLost(evt);
+            }
+        });
         add(txtIdNo, new org.netbeans.lib.awtextra.AbsoluteConstraints(355, 42, 100, -1));
 
         jLabel9.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
@@ -150,6 +167,14 @@ public class RidersToBuyerPanel extends javax.swing.JPanel {
         add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 155, 860, -1));
     }// </editor-fold>//GEN-END:initComponents
 
+    private void txtIdNoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtIdNoFocusLost
+        txtIdNo.setText(txtIdNo.getText().toUpperCase());
+    }//GEN-LAST:event_txtIdNoFocusLost
+
+    private void txtPlaceOfIssueFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPlaceOfIssueFocusLost
+        txtPlaceOfIssue.setText(txtPlaceOfIssue.getText().toUpperCase());
+    }//GEN-LAST:event_txtPlaceOfIssueFocusLost
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -171,4 +196,58 @@ public class RidersToBuyerPanel extends javax.swing.JPanel {
     private com.vg.commons.formattedfields.FormattedSimpleDateField txtIssueDate;
     private javax.swing.JTextField txtPlaceOfIssue;
     // End of variables declaration//GEN-END:variables
+    private Identification identification;
+    private HeaderPanel headerPanel;
+    private String personType;
+
+    public void setIdentification(Identification identification) {
+        this.identification = identification;
+    }
+
+    public void setHeaderPanel(HeaderPanel headerPanel) {
+        this.headerPanel = headerPanel;
+    }
+
+    public void setPersonType(String personType) {
+        this.personType = personType;
+    }
+    
+    private Identification createNew(Identification i) {
+        try {
+            i.setDateOfIssue(txtIssueDate.getDate());
+        } catch (ParseException ex) {
+            UIValidator.log(ex, RidersToBuyerPanel.class);
+        }
+        i.setIdNo(txtIdNo.getText());
+        i.setPlaceOfIssue(txtPlaceOfIssue.getText());
+        return i;
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        switch (e.getKeyCode()) {
+            case KeyEvent.VK_ENTER:
+                if (txtCompetent.isFocusOwner()) {
+                txtIdNo.requestFocus();
+            } else if (txtIdNo.isFocusOwner()) {
+                txtPlaceOfIssue.requestFocus();
+            } else if (txtPlaceOfIssue.isFocusOwner()) {
+                txtIssueDate.requestFocus();
+            }
+                break;
+        }
+    }
+    
+    public boolean saveAgreement(){
+        Identification i = RidersToBuyerController.getInstance().saveAgreement(headerPanel.getFormNo(), personType, createNew(new Identification()));
+        return i != null;
+    }
 }

@@ -19,6 +19,7 @@ import com.vg.scfc.financing.cis.service.EmploymentService;
 import com.vg.scfc.financing.cis.service.ExpenditureService;
 import com.vg.scfc.financing.cis.service.ExpenditureTypeService;
 import com.vg.scfc.financing.cis.service.FamilyService;
+import com.vg.scfc.financing.cis.service.IdentificationService;
 import com.vg.scfc.financing.cis.service.LandService;
 import com.vg.scfc.financing.cis.service.LandTypeService;
 import com.vg.scfc.financing.cis.service.MachineryService;
@@ -74,7 +75,16 @@ public class UISetting {
     private static TribeService tribeService;
     private static VehicleService vehicleService;
     private static PersonalInfoService personalInfoService;
-    private static AssetService assetService; 
+    private static AssetService assetService;
+    private static IdentificationService identificationService;
+
+    public static IdentificationService getIdentificationService() {
+        return identificationService;
+    }
+
+    public static void setIdentificationService(IdentificationService identificationService) {
+        UISetting.identificationService = identificationService;
+    }
 
     public static AssetService getAssetService() {
         return assetService;

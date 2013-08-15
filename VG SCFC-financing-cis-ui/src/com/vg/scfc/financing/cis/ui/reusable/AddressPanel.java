@@ -441,6 +441,7 @@ public class AddressPanel extends javax.swing.JPanel implements KeyListener {
         txtYrsOfStay.setFocusable(value);
         optionPresent.setFocusable(value);
         optionPrevious.setFocusable(value);
+        tableAddress.setFocusable(value);
     }
 
     public void resetToDefault() {

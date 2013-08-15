@@ -33,44 +33,61 @@ public class PersonalInfoController {
         return instance;
     }
 
-    public PersonalInfo createNew(PersonalInfo p, String formSeries, Date applicationDate) {
+    public PersonalInfo createNew(PersonalInfo p, String formSeries, Date applicationDate, String personTypeID) {
         PersonalInfo result = null;
         try {
-            /* Form Info */
-            String formNo = FormController.getInstance().newFormNo(UISetting.getStoreLocation().getId(), "2", formSeries);
-            
-            TransactionForm form = new TransactionForm();
-            form.setTxFormNo(formNo);
-            form.setTxApplicationDate(applicationDate);
-            form.setUser(UISetting.getSystemUser());
-            form.setStation(UISetting.getComputerName());
-            form.setLocation(UISetting.getStoreLocation());
+            if (personTypeID.equals("APP")) {
+                /* Form Info */
+                String formNo = FormController.getInstance().newFormNo(UISetting.getStoreLocation().getId(), "2", formSeries);
 
-            /* Transaction Mode */
-            TransactionMode transactionMode = UISetting.getTransactionModeService().findByID(2);
+                TransactionForm form = new TransactionForm();
+                form.setTxFormNo(formNo);
+                form.setTxApplicationDate(applicationDate);
+                form.setUser(UISetting.getSystemUser());
+                form.setStation(UISetting.getComputerName());
+                form.setLocation(UISetting.getStoreLocation());
 
-            /* Customer Info */
-            Customer customer = new Customer();
-            customer.setName(p.getLastName().toUpperCase() + "," + p.getFirstName().toUpperCase() + " " + p.getMiddleName().toUpperCase());
-            customer.setTransactionMode(transactionMode);
-            customer.setUser(UISetting.getSystemUser());
-            customer.setLocation(UISetting.getStoreLocation());
-            customer.setStation(UISetting.getComputerName());
+                /* Transaction Mode */
+                TransactionMode transactionMode = UISetting.getTransactionModeService().findByID(2);
 
-            /* Person Type */
-            PersonType personType = UISetting.getPersonTypeService().findById("APP");
-            
-            /* Personal Info */
-            p.setPersonType(personType);
-            p.setTxFormNo(formNo);
-            p.setUser(UISetting.getSystemUser());
-            p.setLocation(UISetting.getStoreLocation());
-            p.setStation(UISetting.getComputerName());
+                /* Customer Info */
+                Customer customer = new Customer();
+                customer.setName(p.getLastName().toUpperCase() + "," + p.getFirstName().toUpperCase() + " " + p.getMiddleName().toUpperCase());
+                customer.setTransactionMode(transactionMode);
+                customer.setUser(UISetting.getSystemUser());
+                customer.setLocation(UISetting.getStoreLocation());
+                customer.setStation(UISetting.getComputerName());
 
-            boolean isSaved = UISetting.getCustomerService().insert(customer, form, p);
-            if (isSaved) {
-                System.out.println("Find result by type: " + personType.getTypeID());
-                result = UISetting.getPersonalInfoService().findByFormType(formNo, personType.getTypeID());
+                /* Person Type */
+                PersonType personType = UISetting.getPersonTypeService().findById(personTypeID);
+
+                /* Personal Info */
+                p.setPersonType(personType);
+                p.setTxFormNo(formNo);
+                p.setUser(UISetting.getSystemUser());
+                p.setLocation(UISetting.getStoreLocation());
+                p.setStation(UISetting.getComputerName());
+
+                boolean isSaved = UISetting.getCustomerService().insert(customer, form, p);
+                if (isSaved) {
+                    System.out.println("Find result by type: " + personType.getTypeID());
+                    result = UISetting.getPersonalInfoService().findByFormType(formNo, personType.getTypeID());
+                }
+            } else {
+                /* Person Type */
+                PersonType personType = UISetting.getPersonTypeService().findById(personTypeID);
+
+                /* Personal Info */
+                p.setPersonType(personType);
+                p.setTxFormNo(formSeries);
+                p.setUser(UISetting.getSystemUser());
+                p.setLocation(UISetting.getStoreLocation());
+                p.setStation(UISetting.getComputerName());
+
+                PersonalInfo r = UISetting.getPersonalInfoService().insert(p);
+                if (r != null) {
+                    result = UISetting.getPersonalInfoService().findByFormType(formSeries, personType.getTypeID());
+                }
             }
         } catch (Exception ex) {
             UIValidator.log(ex, PersonalInfoController.class);
@@ -78,7 +95,48 @@ public class PersonalInfoController {
 
         return result;
     }
-    
+
+    public PersonalInfo createNew(PersonalInfo p, String formNo, String personTypeID, String clientNo) {
+        PersonalInfo result = null;
+        try {
+            System.out.println("setting clientNo to: " + clientNo);
+            /* Person Type */
+            PersonType personType = UISetting.getPersonTypeService().findById(personTypeID);
+
+            /* Personal Info */
+            p.setClientNo(clientNo);
+            p.setPersonType(personType);
+            p.setTxFormNo(formNo);
+            p.setUser(UISetting.getSystemUser());
+            p.setLocation(UISetting.getStoreLocation());
+            p.setStation(UISetting.getComputerName());
+
+            PersonalInfo r = UISetting.getPersonalInfoService().insert(p);
+            if (r != null) {
+                result = UISetting.getPersonalInfoService().findByFormType(formNo, personType.getTypeID());
+            }
+        } catch (Exception e) {
+            UIValidator.log(e, PersonalInfoController.class);
+        }
+        return result;
+    }
+
+    public PersonalInfo update(String formNo, String personTypeID, PersonalInfo p) {
+        PersonalInfo result = null;
+        try {
+            p.setUser(UISetting.getSystemUser());
+            p.setLocation(UISetting.getStoreLocation());
+            p.setStation(UISetting.getComputerName());
+            PersonalInfo r = UISetting.getPersonalInfoService().update(p);
+            if (r != null) {
+                result = UISetting.getPersonalInfoService().findByFormType(formNo, personTypeID);
+            } 
+        } catch (Exception ex) {
+            UIValidator.log(ex, PersonalInfoController.class);
+        }
+        return result;
+    }
+
     public PersonalInfo findByFormNoAndPersonType(String formNo, String personType) {
         PersonalInfo result = null;
         try {
@@ -92,8 +150,11 @@ public class PersonalInfoController {
     public PersonalInfo update(PersonalInfo p) {
         PersonalInfo result = null;
         try {
+            p.setUser(UISetting.getSystemUser());
+            p.setLocation(UISetting.getStoreLocation());
+            p.setStation(UISetting.getComputerName());
             boolean isUpdated = UISetting.getCustomerService().update(UISetting.getCustomerService().findById(p.getClientNo()), p);
-            if(isUpdated) {
+            if (isUpdated) {
                 result = UISetting.getPersonalInfoService().findByFormType(p.getTxFormNo(), p.getPersonType().getTypeID());
             }
         } catch (Exception ex) {
@@ -101,7 +162,7 @@ public class PersonalInfoController {
         }
         return result;
     }
-    
+
     public List<Tribe> Tribes() {
         List<Tribe> tribes = new ArrayList<>();
         try {
@@ -121,25 +182,25 @@ public class PersonalInfoController {
         }
         return religions;
     }
-    
+
     public Tribe findTribeByDesc(String desc, List<Tribe> t) {
         Tribe result = null;
         for (Tribe tribe : t) {
-            if(tribe.getTribeDesc().equals(desc)) {
+            if (tribe.getTribeDesc().equals(desc)) {
                 result = tribe;
             }
         }
         return result;
     }
-    
+
     public Religion findReligionByDesc(String desc, List<Religion> t) {
         Religion result = null;
         for (Religion religion : t) {
-            if(religion.getReligionDesc().equals(desc)) {
+            if (religion.getReligionDesc().equals(desc)) {
                 result = religion;
             }
         }
         return result;
     }
-    
+
 }

@@ -254,6 +254,7 @@ public class CharacterReferenceDependentPanel extends javax.swing.JPanel impleme
         txtRefAddress.setFocusable(value);
         txtRefContact.setFocusable(value);
         txtRefRelationship.setFocusable(value);
+        tableCharacterRef.setFocusable(value);
     }
 
     public void resetToDefault() {

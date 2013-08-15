@@ -729,6 +729,24 @@ public class LandPanel extends javax.swing.JPanel implements KeyListener {
         txtLocationCommercial.setEditable(value);
         txtEstValueResidential.setEditable(value);
         txtOtherDesc.setEditable(value);
+        
+        checkAgricultural.setFocusable(value);
+        txtAreaAgri.setFocusable(value);
+        txtLocationAgri.setFocusable(value);
+        txtEstValueAgri.setFocusable(value);
+        checkCommercial.setFocusable(value);
+        txtAreaCommercial.setFocusable(value);
+        txtLocationCommercial.setFocusable(value);
+        txtEstValueCommercial.setFocusable(value);
+        checkResidential.setFocusable(value);
+        txtAreaResidential.setFocusable(value);
+        txtLocationCommercial.setFocusable(value);
+        txtEstValueResidential.setFocusable(value);
+        txtOtherDesc.setFocusable(value);
+        
+        if(value) {
+            checkAgricultural.requestFocus();
+        }
     }
 
     public void resetToDefault() {

@@ -290,8 +290,9 @@ public class FamilyBackgroundPanel extends javax.swing.JPanel implements KeyList
         if (f == null || f.isEmpty()) {
             resetToDefault();
         } else {
+            System.out.println("Family size: " + f.size());
             for (Family fm : f) {
-                switch (fm.getFamRelation()) {
+                switch (fm.getFamRelation().trim()) {
                     case "FATHER":
                         txtFatherName.setText(fm.getFamName());
                         txtFatherAddress.setText(fm.getFamAddress());
@@ -300,9 +301,9 @@ public class FamilyBackgroundPanel extends javax.swing.JPanel implements KeyList
                         break;
                     case "MOTHER":
                         txtMotherName.setText(fm.getFamName());
-                        txtMotherName.setText(fm.getFamAddress());
-                        txtMotherName.setText(fm.getFamOccupation());
-                        txtMotherName.setText(fm.getFamAge() + "");
+                        txtMotherAddress.setText(fm.getFamAddress());
+                        txtMotherOccupation.setText(fm.getFamOccupation());
+                        txtMotherAge.setText(fm.getFamAge() + "");
                         break;
                 }
             }
@@ -327,6 +328,10 @@ public class FamilyBackgroundPanel extends javax.swing.JPanel implements KeyList
         txtMotherAddress.setFocusable(value);
         txtMotherAge.setFocusable(value);
         txtMotherOccupation.setFocusable(value);
+        
+        if(value) {
+            txtFatherName.requestFocus();
+        }
     }
 
     public void resetToDefault() {

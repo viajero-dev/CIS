@@ -27,16 +27,16 @@ public class ApplianceAssetsController {
         return instance;
     }
 
-    public List<Appliance> createNew(String type, BigDecimal estimatedValue, String formNo) {
+    public List<Appliance> createNew(String formNo, Appliance a) {
         List<Appliance> results = new ArrayList<>();
         try {
-            Appliance a = new Appliance();
-            a.setType(type);
-            a.setAmount(estimatedValue.doubleValue());
             a.setUser(UISetting.getSystemUser());
             a.setLocation(UISetting.getStoreLocation());
             a.setStation(UISetting.getComputerName());
-//            UISetting.getApplianceService().insert(formNo, a);
+            Appliance x = UISetting.getApplianceService().insert(formNo, a);
+            if(x ==null) {
+                System.out.println("Error on save");
+            }
             results = UISetting.getApplianceService().findByAsset(formNo);
         } catch (Exception ex) {
             UIValidator.log(ex, ApplianceAssetsController.class);
@@ -47,18 +47,21 @@ public class ApplianceAssetsController {
     public List<Appliance> update(String formNo, Appliance a) {
         List<Appliance> results = new ArrayList<>();
         try {
-//            UISetting.getApplianceService().update(a);
+            a.setUser(UISetting.getSystemUser());
+            a.setLocation(UISetting.getStoreLocation());
+            a.setStation(UISetting.getComputerName());
+            UISetting.getApplianceService().update(a);
             results = UISetting.getApplianceService().findByAsset(formNo);
         } catch (Exception ex) {
             UIValidator.log(ex, ApplianceAssetsController.class);
         }
         return results;
     }
-    
+
     public List<Appliance> findAll(String formNo) {
         List<Appliance> results = new ArrayList<>();
         try {
-            UISetting.getApplianceService().findByAsset(formNo);
+            results = UISetting.getApplianceService().findByAsset(formNo);
         } catch (Exception ex) {
             UIValidator.log(ex, ApplianceAssetsController.class);
         }

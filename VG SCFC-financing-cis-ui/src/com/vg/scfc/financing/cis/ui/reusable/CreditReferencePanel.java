@@ -353,6 +353,7 @@ public class CreditReferencePanel extends javax.swing.JPanel implements KeyListe
         txtCRTerm.setFocusable(value);
         txtCRAmountPaid.setFocusable(value);
         txtCRRemainingBal.setFocusable(value);
+        tableCreditReference.setFocusable(value);
     }
 
     public void resetToDefault() {

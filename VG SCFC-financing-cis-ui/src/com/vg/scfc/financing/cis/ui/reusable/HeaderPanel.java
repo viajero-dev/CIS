@@ -133,5 +133,16 @@ public class HeaderPanel extends javax.swing.JPanel {
         }
         return result;
     }
+    
+    public void setApplicationDate(Date date) {
+        txtAppDate.setDate(date);
+    }
+    
+    public void enableFields(boolean value) {
+        txtFormNo.setEditable(value);
+        txtFormNo.setFocusable(value);
+        txtAppDate.setEditable(value);
+        txtAppDate.setFocusable(value);
+    }
 
 }

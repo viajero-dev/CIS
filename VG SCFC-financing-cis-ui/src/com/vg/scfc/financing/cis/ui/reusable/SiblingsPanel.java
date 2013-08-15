@@ -227,6 +227,7 @@ public class SiblingsPanel extends javax.swing.JPanel implements KeyListener {
         txtSiblingName.setFocusable(value);
         txtSiblingAddress.setFocusable(value);
         txtSiblingContact.setFocusable(value);
+        tableSibling.setFocusable(value);
     }
 
     public void resetToDefault() {

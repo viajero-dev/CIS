@@ -5,6 +5,7 @@
  */
 package com.vg.scfc.financing.cis.ui.reusable;
 
+import com.vg.commons.util.NumberUtils;
 import com.vg.scfc.financing.cis.ent.Appliance;
 import com.vg.scfc.financing.cis.ui.controller.ApplianceAssetsController;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
@@ -53,7 +54,7 @@ public class AppliancesPanel extends javax.swing.JPanel implements KeyListener {
                 try {
                     selectedIndex = tableAppliance.getSelectedRow();
                     if (selectedIndex >= 0) {
-                        setApplianceAsset(appliances.get(selectedIndex));
+                        setAppliance(appliances.get(selectedIndex));
                     }
                 } catch (Exception e) {
                     UIValidator.log(e, AppliancesPanel.class);
@@ -125,14 +126,17 @@ public class AppliancesPanel extends javax.swing.JPanel implements KeyListener {
         jLabel4.setText("Total Est. value");
         add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(221, 135, -1, -1));
 
+        txtTotalEstValue.setEditable(false);
         txtTotalEstValue.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
+        txtTotalEstValue.setFocusable(false);
         add(txtTotalEstValue, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 130, 140, -1));
 
         bindingGroup.bind();
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtEstValueFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEstValueFocusLost
-        estimatedValue = new BigDecimal(UIValidator.isNumeric(txtEstValue));
+        txtEstValue.setText(NumberUtils.doubleToString(new BigDecimal(UIValidator.isNumeric(txtEstValue)).doubleValue()));
+        txtTotalEstValue.setText(txtEstValue.getText());
     }//GEN-LAST:event_txtEstValueFocusLost
 
     private void comboApplianceTypeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboApplianceTypeItemStateChanged
@@ -175,11 +179,16 @@ public class AppliancesPanel extends javax.swing.JPanel implements KeyListener {
     private javax.swing.JTextField txtTotalEstValue;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
-    private String type;
+    private String type = "TELEVISION";
     private BigDecimal estimatedValue;
     private int selectedIndex;
     private String formNo;
     private Appliance appliance;
+    private HeaderPanel headerPanel;
+
+    public void setHeaderPanel(HeaderPanel headerPanel) {
+        this.headerPanel = headerPanel;
+    }
 
     public void setAppliances(List<Appliance> appliances) {
         this.appliances = appliances;
@@ -222,6 +231,14 @@ public class AppliancesPanel extends javax.swing.JPanel implements KeyListener {
     public void setFieldsEditable(boolean value) {
         comboApplianceType.setEnabled(value);
         txtEstValue.setEditable(value);
+
+        comboApplianceType.setFocusable(value);
+        txtEstValue.setFocusable(value);
+        tableAppliance.setFocusable(value);
+
+        if (value) {
+            comboApplianceType.requestFocus();
+        }
     }
 
     public void resetToDefault() {
@@ -257,19 +274,20 @@ public class AppliancesPanel extends javax.swing.JPanel implements KeyListener {
                     comboApplianceType.setSelectedIndex(6);
                     break;
             }
-            txtEstValue.setText(a.getAmount() + "");
+            txtEstValue.setText(NumberUtils.doubleToString(a.getAmount()));
+            txtTotalEstValue.setText(NumberUtils.doubleToString(a.getAmount()));
         }
     }
 
     public boolean saveApplianceAsset() {
-        List<Appliance> a = ApplianceAssetsController.getInstance().createNew(type, estimatedValue, formNo);
-        setAppliances(a);
+        List<Appliance> a = ApplianceAssetsController.getInstance().createNew(headerPanel.getFormNo(), createNew(new Appliance()));
+        refreshTable(a);
         return !a.isEmpty();
     }
 
     public boolean updateApplianceAsset() {
-        List<Appliance> a = ApplianceAssetsController.getInstance().update(formNo, appliance);
-        setAppliances(a);
+        List<Appliance> a = ApplianceAssetsController.getInstance().update(headerPanel.getFormNo(), createNew(appliance));
+        refreshTable(a);
         return !a.isEmpty();
     }
 
@@ -281,4 +299,13 @@ public class AppliancesPanel extends javax.swing.JPanel implements KeyListener {
         }
     }
 
+    private Appliance createNew(Appliance a) {
+        if(a == null) {
+            System.out.println("creating new appliance...");
+            a = new Appliance();
+        }
+        a.setType(type);
+        a.setAmount(new BigDecimal(UIValidator.MoneyCommaRemover(txtEstValue.getText())).doubleValue());
+        return a;
+    }
 }

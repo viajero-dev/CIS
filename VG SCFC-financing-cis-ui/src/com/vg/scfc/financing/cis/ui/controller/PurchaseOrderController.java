@@ -54,8 +54,8 @@ public class PurchaseOrderController {
         return result;
     }
 
-    public Object findByFormNo(String formNo) {
-        Object result = null;
+    public PurchaseOrder findByFormNo(String formNo) {
+        PurchaseOrder result = null;
         try {
             result = UISetting.getPurchaseOrderService().findByTransNo(formNo);
         } catch (Exception ex) {

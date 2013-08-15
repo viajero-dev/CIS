@@ -57,9 +57,10 @@
           <BindingProperties>
             <BindingProperty name="elements" source="machineries" target="tableMachinery" targetPath="elements" updateStrategy="0" immediately="true">
               <Subbinding sourcePath="${type}">
-                <BindingParameter name="NAME" value="Type of Unit"/>
                 <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
-                <BindingParameter name="javax.swing.binding.ParameterKeys.EDITABLE" value="false"/>
+              </Subbinding>
+              <Subbinding sourcePath="${amount}">
+                <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="Double.class"/>
               </Subbinding>
             </BindingProperty>
           </BindingProperties>
