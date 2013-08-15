@@ -81,6 +81,7 @@ public class MainPanel extends javax.swing.JPanel {
         /* Fill Values */
         fillValue(searchPanel.getTransactionForm());
         initCoMakerTable();
+        searchPanel.setMainPanel(this);
     }
 
     private void initFields() {
@@ -861,7 +862,7 @@ public class MainPanel extends javax.swing.JPanel {
                     UIValidator.promptSucessMessageFor("EDIT");
                     panelSpousePersonalInfo.setFieldsEditable(false);
                 }
-                return true;
+                return isUpdated;
             }
 
             @Override
@@ -1753,7 +1754,7 @@ public class MainPanel extends javax.swing.JPanel {
     }
 
     /* Set all Data by Search */
-    private void fillValue(TransactionForm form) {
+    public void fillValue(TransactionForm form) {
         if (form != null) {
             headerPanel.setFormNo(form.getTxFormNo());
             headerPanel.setApplicationDate(form.getTxApplicationDate());
@@ -1796,7 +1797,7 @@ public class MainPanel extends javax.swing.JPanel {
         }
     }
 
-    private void fillCoMakerValues(PersonalInfo p) {
+    public void fillCoMakerValues(PersonalInfo p) {
         panelCoMakerPersonalInformation.setPersonalInfo(PersonalInfoController.getInstance().findByFormNoAndPersonType(p.getTxFormNo(), p.getPersonType().getTypeID()));
         panelCoMakerEmploymentData.setEmployment(EmploymentController.getInstance().findByFormNoAndPersonType(p.getTxFormNo(), p.getPersonType().getTypeID()));
         panelCoMakerFamilyBackground.setFamilies(FamilyBackgroundController.getInstance().findByFormNoAndPersonType(p.getTxFormNo(), p.getPersonType().getTypeID()));
@@ -1817,6 +1818,44 @@ public class MainPanel extends javax.swing.JPanel {
                 panelCoMakerSpouseAddress.refreshTable(AddressController.getInstance().findByFormNo(p.getTxFormNo(), "CS2"));
                 break;
         }
+    }
+    
+    public void resetFields() {
+        panelPersonalInfo.resetToDefault();
+        panelEmploymentData.resetToDefault();
+        panelFamilyBackground.resetToDefault();
+        panelSibling.resetToDefault();
+        panelCharacterReference.resetToDefault();
+        panelDependents.resetToDefault();
+        panelCreditReference.resetToDefault();
+        panelSourceOfIncome.resetToDefault();
+        panelExpenditures.resetToDefault();
+        panelLandAssets.resetToDefault();
+        panelVehicle.resetToDefault();
+        panelAppliance.resetToDefault();
+        panelMachinery.resetToDefault();
+        /* Spouse */
+        panelSpousePersonalInfo.resetToDefault();
+        panelSpouseEmployment.resetToDefault();
+        panelSpouseFamilyBackground.resetToDefault();
+        /* Co Maker */
+        panelCoMakerPersonalInformation.resetToDefault();
+        panelCoMakerEmploymentData.resetToDefault();
+        panelCoMakerFamilyBackground.resetToDefault();
+        panelCoMakerSourceOfIncome.resetToDefault();
+        /* Co Maker Spouse */
+        panelCoMakerSpousePersonalInformation.resetToDefault();
+        panelCoMakerSpouseEmploymentData.resetToDefault();
+        panelCoMakerSpouseFamilyBackground.resetToDefault();
+        /* Address */
+        panelAddress.resetToDefault();
+        panelSpouseAddress.resetToDefault();
+        panelCoMakerAddress.resetToDefault();
+        panelCoMakerSpouseAddress.resetToDefault();
+        /* Purchase Order */
+        panelPO.resetToDefault();
+        /* Riders to Buyers */
+//        panelRidersToBuyer.res
     }
 
     /**
@@ -1982,12 +2021,12 @@ public class MainPanel extends javax.swing.JPanel {
 
         lblAvgMonthlyIncomeForOtherSources.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         lblAvgMonthlyIncomeForOtherSources.setText("Total Monthly Income");
-        jPanel8.add(lblAvgMonthlyIncomeForOtherSources, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 270, -1, -1));
+        jPanel8.add(lblAvgMonthlyIncomeForOtherSources, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 290, -1, -1));
 
         txtTotalMonthlyIncome.setEditable(false);
         txtTotalMonthlyIncome.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtTotalMonthlyIncome.setFocusable(false);
-        jPanel8.add(txtTotalMonthlyIncome, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 265, 127, -1));
+        jPanel8.add(txtTotalMonthlyIncome, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 285, 127, -1));
 
         jTabbedPane1.addTab("Src. of Income", jPanel8);
 
@@ -2041,7 +2080,7 @@ public class MainPanel extends javax.swing.JPanel {
 
         jTabbedPane1.addTab("Purchase Order", tabPO);
 
-        jPanel1.add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 235, 1020, 330));
+        jPanel1.add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 225, 1020, 360));
         jPanel1.add(addEditPersonalInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 190, -1, -1));
 
         tabMain.addTab("Applicant Personal Information", jPanel1);
@@ -2172,9 +2211,9 @@ public class MainPanel extends javax.swing.JPanel {
 
         tabMain.addTab("RIDERS TO BUYERS", jPanel31);
 
-        add(tabMain, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 85, 1040, 600));
+        add(tabMain, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 85, 1040, 630));
         add(headerPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(243, 0, 1070, -1));
-        add(searchPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 85, -1, 600));
+        add(searchPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 85, -1, 630));
 
         bindingGroup.bind();
     }// </editor-fold>//GEN-END:initComponents

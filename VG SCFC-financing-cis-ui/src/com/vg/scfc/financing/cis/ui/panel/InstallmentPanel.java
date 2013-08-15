@@ -5,8 +5,8 @@
  */
 package com.vg.scfc.financing.cis.ui.panel;
 
-import com.vg.scfc.financing.cis.ui.reusable.HeaderPanel;
 import java.util.Date;
+import javax.swing.JInternalFrame;
 
 /**
  *
@@ -34,7 +34,7 @@ public class InstallmentPanel extends javax.swing.JPanel {
         mainPanel = new com.vg.scfc.financing.cis.ui.panel.MainPanel();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        add(mainPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 700));
+        add(mainPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 720));
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -42,6 +42,11 @@ public class InstallmentPanel extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
     private String formNo;
     private Date applicationDate;
+    private JInternalFrame owner;
+
+    public void setOwner(JInternalFrame owner) {
+        this.owner = owner;
+    }
 
     public String getFormNo() {
         return formNo;

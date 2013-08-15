@@ -102,6 +102,11 @@ public class SearchPanel extends javax.swing.JPanel {
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         txtSearch.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
+        txtSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSearchActionPerformed(evt);
+            }
+        });
         txtSearch.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtSearchFocusLost(evt);
@@ -139,9 +144,19 @@ public class SearchPanel extends javax.swing.JPanel {
         add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 300, 250, 160));
 
         btnNewApplicant.setText("New Applicant");
+        btnNewApplicant.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNewApplicantActionPerformed(evt);
+            }
+        });
         add(btnNewApplicant, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 470, 250, -1));
 
         btnNewForm.setText("New Form");
+        btnNewForm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNewFormActionPerformed(evt);
+            }
+        });
         add(btnNewForm, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 500, 250, -1));
 
         btnPrintVersion.setText("Print Version");
@@ -153,6 +168,18 @@ public class SearchPanel extends javax.swing.JPanel {
     private void txtSearchFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSearchFocusLost
         txtSearch.setText(txtSearch.getText().toUpperCase());
     }//GEN-LAST:event_txtSearchFocusLost
+
+    private void btnNewApplicantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewApplicantActionPerformed
+        mainPanel.resetFields();
+    }//GEN-LAST:event_btnNewApplicantActionPerformed
+
+    private void btnNewFormActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewFormActionPerformed
+        mainPanel.resetFields();
+    }//GEN-LAST:event_btnNewFormActionPerformed
+
+    private void txtSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSearchActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnNewApplicant;
@@ -170,6 +197,11 @@ public class SearchPanel extends javax.swing.JPanel {
     private int selectedIndex = 0;
     private Customer customer;
     private TransactionForm transactionForm;
+    private MainPanel mainPanel;
+
+    public void setMainPanel(MainPanel mainPanel) {
+        this.mainPanel = mainPanel;
+    }
 
     public Customer getCustomer() {
         return customer;
@@ -181,6 +213,7 @@ public class SearchPanel extends javax.swing.JPanel {
 
     public void setTransactionForm(TransactionForm transactionForm) {
         this.transactionForm = transactionForm;
+        mainPanel.fillValue(this.transactionForm);
     }
 
     public void setCustomer(Customer customer) {

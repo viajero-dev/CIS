@@ -34,7 +34,7 @@ public class MainFrame extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         installmentPanel1.setBorder(null);
-        getContentPane().add(installmentPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1320, 690));
+        getContentPane().add(installmentPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1320, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
