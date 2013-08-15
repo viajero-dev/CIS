@@ -4,16 +4,77 @@
  */
 package com.vg.scfc.financing.cis;
 
-import com.vg.hrm.user.service.*;
-import com.vg.hrm.user.servicemgr.*;
-import com.vg.scfc.financing.cis.ent.CharacterReference;
-import com.vg.scfc.financing.cis.ent.MemoToFile;
-import com.vg.scfc.financing.cis.entmgr.VehicleManager;
-import com.vg.scfc.financing.cis.service.*;
-import com.vg.scfc.financing.cis.servicemgr.*;
-import com.vg.scfc.financing.commons.service.*;
-import com.vg.scfc.financing.commons.servicemgr.*;
+import com.vg.hrm.user.service.EmployeeService;
+import com.vg.hrm.user.service.UserService;
+import com.vg.hrm.user.servicemgr.EmployeeServiceManager;
+import com.vg.hrm.user.servicemgr.UserServiceManager;
+import com.vg.hrm.user.util.HrmUserUtil;
+import com.vg.scfc.financing.cis.service.AddressService;
+import com.vg.scfc.financing.cis.service.ApplianceService;
+import com.vg.scfc.financing.cis.service.AssetService;
+import com.vg.scfc.financing.cis.service.CharacterReferenceService;
+import com.vg.scfc.financing.cis.service.CompanyService;
+import com.vg.scfc.financing.cis.service.CreditRefService;
+import com.vg.scfc.financing.cis.service.CustomerCashInfoService;
+import com.vg.scfc.financing.cis.service.CustomerService;
+import com.vg.scfc.financing.cis.service.DependentService;
+import com.vg.scfc.financing.cis.service.EmploymentService;
+import com.vg.scfc.financing.cis.service.ExpenditureService;
+import com.vg.scfc.financing.cis.service.ExpenditureTypeService;
+import com.vg.scfc.financing.cis.service.FamilyService;
+import com.vg.scfc.financing.cis.service.IdentificationService;
+import com.vg.scfc.financing.cis.service.LandService;
+import com.vg.scfc.financing.cis.service.LandTypeService;
+import com.vg.scfc.financing.cis.service.MachineryService;
+import com.vg.scfc.financing.cis.service.MemoToFileService;
+import com.vg.scfc.financing.cis.service.PersonTypeService;
+import com.vg.scfc.financing.cis.service.PersonalInfoService;
+import com.vg.scfc.financing.cis.service.PurchaseOrderService;
+import com.vg.scfc.financing.cis.service.ReligionService;
+import com.vg.scfc.financing.cis.service.RepresentativeEmploymentService;
+import com.vg.scfc.financing.cis.service.SiblingService;
+import com.vg.scfc.financing.cis.service.SourceOfIncomeService;
+import com.vg.scfc.financing.cis.service.TransactionFormService;
+import com.vg.scfc.financing.cis.service.TransactionModeService;
+import com.vg.scfc.financing.cis.service.TribeService;
+import com.vg.scfc.financing.cis.service.VehicleService;
+import com.vg.scfc.financing.cis.servicemgr.AddressServiceManager;
+import com.vg.scfc.financing.cis.servicemgr.ApplianceServiceManager;
+import com.vg.scfc.financing.cis.servicemgr.AssetServiceManager;
+import com.vg.scfc.financing.cis.servicemgr.CharacterReferenceServiceManager;
+import com.vg.scfc.financing.cis.servicemgr.CompanyServiceManager;
+import com.vg.scfc.financing.cis.servicemgr.CreditRefServiceManager;
+import com.vg.scfc.financing.cis.servicemgr.CustomerCashInfoServiceManager;
+import com.vg.scfc.financing.cis.servicemgr.CustomerServiceManager;
+import com.vg.scfc.financing.cis.servicemgr.DependentServiceManager;
+import com.vg.scfc.financing.cis.servicemgr.EmploymentServiceManager;
+import com.vg.scfc.financing.cis.servicemgr.ExpenditureServiceManager;
+import com.vg.scfc.financing.cis.servicemgr.ExpenditureTypeServiceManager;
+import com.vg.scfc.financing.cis.servicemgr.FamilyServiceManager;
+import com.vg.scfc.financing.cis.servicemgr.IdentificationServiceManager;
+import com.vg.scfc.financing.cis.servicemgr.LandServiceManager;
+import com.vg.scfc.financing.cis.servicemgr.LandTypeServiceManager;
+import com.vg.scfc.financing.cis.servicemgr.MachineryServiceManager;
+import com.vg.scfc.financing.cis.servicemgr.MemoToFileServiceManager;
+import com.vg.scfc.financing.cis.servicemgr.PersonTypeServiceManager;
+import com.vg.scfc.financing.cis.servicemgr.PersonalInfoServiceManager;
+import com.vg.scfc.financing.cis.servicemgr.PurchaseOrderServiceManager;
+import com.vg.scfc.financing.cis.servicemgr.ReligionServiceManager;
+import com.vg.scfc.financing.cis.servicemgr.RepresentativeEmploymentServiceManager;
+import com.vg.scfc.financing.cis.servicemgr.SiblingServiceManager;
+import com.vg.scfc.financing.cis.servicemgr.SourceOfIncomeServiceManager;
+import com.vg.scfc.financing.cis.servicemgr.TransactionFormServiceManager;
+import com.vg.scfc.financing.cis.servicemgr.TransactionModeServiceManager;
+import com.vg.scfc.financing.cis.servicemgr.TribeServiceManager;
+import com.vg.scfc.financing.cis.servicemgr.VehicleServiceManager;
+import com.vg.scfc.financing.cis.util.ClientInfoUtil;
+import com.vg.scfc.financing.commons.service.ControlAllowedAccessService;
+import com.vg.scfc.financing.commons.service.LocationService;
+import com.vg.scfc.financing.commons.servicemgr.ControlAllowedAccessServiceManager;
+import com.vg.scfc.financing.commons.servicemgr.LocationServiceManager;
+import com.vg.scfc.financing.commons.util.CommonsUtil;
 import com.vg.scfc.financing.commons.value.ConnectionProperties;
+import com.vg.vmi.dealer.uts.util.UnitTrackingUtil;
 import java.rmi.registry.Registry;
 
 /**
@@ -55,6 +116,7 @@ public class ServerInfoMain {
     private PersonalInfoServiceManager personalInfoServiceManager;
     private AssetServiceManager assetServiceManager;
     private Registry registry;
+    private IdentificationServiceManager identificationServiceManager;
 
     private void createRegistry(String host, int port) throws Exception {
         System.setProperty("java.rmi.server.hostname", host);
@@ -95,6 +157,7 @@ public class ServerInfoMain {
         vehicleServiceManager = new VehicleServiceManager();
         personalInfoServiceManager = new PersonalInfoServiceManager();
         assetServiceManager = new AssetServiceManager();
+        identificationServiceManager = new IdentificationServiceManager();
     }
 
     private void bindRemoteObjects() throws Exception {
@@ -130,6 +193,7 @@ public class ServerInfoMain {
         registry.bind(VehicleService.class.getSimpleName(), vehicleServiceManager);
         registry.bind(PersonalInfoService.class.getSimpleName(), personalInfoServiceManager);
         registry.bind(AssetService.class.getSimpleName(), assetServiceManager);
+        registry.bind(IdentificationService.class.getSimpleName(), identificationServiceManager);
     }
 
     public static void main(String[] args) {
@@ -139,7 +203,10 @@ public class ServerInfoMain {
             tx.initRemoteObjects();
             tx.bindRemoteObjects();
             ConnectionProperties.setupConnection();
-            VehicleManager.getInstance().initSessionFactory();
+//            VehicleManager.getInstance().initSessionFactory();
+            HrmUserUtil.setSessionFactory(ClientInfoUtil.getSessionFactory());
+            CommonsUtil.setSessionFactory(ClientInfoUtil.getSessionFactory());
+            UnitTrackingUtil.setSessionFactory(ClientInfoUtil.getSessionFactory());
             new ServerInfoMainFrame().setVisible(true);
         } catch (Exception e) {
             System.exit(0);
