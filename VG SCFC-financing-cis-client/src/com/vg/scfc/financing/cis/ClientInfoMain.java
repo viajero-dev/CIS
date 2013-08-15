@@ -5,16 +5,53 @@
 package com.vg.scfc.financing.cis;
 
 import com.vg.commons.util.StringUtils;
-import com.vg.hrm.user.service.*;
-import com.vg.scfc.financing.cis.service.*;
-import com.vg.scfc.financing.commons.service.*;
+import com.vg.commons.util.UIMgr;
+import com.vg.hrm.user.service.EmployeeService;
+import com.vg.hrm.user.service.UserService;
+import com.vg.scfc.financing.cis.service.AddressService;
+import com.vg.scfc.financing.cis.service.ApplianceService;
+import com.vg.scfc.financing.cis.service.AssetService;
+import com.vg.scfc.financing.cis.service.CharacterReferenceService;
+import com.vg.scfc.financing.cis.service.CompanyService;
+import com.vg.scfc.financing.cis.service.CreditRefService;
+import com.vg.scfc.financing.cis.service.CustomerCashInfoService;
+import com.vg.scfc.financing.cis.service.CustomerService;
+import com.vg.scfc.financing.cis.service.DependentService;
+import com.vg.scfc.financing.cis.service.EmploymentService;
+import com.vg.scfc.financing.cis.service.ExpenditureService;
+import com.vg.scfc.financing.cis.service.ExpenditureTypeService;
+import com.vg.scfc.financing.cis.service.FamilyService;
+import com.vg.scfc.financing.cis.service.IdentificationService;
+import com.vg.scfc.financing.cis.service.LandService;
+import com.vg.scfc.financing.cis.service.LandTypeService;
+import com.vg.scfc.financing.cis.service.MachineryService;
+import com.vg.scfc.financing.cis.service.MemoToFileService;
+import com.vg.scfc.financing.cis.service.PersonTypeService;
+import com.vg.scfc.financing.cis.service.PersonalInfoService;
+import com.vg.scfc.financing.cis.service.PurchaseOrderService;
+import com.vg.scfc.financing.cis.service.ReligionService;
+import com.vg.scfc.financing.cis.service.RepresentativeEmploymentService;
+import com.vg.scfc.financing.cis.service.SiblingService;
+import com.vg.scfc.financing.cis.service.SourceOfIncomeService;
+import com.vg.scfc.financing.cis.service.TransactionFormService;
+import com.vg.scfc.financing.cis.service.TransactionModeService;
+import com.vg.scfc.financing.cis.service.TribeService;
+import com.vg.scfc.financing.cis.service.VehicleService;
+import com.vg.scfc.financing.cis.ui.frames.ClientInformationSystemFrame;
+import com.vg.scfc.financing.cis.ui.frames.MainFrame;
+import com.vg.scfc.financing.cis.ui.settings.UISetting;
+import com.vg.scfc.financing.commons.service.ControlAllowedAccessService;
+import com.vg.scfc.financing.commons.service.LocationService;
+import com.vg.scfc.financing.commons.service.LoginListener;
 import com.vg.scfc.financing.commons.ui.dlg.LoginDlg;
+import java.net.InetAddress;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
+import javax.swing.UIManager.LookAndFeelInfo;
 import org.slf4j.LoggerFactory;
-import util.UIMgr;
 
 /**
  *
@@ -54,6 +91,7 @@ public class ClientInfoMain implements LoginListener {
     private VehicleService vehicleService;
     private PersonalInfoService personalInfoService;
     private AssetService assetService;
+    private IdentificationService identificationService;
     private Registry registry;
     private LoginDlg loginDlg;
     private int failedLoginCounter = 0;
@@ -98,6 +136,39 @@ public class ClientInfoMain implements LoginListener {
         transactionModeService = (TransactionModeService) registry.lookup(TransactionModeService.class.getSimpleName());
         vehicleService = (VehicleService) registry.lookup(VehicleService.class.getSimpleName());
         tribeService = (TribeService) registry.lookup(TribeService.class.getSimpleName());
+        identificationService = (IdentificationService) registry.lookup(IdentificationService.class.getSimpleName());
+    }
+
+    public void setUISettings() {
+        UISetting.setAddressService(addressService);
+        UISetting.setApplianceService(applianceService);
+        UISetting.setAssetService(assetService);
+        UISetting.setCharacterReferenceService(characterReferenceService);
+        UISetting.setCompanyService(companyService);
+        UISetting.setCreditRefService(creditRefService);
+        UISetting.setCustomerCashInfoService(customerCashInfoService);
+        UISetting.setCustomerService(customerService);
+        UISetting.setDependentService(dependentService);
+        UISetting.setEmploymentService(employmentService);
+        UISetting.setExpenditureService(expenditureService);
+        UISetting.setExpenditureTypeService(expenditureTypeService);
+        UISetting.setFamilyService(familyService);
+        UISetting.setLandService(landService);
+        UISetting.setLandTypeService(landTypeService);
+        UISetting.setMachineryService(machineryService);
+        UISetting.setMemoToFileService(memoToFileService);
+        UISetting.setPersonTypeService(personTypeService);
+        UISetting.setPersonalInfoService(personalInfoService);
+        UISetting.setPurchaseOrderService(purchaseOrderService);
+        UISetting.setReligionService(religionService);
+        UISetting.setRepresentativeEmploymentService(representativeEmploymentService);
+        UISetting.setSiblingService(siblingService);
+        UISetting.setSourceOfIncomeService(sourceOfIncomeService);
+        UISetting.setTransactionFormService(transactionFormService);
+        UISetting.setTransactionModeService(transactionModeService);
+        UISetting.setTribeService(tribeService);
+        UISetting.setVehicleService(vehicleService);
+        UISetting.setIdentificationService(identificationService);
     }
 
     public void showLogInDialog(String locID, boolean enable) {
@@ -128,6 +199,13 @@ public class ClientInfoMain implements LoginListener {
         try {
             if (loginDlg.getUser().isValidPassword(loginDlg.getInputPassword())) {
 
+                UISetting.setStoreLocation(loginDlg.getStoreLocation());
+                UISetting.setSystemUser(loginDlg.getEmployee());
+                UISetting.setComputerName(InetAddress.getLocalHost().getHostName());
+//                ClientInformationSystemFrame c = new ClientInformationSystemFrame();
+//                c.getLblStorelocation().setText(loginDlg.getStoreLocation().getId() + " - " + loginDlg.getStoreLocation().getDescription());
+//                c.setVisible(true);
+                new MainFrame().setVisible(true);
                 loginDlg.dispose();
                 loginDlg = null;
 
@@ -157,6 +235,13 @@ public class ClientInfoMain implements LoginListener {
     public static void main(String[] args) {
         ClientInfoMain tx = new ClientInfoMain();
         try {
+            for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+
             System.setProperty("java.security.policy", "client.policy");
             System.setSecurityManager(new java.rmi.RMISecurityManager());
 
@@ -164,7 +249,6 @@ public class ClientInfoMain implements LoginListener {
                 JOptionPane.showMessageDialog(null, "Access Denied.", "RESTRICTED AREA", JOptionPane.WARNING_MESSAGE);
                 System.exit(0);
             }
-
 
             boolean x = false;
             if (args[2].equals("E")) {
@@ -175,10 +259,9 @@ public class ClientInfoMain implements LoginListener {
             int port = SettingProperties.getInstance().getPort();
             tx.getRegistry(host, port);
             tx.initService();
-
+            tx.setUISettings();
 
             tx.showLogInDialog(args[1], x);
-
 
         } catch (Exception e) {
             e.printStackTrace();

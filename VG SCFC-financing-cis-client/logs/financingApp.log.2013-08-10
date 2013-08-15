@@ -1,0 +1,34 @@
+[ERROR] 2013-08-10 08:49:10,982 com.vg.scfc.financing.cis.ClientInfoMain main - java.lang.ClassCastException: com.sun.proxy.$Proxy13 cannot be cast to com.vg.scfc.financing.cis.service.EmploymentService
+	com.vg.scfc.financing.cis.ClientInfoMain.initService(ClientInfoMain.java:112)
+	com.vg.scfc.financing.cis.ClientInfoMain.main(ClientInfoMain.java:207)
+
+[ERROR] 2013-08-10 09:05:51,803 com.vg.scfc.financing.cis.ClientInfoMain main - java.lang.ClassCastException: com.sun.proxy.$Proxy13 cannot be cast to com.vg.scfc.financing.cis.service.EmploymentService
+	com.vg.scfc.financing.cis.ClientInfoMain.initService(ClientInfoMain.java:114)
+	com.vg.scfc.financing.cis.ClientInfoMain.main(ClientInfoMain.java:239)
+
+[ERROR] 2013-08-10 09:12:01,830 com.vg.scfc.financing.cis.ui.controller.PersonalInfoController log - java.lang.NullPointerException
+[ERROR] 2013-08-10 09:57:13,461 com.vg.scfc.financing.cis.ui.controller.PersonalInfoController log - java.rmi.UnmarshalException: Error unmarshaling return; nested exception is: 
+	java.lang.ClassNotFoundException: org.hibernate.QueryException
+[ERROR] 2013-08-10 10:45:40,100 com.vg.scfc.financing.cis.ui.controller.PersonalInfoController log - java.rmi.UnmarshalException: Error unmarshaling return; nested exception is: 
+	java.lang.ClassNotFoundException: org.hibernate.QueryException
+[ERROR] 2013-08-10 10:54:36,139 com.vg.scfc.financing.cis.ui.controller.PersonalInfoController log - java.rmi.UnmarshalException: Error unmarshaling return; nested exception is: 
+	java.lang.ClassNotFoundException: org.hibernate.QueryException
+[ERROR] 2013-08-10 11:20:52,267 com.vg.scfc.financing.cis.ui.controller.PersonalInfoController log - java.rmi.UnmarshalException: Error unmarshaling return; nested exception is: 
+	java.lang.ClassNotFoundException: org.hibernate.QueryException
+[ERROR] 2013-08-10 11:26:18,000 com.vg.scfc.financing.cis.ui.controller.PersonalInfoController log - java.rmi.UnmarshalException: Error unmarshaling return; nested exception is: 
+	java.lang.ClassNotFoundException: org.hibernate.QueryException
+[ERROR] 2013-08-10 14:17:25,007 com.vg.scfc.financing.cis.ui.controller.VehicleAssetsController log - java.lang.NullPointerException
+[ERROR] 2013-08-10 14:39:54,653 com.vg.scfc.financing.cis.ui.controller.VehicleAssetsController log - java.lang.NullPointerException
+[ERROR] 2013-08-10 14:40:56,577 com.vg.scfc.financing.cis.ui.controller.VehicleAssetsController log - java.rmi.UnmarshalException: error unmarshalling return; nested exception is: 
+	java.lang.ClassNotFoundException: org.hibernate.collection.PersistentBag
+[ERROR] 2013-08-10 14:48:22,884 com.vg.scfc.financing.cis.ui.controller.VehicleAssetsController log - java.rmi.UnmarshalException: error unmarshalling return; nested exception is: 
+	java.lang.ClassNotFoundException: org.hibernate.collection.PersistentBag
+[ERROR] 2013-08-10 14:49:48,459 com.vg.scfc.financing.cis.ui.controller.VehicleAssetsController log - java.rmi.UnmarshalException: error unmarshalling return; nested exception is: 
+	java.lang.ClassNotFoundException: org.hibernate.collection.PersistentBag
+[ERROR] 2013-08-10 14:55:30,461 com.vg.scfc.financing.cis.ui.controller.VehicleAssetsController log - java.rmi.UnmarshalException: error unmarshalling return; nested exception is: 
+	java.lang.ClassNotFoundException: org.hibernate.collection.PersistentBag
+[ERROR] 2013-08-10 14:56:42,908 com.vg.scfc.financing.cis.ui.controller.VehicleAssetsController log - java.rmi.UnmarshalException: error unmarshalling return; nested exception is: 
+	java.lang.ClassNotFoundException: org.hibernate.collection.PersistentBag
+[ERROR] 2013-08-10 15:35:34,379 com.vg.scfc.financing.cis.ui.controller.PersonalInfoController log - java.rmi.ConnectException: Connection refused to host: localhost; nested exception is: 
+	java.net.ConnectException: Connection refused
+[ERROR] 2013-08-10 15:36:52,298 com.vg.scfc.financing.cis.ui.controller.FamilyBackgroundController log - java.lang.NullPointerException
