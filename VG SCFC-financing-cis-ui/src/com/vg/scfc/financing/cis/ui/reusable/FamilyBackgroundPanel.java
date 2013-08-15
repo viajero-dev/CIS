@@ -7,6 +7,7 @@ package com.vg.scfc.financing.cis.ui.reusable;
 
 import com.vg.scfc.financing.cis.ent.Family;
 import com.vg.scfc.financing.cis.ui.controller.FamilyBackgroundController;
+import com.vg.scfc.financing.cis.ui.panel.MainPanel;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -224,6 +225,11 @@ public class FamilyBackgroundPanel extends javax.swing.JPanel implements KeyList
     private String personType;
     private List<Family> families = new ArrayList<>();
     private HeaderPanel headerPanel;
+    private MainPanel mainPanel;
+
+    public void setMainPanel(MainPanel mainPanel) {
+        this.mainPanel = mainPanel;
+    }
 
     public void setHeaderPanel(HeaderPanel headerPanel) {
         this.headerPanel = headerPanel;
@@ -319,7 +325,7 @@ public class FamilyBackgroundPanel extends javax.swing.JPanel implements KeyList
         txtMotherAddress.setEditable(value);
         txtMotherAge.setEditable(value);
         txtMotherOccupation.setEditable(value);
-        
+
         txtFatherName.setFocusable(value);
         txtFatherAddress.setFocusable(value);
         txtFatherOccupation.setFocusable(value);
@@ -328,8 +334,8 @@ public class FamilyBackgroundPanel extends javax.swing.JPanel implements KeyList
         txtMotherAddress.setFocusable(value);
         txtMotherAge.setFocusable(value);
         txtMotherOccupation.setFocusable(value);
-        
-        if(value) {
+
+        if (value) {
             txtFatherName.requestFocus();
         }
     }
@@ -353,6 +359,42 @@ public class FamilyBackgroundPanel extends javax.swing.JPanel implements KeyList
 
     public boolean updateFamilyBackground() {
         List<Family> f = FamilyBackgroundController.getInstance().update(createNew(new ArrayList<Family>()), headerPanel.getFormNo(), personType);
+        setFamilyBackground(f);
+        return f != null && !f.isEmpty();
+    }
+
+    public boolean saveCoMakerFamilyBackground() {
+        List<Family> f = FamilyBackgroundController.getInstance().createNew(createNew(new ArrayList<Family>()), mainPanel.getSelectedCoMaker().getPersonType().getTypeID(), headerPanel.getFormNo());
+        setFamilies(f);
+        return f != null && !f.isEmpty();
+    }
+
+    public boolean updateCoMakerFamilyBackground() {
+        List<Family> f = FamilyBackgroundController.getInstance().update(createNew(new ArrayList<Family>()), headerPanel.getFormNo(), mainPanel.getSelectedCoMaker().getPersonType().getTypeID());
+        setFamilyBackground(f);
+        return f != null && !f.isEmpty();
+    }
+
+    public boolean saveCoMakerSpouseFamilyBackground() {
+        String typeID;
+        if (mainPanel.getSelectedCoMaker().getPersonType().getTypeID().equals("CM1")) {
+            typeID = "CS1";
+        } else {
+            typeID = "CS2";
+        }
+        List<Family> f = FamilyBackgroundController.getInstance().createNew(createNew(new ArrayList<Family>()), typeID, headerPanel.getFormNo());
+        setFamilies(f);
+        return f != null && !f.isEmpty();
+    }
+
+    public boolean updateCoMakerSpouseFamilyBackground() {
+        String typeID;
+        if (mainPanel.getSelectedCoMaker().getPersonType().getTypeID().equals("CM1")) {
+            typeID = "CS1";
+        } else {
+            typeID = "CS2";
+        }
+        List<Family> f = FamilyBackgroundController.getInstance().update(createNew(new ArrayList<Family>()), headerPanel.getFormNo(), mainPanel.getSelectedCoMaker().getPersonType().getTypeID());
         setFamilyBackground(f);
         return f != null && !f.isEmpty();
     }

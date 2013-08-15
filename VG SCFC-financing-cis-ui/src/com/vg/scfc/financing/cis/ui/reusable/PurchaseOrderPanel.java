@@ -364,7 +364,7 @@ public class PurchaseOrderPanel extends javax.swing.JPanel implements KeyListene
             PurchaseOrder po = (PurchaseOrder) o;
             txtUnitApplied.setText(po.getUnitApplied());
             txtDownpayment.setText(NumberUtils.doubleToString(po.getDownPayment()));
-            txtInsurance.setText(NumberUtils.doubleToString(po.getInsurance()));
+            txtInsurance.setText(NumberUtils.doubleToString(po.getInsuranceAmount()));
             txtTerm.setText(po.getTerm() + "");
             txtAmort.setText(NumberUtils.doubleToString(po.getMonthlyAmortization()));
             comboMotorStatus.removeAllItems();
@@ -410,9 +410,9 @@ public class PurchaseOrderPanel extends javax.swing.JPanel implements KeyListene
 
     private PurchaseOrder createNew(PurchaseOrder p) {
         p.setEncodeDate(DateUtil.now());
-        p.setUnitApplied(txtUnitApplied.getText());
+//        p.setUnitApplied(txtUnitApplied.getText());
         p.setDownPayment(new BigDecimal(UIValidator.MoneyCommaRemover(txtDownpayment.getText())).doubleValue());
-        p.setInsurance(new BigDecimal(UIValidator.MoneyCommaRemover(txtInsurance.getText())).doubleValue());
+        p.setInsuranceAmount(new BigDecimal(UIValidator.MoneyCommaRemover(txtInsurance.getText())).doubleValue());
         p.setTerm(Integer.parseInt(txtTerm.getText()));
         p.setMonthlyAmortization(new BigDecimal(UIValidator.MoneyCommaRemover(txtAmort.getText())).doubleValue());
         if (((String) comboMotorStatus.getSelectedItem()).equals("REPO")) {
@@ -429,7 +429,6 @@ public class PurchaseOrderPanel extends javax.swing.JPanel implements KeyListene
         } else {
             p.setStatus("PENDING");
         }
-
         return p;
     }
 }

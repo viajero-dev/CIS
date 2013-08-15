@@ -23,6 +23,14 @@ public class RidersToBuyerPanel extends javax.swing.JPanel implements KeyListene
      */
     public RidersToBuyerPanel() {
         initComponents();
+        initKeyListeners();
+    }
+    
+    private void initKeyListeners() {
+        txtCompetent.addKeyListener(this);
+        txtIdNo.addKeyListener(this);
+        txtPlaceOfIssue.addKeyListener(this);
+        txtIssueDate.addKeyListener(this);
     }
 
     /**
@@ -57,12 +65,13 @@ public class RidersToBuyerPanel extends javax.swing.JPanel implements KeyListene
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel1.setText("I certify that the above information I have disclosed in the SouthPoint Credit and Finance Corp. Credit Application Form is true and correct to the best of my knowledge and belief.");
+        jLabel1.setText("I certify that the above Information I have disclosed in the SouthPoint Credit and Finance Corp. Credit Application Form is true and correct to the best of my knowledge and belief.");
         jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 5, 860, -1));
 
@@ -79,6 +88,11 @@ public class RidersToBuyerPanel extends javax.swing.JPanel implements KeyListene
         add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 45, 160, -1));
 
         txtCompetent.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
+        txtCompetent.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtCompetentFocusLost(evt);
+            }
+        });
         add(txtCompetent, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 42, 150, -1));
 
         jLabel4.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
@@ -121,7 +135,7 @@ public class RidersToBuyerPanel extends javax.swing.JPanel implements KeyListene
 
         jLabel8.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel8.setText("1)Cash/Delivered Price. 2)Downpayment. 3)Difference Between 1&2. 4)Non-Finance Charges 4A)");
+        jLabel8.setText("1)Cash/Delivered Price. 2)Downpayment. 3)Difference Between 1&2. 4)Non-finance Charges 4A)");
         jLabel8.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 95, 480, -1));
 
@@ -162,9 +176,15 @@ public class RidersToBuyerPanel extends javax.swing.JPanel implements KeyListene
 
         jLabel13.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel13.setText("is accepted. The above stipulations contain all terms and condition of this proposed purchase.");
+        jLabel13.setText("is accepted. The above stipulations contain all terms and conditions of this proposed purchase. ");
         jLabel13.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 155, 860, -1));
+
+        jLabel14.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel14.setText("I hereby certify that I have been duly furnished the above prior to the instant credit sale transaction.");
+        jLabel14.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 175, 860, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtIdNoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtIdNoFocusLost
@@ -175,12 +195,17 @@ public class RidersToBuyerPanel extends javax.swing.JPanel implements KeyListene
         txtPlaceOfIssue.setText(txtPlaceOfIssue.getText().toUpperCase());
     }//GEN-LAST:event_txtPlaceOfIssueFocusLost
 
+    private void txtCompetentFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCompetentFocusLost
+        txtCompetent.setText(txtCompetent.getText().toUpperCase());
+    }//GEN-LAST:event_txtCompetentFocusLost
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -202,6 +227,7 @@ public class RidersToBuyerPanel extends javax.swing.JPanel implements KeyListene
 
     public void setIdentification(Identification identification) {
         this.identification = identification;
+        setRidersToBuyerValues(this.identification);
     }
 
     public void setHeaderPanel(HeaderPanel headerPanel) {
@@ -220,7 +246,19 @@ public class RidersToBuyerPanel extends javax.swing.JPanel implements KeyListene
         }
         i.setIdNo(txtIdNo.getText());
         i.setPlaceOfIssue(txtPlaceOfIssue.getText());
+        i.setIssuedBy(txtCompetent.getText());
         return i;
+    }
+    
+    public void setRidersToBuyerValues(Identification i) {
+        if(i == null) {
+            
+        } else {
+            txtCompetent.setText(i.getIssuedBy());
+            txtIdNo.setText(i.getIdNo());
+            txtIssueDate.setDate(i.getDateOfIssue());
+            txtPlaceOfIssue.setText(i.getPlaceOfIssue());
+        }
     }
 
     @Override
@@ -247,7 +285,8 @@ public class RidersToBuyerPanel extends javax.swing.JPanel implements KeyListene
     }
     
     public boolean saveAgreement(){
-        Identification i = RidersToBuyerController.getInstance().saveAgreement(headerPanel.getFormNo(), personType, createNew(new Identification()));
+        Identification i = RidersToBuyerController.getInstance().saveAgreement(headerPanel.getFormNo(), "APP", createNew(new Identification()));
+        setIdentification(i);
         return i != null;
     }
 }

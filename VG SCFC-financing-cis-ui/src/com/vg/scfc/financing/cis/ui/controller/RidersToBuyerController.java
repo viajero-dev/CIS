@@ -8,7 +8,6 @@ package com.vg.scfc.financing.cis.ui.controller;
 import com.vg.scfc.financing.cis.ent.Identification;
 import com.vg.scfc.financing.cis.ui.settings.UISetting;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -39,6 +38,16 @@ public class RidersToBuyerController {
             if(isSaved) {
                 result = UISetting.getIdentificationService().findById(formNo, personTypeID);
             }
+        } catch (Exception ex) {
+            UIValidator.log(ex, RidersToBuyerController.class);
+        }
+        return result;
+    }
+    
+    public Identification findByFormNo(String formNo) {
+        Identification result = null;
+        try {
+            result = UISetting.getIdentificationService().findById(formNo, "APP");
         } catch (Exception ex) {
             UIValidator.log(ex, RidersToBuyerController.class);
         }

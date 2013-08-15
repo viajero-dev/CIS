@@ -90,7 +90,7 @@ public class SearchPanel extends javax.swing.JPanel {
 
         customers = ObservableCollections.observableList(new LinkedList<Customer>());
         transactionForms = ObservableCollections.observableList(new LinkedList<TransactionForm>());
-        txtUnitApplied = new javax.swing.JTextField();
+        txtSearch = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblCustomer = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -101,13 +101,13 @@ public class SearchPanel extends javax.swing.JPanel {
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        txtUnitApplied.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
-        txtUnitApplied.addFocusListener(new java.awt.event.FocusAdapter() {
+        txtSearch.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
+        txtSearch.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                txtUnitAppliedFocusLost(evt);
+                txtSearchFocusLost(evt);
             }
         });
-        add(txtUnitApplied, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 250, -1));
+        add(txtSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 250, -1));
 
         org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, customers, tblCustomer);
         org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${clientNo}"));
@@ -150,9 +150,9 @@ public class SearchPanel extends javax.swing.JPanel {
         bindingGroup.bind();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtUnitAppliedFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtUnitAppliedFocusLost
-        txtUnitApplied.setText(UIValidator.validate(txtUnitApplied));
-    }//GEN-LAST:event_txtUnitAppliedFocusLost
+    private void txtSearchFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSearchFocusLost
+        txtSearch.setText(txtSearch.getText().toUpperCase());
+    }//GEN-LAST:event_txtSearchFocusLost
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnNewApplicant;
@@ -164,7 +164,7 @@ public class SearchPanel extends javax.swing.JPanel {
     private javax.swing.JTable tblCustomer;
     private javax.swing.JTable tblTransactionForm;
     private java.util.List<TransactionForm> transactionForms;
-    private javax.swing.JTextField txtUnitApplied;
+    private javax.swing.JTextField txtSearch;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
     private int selectedIndex = 0;

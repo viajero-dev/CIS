@@ -19,6 +19,7 @@ import com.vg.scfc.financing.cis.ui.controller.LandAssetController;
 import com.vg.scfc.financing.cis.ui.controller.MachineryAssetsController;
 import com.vg.scfc.financing.cis.ui.controller.PersonalInfoController;
 import com.vg.scfc.financing.cis.ui.controller.PurchaseOrderController;
+import com.vg.scfc.financing.cis.ui.controller.RidersToBuyerController;
 import com.vg.scfc.financing.cis.ui.controller.SiblingController;
 import com.vg.scfc.financing.cis.ui.controller.SourceOfIncomeController;
 import com.vg.scfc.financing.cis.ui.controller.VehicleAssetsController;
@@ -26,8 +27,13 @@ import com.vg.scfc.financing.cis.ui.listener.AddEditChangeListener;
 import com.vg.scfc.financing.cis.ui.listener.BasicActionListener;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
+import java.util.List;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import org.jdesktop.observablecollections.ObservableCollections;
 
 /**
@@ -71,8 +77,10 @@ public class MainPanel extends javax.swing.JPanel {
         initCoMakerAddressAddEditChangeListener();
         initCoMakerSpouseAddressAddEditChangeListener();
         initPurchaseOrderAddEditListener();
+        initRidersToBuyersListener();
         /* Fill Values */
         fillValue(searchPanel.getTransactionForm());
+        initCoMakerTable();
     }
 
     private void initFields() {
@@ -104,6 +112,7 @@ public class MainPanel extends javax.swing.JPanel {
 
     private void initPersonalInfoAddEditListener() {
         panelPersonalInfo.setHeaderPanel(headerPanel);
+        panelPersonalInfo.setPersonType("APP");
         addEditPersonalInfo.setBasicActionListener(new BasicActionListener() {
 
             @Override
@@ -809,6 +818,9 @@ public class MainPanel extends javax.swing.JPanel {
     private void initSpousePersonalInfoAddEditListener() {
         panelSpousePersonalInfo.setHeaderPanel(headerPanel);
         panelSpousePersonalInfo.setPersonType("SPO");
+        if (searchPanel.getCustomer() != null) {
+            panelSpousePersonalInfo.setClientNo(searchPanel.getCustomer().getClientNo());
+        }
         addEditSpousePersonalInfo.setBasicActionListener(new BasicActionListener() {
 
             @Override
@@ -973,6 +985,11 @@ public class MainPanel extends javax.swing.JPanel {
 
     /* Co Maker Information */
     private void initCoMakerPersonalInfoAddEditListener() {
+        panelCoMakerPersonalInformation.setHeaderPanel(headerPanel);
+        if (searchPanel.getCustomer() != null) {
+            panelCoMakerPersonalInformation.setClientNo(searchPanel.getCustomer().getClientNo());
+        }
+        panelCoMakerPersonalInformation.setMainPanel(this);
         addEditCoMakerPersonalInfo.setBasicActionListener(new BasicActionListener() {
 
             @Override
@@ -983,9 +1000,13 @@ public class MainPanel extends javax.swing.JPanel {
 
             @Override
             public boolean onSaveAdd() {
-                boolean isSaved = panelCoMakerPersonalInformation.savePersonalInfo();
+                boolean isSaved = panelCoMakerPersonalInformation.saveCoMakerPersonalInfo();
                 if (!isSaved) {
                     UIValidator.promptErrorMessageOn("SAVE");
+                } else {
+                    UIValidator.promptSucessMessageFor("SAVE");
+                    panelCoMakerPersonalInformation.setFieldsEditable(false);
+                    refreshComakerTable(PersonalInfoController.getInstance().findCoMakersByFormNo(headerPanel.getFormNo()));
                 }
                 return isSaved;
             }
@@ -1003,11 +1024,15 @@ public class MainPanel extends javax.swing.JPanel {
 
             @Override
             public boolean onSaveEdit() {
-                boolean isUpdated = panelCoMakerPersonalInformation.updatePersonalInfo();
+                boolean isUpdated = panelCoMakerPersonalInformation.updateCoMakerPersonalInfo();
                 if (!isUpdated) {
                     UIValidator.promptErrorMessageOn("EDIT");
+                } else {
+                    UIValidator.promptSucessMessageFor("EDIT");
+                    panelCoMakerPersonalInformation.setFieldsEditable(false);
+                    refreshComakerTable(PersonalInfoController.getInstance().findCoMakersByFormNo(headerPanel.getFormNo()));
                 }
-                return true;
+                return isUpdated;
             }
 
             @Override
@@ -1018,6 +1043,8 @@ public class MainPanel extends javax.swing.JPanel {
     }
 
     private void initCoMakerEmploymentAddEditListener() {
+        panelCoMakerEmploymentData.setHeaderPanel(headerPanel);
+        panelCoMakerEmploymentData.setMainPanel(this);
         addEditCoMakerEmployment.setBasicActionListener(new BasicActionListener() {
 
             @Override
@@ -1028,9 +1055,12 @@ public class MainPanel extends javax.swing.JPanel {
 
             @Override
             public boolean onSaveAdd() {
-                boolean isSaved = panelCoMakerEmploymentData.saveEmploymentData();
+                boolean isSaved = panelCoMakerEmploymentData.saveCoMakerEmploymentData();
                 if (!isSaved) {
                     UIValidator.promptErrorMessageOn("SAVE");
+                } else {
+                    UIValidator.promptSucessMessageFor("SAVE");
+                    panelCoMakerEmploymentData.setFieldsEditable(false);
                 }
                 return isSaved;
             }
@@ -1049,9 +1079,12 @@ public class MainPanel extends javax.swing.JPanel {
 
             @Override
             public boolean onSaveEdit() {
-                boolean isUpdated = panelCoMakerEmploymentData.updateEmploymentData();
+                boolean isUpdated = panelCoMakerEmploymentData.updateCoMakerEmploymentData();
                 if (!isUpdated) {
                     UIValidator.promptErrorMessageOn("EDIT");
+                } else {
+                    UIValidator.promptSucessMessageFor("EDIT");
+                    panelCoMakerEmploymentData.setFieldsEditable(false);
                 }
                 return isUpdated;
             }
@@ -1066,6 +1099,8 @@ public class MainPanel extends javax.swing.JPanel {
     }
 
     private void initCoMakerFamilyBackgroundAddEditListener() {
+        panelCoMakerFamilyBackground.setHeaderPanel(headerPanel);
+        panelCoMakerFamilyBackground.setMainPanel(this);
         addEditCoMakerFamilyBackground.setBasicActionListener(new BasicActionListener() {
 
             @Override
@@ -1076,9 +1111,12 @@ public class MainPanel extends javax.swing.JPanel {
 
             @Override
             public boolean onSaveAdd() {
-                boolean isSaved = panelCoMakerFamilyBackground.saveFamilyBackground();
+                boolean isSaved = panelCoMakerFamilyBackground.saveCoMakerFamilyBackground();
                 if (!isSaved) {
                     UIValidator.promptErrorMessageOn("SAVE");
+                } else {
+                    UIValidator.promptSucessMessageFor("SAVE");
+                    panelCoMakerFamilyBackground.setFieldsEditable(false);
                 }
                 return isSaved;
             }
@@ -1097,9 +1135,12 @@ public class MainPanel extends javax.swing.JPanel {
 
             @Override
             public boolean onSaveEdit() {
-                boolean isUpdated = panelCoMakerFamilyBackground.updateFamilyBackground();
+                boolean isUpdated = panelCoMakerFamilyBackground.updateCoMakerFamilyBackground();
                 if (!isUpdated) {
                     UIValidator.promptErrorMessageOn("EDIT");
+                } else {
+                    UIValidator.promptSucessMessageFor("EDIT");
+                    panelCoMakerFamilyBackground.setFieldsEditable(false);
                 }
                 return isUpdated;
             }
@@ -1113,8 +1154,13 @@ public class MainPanel extends javax.swing.JPanel {
         });
     }
 
-    /* Co Maker Spouse Information */
     private void initCoMakerSourceOfIncomeAddEditListener() {
+        panelCoMakerSourceOfIncome.setHeaderPanel(headerPanel);
+        panelCoMakerSourceOfIncome.setMainPanel(this);
+        panelCoMakerSourceOfIncome.setTxtTotalMonthlyIncome(txtTotalMonthlyIncome);
+        if (searchPanel.getCustomer() != null) {
+            panelCoMakerSourceOfIncome.setClientNo(searchPanel.getCustomer().getClientNo());
+        }
         addEditCoMakerSourceOfIncome.setBasicActionListener(new BasicActionListener() {
 
             @Override
@@ -1125,9 +1171,12 @@ public class MainPanel extends javax.swing.JPanel {
 
             @Override
             public boolean onSaveAdd() {
-                boolean isSaved = panelCoMakerSourceOfIncome.saveSourceOfIncome();
+                boolean isSaved = panelCoMakerSourceOfIncome.saveCoMakerSourceOfIncome();
                 if (!isSaved) {
                     UIValidator.promptErrorMessageOn("SAVE");
+                } else {
+                    UIValidator.promptSucessMessageFor("SAVE");
+                    panelCoMakerSourceOfIncome.setFieldsEditable(false);
                 }
                 return isSaved;
             }
@@ -1149,6 +1198,9 @@ public class MainPanel extends javax.swing.JPanel {
                 boolean isUpdated = panelCoMakerSourceOfIncome.updateSourceOfIncome();
                 if (!isUpdated) {
                     UIValidator.promptErrorMessageOn("EDIT");
+                } else {
+                    UIValidator.promptSucessMessageFor("EDIT");
+                    panelCoMakerSourceOfIncome.setFieldsEditable(false);
                 }
                 return isUpdated;
             }
@@ -1162,7 +1214,13 @@ public class MainPanel extends javax.swing.JPanel {
         });
     }
 
+    /* Co Maker Spouse Information */
     private void initCoMakerSpousePersonalInfoAddEditListener() {
+        panelCoMakerSpousePersonalInformation.setHeaderPanel(headerPanel);
+        if (searchPanel.getCustomer() != null) {
+            panelCoMakerSpousePersonalInformation.setClientNo(searchPanel.getCustomer().getClientNo());
+        }
+        panelCoMakerSpousePersonalInformation.setMainPanel(this);
         addEditCoMakerSpousePersonalInfo.setBasicActionListener(new BasicActionListener() {
 
             @Override
@@ -1173,9 +1231,12 @@ public class MainPanel extends javax.swing.JPanel {
 
             @Override
             public boolean onSaveAdd() {
-                boolean isSaved = panelCoMakerSpousePersonalInformation.savePersonalInfo();
+                boolean isSaved = panelCoMakerSpousePersonalInformation.saveCoMakerSpousePersonalInfo();
                 if (!isSaved) {
                     UIValidator.promptErrorMessageOn("SAVE");
+                } else {
+                    UIValidator.promptSucessMessageFor("SAVE");
+                    panelCoMakerSpousePersonalInformation.setFieldsEditable(false);
                 }
                 return isSaved;
             }
@@ -1193,11 +1254,14 @@ public class MainPanel extends javax.swing.JPanel {
 
             @Override
             public boolean onSaveEdit() {
-                boolean isUpdated = panelCoMakerSpousePersonalInformation.updatePersonalInfo();
+                boolean isUpdated = panelCoMakerSpousePersonalInformation.updateCoMakerSpousePersonalInfo();
                 if (!isUpdated) {
                     UIValidator.promptErrorMessageOn("EDIT");
+                } else {
+                    UIValidator.promptSucessMessageFor("EDIT");
+                    panelCoMakerSpousePersonalInformation.setFieldsEditable(false);
                 }
-                return true;
+                return isUpdated;
             }
 
             @Override
@@ -1208,6 +1272,9 @@ public class MainPanel extends javax.swing.JPanel {
     }
 
     private void initCoMakerSpouseEmploymentAddEditListener() {
+        panelCoMakerSpouseEmploymentData.setHeaderPanel(headerPanel);
+        panelCoMakerSpouseEmploymentData.setMainPanel(this);
+
         addEditCoMakerSpouseEmployment.setBasicActionListener(new BasicActionListener() {
 
             @Override
@@ -1218,9 +1285,12 @@ public class MainPanel extends javax.swing.JPanel {
 
             @Override
             public boolean onSaveAdd() {
-                boolean isSaved = panelCoMakerSpouseEmploymentData.saveEmploymentData();
+                boolean isSaved = panelCoMakerSpouseEmploymentData.saveCoMakerSpouseEmploymentData();
                 if (!isSaved) {
                     UIValidator.promptErrorMessageOn("SAVE");
+                } else {
+                    UIValidator.promptSucessMessageFor("SAVE");
+                    panelCoMakerSpouseEmploymentData.setFieldsEditable(false);
                 }
                 return isSaved;
             }
@@ -1239,9 +1309,12 @@ public class MainPanel extends javax.swing.JPanel {
 
             @Override
             public boolean onSaveEdit() {
-                boolean isUpdated = panelCoMakerSpouseEmploymentData.updateEmploymentData();
+                boolean isUpdated = panelCoMakerSpouseEmploymentData.updateCoMakerSpouseEmploymentData();
                 if (!isUpdated) {
                     UIValidator.promptErrorMessageOn("EDIT");
+                } else {
+                    UIValidator.promptSucessMessageFor("EDIT");
+                    panelCoMakerSpouseEmploymentData.setFieldsEditable(false);
                 }
                 return isUpdated;
             }
@@ -1256,6 +1329,8 @@ public class MainPanel extends javax.swing.JPanel {
     }
 
     private void initCoMakerSpouseFamilyBackgroundAddEditListener() {
+        panelCoMakerSpouseFamilyBackground.setHeaderPanel(headerPanel);
+        panelCoMakerSpouseFamilyBackground.setMainPanel(this);
         addEditCoMakerSpouseFamilyBackground.setBasicActionListener(new BasicActionListener() {
 
             @Override
@@ -1266,9 +1341,12 @@ public class MainPanel extends javax.swing.JPanel {
 
             @Override
             public boolean onSaveAdd() {
-                boolean isSaved = panelCoMakerSpouseFamilyBackground.saveFamilyBackground();
+                boolean isSaved = panelCoMakerSpouseFamilyBackground.saveCoMakerSpouseFamilyBackground();
                 if (!isSaved) {
                     UIValidator.promptErrorMessageOn("SAVE");
+                } else {
+                    UIValidator.promptSucessMessageFor("SAVE");
+                    panelCoMakerSpouseFamilyBackground.setFieldsEditable(false);
                 }
                 return isSaved;
             }
@@ -1287,9 +1365,12 @@ public class MainPanel extends javax.swing.JPanel {
 
             @Override
             public boolean onSaveEdit() {
-                boolean isUpdated = panelCoMakerSpouseFamilyBackground.updateFamilyBackground();
+                boolean isUpdated = panelCoMakerSpouseFamilyBackground.updateCoMakerSpouseFamilyBackground();
                 if (!isUpdated) {
                     UIValidator.promptErrorMessageOn("EDIT");
+                } else {
+                    UIValidator.promptSucessMessageFor("EDIT");
+                    panelCoMakerSpouseFamilyBackground.setFieldsEditable(false);
                 }
                 return isUpdated;
             }
@@ -1455,6 +1536,8 @@ public class MainPanel extends javax.swing.JPanel {
     }
 
     private void initCoMakerAddressAddEditChangeListener() {
+        panelCoMakerAddress.setHeaderPanel(headerPanel);
+        panelCoMakerAddress.setMainPanel(this);
         addEditChangeCoMakerAddress.setButtonListener(new AddEditChangeListener() {
 
             @Override
@@ -1465,9 +1548,12 @@ public class MainPanel extends javax.swing.JPanel {
 
             @Override
             public boolean onSaveAdd() {
-                boolean isSaved = panelCoMakerAddress.saveAddress();
+                boolean isSaved = panelCoMakerAddress.saveCoMakerAddress();
                 if (!isSaved) {
                     UIValidator.promptErrorMessageOn("SAVE");
+                } else {
+                    UIValidator.promptSucessMessageFor("SAVE");
+                    panelCoMakerAddress.setFieldsEditable(false);
                 }
                 return isSaved;
             }
@@ -1644,6 +1730,26 @@ public class MainPanel extends javax.swing.JPanel {
 
     /* Riders to Buyers */
     private void initRidersToBuyersListener() {
+        panelRidersToBuyer.setHeaderPanel(headerPanel);
+    }
+
+    private void initCoMakerTable() {
+        tableCoMaker.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        tableCoMaker.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+
+            @Override
+            public void valueChanged(ListSelectionEvent lse) {
+                try {
+                    selectedIndex = tableCoMaker.getSelectedRow();
+                    if (selectedIndex >= 0) {
+                        setSelectedCoMaker(comakers.get(selectedIndex));
+                        fillCoMakerValues(selectedCoMaker);
+                    }
+                } catch (Exception e) {
+                    UIValidator.log(e, MainPanel.class);
+                }
+            }
+        });
     }
 
     /* Set all Data by Search */
@@ -1670,13 +1776,46 @@ public class MainPanel extends javax.swing.JPanel {
             PurchaseOrder p = PurchaseOrderController.getInstance().findByFormNo(form.getTxFormNo());
             panelPO.setPurchaseOrder(p);
             /* Spouse */
-            if (searchPanel.getCustomer() != null) {
-                panelSpousePersonalInfo.setClientNo(searchPanel.getCustomer().getClientNo());
-            }
             panelSpousePersonalInfo.setPersonalInfo(PersonalInfoController.getInstance().findByFormNoAndPersonType(form.getTxFormNo(), "SPO"));
             panelSpouseEmployment.setEmployment(EmploymentController.getInstance().findByFormNoAndPersonType(form.getTxFormNo(), "SPO"));
             panelSpouseFamilyBackground.setFamilies(FamilyBackgroundController.getInstance().findByFormNoAndPersonType(form.getTxFormNo(), "SPO"));
             panelSpouseAddress.refreshTable(AddressController.getInstance().findByFormNo(form.getTxFormNo(), "SPO"));
+            /* Co Makers */
+            List<PersonalInfo> cmakers = new ArrayList<>();
+            PersonalInfo cm1 = PersonalInfoController.getInstance().findByFormNoAndPersonType(form.getTxFormNo(), "CM1");
+            PersonalInfo cm2 = PersonalInfoController.getInstance().findByFormNoAndPersonType(form.getTxFormNo(), "CM2");
+            if (cm1 != null) {
+                cmakers.add(cm1);
+            }
+            if (cm2 != null) {
+                cmakers.add(cm2);
+            }
+            refreshComakerTable(cmakers);
+            /* Riders to Buyers */
+            panelRidersToBuyer.setIdentification(RidersToBuyerController.getInstance().findByFormNo(form.getTxFormNo()));
+        }
+    }
+
+    private void fillCoMakerValues(PersonalInfo p) {
+        panelCoMakerPersonalInformation.setPersonalInfo(PersonalInfoController.getInstance().findByFormNoAndPersonType(p.getTxFormNo(), p.getPersonType().getTypeID()));
+        panelCoMakerEmploymentData.setEmployment(EmploymentController.getInstance().findByFormNoAndPersonType(p.getTxFormNo(), p.getPersonType().getTypeID()));
+        panelCoMakerFamilyBackground.setFamilies(FamilyBackgroundController.getInstance().findByFormNoAndPersonType(p.getTxFormNo(), p.getPersonType().getTypeID()));
+        panelCoMakerSourceOfIncome.setSourceOfIncome(SourceOfIncomeController.getInstance().findByFormNoAndPersonType(p.getClientNo(), p.getTxFormNo(), p.getPersonType().getTypeID()));
+        panelCoMakerAddress.refreshTable(AddressController.getInstance().findByFormNo(p.getTxFormNo(), p.getPersonType().getTypeID()));
+        /* Co Maker Spouse */
+        switch (p.getPersonType().getTypeID()) {
+            case "CM1":
+                panelCoMakerSpousePersonalInformation.setPersonalInfo(PersonalInfoController.getInstance().findByFormNoAndPersonType(p.getTxFormNo(), "CS1"));
+                panelCoMakerSpouseEmploymentData.setEmployment(EmploymentController.getInstance().findByFormNoAndPersonType(p.getTxFormNo(), "CS1"));
+                panelCoMakerSpouseFamilyBackground.setFamilies(FamilyBackgroundController.getInstance().findByFormNoAndPersonType(p.getTxFormNo(), "CS1"));
+                panelCoMakerSpouseAddress.refreshTable(AddressController.getInstance().findByFormNo(p.getTxFormNo(), "CS1"));
+                break;
+            case "CM2":
+                panelCoMakerSpousePersonalInformation.setPersonalInfo(PersonalInfoController.getInstance().findByFormNoAndPersonType(p.getTxFormNo(), "CS2"));
+                panelCoMakerSpouseEmploymentData.setEmployment(EmploymentController.getInstance().findByFormNoAndPersonType(p.getTxFormNo(), "CS2"));
+                panelCoMakerSpouseFamilyBackground.setFamilies(FamilyBackgroundController.getInstance().findByFormNoAndPersonType(p.getTxFormNo(), "CS2"));
+                panelCoMakerSpouseAddress.refreshTable(AddressController.getInstance().findByFormNo(p.getTxFormNo(), "CS2"));
+                break;
         }
     }
 
@@ -1757,7 +1896,7 @@ public class MainPanel extends javax.swing.JPanel {
         addEditSpousePersonalInfo = new com.vg.scfc.financing.cis.ui.reusable.AddEditButtonPanel();
         jPanel18 = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
-        tblVehicle4 = new javax.swing.JTable();
+        tableCoMaker = new javax.swing.JTable();
         jTabbedPane4 = new javax.swing.JTabbedPane();
         jPanel19 = new javax.swing.JPanel();
         panelCoMakerPersonalInformation = new com.vg.scfc.financing.cis.ui.reusable.PersonalInformationPanel();
@@ -1789,12 +1928,14 @@ public class MainPanel extends javax.swing.JPanel {
         addEditChangeCoMakerAddress = new com.vg.scfc.financing.cis.ui.reusable.AddEditChangeButtonPanel();
         addEditCoMakerPersonalInfo = new com.vg.scfc.financing.cis.ui.reusable.AddEditButtonPanel();
         jPanel31 = new javax.swing.JPanel();
-        ridersToBuyerPanel1 = new com.vg.scfc.financing.cis.ui.reusable.RidersToBuyerPanel();
-        jButton1 = new javax.swing.JButton();
+        panelRidersToBuyer = new com.vg.scfc.financing.cis.ui.reusable.RidersToBuyerPanel();
+        btnAgree = new javax.swing.JButton();
         headerPanel = new com.vg.scfc.financing.cis.ui.reusable.HeaderPanel();
         searchPanel = new com.vg.scfc.financing.cis.ui.panel.SearchPanel();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        tabMain.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         jPanel1.add(panelPersonalInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(3, 5, -1, -1));
@@ -1933,7 +2074,7 @@ public class MainPanel extends javax.swing.JPanel {
 
         jPanel18.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, comakers, tblVehicle4);
+        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, comakers, tableCoMaker);
         org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${lastName}"));
         columnBinding.setColumnName("Last Name");
         columnBinding.setColumnClass(String.class);
@@ -1948,7 +2089,7 @@ public class MainPanel extends javax.swing.JPanel {
         columnBinding.setColumnClass(String.class);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
-        jScrollPane5.setViewportView(tblVehicle4);
+        jScrollPane5.setViewportView(tableCoMaker);
 
         jPanel18.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 5, 1000, 70));
 
@@ -2019,10 +2160,15 @@ public class MainPanel extends javax.swing.JPanel {
         tabMain.addTab("Co-Maker", jPanel18);
 
         jPanel31.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel31.add(ridersToBuyerPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, -1, -1));
+        jPanel31.add(panelRidersToBuyer, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, -1, -1));
 
-        jButton1.setText("Agree");
-        jPanel31.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(795, 280, 130, -1));
+        btnAgree.setText("Agree");
+        btnAgree.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgreeActionPerformed(evt);
+            }
+        });
+        jPanel31.add(btnAgree, new org.netbeans.lib.awtextra.AbsoluteConstraints(795, 280, 130, -1));
 
         tabMain.addTab("RIDERS TO BUYERS", jPanel31);
 
@@ -2032,6 +2178,15 @@ public class MainPanel extends javax.swing.JPanel {
 
         bindingGroup.bind();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnAgreeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgreeActionPerformed
+        boolean isSaved = panelRidersToBuyer.saveAgreement();
+        if(isSaved) {
+            UIValidator.promptSucessMessageFor("SAVE");
+        } else {
+            UIValidator.promptErrorMessageOn("SAVE");
+        }
+    }//GEN-LAST:event_btnAgreeActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.vg.scfc.financing.cis.ui.reusable.AddEditButtonPanel addEditAppliance;
@@ -2062,9 +2217,9 @@ public class MainPanel extends javax.swing.JPanel {
     private com.vg.scfc.financing.cis.ui.reusable.AddEditButtonPanel addEditSpouseFamilyBackground;
     private com.vg.scfc.financing.cis.ui.reusable.AddEditButtonPanel addEditSpousePersonalInfo;
     private com.vg.scfc.financing.cis.ui.reusable.AddEditButtonPanel addEditVehicle;
+    private javax.swing.JButton btnAgree;
     private java.util.List<PersonalInfo> comakers;
     private com.vg.scfc.financing.cis.ui.reusable.HeaderPanel headerPanel;
-    private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
@@ -2124,6 +2279,7 @@ public class MainPanel extends javax.swing.JPanel {
     private com.vg.scfc.financing.cis.ui.reusable.MachineryPanel panelMachinery;
     private com.vg.scfc.financing.cis.ui.reusable.PurchaseOrderPanel panelPO;
     private com.vg.scfc.financing.cis.ui.reusable.PersonalInformationPanel panelPersonalInfo;
+    private com.vg.scfc.financing.cis.ui.reusable.RidersToBuyerPanel panelRidersToBuyer;
     private com.vg.scfc.financing.cis.ui.reusable.SiblingsPanel panelSibling;
     private com.vg.scfc.financing.cis.ui.reusable.SourceOfIncomePanel panelSourceOfIncome;
     private com.vg.scfc.financing.cis.ui.reusable.AddressPanel panelSpouseAddress;
@@ -2131,17 +2287,26 @@ public class MainPanel extends javax.swing.JPanel {
     private com.vg.scfc.financing.cis.ui.reusable.FamilyBackgroundPanel panelSpouseFamilyBackground;
     private com.vg.scfc.financing.cis.ui.reusable.PersonalInformationPanel panelSpousePersonalInfo;
     private com.vg.scfc.financing.cis.ui.reusable.VehiclePanel panelVehicle;
-    private com.vg.scfc.financing.cis.ui.reusable.RidersToBuyerPanel ridersToBuyerPanel1;
     private com.vg.scfc.financing.cis.ui.panel.SearchPanel searchPanel;
     private javax.swing.JTabbedPane tabMain;
     private javax.swing.JPanel tabPO;
-    private javax.swing.JTable tblVehicle4;
+    private javax.swing.JTable tableCoMaker;
     private javax.swing.JTextField txtTotalMonthlyIncome;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
     private String formNo;
     private Date applicationDate;
     private BigDecimal totalMonthlyIncome;
+    private int selectedIndex = -1;
+    private PersonalInfo selectedCoMaker;
+
+    public PersonalInfo getSelectedCoMaker() {
+        return selectedCoMaker;
+    }
+
+    public void setSelectedCoMaker(PersonalInfo selectedCoMaker) {
+        this.selectedCoMaker = selectedCoMaker;
+    }
 
     public void setTotalMonthlyIncome(BigDecimal totalMonthlyIncome) {
         this.totalMonthlyIncome = totalMonthlyIncome;
@@ -2161,6 +2326,18 @@ public class MainPanel extends javax.swing.JPanel {
 
     public void setFormNo(String formNo) {
         this.formNo = formNo;
+    }
+
+    public void refreshComakerTable(List<PersonalInfo> p) {
+        comakers.clear();
+        comakers.addAll(p);
+        if (!comakers.isEmpty()) {
+            tableCoMaker.setRowSelectionInterval(0, 0);
+        }
+    }
+
+    public List<PersonalInfo> getComakers() {
+        return comakers;
     }
 
 }

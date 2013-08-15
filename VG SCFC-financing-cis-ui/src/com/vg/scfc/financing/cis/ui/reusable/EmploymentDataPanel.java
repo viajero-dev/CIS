@@ -7,6 +7,7 @@ package com.vg.scfc.financing.cis.ui.reusable;
 
 import com.vg.scfc.financing.cis.ent.Employment;
 import com.vg.scfc.financing.cis.ui.controller.EmploymentController;
+import com.vg.scfc.financing.cis.ui.panel.MainPanel;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -39,6 +40,7 @@ public class EmploymentDataPanel extends javax.swing.JPanel implements KeyListen
         txtCompanyEmployer.addKeyListener(this);
         txtEmployerAddress.addKeyListener(this);
         txtEmployerContact.addKeyListener(this);
+        txtYearInService.addKeyListener(this);
         txtEmployerBusinessNature.addKeyListener(this);
     }
 
@@ -189,24 +191,17 @@ public class EmploymentDataPanel extends javax.swing.JPanel implements KeyListen
     private javax.swing.JTextField txtPositionDepartment;
     private javax.swing.JTextField txtYearInService;
     // End of variables declaration//GEN-END:variables
-    private String status;
-    private String positionDept;
-    private String companyEmployer;
-    private String address;
-    private String contactNo;
-    private String natureOfBuss;
-    private int yearInService;
-    private String formNo;
     private String personType;
     private Employment employment;
     private HeaderPanel headerPanel;
+    private MainPanel mainPanel;
+
+    public void setMainPanel(MainPanel mainPanel) {
+        this.mainPanel = mainPanel;
+    }
 
     public void setHeaderPanel(HeaderPanel headerPanel) {
         this.headerPanel = headerPanel;
-    }
-
-    public void setFormNo(String formNo) {
-        this.formNo = formNo;
     }
 
     public void setPersonType(String personType) {
@@ -273,6 +268,42 @@ public class EmploymentDataPanel extends javax.swing.JPanel implements KeyListen
         setEmployment((Employment) o);
         return o != null;
     }
+    
+    public boolean saveCoMakerEmploymentData() {
+        Object o = EmploymentController.getInstance().createNew(createNew(new Employment()), mainPanel.getSelectedCoMaker().getPersonType().getTypeID(), headerPanel.getFormNo());
+        setEmployment((Employment) o);
+        return o != null;
+    }
+    
+    public boolean updateCoMakerEmploymentData() {
+        Object o = EmploymentController.getInstance().update(headerPanel.getFormNo(), mainPanel.getSelectedCoMaker().getPersonType().getTypeID(), createNew(employment));
+        setEmployment((Employment) o);
+        return o != null;
+    }
+    
+    public boolean saveCoMakerSpouseEmploymentData() {
+        String typeID;
+        if(mainPanel.getSelectedCoMaker().getPersonType().getTypeID().equals("CM1")) {
+            typeID = "CS1";
+        } else {
+            typeID = "CS2";
+        }
+        Object o = EmploymentController.getInstance().createNew(createNew(new Employment()), typeID, headerPanel.getFormNo());
+        setEmployment((Employment) o);
+        return o != null;
+    }
+    
+    public boolean updateCoMakerSpouseEmploymentData() {
+        String typeID;
+        if(mainPanel.getSelectedCoMaker().getPersonType().getTypeID().equals("CM1")) {
+            typeID = "CS1";
+        } else {
+            typeID = "CS2";
+        }
+        Object o = EmploymentController.getInstance().update(headerPanel.getFormNo(), typeID, createNew(employment));
+        setEmployment((Employment) o);
+        return o != null;
+    }
 
     public void setEmploymentData(Object o) {
         if (o == null) {
@@ -304,7 +335,7 @@ public class EmploymentDataPanel extends javax.swing.JPanel implements KeyListen
             txtEmployerAddress.setText(e.getEmpAddress());
             txtEmployerContact.setText(e.getEmpContactNo());
             txtEmployerBusinessNature.setText(e.getEmpNature());
-//            txtYearInService.setText(e.getEmpYearsInService());
+            txtYearInService.setText(e.getEmpYearsInService() + "");
         }
     }
 
@@ -345,7 +376,11 @@ public class EmploymentDataPanel extends javax.swing.JPanel implements KeyListen
         e.setEmpAddress(txtEmployerAddress.getText());
         e.setEmpContactNo(txtEmployerContact.getText());
         e.setEmpNature(txtEmployerBusinessNature.getText());
-        e.setEmpYearsInService(Integer.parseInt(txtYearInService.getText()));
+        if(txtYearInService.getText().equals("")) {
+            e.setEmpYearsInService(0);
+        } else {
+            e.setEmpYearsInService(Integer.parseInt(txtYearInService.getText()));
+        }
         return e;
     }
 }

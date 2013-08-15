@@ -74,7 +74,7 @@ public class UIValidator {
                 JOptionPane.showMessageDialog(null, OtherMessage.SUCCESSFUL_INSERT, ErrorMessage.ERROR_MESSAGE_TITLE, JOptionPane.INFORMATION_MESSAGE);
                 break;
             case "EDIT":
-                JOptionPane.showMessageDialog(null, OtherMessage.SUCCESSFUL_INSERT, ErrorMessage.ERROR_MESSAGE_TITLE, JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, OtherMessage.SUCCESSFUL_UPDATE, ErrorMessage.ERROR_MESSAGE_TITLE, JOptionPane.INFORMATION_MESSAGE);
                 break;
         }
     }

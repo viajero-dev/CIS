@@ -7,6 +7,7 @@ package com.vg.scfc.financing.cis.ui.reusable;
 
 import com.vg.scfc.financing.cis.ent.Address;
 import com.vg.scfc.financing.cis.ui.controller.AddressController;
+import com.vg.scfc.financing.cis.ui.panel.MainPanel;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -201,7 +202,7 @@ public class AddressPanel extends javax.swing.JPanel implements KeyListener {
                 optionAddressOwnedItemStateChanged(evt);
             }
         });
-        add(optionAddressOwned, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 165, -1, -1));
+        add(optionAddressOwned, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 166, -1, -1));
 
         optionAddressRenting.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         optionAddressRenting.setText("Renting");
@@ -210,7 +211,7 @@ public class AddressPanel extends javax.swing.JPanel implements KeyListener {
                 optionAddressRentingItemStateChanged(evt);
             }
         });
-        add(optionAddressRenting, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 165, -1, -1));
+        add(optionAddressRenting, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 166, -1, -1));
 
         optionAddressLiving.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         optionAddressLiving.setText("Living with Parents/Relatives");
@@ -219,7 +220,7 @@ public class AddressPanel extends javax.swing.JPanel implements KeyListener {
                 optionAddressLivingItemStateChanged(evt);
             }
         });
-        add(optionAddressLiving, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 165, -1, -1));
+        add(optionAddressLiving, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 166, -1, -1));
 
         optionAddressOthers.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         optionAddressOthers.setText("Others");
@@ -228,7 +229,7 @@ public class AddressPanel extends javax.swing.JPanel implements KeyListener {
                 optionAddressOthersItemStateChanged(evt);
             }
         });
-        add(optionAddressOthers, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 165, -1, -1));
+        add(optionAddressOthers, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 166, -1, -1));
 
         jLabel6.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel6.setText("Yrs. of stay");
@@ -263,7 +264,7 @@ public class AddressPanel extends javax.swing.JPanel implements KeyListener {
                 optionPreviousItemStateChanged(evt);
             }
         });
-        add(optionPrevious, new org.netbeans.lib.awtextra.AbsoluteConstraints(175, 190, -1, -1));
+        add(optionPrevious, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 190, -1, -1));
 
         bindingGroup.bind();
     }// </editor-fold>//GEN-END:initComponents
@@ -352,6 +353,11 @@ public class AddressPanel extends javax.swing.JPanel implements KeyListener {
     private int selectedIndex;
     private HeaderPanel headerPanel;
     private String personType;
+    private MainPanel mainPanel;
+
+    public void setMainPanel(MainPanel mainPanel) {
+        this.mainPanel = mainPanel;
+    }
 
     public void setPersonType(String personType) {
         this.personType = personType;
@@ -465,7 +471,7 @@ public class AddressPanel extends javax.swing.JPanel implements KeyListener {
             txtBrgy.setText(a.getBrgyCode());
             txtZipcode.setText(a.getZipCode());
             txtStreet.setText(a.getAddress());
-            txtDesc.setText(a.getDescription());
+            txtDesc.setText(a.getAddressType());
             switch (a.getStatus()) {
                 case "OWNED":
                     optionAddressOwned.setSelected(true);
@@ -501,6 +507,12 @@ public class AddressPanel extends javax.swing.JPanel implements KeyListener {
         refreshTable(a);
         return !a.isEmpty();
     }
+    
+    public boolean saveCoMakerAddress() {
+        List<Address> a = AddressController.getInstance().createNew(headerPanel.getFormNo(), mainPanel.getSelectedCoMaker().getPersonType().getTypeID(), createNew(new Address()));
+        refreshTable(a);
+        return !a.isEmpty();
+    }
 
     public boolean updateAddress() {
         return true;
@@ -522,7 +534,7 @@ public class AddressPanel extends javax.swing.JPanel implements KeyListener {
         a.setBrgyCode(txtBrgy.getText());
         a.setZipCode(txtZipcode.getText());
         a.setAddress(txtStreet.getText());
-        a.setDescription(txtDesc.getText());
+        a.setAddressType(txtDesc.getText());
         if (optionAddressOwned.isSelected()) {
            a.setStatus("OWNED");
         }
@@ -536,6 +548,7 @@ public class AddressPanel extends javax.swing.JPanel implements KeyListener {
             a.setStatus("OTHERS");
         }
         a.setYearsOfStay(txtYrsOfStay.getText());
+        a.setBrgyDesc("");
         return a;
     }
 

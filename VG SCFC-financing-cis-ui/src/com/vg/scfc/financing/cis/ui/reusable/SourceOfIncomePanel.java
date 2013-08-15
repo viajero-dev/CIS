@@ -9,6 +9,7 @@ import com.vg.commons.util.DateUtil;
 import com.vg.commons.util.NumberUtils;
 import com.vg.scfc.financing.cis.ent.SourceOfIncome;
 import com.vg.scfc.financing.cis.ui.controller.SourceOfIncomeController;
+import com.vg.scfc.financing.cis.ui.panel.MainPanel;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -64,6 +65,8 @@ public class SourceOfIncomePanel extends javax.swing.JPanel implements KeyListen
         txtMonthlyIncomeForFarmProducts.addKeyListener(this);
         txtOtherSourceDesc.addKeyListener(this);
         txtMonthlyIncomeForOtherSources.addKeyListener(this);
+        txtAgri.addKeyListener(this);
+        txtLiveStock.addKeyListener(this);
     }
 
     /**
@@ -104,6 +107,8 @@ public class SourceOfIncomePanel extends javax.swing.JPanel implements KeyListen
         } catch (java.text.ParseException e1) {
             e1.printStackTrace();
         }
+        txtAgri = new javax.swing.JTextField();
+        txtLiveStock = new javax.swing.JTextField();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -128,7 +133,7 @@ public class SourceOfIncomePanel extends javax.swing.JPanel implements KeyListen
         lblHarvestSched.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         lblHarvestSched.setText("Harvest Schedule");
         lblHarvestSched.setEnabled(false);
-        add(lblHarvestSched, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 165, -1, -1));
+        add(lblHarvestSched, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 190, -1, -1));
 
         optionBusinessRegistered.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         optionBusinessRegistered.setSelected(true);
@@ -153,11 +158,21 @@ public class SourceOfIncomePanel extends javax.swing.JPanel implements KeyListen
         checkFarmLiveStock.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         checkFarmLiveStock.setText("LiveStock");
         checkFarmLiveStock.setEnabled(false);
-        add(checkFarmLiveStock, new org.netbeans.lib.awtextra.AbsoluteConstraints(145, 135, -1, -1));
+        checkFarmLiveStock.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                checkFarmLiveStockItemStateChanged(evt);
+            }
+        });
+        add(checkFarmLiveStock, new org.netbeans.lib.awtextra.AbsoluteConstraints(45, 160, -1, -1));
 
         checkFarmAgri.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         checkFarmAgri.setText("Agricultural");
         checkFarmAgri.setEnabled(false);
+        checkFarmAgri.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                checkFarmAgriItemStateChanged(evt);
+            }
+        });
         add(checkFarmAgri, new org.netbeans.lib.awtextra.AbsoluteConstraints(45, 135, -1, -1));
 
         lblNatureOfBusiness.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
@@ -177,7 +192,7 @@ public class SourceOfIncomePanel extends javax.swing.JPanel implements KeyListen
         lblAvgProductIncome.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         lblAvgProductIncome.setText("Avg. Product Inc");
         lblAvgProductIncome.setEnabled(false);
-        add(lblAvgProductIncome, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 190, -1, -1));
+        add(lblAvgProductIncome, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 215, -1, -1));
 
         txtFarmAvgProductIncome.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtFarmAvgProductIncome.setEnabled(false);
@@ -186,7 +201,7 @@ public class SourceOfIncomePanel extends javax.swing.JPanel implements KeyListen
                 txtFarmAvgProductIncomeFocusLost(evt);
             }
         });
-        add(txtFarmAvgProductIncome, new org.netbeans.lib.awtextra.AbsoluteConstraints(165, 185, 127, -1));
+        add(txtFarmAvgProductIncome, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 210, 127, -1));
 
         checkSourceOthers.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         checkSourceOthers.setText("Other Sources");
@@ -195,12 +210,12 @@ public class SourceOfIncomePanel extends javax.swing.JPanel implements KeyListen
                 checkSourceOthersItemStateChanged(evt);
             }
         });
-        add(checkSourceOthers, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 215, -1, -1));
+        add(checkSourceOthers, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 235, -1, -1));
 
         lblOtherSourceDesc.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         lblOtherSourceDesc.setText("Please specify");
         lblOtherSourceDesc.setEnabled(false);
-        add(lblOtherSourceDesc, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 245, -1, -1));
+        add(lblOtherSourceDesc, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 265, -1, -1));
 
         txtOtherSourceDesc.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtOtherSourceDesc.setEnabled(false);
@@ -209,7 +224,7 @@ public class SourceOfIncomePanel extends javax.swing.JPanel implements KeyListen
                 txtOtherSourceDescFocusLost(evt);
             }
         });
-        add(txtOtherSourceDesc, new org.netbeans.lib.awtextra.AbsoluteConstraints(142, 240, 150, -1));
+        add(txtOtherSourceDesc, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 260, 150, -1));
 
         lblAvgMonthlyIncome.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         lblAvgMonthlyIncome.setText("Avg. Monthly Compensation");
@@ -223,7 +238,7 @@ public class SourceOfIncomePanel extends javax.swing.JPanel implements KeyListen
                 txtBusinessNatureFocusLost(evt);
             }
         });
-        add(txtBusinessNature, new org.netbeans.lib.awtextra.AbsoluteConstraints(165, 55, 127, -1));
+        add(txtBusinessNature, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 55, 127, -1));
 
         lblAvgMonthlyIncomeForBusiness.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         lblAvgMonthlyIncomeForBusiness.setText("Avg. Monthly Income");
@@ -242,7 +257,7 @@ public class SourceOfIncomePanel extends javax.swing.JPanel implements KeyListen
         lblAvgMonthlyIncomeForOtherSources.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         lblAvgMonthlyIncomeForOtherSources.setText("Avg. Monthly Income");
         lblAvgMonthlyIncomeForOtherSources.setEnabled(false);
-        add(lblAvgMonthlyIncomeForOtherSources, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 245, -1, -1));
+        add(lblAvgMonthlyIncomeForOtherSources, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 265, -1, -1));
 
         txtMonthlyIncomeForFarmProducts.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtMonthlyIncomeForFarmProducts.setEnabled(false);
@@ -251,12 +266,12 @@ public class SourceOfIncomePanel extends javax.swing.JPanel implements KeyListen
                 txtMonthlyIncomeForFarmProductsFocusLost(evt);
             }
         });
-        add(txtMonthlyIncomeForFarmProducts, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 135, 127, -1));
+        add(txtMonthlyIncomeForFarmProducts, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 210, 127, -1));
 
         lblAvgMonthlyIncomeForFarmProducts.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         lblAvgMonthlyIncomeForFarmProducts.setText("Avg. Monthly Income");
         lblAvgMonthlyIncomeForFarmProducts.setEnabled(false);
-        add(lblAvgMonthlyIncomeForFarmProducts, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 140, -1, -1));
+        add(lblAvgMonthlyIncomeForFarmProducts, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 215, -1, -1));
 
         txtMonthlyIncomeForOtherSources.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtMonthlyIncomeForOtherSources.setEnabled(false);
@@ -265,10 +280,19 @@ public class SourceOfIncomePanel extends javax.swing.JPanel implements KeyListen
                 txtMonthlyIncomeForOtherSourcesFocusLost(evt);
             }
         });
-        add(txtMonthlyIncomeForOtherSources, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 240, 127, -1));
+        add(txtMonthlyIncomeForOtherSources, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 260, 127, -1));
 
+        txtFarmHarvestSchedule.setEnabled(false);
         txtFarmHarvestSchedule.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
-        add(txtFarmHarvestSchedule, new org.netbeans.lib.awtextra.AbsoluteConstraints(165, 160, 127, -1));
+        add(txtFarmHarvestSchedule, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 185, 127, -1));
+
+        txtAgri.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
+        txtAgri.setEnabled(false);
+        add(txtAgri, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 135, 127, -1));
+
+        txtLiveStock.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
+        txtLiveStock.setEnabled(false);
+        add(txtLiveStock, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 160, 127, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void checkMonthlySalaryCompensationItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_checkMonthlySalaryCompensationItemStateChanged
@@ -363,6 +387,22 @@ public class SourceOfIncomePanel extends javax.swing.JPanel implements KeyListen
         txtOtherSourceDesc.setText(UIValidator.validate(txtOtherSourceDesc));
     }//GEN-LAST:event_txtOtherSourceDescFocusLost
 
+    private void checkFarmAgriItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_checkFarmAgriItemStateChanged
+        if(checkFarmAgri.isSelected()) {
+            txtAgri.setEnabled(true);
+        } else {
+            txtAgri.setEnabled(false);
+        }
+    }//GEN-LAST:event_checkFarmAgriItemStateChanged
+
+    private void checkFarmLiveStockItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_checkFarmLiveStockItemStateChanged
+        if(checkFarmLiveStock.isSelected()) {
+            txtLiveStock.setEnabled(true);
+        } else {
+            txtLiveStock.setEnabled(false);
+        }
+    }//GEN-LAST:event_checkFarmLiveStockItemStateChanged
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox checkFarmAgri;
     private javax.swing.JCheckBox checkFarmLiveStock;
@@ -381,9 +421,11 @@ public class SourceOfIncomePanel extends javax.swing.JPanel implements KeyListen
     private javax.swing.JRadioButton optionBusinessNotRegistered;
     private javax.swing.JRadioButton optionBusinessRegistered;
     private javax.swing.ButtonGroup optionBusinessRegistrationStatusGroup;
+    private javax.swing.JTextField txtAgri;
     private javax.swing.JTextField txtBusinessNature;
     private javax.swing.JTextField txtFarmAvgProductIncome;
     private com.vg.commons.formattedfields.FormattedSimpleDateField txtFarmHarvestSchedule;
+    private javax.swing.JTextField txtLiveStock;
     private javax.swing.JTextField txtMonthlyIncomeForBusiness;
     private javax.swing.JTextField txtMonthlyIncomeForFarmProducts;
     private javax.swing.JTextField txtMonthlyIncomeForOtherSources;
@@ -395,6 +437,11 @@ public class SourceOfIncomePanel extends javax.swing.JPanel implements KeyListen
     private SourceOfIncome sourceOfIncome;
     private JTextField txtTotalMonthlyIncome;
     private HeaderPanel headerPanel;
+    private MainPanel mainPanel;
+
+    public void setMainPanel(MainPanel mainPanel) {
+        this.mainPanel = mainPanel;
+    }
 
     public void setClientNo(String clientNo) {
         this.clientNo = clientNo;
@@ -458,8 +505,12 @@ public class SourceOfIncomePanel extends javax.swing.JPanel implements KeyListen
                     checkSourceOthers.requestFocus();
                 }
             } else if (checkFarmAgri.isFocusOwner()) {
+                txtAgri.requestFocus();
+            } else if (txtAgri.isFocusOwner()) {
                 checkFarmLiveStock.requestFocus();
             } else if (checkFarmLiveStock.isFocusOwner()) {
+                txtLiveStock.requestFocus();
+            }  else if (txtLiveStock.isFocusOwner()) {
                 txtFarmHarvestSchedule.requestFocus();
             } else if (txtFarmHarvestSchedule.isFocusOwner()) {
                 txtFarmAvgProductIncome.requestFocus();
@@ -491,6 +542,9 @@ public class SourceOfIncomePanel extends javax.swing.JPanel implements KeyListen
         checkSourceFarmProducts.setEnabled(value);
         checkFarmAgri.setEnabled(value);
         checkFarmLiveStock.setEnabled(value);
+        txtAgri.setEditable(value);
+        txtLiveStock.setEditable(value);
+        txtBusinessNature.setEditable(value);
         txtFarmHarvestSchedule.setEditable(value);
         txtFarmAvgProductIncome.setEditable(value);
         txtMonthlyIncomeForFarmProducts.setEditable(value);
@@ -508,6 +562,9 @@ public class SourceOfIncomePanel extends javax.swing.JPanel implements KeyListen
         checkSourceFarmProducts.setFocusable(value);
         checkFarmAgri.setFocusable(value);
         checkFarmLiveStock.setFocusable(value);
+        txtAgri.setFocusable(value);
+        txtLiveStock.setFocusable(value);
+        txtBusinessNature.setFocusable(value);
         txtFarmHarvestSchedule.setFocusable(value);
         txtFarmAvgProductIncome.setFocusable(value);
         txtMonthlyIncomeForFarmProducts.setFocusable(value);
@@ -571,8 +628,18 @@ public class SourceOfIncomePanel extends javax.swing.JPanel implements KeyListen
             } else {
                 checkSourceFarmProducts.setSelected(false);
             }
-            checkFarmAgri.setSelected(s.isIncArgriculture());
-            checkFarmLiveStock.setSelected(s.isIncLiveStock());
+            if(!s.getIncArgriculture().equals("") || !s.getIncArgriculture().equals(" ")) {
+                checkFarmAgri.setSelected(true);
+            } else {
+                checkFarmAgri.setSelected(false);
+            }
+            txtAgri.setText(s.getIncArgriculture());
+            if(!s.getIncLiveStock().equals("") || !s.getIncLiveStock().equals(" ")) {
+                checkFarmLiveStock.setSelected(true);
+            } else {
+                checkFarmLiveStock.setSelected(false);
+            }
+            txtLiveStock.setText(s.getIncLiveStock());
             txtFarmHarvestSchedule.setText(s.getIncHarvestDate());
             txtFarmAvgProductIncome.setText(new BigDecimal(s.getIncAverageProd()).toPlainString());
             txtMonthlyIncomeForFarmProducts.setText(new BigDecimal(s.getIncFarm()).toPlainString());
@@ -610,7 +677,18 @@ public class SourceOfIncomePanel extends javax.swing.JPanel implements KeyListen
         setSourceOfIncome((SourceOfIncome) o);
         return o != null;
     }
-
+    
+    public boolean saveCoMakerSourceOfIncome() {
+        Object o = null;
+        try {
+            o = SourceOfIncomeController.getInstance().createNew(createNew(new SourceOfIncome()), headerPanel.getFormNo(), mainPanel.getSelectedCoMaker().getPersonType().getTypeID(), mainPanel.getSelectedCoMaker().getClientNo());
+        } catch (ParseException ex) {
+            UIValidator.log(ex, SourceOfIncomePanel.class);
+        }
+        setSourceOfIncome((SourceOfIncome) o);
+        return o != null;
+    }
+    
     public void totalMonthlyIncome(SourceOfIncome s) {
         txtTotalMonthlyIncome.setText(SourceOfIncomeController.getInstance().computeTotalMonthlyIncome(s).toPlainString());
     }
@@ -625,14 +703,14 @@ public class SourceOfIncomePanel extends javax.swing.JPanel implements KeyListen
         }
         s.setIncBusiness(new BigDecimal(UIValidator.MoneyCommaRemover(txtMonthlyIncomeForBusiness.getText())).doubleValue());
         if (checkFarmAgri.isSelected()) {
-            s.setIncArgriculture(true);
+            s.setIncArgriculture(txtAgri.getText());
         } else {
-            s.setIncArgriculture(false);
+            s.setIncArgriculture("");
         }
         if (checkFarmLiveStock.isSelected()) {
-            s.setIncLiveStock(true);
+            s.setIncLiveStock(txtBusinessNature.getText());
         } else {
-            s.setIncLiveStock(false);
+            s.setIncLiveStock("");
         }
         s.setIncHarvestDate(DateUtil.toString(txtFarmHarvestSchedule.getDate(), "yyyy-MM-dd"));
         s.setIncAverageProd(new BigDecimal(UIValidator.MoneyCommaRemover(txtFarmAvgProductIncome.getText())).doubleValue());

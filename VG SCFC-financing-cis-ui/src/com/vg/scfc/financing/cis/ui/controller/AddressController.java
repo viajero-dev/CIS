@@ -40,6 +40,8 @@ public class AddressController {
             boolean isSaved = UISetting.getAddressService().insert(a);
             if (isSaved) {
                 results = UISetting.getAddressService().filterBy(formNo, personType);
+            } else {
+                System.out.println("error on saving..");
             }
         } catch (Exception ex) {
             UIValidator.log(ex, AddressController.class);

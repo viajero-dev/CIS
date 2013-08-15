@@ -202,5 +202,22 @@ public class PersonalInfoController {
         }
         return result;
     }
+    
+    public List<PersonalInfo> findCoMakersByFormNo(String formNo) {
+        List<PersonalInfo> results = new ArrayList<>();
+        try {
+            PersonalInfo cm1 = PersonalInfoController.getInstance().findByFormNoAndPersonType(formNo, "CM1");
+            PersonalInfo cm2 = PersonalInfoController.getInstance().findByFormNoAndPersonType(formNo, "CM2");
+            if (cm1 != null) {
+                results.add(cm1);
+            }
+            if (cm2 != null) {
+                results.add(cm2);
+            }
+        } catch (Exception e) {
+            UIValidator.log(e, PersonalInfoController.class);
+        }
+        return results;
+    }
 
 }
