@@ -397,7 +397,7 @@ public class PurchaseOrderPanel extends javax.swing.JPanel implements KeyListene
     }
 
     public boolean savePurchaseOrder() {
-        PurchaseOrder p = PurchaseOrderController.getInstance().createNew(headerPanel.getFormNo(), createNew(new PurchaseOrder()));
+        PurchaseOrder p = PurchaseOrderController.getInstance().save(headerPanel.getFormNo(), createNew(new PurchaseOrder()));
         setPurchaseOrder(p);
         return p != null;
     }

@@ -5,11 +5,9 @@
  */
 package com.vg.scfc.financing.cis.ui.controller;
 
-import com.vg.commons.util.DateUtil;
 import com.vg.scfc.financing.cis.ent.PurchaseOrder;
 import com.vg.scfc.financing.cis.ui.settings.UISetting;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
-import java.math.BigDecimal;
 
 /**
  *
@@ -26,7 +24,7 @@ public class PurchaseOrderController {
         return instance;
     }
 
-    public PurchaseOrder createNew(String formNo, PurchaseOrder p) {
+    public PurchaseOrder save(String formNo, PurchaseOrder p) {
         PurchaseOrder result = null;
         p.setTxFormNo(formNo);
         p.setLocation(UISetting.getStoreLocation());

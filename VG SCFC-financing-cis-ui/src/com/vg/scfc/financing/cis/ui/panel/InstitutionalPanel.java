@@ -30,6 +30,7 @@ public class InstitutionalPanel extends javax.swing.JPanel {
         initRepresentative1EmploymentAddEditListener();
         initRepresentative2PersonalInfoAddEditListener();
         initRepresentative2EmploymentAddEditListener();
+        initPurchaseOrderAddEditListener();
         initRidersToBuyer();
         fillValue(searchPanelInstitution.getTransactionForm());
         searchPanelInstitution.setInstitutionalPanel(this);
@@ -307,6 +308,57 @@ public class InstitutionalPanel extends javax.swing.JPanel {
             }
         });
     }
+    
+    private void initPurchaseOrderAddEditListener() {
+        panelPurchaseOrder.setHeaderPanel(headerPanel);
+        addEditPurchaseOrder.setBasicActionListener(new BasicActionListener() {
+
+            @Override
+            public void onAdd() {
+                panelPurchaseOrder.setFieldsEditable(true);
+                panelPurchaseOrder.resetToDefault();
+            }
+
+            @Override
+            public boolean onSaveAdd() {
+                boolean isSaved = panelPurchaseOrder.savePurchaseOrder();
+                if(isSaved) {
+                    UIValidator.promptErrorMessageOn("SAVE");
+                } else {
+                    UIValidator.promptSucessMessageFor("SAVE");
+                    panelPurchaseOrder.setFieldsEditable(false);
+                }
+                return isSaved;
+            }
+
+            @Override
+            public void onCancelAdd() {
+                panelPurchaseOrder.setFieldsEditable(false);
+            }
+
+            @Override
+            public void onEdit() {
+                panelPurchaseOrder.setFieldsEditable(true);
+            }
+
+            @Override
+            public boolean onSaveEdit() {
+                boolean isUpdated = panelPurchaseOrder.updatePurchaseOrder();
+                if(isUpdated) {
+                    UIValidator.promptErrorMessageOn("EDIT");
+                } else {
+                    UIValidator.promptSucessMessageFor("EDIT");
+                    panelPurchaseOrder.setFieldsEditable(false);
+                }
+                return isUpdated;
+            }
+
+            @Override
+            public void onCancelEdit() {
+                panelPurchaseOrder.setFieldsEditable(false);
+            }
+        });
+    }
 
     private void initRidersToBuyer() {
         ridersToBuyerPanel.setHeaderPanel(headerPanel);
@@ -367,8 +419,8 @@ public class InstitutionalPanel extends javax.swing.JPanel {
         ridersToBuyerPanel = new com.vg.scfc.financing.cis.ui.reusable.RidersToBuyerPanel();
         btnAgree = new javax.swing.JButton();
         jPanel8 = new javax.swing.JPanel();
-        panelPurchaseOrder = new com.vg.scfc.financing.cis.ui.reusable.PurchaseOrderPanel();
         addEditPurchaseOrder = new com.vg.scfc.financing.cis.ui.reusable.AddEditButtonPanel();
+        panelPurchaseOrder = new com.vg.scfc.financing.cis.ui.reusable.PurchaseOrderPanel2();
         headerPanel = new com.vg.scfc.financing.cis.ui.reusable.HeaderPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -435,8 +487,8 @@ public class InstitutionalPanel extends javax.swing.JPanel {
         jTabbedPane1.addTab("RIDERS TO BUYERS", jPanel7);
 
         jPanel8.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel8.add(panelPurchaseOrder, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 15, -1, -1));
-        jPanel8.add(addEditPurchaseOrder, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 130, -1, -1));
+        jPanel8.add(addEditPurchaseOrder, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 260, -1, -1));
+        jPanel8.add(panelPurchaseOrder, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 5, 830, 250));
 
         jTabbedPane1.addTab("Purchase Order", jPanel8);
 
@@ -493,7 +545,7 @@ public class InstitutionalPanel extends javax.swing.JPanel {
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTabbedPane jTabbedPane3;
     private com.vg.scfc.financing.cis.ui.panel.CompanyInformationPanel panelCompanyInformation;
-    private com.vg.scfc.financing.cis.ui.reusable.PurchaseOrderPanel panelPurchaseOrder;
+    private com.vg.scfc.financing.cis.ui.reusable.PurchaseOrderPanel2 panelPurchaseOrder;
     private com.vg.scfc.financing.cis.ui.panel.EmploymentRepresentativePanel panelRepresentative1Employment;
     private com.vg.scfc.financing.cis.ui.reusable.PersonalInformationPanel panelRepresentative1PersonalInformation;
     private com.vg.scfc.financing.cis.ui.panel.EmploymentRepresentativePanel panelRepresentative2Employment;
