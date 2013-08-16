@@ -258,7 +258,7 @@ public class EmploymentDataPanel extends javax.swing.JPanel implements KeyListen
     }
 
     public boolean saveEmploymentData() {
-        Object o = EmploymentController.getInstance().createNew(createNew(new Employment()), personType, headerPanel.getFormNo());
+        Object o = EmploymentController.getInstance().save(createNew(new Employment()), personType, headerPanel.getFormNo());
         setEmployment((Employment) o);
         return o != null;
     }
@@ -270,7 +270,7 @@ public class EmploymentDataPanel extends javax.swing.JPanel implements KeyListen
     }
     
     public boolean saveCoMakerEmploymentData() {
-        Object o = EmploymentController.getInstance().createNew(createNew(new Employment()), mainPanel.getSelectedCoMaker().getPersonType().getTypeID(), headerPanel.getFormNo());
+        Object o = EmploymentController.getInstance().save(createNew(new Employment()), mainPanel.getSelectedCoMaker().getPersonType().getTypeID(), headerPanel.getFormNo());
         setEmployment((Employment) o);
         return o != null;
     }
@@ -288,7 +288,7 @@ public class EmploymentDataPanel extends javax.swing.JPanel implements KeyListen
         } else {
             typeID = "CS2";
         }
-        Object o = EmploymentController.getInstance().createNew(createNew(new Employment()), typeID, headerPanel.getFormNo());
+        Object o = EmploymentController.getInstance().save(createNew(new Employment()), typeID, headerPanel.getFormNo());
         setEmployment((Employment) o);
         return o != null;
     }

@@ -7,10 +7,13 @@ package com.vg.scfc.financing.cis.ui.panel;
 
 import com.vg.commons.util.DateUtil;
 import com.vg.scfc.financing.cis.ent.Company;
+import com.vg.scfc.financing.cis.ui.controller.CompanyController;
+import com.vg.scfc.financing.cis.ui.reusable.HeaderPanel;
+import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.text.ParseException;
 import java.util.Date;
-import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 
 /**
  *
@@ -43,17 +46,25 @@ public class CompanyPanel extends javax.swing.JPanel implements KeyListener {
         jLabel4 = new javax.swing.JLabel();
         txtYearOfOperation = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        txtIssuedOn = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         txtEmail = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         txtContact = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        txtExpireOn = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         txtTIN = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         txtBussPermitNo = new javax.swing.JTextField();
+        try {
+            txtIssuedOn = new com.vg.commons.formattedfields.FormattedSimpleDateField();
+        } catch (java.text.ParseException e1) {
+            e1.printStackTrace();
+        }
+        try {
+            txtExpireOn = new com.vg.commons.formattedfields.FormattedSimpleDateField();
+        } catch (java.text.ParseException e1) {
+            e1.printStackTrace();
+        }
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -113,15 +124,6 @@ public class CompanyPanel extends javax.swing.JPanel implements KeyListener {
         jLabel5.setText("Contact #");
         add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 85, -1, -1));
 
-        txtIssuedOn.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
-        txtIssuedOn.setToolTipText("Press F5 to search");
-        txtIssuedOn.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtIssuedOnFocusLost(evt);
-            }
-        });
-        add(txtIssuedOn, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 130, 150, -1));
-
         jLabel6.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel6.setText("Expires On");
         add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 135, -1, -1));
@@ -152,15 +154,6 @@ public class CompanyPanel extends javax.swing.JPanel implements KeyListener {
         jLabel8.setText("E mail");
         add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 85, -1, -1));
 
-        txtExpireOn.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
-        txtExpireOn.setToolTipText("Press F5 to search");
-        txtExpireOn.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtExpireOnFocusLost(evt);
-            }
-        });
-        add(txtExpireOn, new org.netbeans.lib.awtextra.AbsoluteConstraints(415, 130, 180, -1));
-
         jLabel9.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel9.setText("Issued On");
         add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 135, -1, -1));
@@ -186,47 +179,45 @@ public class CompanyPanel extends javax.swing.JPanel implements KeyListener {
             }
         });
         add(txtBussPermitNo, new org.netbeans.lib.awtextra.AbsoluteConstraints(455, 105, 140, -1));
+
+        txtIssuedOn.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
+        add(txtIssuedOn, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 130, 150, -1));
+
+        txtExpireOn.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
+        add(txtExpireOn, new org.netbeans.lib.awtextra.AbsoluteConstraints(415, 130, 180, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtOwnerFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtOwnerFocusLost
-        owner = UIValidator.validate(txtOwner);
+        txtOwner.setText(UIValidator.validate(txtOwner));
     }//GEN-LAST:event_txtOwnerFocusLost
 
     private void txtOfficeAddressFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtOfficeAddressFocusLost
-        officeAddress = UIValidator.validate(txtOfficeAddress);
+        txtOfficeAddress.setText(UIValidator.validate(txtOfficeAddress));
     }//GEN-LAST:event_txtOfficeAddressFocusLost
 
     private void txtNatureBusinessFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNatureBusinessFocusLost
-        natureOfBusiness = UIValidator.validate(txtNatureBusiness);
+        txtNatureBusiness.setText(UIValidator.validate(txtNatureBusiness));
     }//GEN-LAST:event_txtNatureBusinessFocusLost
 
     private void txtYearOfOperationFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtYearOfOperationFocusLost
-        yearsOnOperation = UIValidator.isNumeric(txtYearOfOperation);
+        txtYearOfOperation.setText(UIValidator.isNumeric(txtYearOfOperation));
     }//GEN-LAST:event_txtYearOfOperationFocusLost
 
     private void txtContactFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtContactFocusLost
-        contact = UIValidator.isNumeric(txtContact);
+        txtContact.setText(UIValidator.isNumeric(txtContact));
     }//GEN-LAST:event_txtContactFocusLost
 
     private void txtEmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEmailFocusLost
-        email = UIValidator.validate(txtEmail);
+        txtEmail.setText(UIValidator.validate(txtEmail));
     }//GEN-LAST:event_txtEmailFocusLost
 
     private void txtTINFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTINFocusLost
-        tin = UIValidator.isNumeric(txtTIN);
+        txtTIN.setText(UIValidator.isNumeric(txtTIN));
     }//GEN-LAST:event_txtTINFocusLost
 
     private void txtBussPermitNoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBussPermitNoFocusLost
-        businessPermit = UIValidator.isNumeric(txtBussPermitNo);
+        txtBussPermitNo.setText(UIValidator.isNumeric(txtBussPermitNo));
     }//GEN-LAST:event_txtBussPermitNoFocusLost
-
-    private void txtIssuedOnFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtIssuedOnFocusLost
-        issuedOn = java.sql.Date.valueOf(UIValidator.validate(txtIssuedOn));
-    }//GEN-LAST:event_txtIssuedOnFocusLost
-
-    private void txtExpireOnFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtExpireOnFocusLost
-        expiredOn = java.sql.Date.valueOf(UIValidator.validate(txtExpireOn));
-    }//GEN-LAST:event_txtExpireOnFocusLost
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
@@ -242,25 +233,31 @@ public class CompanyPanel extends javax.swing.JPanel implements KeyListener {
     private javax.swing.JTextField txtBussPermitNo;
     private javax.swing.JTextField txtContact;
     private javax.swing.JTextField txtEmail;
-    private javax.swing.JTextField txtExpireOn;
-    private javax.swing.JTextField txtIssuedOn;
+    private com.vg.commons.formattedfields.FormattedSimpleDateField txtExpireOn;
+    private com.vg.commons.formattedfields.FormattedSimpleDateField txtIssuedOn;
     private javax.swing.JTextField txtNatureBusiness;
     private javax.swing.JTextField txtOfficeAddress;
     private javax.swing.JTextField txtOwner;
     private javax.swing.JTextField txtTIN;
     private javax.swing.JTextField txtYearOfOperation;
     // End of variables declaration//GEN-END:variables
-    private String owner;
-    private String officeAddress;
-    private String natureOfBusiness;
-    private String yearsOnOperation;
-    private String tin;
-    private String businessPermit;
-    private String contact;
-    private String email;
-    private Date issuedOn;
-    private Date expiredOn;
+    private HeaderPanel headerPanel;
+    private String companyName;
+    private Company company;
 
+    public void setCompany(Company company) {
+        this.company = company;
+        setCompanyInfo(this.company);
+    }
+
+    public void setHeaderPanel(HeaderPanel headerPanel) {
+        this.headerPanel = headerPanel;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+    
     @Override
     public void keyTyped(KeyEvent e) {
     }
@@ -328,6 +325,21 @@ public class CompanyPanel extends javax.swing.JPanel implements KeyListener {
         txtEmail.setEditable(value);
         txtIssuedOn.setEditable(value);
         txtExpireOn.setEditable(value);
+        
+        txtOwner.setFocusable(value);
+        txtOfficeAddress.setFocusable(value);
+        txtNatureBusiness.setFocusable(value);
+        txtYearOfOperation.setFocusable(value);
+        txtTIN.setFocusable(value);
+        txtBussPermitNo.setFocusable(value);
+        txtContact.setFocusable(value);
+        txtEmail.setFocusable(value);
+        txtIssuedOn.setFocusable(value);
+        txtExpireOn.setFocusable(value);
+        
+        if(value) {
+            txtOwner.requestFocus();
+        }
     }
 
     public void resetToDefault() {
@@ -339,8 +351,8 @@ public class CompanyPanel extends javax.swing.JPanel implements KeyListener {
         txtBussPermitNo.setText("");
         txtContact.setText("");
         txtEmail.setText("");
-        txtIssuedOn.setText("");
-        txtExpireOn.setText("");
+        txtIssuedOn.setDate(new Date());
+        txtExpireOn.setDate(new Date());
     }
 
     public void setCompanyInfo(Object o) {
@@ -356,16 +368,40 @@ public class CompanyPanel extends javax.swing.JPanel implements KeyListener {
             txtBussPermitNo.setText(c.getBusinessPermitNo());
             txtContact.setText(c.getContactNo());
             txtEmail.setText(c.getEmail());
-            txtIssuedOn.setText(DateUtil.toString(c.getIssuedDate(), "MM-HH-YYYY"));
-            txtExpireOn.setText(DateUtil.toString(c.getExpirationDate(), "MM-HH-YYYY"));
+            txtIssuedOn.setDate(c.getIssuedDate());
+            txtExpireOn.setDate(c.getExpirationDate());
         }
     }
-    
+
     public boolean saveCompanyInformation() {
-        return true;
+        Company c = CompanyController.getInstance().createNew(createNew(new Company()), headerPanel.getFormNo(), headerPanel.getApplicationDate(), companyName);
+        setCompany(c);
+        return c != null;
     }
-    
+
     public boolean updateCompanyInformation() {
         return true;
+    }
+
+    private Company createNew(Company c) {
+        c.setPresident(txtOwner.getText());
+        c.setAddress(txtOfficeAddress.getText());
+        c.setNatureOfBusiness(txtNatureBusiness.getText());
+        if (txtYearOfOperation.getText().equals("")) {
+            c.setYearOfService(0);
+        } else {
+            c.setYearOfService(Integer.parseInt(txtYearOfOperation.getText()));
+        }
+        c.setContactNo(txtContact.getText());
+        c.setTin(txtTIN.getText());
+        c.setEmail(txtEmail.getText());
+        c.setBusinessPermitNo(txtBussPermitNo.getText());
+        try {
+            c.setIssuedDate(txtIssuedOn.getDate());
+            c.setExpirationDate(txtExpireOn.getDate());
+        } catch (ParseException ex) {
+            UIValidator.log(ex, CompanyPanel.class);
+        }
+        return c;
     }
 }

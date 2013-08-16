@@ -11,8 +11,6 @@ import com.vg.scfc.financing.cis.ui.settings.UISetting;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -54,6 +52,16 @@ public class SearchController {
         List<TransactionForm> results = new ArrayList<>();
         try {
             results = UISetting.getTransactionFormService().findByClientNo(clientNo);
+        } catch (Exception ex) {
+            UIValidator.log(ex, SearchController.class);
+        }
+        return results;
+    }
+    
+    public List<Customer> findByTransactionMode(int mode) {
+        List<Customer> results = new ArrayList<>();
+        try {
+            results = UISetting.getCustomerService().findByTransactionMode(mode);
         } catch (Exception ex) {
             UIValidator.log(ex, SearchController.class);
         }

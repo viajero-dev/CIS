@@ -38,12 +38,12 @@
         </Property>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="6">
-            <StringItem index="0" value="Regular"/>
-            <StringItem index="1" value="Self-Employed"/>
-            <StringItem index="2" value="Project-Hired"/>
-            <StringItem index="3" value="Contractual"/>
-            <StringItem index="4" value="Probationary"/>
-            <StringItem index="5" value="Others"/>
+            <StringItem index="0" value="REGULAR"/>
+            <StringItem index="1" value="SELF-EMPLOYED"/>
+            <StringItem index="2" value="PROJECT HIRED"/>
+            <StringItem index="3" value="CONTRACTUAL"/>
+            <StringItem index="4" value="PROBATIONARY"/>
+            <StringItem index="5" value="OTHERS"/>
           </StringArray>
         </Property>
       </Properties>

@@ -28,8 +28,8 @@ public class CompanyController {
         return instance;
     }
 
-    public Object createNew(String president, String address, String natureOfBusiness, int yearOfService, String contactNo, String tin, String email, String businessPermitNo, Date issuedDate, Date expirationDate, String formSeries, Date applicationDate, String companyName) {
-        Object result = null;
+    public Company createNew(Company c, String formSeries, Date applicationDate, String companyName) {
+        Company result = null;
         try {
             /* Form Info */
             TransactionForm form = new TransactionForm();
@@ -52,24 +52,13 @@ public class CompanyController {
             customer.setStation(UISetting.getComputerName());
 
             /* Institution Info */
-            Company company = new Company();
-            company.setTxFormNo(formNo);
-            company.setPresident(president);
-            company.setAddress(address);
-            company.setNatureOfBusiness(natureOfBusiness);
-            company.setYearOfService(yearOfService);
-            company.setContactNo(contactNo);
-            company.setTin(tin);
-            company.setEmail(email);
-            company.setBusinessPermitNo(businessPermitNo);
-            company.setIssuedDate(issuedDate);
-            company.setExpirationDate(expirationDate);
-            company.setUser(UISetting.getSystemUser());
-            company.setLocation(UISetting.getStoreLocation());
-            company.setStation(UISetting.getComputerName());
+            c.setTxFormNo(formNo);
+            c.setUser(UISetting.getSystemUser());
+            c.setLocation(UISetting.getStoreLocation());
+            c.setStation(UISetting.getComputerName());
 
             /* Save Customer, Transaction Type & Company */
-            boolean isSaved = UISetting.getCustomerService().insert(customer, form, company);
+            boolean isSaved = UISetting.getCustomerService().insert(customer, form, c);
             if (isSaved) {
                 result = UISetting.getCompanyService().findByFormNo(formNo);
             }
@@ -80,14 +69,20 @@ public class CompanyController {
         return result;
     }
 
-    public Object update(Company c) {
-        Object result = null;
+    public Company update(Company c) {
+        Company result = null;
         try {
             TransactionForm form = UISetting.getTransactionFormService().findByformNo(c.getTxFormNo());
             Customer customer = UISetting.getCustomerService().findById(form.getClientNo());
+            
+            c.setUser(UISetting.getSystemUser());
+            c.setLocation(UISetting.getStoreLocation());
+            c.setStation(UISetting.getComputerName());
             boolean isUpdated = UISetting.getCustomerService().update(customer, c);
             if (isUpdated) {
                 result = UISetting.getCompanyService().findByFormNo(form.getTxFormNo());
+            } else {
+                System.out.println("error on update...");
             }
         } catch (Exception e) {
             UIValidator.log(e, CompanyController.class);

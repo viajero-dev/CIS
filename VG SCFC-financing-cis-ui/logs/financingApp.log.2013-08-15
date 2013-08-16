@@ -1,5 +1,5 @@
-[ERROR] 2013-08-16 12:02:09,737 com.vg.scfc.financing.cis.ui.controller.SearchController log - java.lang.NullPointerException
-	com.vg.scfc.financing.cis.ui.controller.SearchController.findAll(SearchController.java:33)
+[ERROR] 2013-08-15 15:30:58,638 com.vg.scfc.financing.cis.ui.controller.SearchController log - java.lang.NullPointerException
+	com.vg.scfc.financing.cis.ui.controller.SearchController.findAll(SearchController.java:35)
 	com.vg.scfc.financing.cis.ui.panel.SearchPanel.startUpSetUp(SearchPanel.java:36)
 	com.vg.scfc.financing.cis.ui.panel.SearchPanel.<init>(SearchPanel.java:30)
 	com.vg.scfc.financing.cis.ui.frames.TestFrame.initComponents(TestFrame.java:30)

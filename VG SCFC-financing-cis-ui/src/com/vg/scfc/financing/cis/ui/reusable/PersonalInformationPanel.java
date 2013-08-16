@@ -782,6 +782,18 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
         setPersonalInfo(p);
         return p != null;
     }
+    
+    public boolean saveRepresentativePersonalInfo() {
+        PersonalInfo p = PersonalInfoController.getInstance().createNew(createNew(new PersonalInfo()), headerPanel.getFormNo(), personType, clientNo);
+        setPersonalInfo(p);
+        return p != null;
+    }
+    
+    public boolean updateRepresentativePersonalInfo() {
+        PersonalInfo p = PersonalInfoController.getInstance().update(headerPanel.getFormNo(), personType, createNew(personalInfo));
+        setPersonalInfo(p);
+        return p != null;
+    }
 
     private PersonalInfo createNew(PersonalInfo p) {
         p.setLastName(txtLastName.getText());

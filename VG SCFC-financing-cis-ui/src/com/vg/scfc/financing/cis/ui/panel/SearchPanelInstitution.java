@@ -20,12 +20,12 @@ import org.jdesktop.observablecollections.ObservableCollections;
  *
  * @author rodel
  */
-public class SearchPanel extends javax.swing.JPanel {
+public class SearchPanelInstitution extends javax.swing.JPanel {
 
     /**
-     * Creates new form SearchPanel
+     * Creates new form SearchPanelInstitution
      */
-    public SearchPanel() {
+    public SearchPanelInstitution() {
         initComponents();
         startUpSetUp();
     }
@@ -33,7 +33,7 @@ public class SearchPanel extends javax.swing.JPanel {
     private void startUpSetUp() {
         initCustomerTable();
         initTransactionFormTable();
-        refreshCustomerTable(SearchController.getInstance().findAll());
+        refreshCustomerTable(SearchController.getInstance().findByTransactionMode(3));
     }
 
     private void initCustomerTable() {
@@ -90,9 +90,9 @@ public class SearchPanel extends javax.swing.JPanel {
 
         customers = ObservableCollections.observableList(new LinkedList<Customer>());
         transactionForms = ObservableCollections.observableList(new LinkedList<TransactionForm>());
-        txtSearch = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblCustomer = new javax.swing.JTable();
+        txtSearch = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblTransactionForm = new javax.swing.JTable();
         btnNewApplicant = new javax.swing.JButton();
@@ -100,6 +100,25 @@ public class SearchPanel extends javax.swing.JPanel {
         btnPrintVersion = new javax.swing.JButton();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        tblCustomer.getTableHeader().setReorderingAllowed(false);
+
+        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, customers, tblCustomer);
+        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${clientNo}"));
+        columnBinding.setColumnName("Client #");
+        columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${name}"));
+        columnBinding.setColumnName("Name");
+        columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
+        bindingGroup.addBinding(jTableBinding);
+        jTableBinding.bind();
+        jScrollPane1.setViewportView(tblCustomer);
+        tblCustomer.getColumnModel().getColumn(0).setPreferredWidth(70);
+        tblCustomer.getColumnModel().getColumn(0).setMaxWidth(70);
+
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 30, 250, 260));
 
         txtSearch.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtSearch.addActionListener(new java.awt.event.ActionListener() {
@@ -114,29 +133,15 @@ public class SearchPanel extends javax.swing.JPanel {
         });
         add(txtSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 250, -1));
 
-        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, customers, tblCustomer);
-        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${clientNo}"));
-        columnBinding.setColumnName("Client #");
-        columnBinding.setColumnClass(String.class);
-        columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${name}"));
-        columnBinding.setColumnName("Name");
-        columnBinding.setColumnClass(String.class);
-        bindingGroup.addBinding(jTableBinding);
-        jTableBinding.bind();
-        jScrollPane1.setViewportView(tblCustomer);
-        tblCustomer.getColumnModel().getColumn(0).setPreferredWidth(70);
-        tblCustomer.getColumnModel().getColumn(0).setMaxWidth(70);
-
-        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 30, 250, 260));
-
         jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, transactionForms, tblTransactionForm);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${txFormNo}"));
         columnBinding.setColumnName("Form #");
         columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${txApplicationDate}"));
         columnBinding.setColumnName("Date");
         columnBinding.setColumnClass(java.util.Date.class);
+        columnBinding.setEditable(false);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
         jScrollPane2.setViewportView(tblTransactionForm);
@@ -165,6 +170,10 @@ public class SearchPanel extends javax.swing.JPanel {
         bindingGroup.bind();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void txtSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchActionPerformed
+        refreshCustomerTable(SearchController.getInstance().findBySearchCriteria(txtSearch.getText()));
+    }//GEN-LAST:event_txtSearchActionPerformed
+
     private void txtSearchFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSearchFocusLost
         txtSearch.setText(txtSearch.getText().toUpperCase());
     }//GEN-LAST:event_txtSearchFocusLost
@@ -176,10 +185,6 @@ public class SearchPanel extends javax.swing.JPanel {
     private void btnNewFormActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewFormActionPerformed
         mainPanel.resetFields();
     }//GEN-LAST:event_btnNewFormActionPerformed
-
-    private void txtSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchActionPerformed
-        refreshCustomerTable(SearchController.getInstance().findBySearchCriteria(txtSearch.getText()));
-    }//GEN-LAST:event_txtSearchActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnNewApplicant;
@@ -198,6 +203,11 @@ public class SearchPanel extends javax.swing.JPanel {
     private Customer customer;
     private TransactionForm transactionForm;
     private MainPanel mainPanel;
+    private InstitutionalPanel institutionalPanel;
+
+    public void setInstitutionalPanel(InstitutionalPanel institutionalPanel) {
+        this.institutionalPanel = institutionalPanel;
+    }
 
     public void setMainPanel(MainPanel mainPanel) {
         this.mainPanel = mainPanel;
@@ -213,7 +223,7 @@ public class SearchPanel extends javax.swing.JPanel {
 
     public void setTransactionForm(TransactionForm transactionForm) {
         this.transactionForm = transactionForm;
-        mainPanel.fillValue(this.transactionForm);
+        institutionalPanel.fillValue(this.transactionForm);
     }
 
     public void setCustomer(Customer customer) {
