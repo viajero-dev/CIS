@@ -8,6 +8,7 @@ package com.vg.scfc.financing.cis.ui.controller;
 import com.vg.scfc.financing.cis.ent.PurchaseOrder;
 import com.vg.scfc.financing.cis.ui.settings.UISetting;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
+import java.math.BigDecimal;
 
 /**
  *
@@ -60,6 +61,14 @@ public class PurchaseOrderController {
             UIValidator.log(ex, PurchaseOrderController.class);
         }
         return result;
+    }
+    
+    public double computePrice(BigDecimal ma, BigDecimal term) {
+        return ma.multiply(term).doubleValue();
+    }
+    
+    public double computeBalance(BigDecimal price, BigDecimal downpayment) {
+        return price.subtract(downpayment).doubleValue();
     }
 
 }

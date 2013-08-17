@@ -88,7 +88,6 @@ public class MachineryPanel extends javax.swing.JPanel implements KeyListener {
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        tableMachinery.setColumnSelectionAllowed(true);
         tableMachinery.getTableHeader().setReorderingAllowed(false);
 
         org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, machineries, tableMachinery);
@@ -101,7 +100,6 @@ public class MachineryPanel extends javax.swing.JPanel implements KeyListener {
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
         jScrollPane1.setViewportView(tableMachinery);
-        tableMachinery.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tableMachinery.getColumnModel().getColumn(0).setResizable(false);
 
         add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 5, 380, 100));
@@ -271,6 +269,8 @@ public class MachineryPanel extends javax.swing.JPanel implements KeyListener {
         machineries.addAll(m);
         if (!machineries.isEmpty()) {
             tableMachinery.setRowSelectionInterval(0, 0);
+        } else {
+            resetToDefault();
         }
     }
 

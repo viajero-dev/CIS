@@ -126,6 +126,8 @@ public class SiblingsPanel extends javax.swing.JPanel implements KeyListener {
         });
         add(txtSiblingContact, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 150, 140, -1));
 
+        tableSibling.getTableHeader().setReorderingAllowed(false);
+
         org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, siblings, tableSibling);
         org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${siblingName}"));
         columnBinding.setColumnName("Name");
@@ -228,6 +230,10 @@ public class SiblingsPanel extends javax.swing.JPanel implements KeyListener {
         txtSiblingAddress.setFocusable(value);
         txtSiblingContact.setFocusable(value);
         tableSibling.setFocusable(value);
+        
+        if(value) {
+            txtSiblingName.requestFocus();
+        }
     }
 
     public void resetToDefault() {
@@ -264,7 +270,9 @@ public class SiblingsPanel extends javax.swing.JPanel implements KeyListener {
             siblings.clear();
             siblings.addAll(s);
             tableSibling.setRowSelectionInterval(0, 0);
-        } 
+        } else {
+            resetToDefault();
+        }
     }
 
     public Sibling createNew(Sibling s) {

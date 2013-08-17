@@ -200,6 +200,8 @@ public class CreditReferencePanel extends javax.swing.JPanel implements KeyListe
         });
         add(txtCRAddress, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 125, 359, -1));
 
+        tableCreditReference.getTableHeader().setReorderingAllowed(false);
+
         org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, creditReferences, tableCreditReference);
         org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${creRefName}"));
         columnBinding.setColumnName("Name");
@@ -354,6 +356,10 @@ public class CreditReferencePanel extends javax.swing.JPanel implements KeyListe
         txtCRAmountPaid.setFocusable(value);
         txtCRRemainingBal.setFocusable(value);
         tableCreditReference.setFocusable(value);
+        
+        if(value) {
+            txtCRName.requestFocus();
+        }
     }
 
     public void resetToDefault() {
@@ -400,6 +406,8 @@ public class CreditReferencePanel extends javax.swing.JPanel implements KeyListe
         creditReferences.addAll(c);
         if (!creditReferences.isEmpty()) {
             tableCreditReference.setRowSelectionInterval(0, 0);
+        } else {
+            resetToDefault();
         }
     }
 

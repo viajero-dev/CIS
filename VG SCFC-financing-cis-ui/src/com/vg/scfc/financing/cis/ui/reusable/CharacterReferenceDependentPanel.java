@@ -138,7 +138,6 @@ public class CharacterReferenceDependentPanel extends javax.swing.JPanel impleme
         });
         add(txtRefRelationship, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 175, 140, -1));
 
-        tableCharacterRef.setColumnSelectionAllowed(true);
         tableCharacterRef.getTableHeader().setReorderingAllowed(false);
 
         org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, characterReferences, tableCharacterRef);
@@ -154,7 +153,6 @@ public class CharacterReferenceDependentPanel extends javax.swing.JPanel impleme
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
         jScrollPane2.setViewportView(tableCharacterRef);
-        tableCharacterRef.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
         add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 5, 600, 90));
 
@@ -206,6 +204,7 @@ public class CharacterReferenceDependentPanel extends javax.swing.JPanel impleme
 
     public void setCharacterReference(CharacterReference characterReference) {
         this.characterReference = characterReference;
+        setCharacterReferenceData(this.characterReference);
     }
 
     public void setTableCharacterRef(JTable tableCharacterRef) {
@@ -255,6 +254,10 @@ public class CharacterReferenceDependentPanel extends javax.swing.JPanel impleme
         txtRefContact.setFocusable(value);
         txtRefRelationship.setFocusable(value);
         tableCharacterRef.setFocusable(value);
+        
+        if(value) {
+            txtRefName.requestFocus();
+        }
     }
 
     public void resetToDefault() {
@@ -276,7 +279,7 @@ public class CharacterReferenceDependentPanel extends javax.swing.JPanel impleme
         return !c.isEmpty();
     }
 
-    public void setCharacterReference(Object o) {
+    public void setCharacterReferenceData(Object o) {
         if (o == null) {
             resetToDefault();
         } else {
@@ -293,14 +296,16 @@ public class CharacterReferenceDependentPanel extends javax.swing.JPanel impleme
         characterReferences.addAll(c);
         if (!characterReferences.isEmpty()) {
             tableCharacterRef.setRowSelectionInterval(0, 0);
+        } else {
+            resetToDefault();
         }
     }
 
     private CharacterReference createNew(CharacterReference c) {
-        c.setCharRefName(name);
-        c.setCharRefAddress(address);
-        c.setCharRefContactNo(contact);
-        c.setCharRelationship(relationship);
+        c.setCharRefName(txtRefName.getText());
+        c.setCharRefAddress(txtRefAddress.getText());
+        c.setCharRefContactNo(txtRefContact.getText());
+        c.setCharRelationship(txtRefRelationship.getText());
         return c;
     }
 }

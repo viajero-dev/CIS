@@ -85,6 +85,8 @@ public class AppliancesPanel extends javax.swing.JPanel implements KeyListener {
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        tableAppliance.getTableHeader().setReorderingAllowed(false);
+
         org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, appliances, tableAppliance);
         org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${type}"));
         columnBinding.setColumnName("Type");
@@ -296,6 +298,8 @@ public class AppliancesPanel extends javax.swing.JPanel implements KeyListener {
         appliances.addAll(a);
         if (!appliances.isEmpty()) {
             tableAppliance.setRowSelectionInterval(0, 0);
+        } else {
+            resetToDefault();
         }
     }
 

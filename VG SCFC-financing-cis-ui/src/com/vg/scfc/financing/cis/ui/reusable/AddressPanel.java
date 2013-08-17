@@ -114,7 +114,6 @@ public class AddressPanel extends javax.swing.JPanel implements KeyListener {
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        tableAddress.setColumnSelectionAllowed(true);
         tableAddress.getTableHeader().setReorderingAllowed(false);
 
         org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, addresses, tableAddress);
@@ -133,7 +132,6 @@ public class AddressPanel extends javax.swing.JPanel implements KeyListener {
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
         jScrollPane1.setViewportView(tableAddress);
-        tableAddress.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tableAddress.getColumnModel().getColumn(0).setPreferredWidth(80);
         tableAddress.getColumnModel().getColumn(0).setMaxWidth(80);
         tableAddress.getColumnModel().getColumn(1).setPreferredWidth(80);
@@ -527,6 +525,8 @@ public class AddressPanel extends javax.swing.JPanel implements KeyListener {
         addresses.addAll(a);
         if (!addresses.isEmpty()) {
             tableAddress.setRowSelectionInterval(0, 0);
+        } else {
+            resetToDefault();
         }
     }
     

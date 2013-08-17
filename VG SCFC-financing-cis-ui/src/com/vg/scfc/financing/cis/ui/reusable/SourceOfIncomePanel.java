@@ -571,6 +571,10 @@ public class SourceOfIncomePanel extends javax.swing.JPanel implements KeyListen
         checkSourceOthers.setFocusable(value);
         txtOtherSourceDesc.setFocusable(value);
         txtMonthlyIncomeForOtherSources.setFocusable(value);
+        
+        if(value) {
+            checkMonthlySalaryCompensation.requestFocus();
+        }
     }
 
     public void resetToDefault() {

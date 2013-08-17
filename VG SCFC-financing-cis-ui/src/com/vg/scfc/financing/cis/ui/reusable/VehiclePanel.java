@@ -90,7 +90,6 @@ public class VehiclePanel extends javax.swing.JPanel implements KeyListener {
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        tableVehicle.setColumnSelectionAllowed(true);
         tableVehicle.getTableHeader().setReorderingAllowed(false);
 
         org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, vehicles, tableVehicle);
@@ -109,7 +108,6 @@ public class VehiclePanel extends javax.swing.JPanel implements KeyListener {
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
         jScrollPane1.setViewportView(tableVehicle);
-        tableVehicle.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tableVehicle.getColumnModel().getColumn(1).setPreferredWidth(90);
         tableVehicle.getColumnModel().getColumn(1).setMaxWidth(90);
         tableVehicle.getColumnModel().getColumn(2).setPreferredWidth(95);
@@ -260,6 +258,10 @@ public class VehiclePanel extends javax.swing.JPanel implements KeyListener {
         comboUsed.setFocusable(value);
         txtEstValue.setFocusable(value);
         tableVehicle.setFocusable(value);
+        
+        if(value) {
+            txtTypeModel.requestFocus();
+        }
     }
 
     public void resetToDefault() {
@@ -305,6 +307,8 @@ public class VehiclePanel extends javax.swing.JPanel implements KeyListener {
         vehicles.addAll(v);
         if (!vehicles.isEmpty()) {
             tableVehicle.setRowSelectionInterval(0, 0);
+        } else {
+            resetToDefault();
         }
     }
 

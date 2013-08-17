@@ -6,18 +6,22 @@
 package com.vg.scfc.financing.cis.ui.reusable;
 
 import com.vg.commons.util.DateUtil;
+import com.vg.commons.util.NumberUtils;
 import com.vg.scfc.financing.cis.ent.PurchaseOrder;
 import com.vg.scfc.financing.cis.ui.controller.PurchaseOrderController;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.math.BigDecimal;
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author rodel
  */
-public class PurchaseOrderPanel2 extends javax.swing.JPanel implements KeyListener{
+public class PurchaseOrderPanel2 extends javax.swing.JPanel implements KeyListener {
 
     /**
      * Creates new form PurchaseOrderPanel2
@@ -26,7 +30,7 @@ public class PurchaseOrderPanel2 extends javax.swing.JPanel implements KeyListen
         initComponents();
         initKeyListener();
     }
-    
+
     private void initKeyListener() {
         comboPurpose.addKeyListener(this);
         comboMotorStatus.addKeyListener(this);
@@ -171,7 +175,9 @@ public class PurchaseOrderPanel2 extends javax.swing.JPanel implements KeyListen
         jLabel11.setText("Price");
         add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 10, -1, -1));
 
+        txtPrice.setEditable(false);
         txtPrice.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
+        txtPrice.setFocusable(false);
         txtPrice.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtPriceFocusLost(evt);
@@ -217,7 +223,9 @@ public class PurchaseOrderPanel2 extends javax.swing.JPanel implements KeyListen
         });
         add(checkDisApproved, new org.netbeans.lib.awtextra.AbsoluteConstraints(715, 105, -1, -1));
 
+        txtBal.setEditable(false);
         txtBal.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
+        txtBal.setFocusable(false);
         txtBal.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtBalFocusLost(evt);
@@ -295,15 +303,21 @@ public class PurchaseOrderPanel2 extends javax.swing.JPanel implements KeyListen
     }//GEN-LAST:event_checkDisApprovedItemStateChanged
 
     private void txtDownPaymentFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDownPaymentFocusLost
-        txtDownPayment.setText(UIValidator.isNumeric(txtDownPayment));
+        txtDownPayment.setText(NumberUtils.doubleToString(new BigDecimal(UIValidator.isNumeric(txtDownPayment)).doubleValue()));
+        txtPrice.setText(NumberUtils.doubleToString(PurchaseOrderController.getInstance().computePrice(new BigDecimal(UIValidator.MoneyCommaRemover(txtDownPayment.getText())),
+                (txtTerm.getText().equals("") ? new BigDecimal("1") : new BigDecimal(UIValidator.MoneyCommaRemover(txtTerm.getText()))))));
     }//GEN-LAST:event_txtDownPaymentFocusLost
 
     private void txtTermFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTermFocusLost
         txtTerm.setText(UIValidator.isNumeric(txtTerm));
+        txtPrice.setText(NumberUtils.doubleToString(PurchaseOrderController.getInstance().computePrice(new BigDecimal(UIValidator.MoneyCommaRemover(txtDownPayment.getText())),
+                (txtTerm.getText().equals("") ? new BigDecimal("1") : new BigDecimal(UIValidator.MoneyCommaRemover(txtTerm.getText()))))));
     }//GEN-LAST:event_txtTermFocusLost
 
     private void txtMAFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtMAFocusLost
-        txtMA.setText(UIValidator.isNumeric(txtMA));
+        txtMA.setText(NumberUtils.doubleToString(new BigDecimal(UIValidator.isNumeric(txtMA)).doubleValue()));
+        txtBal.setText(NumberUtils.doubleToString(PurchaseOrderController.getInstance().computeBalance(new BigDecimal(UIValidator.MoneyCommaRemover(txtPrice.getText())),
+                new BigDecimal(UIValidator.MoneyCommaRemover(txtMA.getText())))));
     }//GEN-LAST:event_txtMAFocusLost
 
     private void txtPriceFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPriceFocusLost
@@ -315,7 +329,7 @@ public class PurchaseOrderPanel2 extends javax.swing.JPanel implements KeyListen
     }//GEN-LAST:event_txtBalFocusLost
 
     private void txtInsAmountFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtInsAmountFocusLost
-        txtInsAmount.setText(UIValidator.isNumeric(txtInsAmount));
+        txtInsAmount.setText(NumberUtils.doubleToString(new BigDecimal(UIValidator.isNumeric(txtInsAmount)).doubleValue()));
     }//GEN-LAST:event_txtInsAmountFocusLost
 
     private void txtInsCompFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtInsCompFocusLost
@@ -366,6 +380,7 @@ public class PurchaseOrderPanel2 extends javax.swing.JPanel implements KeyListen
 
     public void setPurchaseOrder(PurchaseOrder purchaseOrder) {
         this.purchaseOrder = purchaseOrder;
+        setPurchaseOrderValues(this.purchaseOrder);
     }
 
     public void setHeaderPanel(HeaderPanel headerPanel) {
@@ -375,7 +390,7 @@ public class PurchaseOrderPanel2 extends javax.swing.JPanel implements KeyListen
     public void setPersonType(String personType) {
         this.personType = personType;
     }
-    
+
     @Override
     public void keyTyped(KeyEvent e) {
     }
@@ -386,80 +401,72 @@ public class PurchaseOrderPanel2 extends javax.swing.JPanel implements KeyListen
 
     @Override
     public void keyReleased(KeyEvent e) {
-        switch(e.getKeyCode()) {
+        switch (e.getKeyCode()) {
             case KeyEvent.VK_ENTER:
-                if(comboPurpose.isFocusOwner()) {
-                    comboMotorStatus.requestFocus();
-                } else if(comboMotorStatus.isFocusOwner()) {
-                    txtMakeCode.requestFocus();
-                } else if(txtMakeCode.isFocusOwner()) {
-                    txtColorCode.requestFocus();
-                } else if(txtColorCode.isFocusOwner()) {
-                    txtModelCode.requestFocus();
-                } else if(txtModelCode.isFocusOwner()) {
-                    txtDownPayment.requestFocus();
-                } else if(txtDownPayment.isFocusOwner()) {
-                    txtTerm.requestFocus();
-                } else if(txtTerm.isFocusOwner()) {
-                    txtMA.requestFocus();
-                } else if(txtMA.isFocusOwner()) {
-                    txtPrice.requestFocus();
-                } else if(txtPrice.isFocusOwner()) {
-                    txtBal.requestFocus();
-                } else if(txtBal.isFocusOwner()) {
-                    txtInsAmount.requestFocus();
-                } else if(txtInsAmount.isFocusOwner()) {
-                    txtInsComp.requestFocus();
-                } else if(txtInsComp.isFocusOwner()) {
-                    txtReleasedDate.requestFocus();
-                } else if(txtReleasedDate.isFocusOwner()) {
-                    checkApproved.requestFocus();
-                } else if(checkApproved.isFocusOwner()) {
-                    checkDisApproved.requestFocus();
-                } else if(checkDisApproved.isFocusOwner()) {
-                    txtCICode.requestFocus();
-                } else if(txtCICode.isFocusOwner()) {
-                    txtRemarks.requestFocus();
-                }
+                if (comboPurpose.isFocusOwner()) {
+                comboMotorStatus.requestFocus();
+            } else if (comboMotorStatus.isFocusOwner()) {
+                txtMakeCode.requestFocus();
+            } else if (txtMakeCode.isFocusOwner()) {
+                txtColorCode.requestFocus();
+            } else if (txtColorCode.isFocusOwner()) {
+                txtModelCode.requestFocus();
+            } else if (txtModelCode.isFocusOwner()) {
+                txtDownPayment.requestFocus();
+            } else if (txtDownPayment.isFocusOwner()) {
+                txtTerm.requestFocus();
+            } else if (txtTerm.isFocusOwner()) {
+                txtMA.requestFocus();
+            } else if (txtMA.isFocusOwner()) {
+                 txtInsAmount.requestFocus();
+            } else if (txtInsAmount.isFocusOwner()) {
+                txtInsComp.requestFocus();
+            } else if (txtInsComp.isFocusOwner()) {
+                txtReleasedDate.requestFocus();
+            } else if (txtReleasedDate.isFocusOwner()) {
+                checkApproved.requestFocus();
+            } else if (checkApproved.isFocusOwner()) {
+                checkDisApproved.requestFocus();
+            } else if (checkDisApproved.isFocusOwner()) {
+                txtCICode.requestFocus();
+            } else if (txtCICode.isFocusOwner()) {
+                txtRemarks.requestFocus();
+            }
                 break;
-             case KeyEvent.VK_UP:
-                 if(txtRemarks.isFocusOwner()) {
-                     txtCICode.requestFocus();
-                 } else if(txtCICode.isFocusOwner()) {
-                    checkDisApproved.requestFocus();
-                } else if(checkDisApproved.isFocusOwner()) {
-                    checkApproved.requestFocus();
-                } else if(checkApproved.isFocusOwner()) {
-                    txtReleasedDate.requestFocus();
-                } else if(txtReleasedDate.isFocusOwner()) {
-                    txtInsComp.requestFocus();
-                } else if(txtInsComp.isFocusOwner()) {
-                    txtInsAmount.requestFocus();
-                } else if(txtInsAmount.isFocusOwner()) {
-                    txtBal.requestFocus();
-                } else if(txtBal.isFocusOwner()) {
-                    txtPrice.requestFocus();
-                } else if(txtPrice.isFocusOwner()) {
-                    txtMA.requestFocus();
-                } else if(txtMA.isFocusOwner()) {
-                    txtTerm.requestFocus();
-                } else if(txtTerm.isFocusOwner()) {
-                    txtDownPayment.requestFocus();
-                } else if(txtDownPayment.isFocusOwner()) {
-                    txtModelCode.requestFocus();
-                } else if(txtModelCode.isFocusOwner()) {
-                    txtColorCode.requestFocus();
-                } else if(txtColorCode.isFocusOwner()) {
-                    txtMakeCode.requestFocus();
-                } else if(txtMakeCode.isFocusOwner()) {
-                    comboMotorStatus.requestFocus();
-                } else if(comboMotorStatus.isFocusOwner()) {
-                    comboPurpose.requestFocus();
-                }
-                 break;
+            case KeyEvent.VK_UP:
+                if (txtRemarks.isFocusOwner()) {
+                txtCICode.requestFocus();
+            } else if (txtCICode.isFocusOwner()) {
+                checkDisApproved.requestFocus();
+            } else if (checkDisApproved.isFocusOwner()) {
+                checkApproved.requestFocus();
+            } else if (checkApproved.isFocusOwner()) {
+                txtReleasedDate.requestFocus();
+            } else if (txtReleasedDate.isFocusOwner()) {
+                txtInsComp.requestFocus();
+            } else if (txtInsComp.isFocusOwner()) {
+                txtInsAmount.requestFocus();
+            } else if (txtInsAmount.isFocusOwner()) {
+                txtMA.requestFocus();
+            } else if (txtMA.isFocusOwner()) {
+                txtTerm.requestFocus();
+            } else if (txtTerm.isFocusOwner()) {
+                txtDownPayment.requestFocus();
+            } else if (txtDownPayment.isFocusOwner()) {
+                txtModelCode.requestFocus();
+            } else if (txtModelCode.isFocusOwner()) {
+                txtColorCode.requestFocus();
+            } else if (txtColorCode.isFocusOwner()) {
+                txtMakeCode.requestFocus();
+            } else if (txtMakeCode.isFocusOwner()) {
+                comboMotorStatus.requestFocus();
+            } else if (comboMotorStatus.isFocusOwner()) {
+                comboPurpose.requestFocus();
+            }
+                break;
         }
     }
-    
+
     public void setFieldsEditable(boolean value) {
         comboPurpose.setEnabled(value);
         comboMotorStatus.setEnabled(value);
@@ -469,8 +476,8 @@ public class PurchaseOrderPanel2 extends javax.swing.JPanel implements KeyListen
         txtDownPayment.setEditable(value);
         txtTerm.setEditable(value);
         txtMA.setEditable(value);
-        txtPrice.setEditable(value);
-        txtBal.setEditable(value);
+//        txtPrice.setEditable(value);
+//        txtBal.setEditable(value);
         txtInsAmount.setEditable(value);
         txtInsComp.setEditable(value);
         txtReleasedDate.setEditable(value);
@@ -478,7 +485,7 @@ public class PurchaseOrderPanel2 extends javax.swing.JPanel implements KeyListen
         checkDisApproved.setEnabled(value);
         txtCICode.setEditable(value);
         txtRemarks.setEditable(value);
-        
+
         comboPurpose.setFocusable(value);
         comboMotorStatus.setFocusable(value);
         txtMakeCode.setFocusable(value);
@@ -487,8 +494,8 @@ public class PurchaseOrderPanel2 extends javax.swing.JPanel implements KeyListen
         txtDownPayment.setFocusable(value);
         txtTerm.setFocusable(value);
         txtMA.setFocusable(value);
-        txtPrice.setFocusable(value);
-        txtBal.setFocusable(value);
+//        txtPrice.setFocusable(value);
+//        txtBal.setFocusable(value);
         txtInsAmount.setFocusable(value);
         txtInsComp.setFocusable(value);
         txtReleasedDate.setFocusable(value);
@@ -496,12 +503,12 @@ public class PurchaseOrderPanel2 extends javax.swing.JPanel implements KeyListen
         checkDisApproved.setFocusable(value);
         txtCICode.setFocusable(value);
         txtRemarks.setFocusable(value);
-        
-        if(value) {
+
+        if (value) {
             comboPurpose.requestFocus();
         }
     }
-    
+
     public void resetToDefault() {
         comboPurpose.setSelectedIndex(0);
         comboMotorStatus.setSelectedIndex(0);
@@ -521,25 +528,28 @@ public class PurchaseOrderPanel2 extends javax.swing.JPanel implements KeyListen
         txtCICode.setText("");
         txtRemarks.setText("");
     }
-    
+
     private PurchaseOrder createNew(PurchaseOrder p) {
         p.setEncodeDate(DateUtil.now());
-//        p.setMcMake(null);
-//        p.setMcColor(null);
-//        p.setMcModel(null);
-        p.setCiCollector(txtCICode.getText());
-        p.setDownPayment(new BigDecimal(UIValidator.MoneyCommaRemover(txtDownPayment.getText())).doubleValue());
-        p.setInsuranceAmount(new BigDecimal(UIValidator.MoneyCommaRemover(txtInsAmount.getText())).doubleValue());
-        p.setInsuranceCompany(txtInsComp.getText());
-        p.setTerm(Integer.parseInt(txtTerm.getText()));
-        p.setMonthlyAmortization(new BigDecimal(UIValidator.MoneyCommaRemover(txtMA.getText())).doubleValue());
+        p.setPurpose((String) comboPurpose.getSelectedItem());
         if (((String) comboMotorStatus.getSelectedItem()).equals("REPO")) {
             p.setBrandNew(false);
         } else {
             p.setBrandNew(true);
         }
-        p.setPurpose((String) comboPurpose.getSelectedItem());
-        p.setRemarks(txtRemarks.getText());
+//        p.setMcMake(null);
+//        p.setMcColor(null);
+//        p.setMcModel(null);
+        p.setDownPayment(new BigDecimal(UIValidator.MoneyCommaRemover(txtDownPayment.getText())).doubleValue());
+        p.setTerm(Integer.parseInt(txtTerm.getText()));
+        p.setMonthlyAmortization(new BigDecimal(UIValidator.MoneyCommaRemover(txtMA.getText())).doubleValue());
+        p.setInsuranceAmount(new BigDecimal(UIValidator.MoneyCommaRemover(txtInsAmount.getText())).doubleValue());
+        p.setInsuranceCompany(txtInsComp.getText());
+        try {
+            p.setReleaseDate(txtReleasedDate.getDate());
+        } catch (ParseException ex) {
+            UIValidator.log(ex, PurchaseOrderPanel2.class);
+        }
         if (checkApproved.isSelected()) {
             p.setStatus("APPROVED");
         } else if (checkDisApproved.isSelected()) {
@@ -547,15 +557,56 @@ public class PurchaseOrderPanel2 extends javax.swing.JPanel implements KeyListen
         } else {
             p.setStatus("PENDING");
         }
+        p.setCiCollector(txtCICode.getText());
+        p.setRemarks(txtRemarks.getText());
         return p;
     }
     
+    private void setPurchaseOrderValues(PurchaseOrder p) {
+        if(p == null) {
+            resetToDefault();
+        } else {
+            comboPurpose.setSelectedIndex(UIValidator.getSelectedIndex(comboPurpose, p.getPurpose()));
+            if(p.isBrandNew()) {
+                comboMotorStatus.setSelectedIndex(1);
+            } else {
+                comboMotorStatus.setSelectedIndex(0);
+            }
+//            txtMakeCode.setText(null);
+//            txtColorCode.setText(null);
+//            txtModelCode.setText(null);
+            txtDownPayment.setText(NumberUtils.doubleToString(p.getDownPayment()));
+            txtTerm.setText(p.getTerm() + "");
+            txtMA.setText(NumberUtils.doubleToString(p.getMonthlyAmortization()));
+            double price = PurchaseOrderController.getInstance().computePrice(new BigDecimal(p.getDownPayment()),new BigDecimal(p.getTerm() + ""));
+            txtPrice.setText(NumberUtils.doubleToString(price));
+            txtBal.setText(NumberUtils.doubleToString(PurchaseOrderController.getInstance().computeBalance(new BigDecimal(price), new BigDecimal(p.getMonthlyAmortization()))));
+            txtInsAmount.setText(NumberUtils.doubleToString(p.getInsuranceAmount()));
+            txtInsComp.setText(p.getInsuranceCompany());
+            txtReleasedDate.setDate(p.getReleaseDate());
+            switch(p.getStatus()) {
+                case "APPROVED":
+                    checkApproved.setSelected(true);
+                    break;
+                case "DISAPPROVED":
+                    checkDisApproved.setSelected(true);
+                    break;
+                case "PENDING":
+                    checkApproved.setSelected(false);
+                    checkDisApproved.setSelected(false);
+                    break;
+            }
+//            txtCICode.setText(null);
+            txtRemarks.setText(p.getRemarks());
+        }
+    }
+
     public boolean savePurchaseOrder() {
         PurchaseOrder p = PurchaseOrderController.getInstance().save(headerPanel.getFormNo(), createNew(new PurchaseOrder()));
         setPurchaseOrder(p);
         return p != null;
     }
-    
+
     public boolean updatePurchaseOrder() {
         PurchaseOrder p = PurchaseOrderController.getInstance().update(headerPanel.getFormNo(), createNew(new PurchaseOrder()));
         setPurchaseOrder(p);

@@ -8,6 +8,7 @@ package com.vg.scfc.financing.cis.ui.validator;
 import com.vg.commons.util.StringUtils;
 import com.vg.scfc.financing.cis.ui.messages.ErrorMessage;
 import com.vg.scfc.financing.cis.ui.messages.OtherMessage;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import org.slf4j.LoggerFactory;
@@ -85,5 +86,16 @@ public class UIValidator {
 
     public static String MoneyCommaRemover(String input) {
         return Validator.getInstance().commaRemover(input);
+    }
+
+    public static int getSelectedIndex(JComboBox comboBox, String item) {
+        int selectedIndex = 0;
+        int itemCount = comboBox.getItemCount();
+        for (int i = 0; i <= itemCount; i++) {
+            if (((String) comboBox.getItemAt(i)).equals(item)) {
+                selectedIndex = i;
+            }
+        }
+        return selectedIndex;
     }
 }

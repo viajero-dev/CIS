@@ -129,6 +129,7 @@ public class MainPanel extends javax.swing.JPanel {
                     UIValidator.promptErrorMessageOn("SAVE");
                 } else {
                     UIValidator.promptSucessMessageFor("SAVE");
+                    panelPersonalInfo.setFieldsEditable(false);
                 }
                 return isSaved;
             }
@@ -151,6 +152,7 @@ public class MainPanel extends javax.swing.JPanel {
                     UIValidator.promptErrorMessageOn("EDIT");
                 } else {
                     UIValidator.promptSucessMessageFor("EDIT");
+                    panelPersonalInfo.setFieldsEditable(false);
                 }
                 return true;
             }
@@ -180,6 +182,7 @@ public class MainPanel extends javax.swing.JPanel {
                     UIValidator.promptErrorMessageOn("SAVE");
                 } else {
                     UIValidator.promptSucessMessageFor("SAVE");
+                    panelEmploymentData.setFieldsEditable(false);
                 }
                 return isSaved;
             }
@@ -203,6 +206,7 @@ public class MainPanel extends javax.swing.JPanel {
                     UIValidator.promptErrorMessageOn("EDIT");
                 } else {
                     UIValidator.promptSucessMessageFor("EDIT");
+                    panelEmploymentData.setFieldsEditable(false);
                 }
                 return isUpdated;
             }
@@ -210,8 +214,6 @@ public class MainPanel extends javax.swing.JPanel {
             @Override
             public void onCancelEdit() {
                 panelEmploymentData.setFieldsEditable(false);
-//                panelEmploymentData.setEmploymentData(o);
-                panelEmploymentData.resetToDefault();
             }
         });
     }
@@ -234,6 +236,7 @@ public class MainPanel extends javax.swing.JPanel {
                     UIValidator.promptErrorMessageOn("SAVE");
                 } else {
                     UIValidator.promptSucessMessageFor("SAVE");
+                    panelFamilyBackground.setFieldsEditable(false);
                 }
                 return isSaved;
             }
@@ -257,6 +260,7 @@ public class MainPanel extends javax.swing.JPanel {
                     UIValidator.promptErrorMessageOn("EDIT");
                 } else {
                     UIValidator.promptSucessMessageFor("EDIT");
+                    panelFamilyBackground.setFieldsEditable(false);
                 }
                 return isUpdated;
             }
@@ -264,8 +268,6 @@ public class MainPanel extends javax.swing.JPanel {
             @Override
             public void onCancelEdit() {
                 panelFamilyBackground.setFieldsEditable(false);
-//                panelFamilyBackground.setFamilyBackground(null);
-                panelFamilyBackground.resetToDefault();
             }
         });
     }
@@ -287,6 +289,7 @@ public class MainPanel extends javax.swing.JPanel {
                     UIValidator.promptErrorMessageOn("SAVE");
                 } else {
                     UIValidator.promptSucessMessageFor("SAVE");
+                    panelSibling.setFieldsEditable(false);
                 }
                 return isSaved;
             }
@@ -310,6 +313,7 @@ public class MainPanel extends javax.swing.JPanel {
                     UIValidator.promptErrorMessageOn("EDIT");
                 } else {
                     UIValidator.promptSucessMessageFor("EDIT");
+                    panelSibling.setFieldsEditable(false);
                 }
                 return isUpdated;
             }
@@ -317,8 +321,6 @@ public class MainPanel extends javax.swing.JPanel {
             @Override
             public void onCancelEdit() {
                 panelSibling.setFieldsEditable(false);
-//                panelSibling.setSiblingInfo(ui);
-                panelSibling.resetToDefault();
             }
         });
     }
@@ -372,8 +374,6 @@ public class MainPanel extends javax.swing.JPanel {
             @Override
             public void onCancelEdit() {
                 panelCharacterReference.setFieldsEditable(false);
-//                panelCharacterReference.setCharacterReference(ui);
-                panelCharacterReference.resetToDefault();
             }
         });
     }
@@ -427,8 +427,6 @@ public class MainPanel extends javax.swing.JPanel {
             @Override
             public void onCancelEdit() {
                 panelDependents.setFieldsEditable(false);
-//                panelDependents.setDependent(ui);
-                panelDependents.resetToDefault();
             }
         });
     }
@@ -482,8 +480,6 @@ public class MainPanel extends javax.swing.JPanel {
             @Override
             public void onCancelEdit() {
                 panelCreditReference.setFieldsEditable(false);
-//                panelCreditReference.setCreditReference(ui);
-                panelCreditReference.resetToDefault();
             }
         });
     }
@@ -539,8 +535,6 @@ public class MainPanel extends javax.swing.JPanel {
             @Override
             public void onCancelEdit() {
                 panelSourceOfIncome.setFieldsEditable(false);
-//                panelSourceOfIncome.setSourceOfIncomeData(ui);
-                panelSourceOfIncome.resetToDefault();
             }
         });
     }
@@ -595,8 +589,6 @@ public class MainPanel extends javax.swing.JPanel {
             @Override
             public void onCancelEdit() {
                 panelExpenditures.setFieldsEditable(false);
-//                panelExpenditures.setExpenditureData(null);
-                panelExpenditures.resetToDefault();
             }
         });
     }
@@ -650,8 +642,6 @@ public class MainPanel extends javax.swing.JPanel {
             @Override
             public void onCancelEdit() {
                 panelLandAssets.setFieldsEditable(false);
-//                panelLandAssets.setLandAssets();
-                panelLandAssets.resetToDefault();
             }
         });
     }
@@ -705,8 +695,6 @@ public class MainPanel extends javax.swing.JPanel {
             @Override
             public void onCancelEdit() {
                 panelVehicle.setFieldsEditable(false);
-//                panelVehicle.setVechicle(ui);
-                panelVehicle.resetToDefault();
             }
         });
     }
@@ -760,8 +748,6 @@ public class MainPanel extends javax.swing.JPanel {
             @Override
             public void onCancelEdit() {
                 panelAppliance.setFieldsEditable(false);
-//                panelAppliance.setApplianceAsset(ui);
-                panelAppliance.resetToDefault();
             }
         });
     }
@@ -809,8 +795,6 @@ public class MainPanel extends javax.swing.JPanel {
             @Override
             public void onCancelEdit() {
                 panelMachinery.setFieldsEditable(false);
-//                panelMachinery.setMachinery(ui);
-                panelMachinery.resetToDefault();
             }
         });
     }
@@ -922,8 +906,6 @@ public class MainPanel extends javax.swing.JPanel {
             @Override
             public void onCancelEdit() {
                 panelSpouseEmployment.setFieldsEditable(false);
-//                panelSpouseEmployment.setEmploymentData(o);
-                panelSpouseEmployment.resetToDefault();
             }
         });
     }
@@ -978,8 +960,6 @@ public class MainPanel extends javax.swing.JPanel {
             @Override
             public void onCancelEdit() {
                 panelSpouseFamilyBackground.setFieldsEditable(false);
-//                panelSpouseFamilyBackground.setFamilyBackground(null);
-                panelSpouseFamilyBackground.resetToDefault();
             }
         });
     }
@@ -1093,8 +1073,6 @@ public class MainPanel extends javax.swing.JPanel {
             @Override
             public void onCancelEdit() {
                 panelCoMakerEmploymentData.setFieldsEditable(false);
-//                panelEmploymentData.setEmploymentData(o);
-                panelCoMakerEmploymentData.resetToDefault();
             }
         });
     }
@@ -1149,8 +1127,6 @@ public class MainPanel extends javax.swing.JPanel {
             @Override
             public void onCancelEdit() {
                 panelCoMakerFamilyBackground.setFieldsEditable(false);
-//                panelCoMakerFamilyBackground.setFamilyBackground(null);
-                panelCoMakerFamilyBackground.resetToDefault();
             }
         });
     }
@@ -1209,8 +1185,6 @@ public class MainPanel extends javax.swing.JPanel {
             @Override
             public void onCancelEdit() {
                 panelCoMakerSourceOfIncome.setFieldsEditable(false);
-//                panelCoMakerSourceOfIncome.setSourceOfIncomeData(ui);
-                panelCoMakerSourceOfIncome.resetToDefault();
             }
         });
     }
@@ -1323,8 +1297,6 @@ public class MainPanel extends javax.swing.JPanel {
             @Override
             public void onCancelEdit() {
                 panelCoMakerSpouseEmploymentData.setFieldsEditable(false);
-//                panelCoMakerSpouseEmploymentData.setEmploymentData(o);
-                panelCoMakerSpouseEmploymentData.resetToDefault();
             }
         });
     }
@@ -1379,8 +1351,6 @@ public class MainPanel extends javax.swing.JPanel {
             @Override
             public void onCancelEdit() {
                 panelCoMakerSpouseFamilyBackground.setFieldsEditable(false);
-//                panelCoMakerSpouseFamilyBackground.setFamilyBackground(null);
-                panelCoMakerSpouseFamilyBackground.resetToDefault();
             }
         });
     }
@@ -1775,6 +1745,11 @@ public class MainPanel extends javax.swing.JPanel {
             panelMachinery.refreshTable(MachineryAssetsController.getInstance().findAll(form.getTxFormNo()));
             panelAddress.refreshTable(AddressController.getInstance().findByFormNo(form.getTxFormNo(), "APP"));
             PurchaseOrder p = PurchaseOrderController.getInstance().findByFormNo(form.getTxFormNo());
+            if(p == null) {
+                System.out.println("NULL PO");
+            } else {
+                System.out.println("has PO");
+            }
             panelPO.setPurchaseOrder(p);
             /* Spouse */
             panelSpousePersonalInfo.setPersonalInfo(PersonalInfoController.getInstance().findByFormNoAndPersonType(form.getTxFormNo(), "SPO"));
@@ -1917,8 +1892,8 @@ public class MainPanel extends javax.swing.JPanel {
         panelAddress = new com.vg.scfc.financing.cis.ui.reusable.AddressPanel();
         addEditChangeAddress = new com.vg.scfc.financing.cis.ui.reusable.AddEditChangeButtonPanel();
         tabPO = new javax.swing.JPanel();
-        panelPO = new com.vg.scfc.financing.cis.ui.reusable.PurchaseOrderPanel();
         addEditPO = new com.vg.scfc.financing.cis.ui.reusable.AddEditButtonPanel();
+        panelPO = new com.vg.scfc.financing.cis.ui.reusable.PurchaseOrderPanel2();
         addEditPersonalInfo = new com.vg.scfc.financing.cis.ui.reusable.AddEditButtonPanel();
         jPanel15 = new javax.swing.JPanel();
         panelSpousePersonalInfo = new com.vg.scfc.financing.cis.ui.reusable.PersonalInformationPanel();
@@ -2075,8 +2050,8 @@ public class MainPanel extends javax.swing.JPanel {
         jTabbedPane1.addTab("Address", jPanel27);
 
         tabPO.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        tabPO.add(panelPO, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 15, -1, -1));
-        tabPO.add(addEditPO, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 120, -1, -1));
+        tabPO.add(addEditPO, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 260, -1, -1));
+        tabPO.add(panelPO, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, -1, -1));
 
         jTabbedPane1.addTab("Purchase Order", tabPO);
 
@@ -2316,7 +2291,7 @@ public class MainPanel extends javax.swing.JPanel {
     private com.vg.scfc.financing.cis.ui.reusable.FamilyBackgroundPanel panelFamilyBackground;
     private com.vg.scfc.financing.cis.ui.reusable.LandPanel panelLandAssets;
     private com.vg.scfc.financing.cis.ui.reusable.MachineryPanel panelMachinery;
-    private com.vg.scfc.financing.cis.ui.reusable.PurchaseOrderPanel panelPO;
+    private com.vg.scfc.financing.cis.ui.reusable.PurchaseOrderPanel2 panelPO;
     private com.vg.scfc.financing.cis.ui.reusable.PersonalInformationPanel panelPersonalInfo;
     private com.vg.scfc.financing.cis.ui.reusable.RidersToBuyerPanel panelRidersToBuyer;
     private com.vg.scfc.financing.cis.ui.reusable.SiblingsPanel panelSibling;

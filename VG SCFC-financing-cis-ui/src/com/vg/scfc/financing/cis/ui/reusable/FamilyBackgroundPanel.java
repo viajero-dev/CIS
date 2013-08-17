@@ -197,7 +197,7 @@ public class FamilyBackgroundPanel extends javax.swing.JPanel implements KeyList
     }//GEN-LAST:event_txtMotherAddressFocusLost
 
     private void txtMotherOccupationFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtMotherOccupationFocusLost
-        txtMotherOccupation.setText(UIValidator.validate(txtMotherAddress));
+        txtMotherOccupation.setText(UIValidator.validate(txtMotherOccupation));
     }//GEN-LAST:event_txtMotherOccupationFocusLost
 
     private void txtMotherAgeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtMotherAgeFocusLost

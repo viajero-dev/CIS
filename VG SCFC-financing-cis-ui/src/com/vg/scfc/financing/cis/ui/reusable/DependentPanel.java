@@ -139,7 +139,6 @@ public class DependentPanel extends javax.swing.JPanel implements KeyListener {
         });
         add(txtRefName, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 100, 255, -1));
 
-        tableDependent.setColumnSelectionAllowed(true);
         tableDependent.getTableHeader().setReorderingAllowed(false);
 
         org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, dependents, tableDependent);
@@ -155,7 +154,6 @@ public class DependentPanel extends javax.swing.JPanel implements KeyListener {
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
         jScrollPane2.setViewportView(tableDependent);
-        tableDependent.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 
         add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 5, 600, 90));
 
@@ -256,6 +254,10 @@ public class DependentPanel extends javax.swing.JPanel implements KeyListener {
         txtRefContact.setFocusable(value);
         txtRefRelationship.setFocusable(value);
         tableDependent.setFocusable(value);
+        
+        if(value) {
+            txtRefName.requestFocus();
+        }
     }
 
     public void resetToDefault() {
@@ -294,6 +296,8 @@ public class DependentPanel extends javax.swing.JPanel implements KeyListener {
         dependents.addAll(d);
         if (!dependents.isEmpty()) {
             tableDependent.setRowSelectionInterval(0, 0);
+        } else {
+            resetToDefault();
         }
     }
 
