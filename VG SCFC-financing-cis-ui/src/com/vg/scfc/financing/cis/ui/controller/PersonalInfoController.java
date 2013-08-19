@@ -38,10 +38,8 @@ public class PersonalInfoController {
         try {
             if (personTypeID.equals("APP")) {
                 /* Form Info */
-                String formNo = FormController.getInstance().newFormNo(UISetting.getStoreLocation().getId(), "2", formSeries);
-
                 TransactionForm form = new TransactionForm();
-                form.setTxFormNo(formNo);
+                form.setFormNo(formSeries);
                 form.setTxApplicationDate(applicationDate);
                 form.setUser(UISetting.getSystemUser());
                 form.setStation(UISetting.getComputerName());
@@ -63,15 +61,14 @@ public class PersonalInfoController {
 
                 /* Personal Info */
                 p.setPersonType(personType);
-                p.setTxFormNo(formNo);
+//                p.setTxFormNo(formNo);
                 p.setUser(UISetting.getSystemUser());
                 p.setLocation(UISetting.getStoreLocation());
                 p.setStation(UISetting.getComputerName());
 
-                boolean isSaved = UISetting.getCustomerService().insert(customer, form, p);
-                if (isSaved) {
-                    System.out.println("Find result by type: " + personType.getTypeID());
-                    result = UISetting.getPersonalInfoService().findByFormType(formNo, personType.getTypeID());
+                String formResult = UISetting.getCustomerService().insert(customer, form, p);
+                if (!formResult.equals("")) {
+                    result = UISetting.getPersonalInfoService().findByFormType(formResult, personType.getTypeID());
                 }
             } else {
                 /* Person Type */

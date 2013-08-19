@@ -10,7 +10,5 @@ package com.vg.scfc.financing.cis.ui.frames;
  * @author rodel
  */
 public class TestClass {
-    public static void main(String[] args) {
-        new TestFrame().setVisible(true);
-    }
+
 }

@@ -58,9 +58,9 @@ public class CompanyController {
             c.setStation(UISetting.getComputerName());
 
             /* Save Customer, Transaction Type & Company */
-            boolean isSaved = UISetting.getCustomerService().insert(customer, form, c);
-            if (isSaved) {
-                result = UISetting.getCompanyService().findByFormNo(formNo);
+            String formResult = UISetting.getCustomerService().insert(customer, form, c);
+            if (!formResult.equals("")) {
+                result = UISetting.getCompanyService().findByFormNo(formResult);
             }
         } catch (Exception ex) {
             UIValidator.log(ex, CompanyController.class);

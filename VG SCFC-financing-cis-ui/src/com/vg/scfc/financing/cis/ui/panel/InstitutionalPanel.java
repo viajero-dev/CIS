@@ -13,6 +13,7 @@ import com.vg.scfc.financing.cis.ui.controller.PersonalInfoController;
 import com.vg.scfc.financing.cis.ui.controller.RidersToBuyerController;
 import com.vg.scfc.financing.cis.ui.listener.BasicActionListener;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
+import java.util.Date;
 
 /**
  *
@@ -44,6 +45,10 @@ public class InstitutionalPanel extends javax.swing.JPanel {
 
             @Override
             public void onAdd() {
+                headerPanel.setFormNo("");
+                headerPanel.setIDNo("00000");
+                headerPanel.setApplicationDate(new Date());
+                headerPanel.enableFields(true);
                 panelCompanyInformation.setFieldsEditable(true);
                 panelCompanyInformation.resetToDefault();
             }

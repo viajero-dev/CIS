@@ -7,7 +7,6 @@ package com.vg.scfc.financing.cis.ui.frames;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 
 /**
@@ -24,7 +23,6 @@ public class ClientInformationSystemFrame extends javax.swing.JFrame {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         setBounds(0, 0, screenSize.width, screenSize.height);
         setVisible(true);
-        mainDesktopPane.setBounds(0, 0, screenSize.width, screenSize.height);
     }
 
     /**
@@ -37,11 +35,10 @@ public class ClientInformationSystemFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         lblStorelocation = new javax.swing.JLabel();
-        mainDesktopPane = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         mnuInstallment = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        mnuInstitution = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
@@ -53,7 +50,6 @@ public class ClientInformationSystemFrame extends javax.swing.JFrame {
         lblStorelocation.setForeground(javax.swing.UIManager.getDefaults().getColor("Button.highlight"));
         lblStorelocation.setText("Store Location");
         getContentPane().add(lblStorelocation, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 6, 510, 50));
-        getContentPane().add(mainDesktopPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(-1, 0, 1070, 669));
 
         jMenu1.setText("New");
 
@@ -65,8 +61,13 @@ public class ClientInformationSystemFrame extends javax.swing.JFrame {
         });
         jMenu1.add(mnuInstallment);
 
-        jMenuItem2.setText("Institutional");
-        jMenu1.add(jMenuItem2);
+        mnuInstitution.setText("Institutional");
+        mnuInstitution.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuInstitutionActionPerformed(evt);
+            }
+        });
+        jMenu1.add(mnuInstitution);
 
         jMenuItem3.setText("Cash");
         jMenu1.add(jMenuItem3);
@@ -77,6 +78,11 @@ public class ClientInformationSystemFrame extends javax.swing.JFrame {
         jMenuBar1.add(jMenu2);
 
         jMenu3.setText("Exit");
+        jMenu3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu3ActionPerformed(evt);
+            }
+        });
         jMenuBar1.add(jMenu3);
 
         setJMenuBar(jMenuBar1);
@@ -85,16 +91,16 @@ public class ClientInformationSystemFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void mnuInstallmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuInstallmentActionPerformed
-        if (installmentFrame == null) {
-            installmentFrame = new InstallmentFrame();
-            mainDesktopPane.add(installmentFrame);
-            installmentFrame.setOwner(mainDesktopPane);
-        }
-        centerToScreen(installmentFrame);
-        if (!installmentFrame.isVisible()) {
-            installmentFrame.setVisible(true);
-        }
+        new InstallmentFrame().setVisible(true);
     }//GEN-LAST:event_mnuInstallmentActionPerformed
+
+    private void mnuInstitutionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuInstitutionActionPerformed
+        new InstitutionFrame().setVisible(true);
+    }//GEN-LAST:event_mnuInstitutionActionPerformed
+
+    private void jMenu3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu3ActionPerformed
+        System.exit(1);
+    }//GEN-LAST:event_jMenu3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -136,20 +142,12 @@ public class ClientInformationSystemFrame extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JLabel lblStorelocation;
-    private javax.swing.JDesktopPane mainDesktopPane;
     private javax.swing.JMenuItem mnuInstallment;
+    private javax.swing.JMenuItem mnuInstitution;
     // End of variables declaration//GEN-END:variables
-    private InstallmentFrame installmentFrame;
-
-    private void centerToScreen(JInternalFrame frame) {
-        Dimension desktopSize = mainDesktopPane.getSize();
-        Dimension jInternalFrameSize = frame.getSize();
-        frame.setLocation((desktopSize.width - jInternalFrameSize.width) / 2, (desktopSize.height - jInternalFrameSize.height) / 2);
-    }
-
+    
     public JLabel getLblStorelocation() {
         return lblStorelocation;
     }

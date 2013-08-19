@@ -5,10 +5,12 @@
  */
 package com.vg.scfc.financing.cis.ui.panel;
 
+import com.vg.commons.renderer.CustomTableCellRenderer;
 import com.vg.scfc.financing.cis.ent.Customer;
 import com.vg.scfc.financing.cis.ent.TransactionForm;
 import com.vg.scfc.financing.cis.ui.controller.SearchController;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
+import java.text.SimpleDateFormat;
 import java.util.LinkedList;
 import java.util.List;
 import javax.swing.ListSelectionModel;
@@ -33,7 +35,7 @@ public class SearchPanel extends javax.swing.JPanel {
     private void startUpSetUp() {
         initCustomerTable();
         initTransactionFormTable();
-        refreshCustomerTable(SearchController.getInstance().findAll());
+//        refreshCustomerTable(SearchController.getInstance().findAll());
     }
 
     private void initCustomerTable() {
@@ -95,8 +97,6 @@ public class SearchPanel extends javax.swing.JPanel {
         tblCustomer = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblTransactionForm = new javax.swing.JTable();
-        btnNewApplicant = new javax.swing.JButton();
-        btnNewForm = new javax.swing.JButton();
         btnPrintVersion = new javax.swing.JButton();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -114,6 +114,8 @@ public class SearchPanel extends javax.swing.JPanel {
         });
         add(txtSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 250, -1));
 
+        tblCustomer.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
+
         org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, customers, tblCustomer);
         org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${clientNo}"));
         columnBinding.setColumnName("Client #");
@@ -128,7 +130,7 @@ public class SearchPanel extends javax.swing.JPanel {
         tblCustomer.getColumnModel().getColumn(0).setPreferredWidth(70);
         tblCustomer.getColumnModel().getColumn(0).setMaxWidth(70);
 
-        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 30, 250, 260));
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 30, 250, 340));
 
         jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, transactionForms, tblTransactionForm);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${txFormNo}"));
@@ -140,27 +142,12 @@ public class SearchPanel extends javax.swing.JPanel {
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
         jScrollPane2.setViewportView(tblTransactionForm);
+        tblTransactionForm.getColumnModel().getColumn(1).setCellRenderer(new CustomTableCellRenderer(new SimpleDateFormat("yyyy-MM-hh")));
 
-        add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 300, 250, 160));
-
-        btnNewApplicant.setText("New Applicant");
-        btnNewApplicant.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNewApplicantActionPerformed(evt);
-            }
-        });
-        add(btnNewApplicant, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 470, 250, -1));
-
-        btnNewForm.setText("New Form");
-        btnNewForm.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNewFormActionPerformed(evt);
-            }
-        });
-        add(btnNewForm, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 500, 250, -1));
+        add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 380, 250, 160));
 
         btnPrintVersion.setText("Print Version");
-        add(btnPrintVersion, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 530, 250, -1));
+        add(btnPrintVersion, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 550, 250, -1));
 
         bindingGroup.bind();
     }// </editor-fold>//GEN-END:initComponents
@@ -169,21 +156,11 @@ public class SearchPanel extends javax.swing.JPanel {
         txtSearch.setText(txtSearch.getText().toUpperCase());
     }//GEN-LAST:event_txtSearchFocusLost
 
-    private void btnNewApplicantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewApplicantActionPerformed
-        mainPanel.resetFields();
-    }//GEN-LAST:event_btnNewApplicantActionPerformed
-
-    private void btnNewFormActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewFormActionPerformed
-        mainPanel.resetFields();
-    }//GEN-LAST:event_btnNewFormActionPerformed
-
     private void txtSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchActionPerformed
         refreshCustomerTable(SearchController.getInstance().findBySearchCriteria(txtSearch.getText()));
     }//GEN-LAST:event_txtSearchActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnNewApplicant;
-    private javax.swing.JButton btnNewForm;
     private javax.swing.JButton btnPrintVersion;
     private java.util.List<Customer> customers;
     private javax.swing.JScrollPane jScrollPane1;

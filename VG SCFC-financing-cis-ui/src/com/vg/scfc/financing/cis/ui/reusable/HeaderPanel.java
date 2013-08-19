@@ -36,6 +36,7 @@ public class HeaderPanel extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        txtIDNo = new javax.swing.JTextField();
         txtFormNo = new javax.swing.JTextField();
         labelApplicationStatus = new javax.swing.JLabel();
         try {
@@ -65,6 +66,11 @@ public class HeaderPanel extends javax.swing.JPanel {
         jLabel3.setText("All Information will be treated confidential. Please print legibly and check appropriate boxes");
         jLabel3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(3, 48, 1040, -1));
+
+        txtIDNo.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
+        txtIDNo.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtIDNo.setText("00000");
+        add(txtIDNo, new org.netbeans.lib.awtextra.AbsoluteConstraints(958, 35, 70, -1));
 
         txtFormNo.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtFormNo.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
@@ -97,6 +103,7 @@ public class HeaderPanel extends javax.swing.JPanel {
     private javax.swing.JLabel labelApplicationStatus;
     private com.vg.commons.formattedfields.FormattedSimpleDateField txtAppDate;
     private javax.swing.JTextField txtFormNo;
+    private javax.swing.JTextField txtIDNo;
     // End of variables declaration//GEN-END:variables
 
     public void setApplicationStatus(String status) {
@@ -122,6 +129,14 @@ public class HeaderPanel extends javax.swing.JPanel {
     
     public String getFormNo() {
         return txtFormNo.getText().toUpperCase().trim();
+    }
+    
+    public void setIDNo(String IDNo) {
+        txtIDNo.setText(IDNo);
+    }
+    
+    public String getIDNo() {
+        return txtIDNo.getText();
     }
 
     public Date getApplicationDate() {

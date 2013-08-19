@@ -118,6 +118,10 @@ public class MainPanel extends javax.swing.JPanel {
 
             @Override
             public void onAdd() {
+                headerPanel.setFormNo("");
+                headerPanel.setIDNo("00000");
+                headerPanel.setApplicationDate(new Date());
+                headerPanel.enableFields(true);
                 panelPersonalInfo.setFieldsEditable(true);
                 panelPersonalInfo.resetToDefault();
             }
@@ -1726,6 +1730,7 @@ public class MainPanel extends javax.swing.JPanel {
     /* Set all Data by Search */
     public void fillValue(TransactionForm form) {
         if (form != null) {
+            headerPanel.setIDNo(form.getFormNo());
             headerPanel.setFormNo(form.getTxFormNo());
             headerPanel.setApplicationDate(form.getTxApplicationDate());
             headerPanel.enableFields(false);
@@ -1796,6 +1801,8 @@ public class MainPanel extends javax.swing.JPanel {
     }
     
     public void resetFields() {
+        headerPanel.enableFields(true);
+        
         panelPersonalInfo.resetToDefault();
         panelEmploymentData.resetToDefault();
         panelFamilyBackground.resetToDefault();
@@ -1831,6 +1838,11 @@ public class MainPanel extends javax.swing.JPanel {
         panelPO.resetToDefault();
         /* Riders to Buyers */
 //        panelRidersToBuyer.res
+    }
+    
+    public void clearHeader() {
+        headerPanel.setFormNo("");
+        headerPanel.setApplicationDate(new Date());
     }
 
     /**

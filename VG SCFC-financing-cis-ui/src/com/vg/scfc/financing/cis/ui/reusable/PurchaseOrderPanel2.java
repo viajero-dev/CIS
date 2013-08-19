@@ -14,8 +14,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.math.BigDecimal;
 import java.text.ParseException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -568,13 +566,13 @@ public class PurchaseOrderPanel2 extends javax.swing.JPanel implements KeyListen
         } else {
             comboPurpose.setSelectedIndex(UIValidator.getSelectedIndex(comboPurpose, p.getPurpose()));
             if(p.isBrandNew()) {
-                comboMotorStatus.setSelectedIndex(1);
+                comboMotorStatus.setSelectedIndex(1); 
             } else {
                 comboMotorStatus.setSelectedIndex(0);
             }
-//            txtMakeCode.setText(null);
-//            txtColorCode.setText(null);
-//            txtModelCode.setText(null);
+            txtMakeCode.setText(null);
+            txtColorCode.setText(null);
+            txtModelCode.setText(null);
             txtDownPayment.setText(NumberUtils.doubleToString(p.getDownPayment()));
             txtTerm.setText(p.getTerm() + "");
             txtMA.setText(NumberUtils.doubleToString(p.getMonthlyAmortization()));
@@ -596,7 +594,7 @@ public class PurchaseOrderPanel2 extends javax.swing.JPanel implements KeyListen
                     checkDisApproved.setSelected(false);
                     break;
             }
-//            txtCICode.setText(null);
+            txtCICode.setText(null);
             txtRemarks.setText(p.getRemarks());
         }
     }

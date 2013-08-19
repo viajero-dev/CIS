@@ -29,7 +29,6 @@ public class InstitutionFrame extends javax.swing.JFrame {
 
         institutionalPanel1 = new com.vg.scfc.financing.cis.ui.panel.InstitutionalPanel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         getContentPane().add(institutionalPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 710));

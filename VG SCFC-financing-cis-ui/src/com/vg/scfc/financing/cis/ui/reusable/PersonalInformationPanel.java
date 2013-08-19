@@ -724,9 +724,9 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
     }
 
     public boolean updatePersonalInfo() {
-        Object o = PersonalInfoController.getInstance().update(personalInfo);
-        setPersonalInfo((PersonalInfo) o);
-        return o != null;
+        PersonalInfo p = PersonalInfoController.getInstance().update(headerPanel.getFormNo(), personalInfo.getPersonType().getTypeID(), createNew(personalInfo));
+        setPersonalInfo(p);
+        return p != null;
     }
 
     public boolean saveSpousePersonalInfo() {
