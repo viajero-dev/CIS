@@ -38,16 +38,20 @@ import com.vg.scfc.financing.cis.service.TransactionModeService;
 import com.vg.scfc.financing.cis.service.TribeService;
 import com.vg.scfc.financing.cis.service.VehicleService;
 import com.vg.scfc.financing.cis.ui.frames.ClientInformationSystemFrame;
-import com.vg.scfc.financing.cis.ui.frames.MainFrame;
 import com.vg.scfc.financing.cis.ui.settings.UISetting;
+import com.vg.scfc.financing.commons.service.BarangayService;
 import com.vg.scfc.financing.commons.service.ControlAllowedAccessService;
 import com.vg.scfc.financing.commons.service.LocationService;
 import com.vg.scfc.financing.commons.service.LoginListener;
 import com.vg.scfc.financing.commons.ui.dlg.LoginDlg;
+import com.vg.vmi.dealer.uts.service.McColorService;
+import com.vg.vmi.dealer.uts.service.McMakeService;
+import com.vg.vmi.dealer.uts.service.McModelService;
 import java.net.InetAddress;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
@@ -92,6 +96,10 @@ public class ClientInfoMain implements LoginListener {
     private PersonalInfoService personalInfoService;
     private AssetService assetService;
     private IdentificationService identificationService;
+    private BarangayService barangayService;
+    private McMakeService makeService;
+    private McColorService colorService;
+    private McModelService modelService;
     private Registry registry;
     private LoginDlg loginDlg;
     private int failedLoginCounter = 0;
@@ -137,6 +145,10 @@ public class ClientInfoMain implements LoginListener {
         vehicleService = (VehicleService) registry.lookup(VehicleService.class.getSimpleName());
         tribeService = (TribeService) registry.lookup(TribeService.class.getSimpleName());
         identificationService = (IdentificationService) registry.lookup(IdentificationService.class.getSimpleName());
+        barangayService = (BarangayService) registry.lookup(BarangayService.class.getSimpleName());
+        makeService = (McMakeService) registry.lookup(McMakeService.class.getSimpleName());
+        colorService = (McColorService) registry.lookup(McColorService.class.getSimpleName());
+        modelService = (McModelService) registry.lookup(McModelService.class.getSimpleName());
     }
 
     public void setUISettings() {
@@ -169,6 +181,11 @@ public class ClientInfoMain implements LoginListener {
         UISetting.setTribeService(tribeService);
         UISetting.setVehicleService(vehicleService);
         UISetting.setIdentificationService(identificationService);
+        UISetting.setBarangayService(barangayService);
+        UISetting.setMakeService(makeService);
+        UISetting.setColorService(colorService);
+        UISetting.setModelService(modelService);
+        UISetting.setEmployeeService(employeeService);
     }
 
     public void showLogInDialog(String locID, boolean enable) {
@@ -202,10 +219,10 @@ public class ClientInfoMain implements LoginListener {
                 UISetting.setStoreLocation(loginDlg.getStoreLocation());
                 UISetting.setSystemUser(loginDlg.getEmployee());
                 UISetting.setComputerName(InetAddress.getLocalHost().getHostName());
-//                ClientInformationSystemFrame c = new ClientInformationSystemFrame();
-//                c.getLblStorelocation().setText(loginDlg.getStoreLocation().getId() + " - " + loginDlg.getStoreLocation().getDescription());
-//                c.setVisible(true);
-                new MainFrame().setVisible(true);
+                ClientInformationSystemFrame c = new ClientInformationSystemFrame();
+                c.getLblStorelocation().setText( loginDlg.getUser().getId() + " - " + UISetting.getSystemUser().getFullName() + " @ " + loginDlg.getStoreLocation().getId() + " - " + loginDlg.getStoreLocation().getDescription());
+                c.setExtendedState(c.getExtendedState() | JFrame.MAXIMIZED_BOTH);
+                c.setVisible(true);
                 loginDlg.dispose();
                 loginDlg = null;
 
