@@ -49,7 +49,7 @@ public class ServerInfoMainFrame extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlServer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(pnlServer, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
         );
 
         pack();

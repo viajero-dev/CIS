@@ -68,12 +68,20 @@ import com.vg.scfc.financing.cis.servicemgr.TransactionModeServiceManager;
 import com.vg.scfc.financing.cis.servicemgr.TribeServiceManager;
 import com.vg.scfc.financing.cis.servicemgr.VehicleServiceManager;
 import com.vg.scfc.financing.cis.util.ClientInfoUtil;
+import com.vg.scfc.financing.commons.service.BarangayService;
 import com.vg.scfc.financing.commons.service.ControlAllowedAccessService;
 import com.vg.scfc.financing.commons.service.LocationService;
+import com.vg.scfc.financing.commons.servicemgr.BarangayServiceManager;
 import com.vg.scfc.financing.commons.servicemgr.ControlAllowedAccessServiceManager;
 import com.vg.scfc.financing.commons.servicemgr.LocationServiceManager;
 import com.vg.scfc.financing.commons.util.CommonsUtil;
 import com.vg.scfc.financing.commons.value.ConnectionProperties;
+import com.vg.vmi.dealer.uts.service.McColorService;
+import com.vg.vmi.dealer.uts.service.McMakeService;
+import com.vg.vmi.dealer.uts.service.McModelService;
+import com.vg.vmi.dealer.uts.servicemgr.McColorServiceManager;
+import com.vg.vmi.dealer.uts.servicemgr.McMakeServiceManager;
+import com.vg.vmi.dealer.uts.servicemgr.McModelServiceManager;
 import com.vg.vmi.dealer.uts.util.UnitTrackingUtil;
 import java.rmi.registry.Registry;
 
@@ -117,6 +125,10 @@ public class ServerInfoMain {
     private AssetServiceManager assetServiceManager;
     private Registry registry;
     private IdentificationServiceManager identificationServiceManager;
+    private BarangayServiceManager barangayServiceManager;
+    private McMakeServiceManager makeServiceManager;
+    private McColorServiceManager colorServiceManager;
+    private McModelServiceManager modelServiceManager;
 
     private void createRegistry(String host, int port) throws Exception {
         System.setProperty("java.rmi.server.hostname", host);
@@ -158,6 +170,10 @@ public class ServerInfoMain {
         personalInfoServiceManager = new PersonalInfoServiceManager();
         assetServiceManager = new AssetServiceManager();
         identificationServiceManager = new IdentificationServiceManager();
+        barangayServiceManager = new BarangayServiceManager();
+        makeServiceManager = new McMakeServiceManager();
+        colorServiceManager = new McColorServiceManager();
+        modelServiceManager = new McModelServiceManager();
     }
 
     private void bindRemoteObjects() throws Exception {
@@ -194,6 +210,10 @@ public class ServerInfoMain {
         registry.bind(PersonalInfoService.class.getSimpleName(), personalInfoServiceManager);
         registry.bind(AssetService.class.getSimpleName(), assetServiceManager);
         registry.bind(IdentificationService.class.getSimpleName(), identificationServiceManager);
+        registry.bind(BarangayService.class.getSimpleName(), barangayServiceManager);
+        registry.bind(McMakeService.class.getSimpleName(), makeServiceManager);
+        registry.bind(McColorService.class.getSimpleName(), colorServiceManager);
+        registry.bind(McModelService.class.getSimpleName(), modelServiceManager);
     }
 
     public static void main(String[] args) {

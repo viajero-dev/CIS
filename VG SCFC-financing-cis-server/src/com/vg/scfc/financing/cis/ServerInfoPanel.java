@@ -39,16 +39,20 @@ public class ServerInfoPanel extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         bthExit = new javax.swing.JButton();
 
+        setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         add(lblIP, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, 150, 15));
-        add(lblPort, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, 150, 15));
+        add(lblPort, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 30, 150, 15));
 
+        jLabel2.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
         jLabel2.setText("IP        :");
         add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
 
-        jLabel3.setText("Port    :");
-        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
+        jLabel3.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
+        jLabel3.setText("Port      :");
+        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 70, -1));
 
+        bthExit.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
         bthExit.setText("Exit");
         bthExit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
