@@ -98,6 +98,7 @@ public class SearchPanelInstitution extends javax.swing.JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         tblTransactionForm = new javax.swing.JTable();
         btnPrintVersion = new javax.swing.JButton();
+        lblRecordCount = new javax.swing.JLabel();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -150,7 +151,11 @@ public class SearchPanelInstitution extends javax.swing.JPanel {
         add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 360, 250, 160));
 
         btnPrintVersion.setText("Print Version");
-        add(btnPrintVersion, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 530, 250, -1));
+        add(btnPrintVersion, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 580, 250, -1));
+
+        lblRecordCount.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblRecordCount.setText("RECORD(S):");
+        add(lblRecordCount, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 530, 220, -1));
 
         bindingGroup.bind();
     }// </editor-fold>//GEN-END:initComponents
@@ -168,6 +173,7 @@ public class SearchPanelInstitution extends javax.swing.JPanel {
     private java.util.List<Customer> customers;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lblRecordCount;
     private javax.swing.JTable tblCustomer;
     private javax.swing.JTable tblTransactionForm;
     private java.util.List<TransactionForm> transactionForms;
@@ -222,6 +228,7 @@ public class SearchPanelInstitution extends javax.swing.JPanel {
         transactionForms.addAll(t);
         if (!transactionForms.isEmpty()) {
             tblTransactionForm.setRowSelectionInterval(0, 0);
+            lblRecordCount.setText("RECORD(S): " + transactionForms.size());
         }
     }
 }

@@ -7,10 +7,13 @@ package com.vg.scfc.financing.cis.ui.reusable;
 
 import classes.VgImageIcon;
 import com.googlecode.javacv.cpp.opencv_core.IplImage;
+import com.vg.scfc.financing.cis.ent.Address;
 import com.vg.scfc.financing.cis.ent.PersonalInfo;
 import com.vg.scfc.financing.cis.ent.Religion;
 import com.vg.scfc.financing.cis.ent.Tribe;
+import com.vg.scfc.financing.cis.ui.controller.AddressController;
 import com.vg.scfc.financing.cis.ui.controller.PersonalInfoController;
+import com.vg.scfc.financing.cis.ui.frames.SearchPersonalInfoFrame;
 import com.vg.scfc.financing.cis.ui.panel.MainPanel;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 import interfaces.Caller;
@@ -18,7 +21,9 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import javax.swing.JOptionPane;
 import ui.WebCamDlg;
 
 /**
@@ -169,6 +174,7 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
         jPanel4.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 10, -1, -1));
 
         txtLastName.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
+        txtLastName.setToolTipText("PRESS F5 FOR EXISTING CUSTOMER");
         txtLastName.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtLastNameFocusLost(evt);
@@ -282,7 +288,7 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
         jPanel4.add(comboMarriedOption, new org.netbeans.lib.awtextra.AbsoluteConstraints(455, 80, 144, -1));
 
         comboEducationStatus.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
-        comboEducationStatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Elementary", "High School", "Some College", "College Graduate" }));
+        comboEducationStatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "ELEMENTARY", "HIGH SCHOOL", "SOME COLLEGE", "COLLEGE GRADUATE" }));
         jPanel4.add(comboEducationStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 5, 144, -1));
 
         jLabel113.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
@@ -372,7 +378,7 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
     }//GEN-LAST:event_comboStatusFocusLost
 
     private void txtLastNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtLastNameFocusLost
-        txtLastName.setText(UIValidator.validate(txtLastName));
+        txtLastName.setText(txtLastName.getText().toUpperCase());
     }//GEN-LAST:event_txtLastNameFocusLost
 
     private void txtFirstNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFirstNameFocusLost
@@ -395,11 +401,11 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
     }//GEN-LAST:event_txtBirthPlaceFocusLost
 
     private void txtPresentAddressFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPresentAddressFocusLost
-        txtPresentAddress.setText(UIValidator.validate(txtPresentAddress));
+        txtPresentAddress.setText(txtPresentAddress.getText().toUpperCase());
     }//GEN-LAST:event_txtPresentAddressFocusLost
 
     private void txtPreviousAddressFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPreviousAddressFocusLost
-        txtPreviousAddress.setText(UIValidator.validate(txtPreviousAddress));
+        txtPreviousAddress.setText(txtPreviousAddress.getText().toUpperCase());
     }//GEN-LAST:event_txtPreviousAddressFocusLost
 
     private void txtBirthDateFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBirthDateFocusLost
@@ -474,6 +480,16 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
     private String personType;
     private String clientNo;
     private MainPanel mainPanel;
+    private Address presentAddress;
+    private Address previousAddress;
+
+    public void setPreviousAddress(Address previousAddress) {
+        this.previousAddress = previousAddress;
+    }
+
+    public void setAddress(Address address) {
+        this.presentAddress = address;
+    }
 
     public void setMainPanel(MainPanel mainPanel) {
         this.mainPanel = mainPanel;
@@ -581,6 +597,21 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
                 txtLastName.requestFocus();
             }
                 break;
+            case KeyEvent.VK_F5:
+                if(txtLastName.isFocusOwner()) {
+                    new SearchPersonalInfoFrame().setVisible(true);
+                } else if(txtPresentAddress.isFocusOwner()) {
+                    SimpleAddressPanel simpleAddressPanel = new SimpleAddressPanel();
+                    JOptionPane.showMessageDialog(null, simpleAddressPanel, "ADDRESS", JOptionPane.QUESTION_MESSAGE);
+                    setAddress(simpleAddressPanel.getAddress());
+                    txtPresentAddress.setText(presentAddress.getAddress());
+                } else if(txtPreviousAddress.isFocusOwner()) {
+                    SimpleAddressPanel simpleAddressPanel = new SimpleAddressPanel();
+                    JOptionPane.showMessageDialog(null, simpleAddressPanel, "ADDRESS", JOptionPane.QUESTION_MESSAGE);
+                    setPreviousAddress(simpleAddressPanel.getAddress());
+                    txtPreviousAddress.setText(previousAddress.getAddress());
+                }
+            break;
         }
     }
 
@@ -630,8 +661,9 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
         txtLastName.setText("");
         txtFirstName.setText("");
         txtMiddleName.setText("");
-        txtBirthDate.setText("");
+        txtBirthDate.setDate(new Date());
         txtBirthPlace.setText("");
+        txtAge.setText("");
         optionMale.setSelected(true);
         optionFemale.setSelected(true);
         txtContact.setText("");
@@ -709,16 +741,45 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
                     comboEducationStatus.setSelectedIndex(3);
                     break;
             }
-            comboTribe.setSelectedIndex(0);
-            comboReligion.setSelectedIndex(0);
+            int tribeIndex = 0;
+            int selectedTribeIndex = 0;
+            for (Tribe tribe : tribes) {
+                if(tribe.getTribeDesc().equals(p.getTribe().getTribeDesc())) {
+                    selectedTribeIndex = tribeIndex;
+                    break;
+                } else {
+                    tribeIndex++;
+                }
+            }
+            comboTribe.setSelectedIndex(selectedTribeIndex);
+            
+            int religionIndex = 0;
+            int selectedReligionIndex = 0;
+            for (Religion religion : religions) {
+                if(religion.getReligionDesc().equals(p.getReligion().getReligionDesc())) {
+                    selectedReligionIndex = religionIndex;
+                    break;
+                } else {
+                    religionIndex++;
+                }
+            }
+            comboReligion.setSelectedIndex(selectedReligionIndex);
+            
             txtCitizenship.setText(p.getCitizenship());
-//            txtPresentAddress.setText(p.get);
-//            txtPreviousAddress.setText("");
+            List<Address> addresses = AddressController.getInstance().findByFormNo(p.getTxFormNo(), p.getPersonType().getTypeID());
+            for (Address address : addresses) {
+                if(address.getAddressType().equals("PRESENT")) {
+                    txtPresentAddress.setText(address.getAddress() + ", " + address.getBrgyDesc());
+                } else {
+                    txtPreviousAddress.setText(address.getAddress() + ", " + address.getBrgyDesc());
+                }
+            }
         }
     }
 
     public boolean savePersonalInfo() {
-        PersonalInfo o = PersonalInfoController.getInstance().createNew(createNew(new PersonalInfo()), headerPanel.getFormNo(), headerPanel.getApplicationDate(), personType);
+        PersonalInfo o = PersonalInfoController.getInstance().save(createNew(new PersonalInfo()), headerPanel.getIDNo(), headerPanel.getApplicationDate(), personType);
+        saveAddresses(o);
         setPersonalInfo(o);
         return o != null;
     }
@@ -730,7 +791,8 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
     }
 
     public boolean saveSpousePersonalInfo() {
-        PersonalInfo p = PersonalInfoController.getInstance().createNew(createNew(new PersonalInfo()), headerPanel.getFormNo(), personType, clientNo);
+        PersonalInfo p = PersonalInfoController.getInstance().save(createNew(new PersonalInfo()), headerPanel.getFormNo(), personType, clientNo);
+        saveAddresses(p);
         setPersonalInfo(p);
         return p != null;
     }
@@ -748,7 +810,8 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
         } else {
             cmType = "CM2";
         }
-        PersonalInfo p = PersonalInfoController.getInstance().createNew(createNew(new PersonalInfo()), headerPanel.getFormNo(), cmType, clientNo);
+        PersonalInfo p = PersonalInfoController.getInstance().save(createNew(new PersonalInfo()), headerPanel.getFormNo(), cmType, clientNo);
+        saveAddresses(p);
         setPersonalInfo(p);
         return p != null;
     }
@@ -766,7 +829,8 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
         } else {
             cmType = "CS2";
         }
-        PersonalInfo p = PersonalInfoController.getInstance().createNew(createNew(new PersonalInfo()), headerPanel.getFormNo(), cmType, clientNo);
+        PersonalInfo p = PersonalInfoController.getInstance().save(createNew(new PersonalInfo()), headerPanel.getFormNo(), cmType, clientNo);
+        saveAddresses(p);
         setPersonalInfo(p);
         return p != null;
     }
@@ -784,7 +848,8 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
     }
     
     public boolean saveRepresentativePersonalInfo() {
-        PersonalInfo p = PersonalInfoController.getInstance().createNew(createNew(new PersonalInfo()), headerPanel.getFormNo(), personType, clientNo);
+        PersonalInfo p = PersonalInfoController.getInstance().save(createNew(new PersonalInfo()), headerPanel.getFormNo(), personType, clientNo);
+        saveAddresses(p);
         setPersonalInfo(p);
         return p != null;
     }
@@ -793,6 +858,15 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
         PersonalInfo p = PersonalInfoController.getInstance().update(headerPanel.getFormNo(), personType, createNew(personalInfo));
         setPersonalInfo(p);
         return p != null;
+    }
+    
+    public void saveAddresses(PersonalInfo p) {
+        presentAddress.setAddressType("PRESENT");
+        presentAddress.setTxFormNo(p.getTxFormNo());
+        AddressController.getInstance().createNew(p.getTxFormNo(), p.getPersonType().getTypeID(), presentAddress);
+        previousAddress.setAddressType("PREVIOUS");
+        previousAddress.setTxFormNo(p.getTxFormNo());
+        AddressController.getInstance().createNew(p.getTxFormNo(), p.getPersonType().getTypeID(), previousAddress);
     }
 
     private PersonalInfo createNew(PersonalInfo p) {

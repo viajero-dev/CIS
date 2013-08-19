@@ -38,6 +38,23 @@ public class SearchController {
         return results;
     }
 
+    public List<Customer> findAllWithLimit(int limit) {
+        List<Customer> results = new ArrayList<>();
+        try {
+            List<Customer> tempResult = UISetting.getCustomerService().findByTransactionMode(2);
+            int loopCounter = 1;
+            for (Customer customer : tempResult) {
+                if (loopCounter <= limit) {
+                    results.add(customer);
+                    loopCounter++;
+                }
+            }
+        } catch (Exception ex) {
+            UIValidator.log(ex, SearchController.class);
+        }
+        return results;
+    }
+
     public List<Customer> findBySearchCriteria(String criteria) {
         List<Customer> results = new ArrayList<>();
         try {
@@ -47,7 +64,7 @@ public class SearchController {
         }
         return results;
     }
-    
+
     public List<TransactionForm> findByClientNo(String clientNo) {
         List<TransactionForm> results = new ArrayList<>();
         try {
@@ -57,7 +74,7 @@ public class SearchController {
         }
         return results;
     }
-    
+
     public List<Customer> findByTransactionMode(int mode) {
         List<Customer> results = new ArrayList<>();
         try {

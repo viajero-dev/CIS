@@ -6,6 +6,7 @@
 package com.vg.scfc.financing.cis.ui.settings;
 
 import com.vg.hrm.user.ent.Employee;
+import com.vg.hrm.user.service.EmployeeService;
 import com.vg.scfc.financing.cis.service.AddressService;
 import com.vg.scfc.financing.cis.service.ApplianceService;
 import com.vg.scfc.financing.cis.service.AssetService;
@@ -36,6 +37,10 @@ import com.vg.scfc.financing.cis.service.TransactionModeService;
 import com.vg.scfc.financing.cis.service.TribeService;
 import com.vg.scfc.financing.cis.service.VehicleService;
 import com.vg.scfc.financing.commons.ent.Location;
+import com.vg.scfc.financing.commons.service.BarangayService;
+import com.vg.vmi.dealer.uts.service.McColorService;
+import com.vg.vmi.dealer.uts.service.McMakeService;
+import com.vg.vmi.dealer.uts.service.McModelService;
 
 /**
  *
@@ -77,6 +82,51 @@ public class UISetting {
     private static PersonalInfoService personalInfoService;
     private static AssetService assetService;
     private static IdentificationService identificationService;
+    private static BarangayService barangayService;
+    private static McMakeService makeService;
+    private static McColorService colorService;
+    private static McModelService modelService;
+    private static EmployeeService employeeService;
+
+    public static EmployeeService getEmployeeService() {
+        return employeeService;
+    }
+
+    public static void setEmployeeService(EmployeeService employeeService) {
+        UISetting.employeeService = employeeService;
+    }
+
+    public static McMakeService getMakeService() {
+        return makeService;
+    }
+
+    public static void setMakeService(McMakeService makeService) {
+        UISetting.makeService = makeService;
+    }
+
+    public static McColorService getColorService() {
+        return colorService;
+    }
+
+    public static void setColorService(McColorService colorService) {
+        UISetting.colorService = colorService;
+    }
+
+    public static McModelService getModelService() {
+        return modelService;
+    }
+
+    public static void setModelService(McModelService modelService) {
+        UISetting.modelService = modelService;
+    }
+
+    public static BarangayService getBarangayService() {
+        return barangayService;
+    }
+
+    public static void setBarangayService(BarangayService barangayService) {
+        UISetting.barangayService = barangayService;
+    }
 
     public static IdentificationService getIdentificationService() {
         return identificationService;

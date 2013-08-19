@@ -33,7 +33,7 @@ public class PersonalInfoController {
         return instance;
     }
 
-    public PersonalInfo createNew(PersonalInfo p, String formSeries, Date applicationDate, String personTypeID) {
+    public PersonalInfo save(PersonalInfo p, String formSeries, Date applicationDate, String personTypeID) {
         PersonalInfo result = null;
         try {
             if (personTypeID.equals("APP")) {
@@ -61,12 +61,17 @@ public class PersonalInfoController {
 
                 /* Personal Info */
                 p.setPersonType(personType);
-//                p.setTxFormNo(formNo);
                 p.setUser(UISetting.getSystemUser());
                 p.setLocation(UISetting.getStoreLocation());
                 p.setStation(UISetting.getComputerName());
 
-                String formResult = UISetting.getCustomerService().insert(customer, form, p);
+                String formResult;
+                if (p.getClientNo() == null) {
+                    formResult = UISetting.getCustomerService().insert(customer, form, p);
+                } else {
+                    formResult = UISetting.getCustomerService().insert(UISetting.getCustomerService().findById(p.getClientNo()), form, p);
+                }
+
                 if (!formResult.equals("")) {
                     result = UISetting.getPersonalInfoService().findByFormType(formResult, personType.getTypeID());
                 }
@@ -93,7 +98,7 @@ public class PersonalInfoController {
         return result;
     }
 
-    public PersonalInfo createNew(PersonalInfo p, String formNo, String personTypeID, String clientNo) {
+    public PersonalInfo save(PersonalInfo p, String formNo, String personTypeID, String clientNo) {
         PersonalInfo result = null;
         try {
             System.out.println("setting clientNo to: " + clientNo);
@@ -127,17 +132,7 @@ public class PersonalInfoController {
             PersonalInfo r = UISetting.getPersonalInfoService().update(p);
             if (r != null) {
                 result = UISetting.getPersonalInfoService().findByFormType(formNo, personTypeID);
-            } 
-        } catch (Exception ex) {
-            UIValidator.log(ex, PersonalInfoController.class);
-        }
-        return result;
-    }
-
-    public PersonalInfo findByFormNoAndPersonType(String formNo, String personType) {
-        PersonalInfo result = null;
-        try {
-            result = UISetting.getPersonalInfoService().findByFormType(formNo, personType);
+            }
         } catch (Exception ex) {
             UIValidator.log(ex, PersonalInfoController.class);
         }
@@ -154,6 +149,16 @@ public class PersonalInfoController {
             if (isUpdated) {
                 result = UISetting.getPersonalInfoService().findByFormType(p.getTxFormNo(), p.getPersonType().getTypeID());
             }
+        } catch (Exception ex) {
+            UIValidator.log(ex, PersonalInfoController.class);
+        }
+        return result;
+    }
+
+    public PersonalInfo findByFormNoAndPersonType(String formNo, String personType) {
+        PersonalInfo result = null;
+        try {
+            result = UISetting.getPersonalInfoService().findByFormType(formNo, personType);
         } catch (Exception ex) {
             UIValidator.log(ex, PersonalInfoController.class);
         }
@@ -199,7 +204,7 @@ public class PersonalInfoController {
         }
         return result;
     }
-    
+
     public List<PersonalInfo> findCoMakersByFormNo(String formNo) {
         List<PersonalInfo> results = new ArrayList<>();
         try {

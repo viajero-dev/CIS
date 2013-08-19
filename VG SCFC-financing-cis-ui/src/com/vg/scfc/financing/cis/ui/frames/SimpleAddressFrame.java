@@ -5,17 +5,24 @@
  */
 package com.vg.scfc.financing.cis.ui.frames;
 
+import com.vg.scfc.financing.cis.ent.Address;
+import com.vg.scfc.financing.cis.ui.reusable.SimpleAddressPanel;
+
 /**
  *
  * @author rodel
  */
-public class TestFrame extends javax.swing.JFrame {
+public class SimpleAddressFrame extends javax.swing.JFrame {
 
     /**
-     * Creates new form TestFrame
+     * Creates new form SimpleAddressFrame
      */
-    public TestFrame() {
+    public SimpleAddressFrame() {
         initComponents();
+    }
+
+    public SimpleAddressPanel getSimpleAddressPanel1() {
+        return simpleAddressPanel1;
     }
 
     /**
@@ -27,11 +34,10 @@ public class TestFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        searchPanel1 = new com.vg.scfc.financing.cis.ui.panel.SearchPanel();
+        simpleAddressPanel1 = new com.vg.scfc.financing.cis.ui.reusable.SimpleAddressPanel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(searchPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 260, -1));
+        getContentPane().add(simpleAddressPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 120));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -53,25 +59,29 @@ public class TestFrame extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TestFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SimpleAddressFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TestFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SimpleAddressFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TestFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SimpleAddressFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TestFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SimpleAddressFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TestFrame().setVisible(true);
+                new SimpleAddressFrame().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.vg.scfc.financing.cis.ui.panel.SearchPanel searchPanel1;
+    private com.vg.scfc.financing.cis.ui.reusable.SimpleAddressPanel simpleAddressPanel1;
     // End of variables declaration//GEN-END:variables
+
+    public Address getAddress() {
+        return simpleAddressPanel1.getAddress();
+    }
 }

@@ -7,13 +7,24 @@ package com.vg.scfc.financing.cis.ui.reusable;
 
 import com.vg.commons.util.DateUtil;
 import com.vg.commons.util.NumberUtils;
+import com.vg.hrm.user.ent.Employee;
+import com.vg.hrm.user.ui.dlg.EmployeesDlg;
 import com.vg.scfc.financing.cis.ent.PurchaseOrder;
 import com.vg.scfc.financing.cis.ui.controller.PurchaseOrderController;
+import com.vg.scfc.financing.cis.ui.settings.UISetting;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
+import com.vg.scfc.financing.cis.ui.validator.Validator;
+import com.vg.vmi.dealer.uts.ent.McColor;
+import com.vg.vmi.dealer.uts.ent.McMake;
+import com.vg.vmi.dealer.uts.ent.McModel;
+import com.vg.vmi.dealer.uts.ui.dlg.ColorDlg;
+import com.vg.vmi.dealer.uts.ui.dlg.MakeDlg;
+import com.vg.vmi.dealer.uts.ui.dlg.ModelDlg;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.math.BigDecimal;
 import java.text.ParseException;
+import java.util.Date;
 
 /**
  *
@@ -375,6 +386,26 @@ public class PurchaseOrderPanel2 extends javax.swing.JPanel implements KeyListen
     private HeaderPanel headerPanel;
     private String personType;
     private PurchaseOrder purchaseOrder;
+    private McMake make;
+    private McColor color;
+    private McModel model;
+    private Employee ci;
+
+    public void setCi(Employee ci) {
+        this.ci = ci;
+    }
+
+    public void setMake(McMake make) {
+        this.make = make;
+    }
+
+    public void setColor(McColor color) {
+        this.color = color;
+    }
+
+    public void setModel(McModel model) {
+        this.model = model;
+    }
 
     public void setPurchaseOrder(PurchaseOrder purchaseOrder) {
         this.purchaseOrder = purchaseOrder;
@@ -416,7 +447,7 @@ public class PurchaseOrderPanel2 extends javax.swing.JPanel implements KeyListen
             } else if (txtTerm.isFocusOwner()) {
                 txtMA.requestFocus();
             } else if (txtMA.isFocusOwner()) {
-                 txtInsAmount.requestFocus();
+                txtInsAmount.requestFocus();
             } else if (txtInsAmount.isFocusOwner()) {
                 txtInsComp.requestFocus();
             } else if (txtInsComp.isFocusOwner()) {
@@ -460,6 +491,52 @@ public class PurchaseOrderPanel2 extends javax.swing.JPanel implements KeyListen
                 comboMotorStatus.requestFocus();
             } else if (comboMotorStatus.isFocusOwner()) {
                 comboPurpose.requestFocus();
+            }
+                break;
+            case KeyEvent.VK_F5:
+                if (txtMakeCode.isFocusOwner()) {
+                MakeDlg makeDlg = new MakeDlg(null, true);
+                makeDlg.setMakeService(UISetting.getMakeService());
+                makeDlg.setDefault();
+                makeDlg.setVisible(true);
+                System.out.println(makeDlg.getSelectedMake().getCode());
+                if (makeDlg.getSelectedMake() != null) {
+                    setMake(makeDlg.getSelectedMake());
+                    txtMakeCode.setText(make.getCode());
+                    txtMakeDesc.setText(make.getName().toUpperCase());
+                }
+            } else if (txtColorCode.isFocusOwner()) {
+                ColorDlg colorDlg = new ColorDlg(null, true);
+                colorDlg.setColorService(UISetting.getColorService());
+                colorDlg.setDefault();
+                colorDlg.setVisible(true);
+                System.out.println(colorDlg.getSelectedColor().getCode());
+                if (colorDlg.getSelectedColor() != null) {
+                    setColor(colorDlg.getSelectedColor());
+                    txtColorCode.setText(color.getCode());
+                    txtColorDesc.setText(color.getName().toUpperCase());
+                }
+            } else if (txtModelCode.isFocusOwner()) {
+                ModelDlg modelDlg = new ModelDlg(null, true);
+                modelDlg.setModelService(UISetting.getModelService());
+                modelDlg.setDefault();
+                modelDlg.setVisible(true);
+                System.out.println(modelDlg.getSelectedModel().getCode());
+                if (modelDlg.getSelectedModel() != null) {
+                    setModel(modelDlg.getSelectedModel());
+                    txtModelCode.setText(model.getCode().toUpperCase());
+                    txtModelDesc.setText(model.getDescription().toUpperCase());
+                }
+            } else if (txtCICode.isFocusOwner()) {
+                EmployeesDlg employeeDlg = new EmployeesDlg(null, true);
+                employeeDlg.setEmployeeService(UISetting.getEmployeeService());
+                employeeDlg.setDefault();
+                employeeDlg.setVisible(true);
+                if (employeeDlg.getSelectedEmployee() != null) {
+                    setCi(employeeDlg.getSelectedEmployee());
+                    txtCICode.setText(ci.getId());
+                    txtCIDesc.setText(ci.getProperName());
+                }
             }
                 break;
         }
@@ -535,9 +612,9 @@ public class PurchaseOrderPanel2 extends javax.swing.JPanel implements KeyListen
         } else {
             p.setBrandNew(true);
         }
-//        p.setMcMake(null);
-//        p.setMcColor(null);
-//        p.setMcModel(null);
+        p.setMcMake(make);
+        p.setMcColor(color);
+        p.setMcModel(model);
         p.setDownPayment(new BigDecimal(UIValidator.MoneyCommaRemover(txtDownPayment.getText())).doubleValue());
         p.setTerm(Integer.parseInt(txtTerm.getText()));
         p.setMonthlyAmortization(new BigDecimal(UIValidator.MoneyCommaRemover(txtMA.getText())).doubleValue());
@@ -555,34 +632,44 @@ public class PurchaseOrderPanel2 extends javax.swing.JPanel implements KeyListen
         } else {
             p.setStatus("PENDING");
         }
+        p.setStatusDate(new Date());
         p.setCiCollector(txtCICode.getText());
-        p.setRemarks(txtRemarks.getText());
+        p.setRemarks(Validator.getInstance().newLineRemover(txtRemarks.getText()).toUpperCase());
         return p;
     }
-    
+
     private void setPurchaseOrderValues(PurchaseOrder p) {
-        if(p == null) {
+        if (p == null) {
             resetToDefault();
         } else {
-            comboPurpose.setSelectedIndex(UIValidator.getSelectedIndex(comboPurpose, p.getPurpose()));
-            if(p.isBrandNew()) {
-                comboMotorStatus.setSelectedIndex(1); 
+            switch(p.getPurpose()) {
+                case "PERSONAL" :
+                    break;
+            }
+            if (p.isBrandNew()) {
+                comboMotorStatus.setSelectedIndex(1);
             } else {
                 comboMotorStatus.setSelectedIndex(0);
             }
-            txtMakeCode.setText(null);
-            txtColorCode.setText(null);
-            txtModelCode.setText(null);
+            txtMakeCode.setText(p.getMcMake().getCode());
+            txtMakeDesc.setText(p.getMcMake().getName());
+            setMake(p.getMcMake());
+            txtColorCode.setText(p.getMcColor().getCode());
+            txtColorDesc.setText(p.getMcColor().getName());
+            setColor(p.getMcColor());
+            txtModelCode.setText(p.getMcModel().getCode());
+            txtModelDesc.setText(p.getMcModel().getDescription());
+            setModel(p.getMcModel());
             txtDownPayment.setText(NumberUtils.doubleToString(p.getDownPayment()));
             txtTerm.setText(p.getTerm() + "");
             txtMA.setText(NumberUtils.doubleToString(p.getMonthlyAmortization()));
-            double price = PurchaseOrderController.getInstance().computePrice(new BigDecimal(p.getDownPayment()),new BigDecimal(p.getTerm() + ""));
+            double price = PurchaseOrderController.getInstance().computePrice(new BigDecimal(p.getDownPayment()), new BigDecimal(p.getTerm() + ""));
             txtPrice.setText(NumberUtils.doubleToString(price));
             txtBal.setText(NumberUtils.doubleToString(PurchaseOrderController.getInstance().computeBalance(new BigDecimal(price), new BigDecimal(p.getMonthlyAmortization()))));
             txtInsAmount.setText(NumberUtils.doubleToString(p.getInsuranceAmount()));
             txtInsComp.setText(p.getInsuranceCompany());
             txtReleasedDate.setDate(p.getReleaseDate());
-            switch(p.getStatus()) {
+            switch (p.getStatus()) {
                 case "APPROVED":
                     checkApproved.setSelected(true);
                     break;
@@ -594,7 +681,10 @@ public class PurchaseOrderPanel2 extends javax.swing.JPanel implements KeyListen
                     checkDisApproved.setSelected(false);
                     break;
             }
-            txtCICode.setText(null);
+            Employee e = PurchaseOrderController.getInstance().findByID(p.getCiCollector());
+            setCi(e);
+            txtCICode.setText(e.getId());
+            txtCIDesc.setText(e.getProperName());
             txtRemarks.setText(p.getRemarks());
         }
     }

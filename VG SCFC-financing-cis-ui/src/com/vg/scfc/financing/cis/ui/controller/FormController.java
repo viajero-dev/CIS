@@ -8,7 +8,10 @@ package com.vg.scfc.financing.cis.ui.controller;
 import com.vg.commons.util.DateUtil;
 import com.vg.scfc.financing.cis.ent.TransactionForm;
 import com.vg.scfc.financing.cis.ui.settings.UISetting;
+import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -49,8 +52,13 @@ public class FormController {
         return new Object();
     }
     
-    public void save(TransactionForm form) {
-//        UISetting.getTransactionFormService().
+    public TransactionForm findByFormNo(String formNo) {
+        TransactionForm result = null;
+        try {
+            result = UISetting.getTransactionFormService().findByformNo(formNo);
+        } catch (Exception ex) {
+            UIValidator.log(ex, FormController.class);
+        }
+        return result;
     }
-
 }

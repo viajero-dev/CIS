@@ -8,7 +8,10 @@ package com.vg.scfc.financing.cis.ui.reusable;
 import com.vg.scfc.financing.cis.ent.Address;
 import com.vg.scfc.financing.cis.ui.controller.AddressController;
 import com.vg.scfc.financing.cis.ui.panel.MainPanel;
+import com.vg.scfc.financing.cis.ui.settings.UISetting;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
+import com.vg.scfc.financing.commons.ent.Barangay;
+import com.vg.scfc.financing.commons.ui.dlg.BarangayDlg;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.LinkedList;
@@ -352,6 +355,11 @@ public class AddressPanel extends javax.swing.JPanel implements KeyListener {
     private HeaderPanel headerPanel;
     private String personType;
     private MainPanel mainPanel;
+    private Barangay barangay;
+
+    public void setBarangay(Barangay barangay) {
+        this.barangay = barangay;
+    }
 
     public void setMainPanel(MainPanel mainPanel) {
         this.mainPanel = mainPanel;
@@ -420,6 +428,18 @@ public class AddressPanel extends javax.swing.JPanel implements KeyListener {
                 txtBrgy.requestFocus();
             }
                 break;
+            case KeyEvent.VK_F5:
+                if(txtBrgy.isFocusOwner()) {
+                    BarangayDlg barangayDlg = new BarangayDlg(null, true);
+                    barangayDlg.setBarangayService(UISetting.getBarangayService());
+                    barangayDlg.setVisible(true);
+                    if(barangayDlg.getBarangay() != null) {
+                        setBarangay(barangayDlg.getBarangay());
+                        txtBrgy.setText(barangay.getCode());
+                        txtDesc.setText(barangay.getAddress());
+                    }
+                } 
+            break;
         }
     }
 
@@ -469,7 +489,7 @@ public class AddressPanel extends javax.swing.JPanel implements KeyListener {
             txtBrgy.setText(a.getBrgyCode());
             txtZipcode.setText(a.getZipCode());
             txtStreet.setText(a.getAddress());
-            txtDesc.setText(a.getAddressType());
+            txtDesc.setText(a.getAddress() + ", " + a.getBrgyDesc());
             switch (a.getStatus()) {
                 case "OWNED":
                     optionAddressOwned.setSelected(true);
@@ -495,6 +515,14 @@ public class AddressPanel extends javax.swing.JPanel implements KeyListener {
                     optionAddressLiving.setSelected(false);
                     optionAddressOthers.setSelected(true);
                     break;
+            }
+            switch(a.getAddressType()) {
+                case "PRESENT":
+                    optionPresent.setSelected(true);
+                    break;
+                case "PREVIOUS":
+                    optionPrevious.setSelected(true);
+                    break;    
             }
             txtYrsOfStay.setText(a.getYearsOfStay());
         }
@@ -532,9 +560,14 @@ public class AddressPanel extends javax.swing.JPanel implements KeyListener {
     
     private Address createNew(Address a) {
         a.setBrgyCode(txtBrgy.getText());
+        a.setBrgyDesc(barangay.getAddress());
         a.setZipCode(txtZipcode.getText());
         a.setAddress(txtStreet.getText());
-        a.setAddressType(txtDesc.getText());
+        if(optionPresent.isSelected()) {
+            a.setAddressType("PRESENT");
+        } else {
+            a.setAddressType("PREVIOUS");
+        }
         if (optionAddressOwned.isSelected()) {
            a.setStatus("OWNED");
         }
@@ -548,7 +581,6 @@ public class AddressPanel extends javax.swing.JPanel implements KeyListener {
             a.setStatus("OTHERS");
         }
         a.setYearsOfStay(txtYrsOfStay.getText());
-        a.setBrgyDesc("");
         return a;
     }
 

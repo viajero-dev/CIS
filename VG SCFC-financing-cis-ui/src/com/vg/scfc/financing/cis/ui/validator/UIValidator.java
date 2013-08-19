@@ -98,4 +98,13 @@ public class UIValidator {
         }
         return selectedIndex;
     }
+    
+    public static String generateFormSeries(String input) {
+        String zeroes = "";
+        for (int i = 1; i <= 5-input.length(); i++) {
+            zeroes += "0";
+        }
+        return zeroes + input;
+    }
+    
 }

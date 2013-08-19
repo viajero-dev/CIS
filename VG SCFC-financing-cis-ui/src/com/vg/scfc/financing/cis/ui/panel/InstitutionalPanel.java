@@ -12,8 +12,11 @@ import com.vg.scfc.financing.cis.ui.controller.EmploymentController;
 import com.vg.scfc.financing.cis.ui.controller.PersonalInfoController;
 import com.vg.scfc.financing.cis.ui.controller.RidersToBuyerController;
 import com.vg.scfc.financing.cis.ui.listener.BasicActionListener;
+import com.vg.scfc.financing.cis.ui.reusable.ApplicationFormAndDatePanel;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
+import java.text.ParseException;
 import java.util.Date;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -45,9 +48,15 @@ public class InstitutionalPanel extends javax.swing.JPanel {
 
             @Override
             public void onAdd() {
+                 ApplicationFormAndDatePanel formAndDatePanel = new ApplicationFormAndDatePanel();
+                JOptionPane.showMessageDialog(null, formAndDatePanel, "APPLICATION", JOptionPane.QUESTION_MESSAGE);
                 headerPanel.setFormNo("");
-                headerPanel.setIDNo("00000");
-                headerPanel.setApplicationDate(new Date());
+                headerPanel.setIDNo(formAndDatePanel.getFormSeries());
+                try {
+                    headerPanel.setApplicationDate(formAndDatePanel.getApplicationDate());
+                } catch (ParseException ex) {
+                    UIValidator.log(ex, MainPanel.class);
+                }
                 headerPanel.enableFields(true);
                 panelCompanyInformation.setFieldsEditable(true);
                 panelCompanyInformation.resetToDefault();

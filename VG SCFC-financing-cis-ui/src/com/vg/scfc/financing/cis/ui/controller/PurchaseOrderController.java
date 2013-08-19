@@ -5,10 +5,13 @@
  */
 package com.vg.scfc.financing.cis.ui.controller;
 
+import com.vg.hrm.user.ent.Employee;
 import com.vg.scfc.financing.cis.ent.PurchaseOrder;
 import com.vg.scfc.financing.cis.ui.settings.UISetting;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 import java.math.BigDecimal;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -57,6 +60,16 @@ public class PurchaseOrderController {
         PurchaseOrder result = null;
         try {
             result = UISetting.getPurchaseOrderService().findByTransNo(formNo);
+        } catch (Exception ex) {
+            UIValidator.log(ex, PurchaseOrderController.class);
+        }
+        return result;
+    }
+    
+    public Employee findByID(String id) {
+        Employee result = null;
+        try {
+            result = UISetting.getEmployeeService().findById(id);
         } catch (Exception ex) {
             UIValidator.log(ex, PurchaseOrderController.class);
         }

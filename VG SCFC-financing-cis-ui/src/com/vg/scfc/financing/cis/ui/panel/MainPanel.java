@@ -15,6 +15,7 @@ import com.vg.scfc.financing.cis.ui.controller.CreditReferenceController;
 import com.vg.scfc.financing.cis.ui.controller.EmploymentController;
 import com.vg.scfc.financing.cis.ui.controller.ExpenditureController;
 import com.vg.scfc.financing.cis.ui.controller.FamilyBackgroundController;
+import com.vg.scfc.financing.cis.ui.controller.FormController;
 import com.vg.scfc.financing.cis.ui.controller.LandAssetController;
 import com.vg.scfc.financing.cis.ui.controller.MachineryAssetsController;
 import com.vg.scfc.financing.cis.ui.controller.PersonalInfoController;
@@ -25,12 +26,17 @@ import com.vg.scfc.financing.cis.ui.controller.SourceOfIncomeController;
 import com.vg.scfc.financing.cis.ui.controller.VehicleAssetsController;
 import com.vg.scfc.financing.cis.ui.listener.AddEditChangeListener;
 import com.vg.scfc.financing.cis.ui.listener.BasicActionListener;
+import com.vg.scfc.financing.cis.ui.reusable.ApplicationFormAndDatePanel;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 import java.math.BigDecimal;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -118,10 +124,16 @@ public class MainPanel extends javax.swing.JPanel {
 
             @Override
             public void onAdd() {
+                ApplicationFormAndDatePanel formAndDatePanel = new ApplicationFormAndDatePanel();
+                JOptionPane.showMessageDialog(null, formAndDatePanel, "APPLICATION", JOptionPane.QUESTION_MESSAGE);
                 headerPanel.setFormNo("");
-                headerPanel.setIDNo("00000");
-                headerPanel.setApplicationDate(new Date());
-                headerPanel.enableFields(true);
+                headerPanel.setIDNo(formAndDatePanel.getFormSeries());
+                try {
+                    headerPanel.setApplicationDate(formAndDatePanel.getApplicationDate());
+                } catch (ParseException ex) {
+                    UIValidator.log(ex, MainPanel.class);
+                }
+                headerPanel.enableFields(false);
                 panelPersonalInfo.setFieldsEditable(true);
                 panelPersonalInfo.resetToDefault();
             }
@@ -1668,6 +1680,7 @@ public class MainPanel extends javax.swing.JPanel {
                 } else {
                     UIValidator.promptSucessMessageFor("SAVE");
                     panelPO.setFieldsEditable(false);
+                    fillValue(FormController.getInstance().findByFormNo(headerPanel.getFormNo()));
                 }
                 return isSaved;
             }
@@ -1691,6 +1704,7 @@ public class MainPanel extends javax.swing.JPanel {
                 } else {
                     UIValidator.promptSucessMessageFor("EDIT");
                     panelPO.setFieldsEditable(false);
+                    fillValue(FormController.getInstance().findByFormNo(headerPanel.getFormNo()));
                 }
                 return isUpdated;
             }
@@ -1750,11 +1764,7 @@ public class MainPanel extends javax.swing.JPanel {
             panelMachinery.refreshTable(MachineryAssetsController.getInstance().findAll(form.getTxFormNo()));
             panelAddress.refreshTable(AddressController.getInstance().findByFormNo(form.getTxFormNo(), "APP"));
             PurchaseOrder p = PurchaseOrderController.getInstance().findByFormNo(form.getTxFormNo());
-            if(p == null) {
-                System.out.println("NULL PO");
-            } else {
-                System.out.println("has PO");
-            }
+            headerPanel.setApplicationStatus(p.getStatus());
             panelPO.setPurchaseOrder(p);
             /* Spouse */
             panelSpousePersonalInfo.setPersonalInfo(PersonalInfoController.getInstance().findByFormNoAndPersonType(form.getTxFormNo(), "SPO"));

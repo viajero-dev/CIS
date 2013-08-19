@@ -5,8 +5,6 @@
  */
 package com.vg.scfc.financing.cis.ui.frames;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
 import javax.swing.JLabel;
 
 /**
@@ -20,9 +18,6 @@ public class ClientInformationSystemFrame extends javax.swing.JFrame {
      */
     public ClientInformationSystemFrame() {
         initComponents();
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds(0, 0, screenSize.width, screenSize.height);
-        setVisible(true);
     }
 
     /**
@@ -44,12 +39,14 @@ public class ClientInformationSystemFrame extends javax.swing.JFrame {
         jMenu3 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        setTitle("CLIENT INFORMATION SYSTEM");
 
-        lblStorelocation.setFont(new java.awt.Font("SansSerif", 1, 36)); // NOI18N
-        lblStorelocation.setForeground(javax.swing.UIManager.getDefaults().getColor("Button.highlight"));
+        lblStorelocation.setBackground(new java.awt.Color(211, 44, 44));
+        lblStorelocation.setFont(new java.awt.Font("Courier 10 Pitch", 0, 24)); // NOI18N
+        lblStorelocation.setForeground(java.awt.Color.black);
+        lblStorelocation.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblStorelocation.setText("Store Location");
-        getContentPane().add(lblStorelocation, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 6, 510, 50));
+        lblStorelocation.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         jMenu1.setText("New");
 
@@ -78,6 +75,15 @@ public class ClientInformationSystemFrame extends javax.swing.JFrame {
         jMenuBar1.add(jMenu2);
 
         jMenu3.setText("Exit");
+        jMenu3.addMenuListener(new javax.swing.event.MenuListener() {
+            public void menuCanceled(javax.swing.event.MenuEvent evt) {
+            }
+            public void menuDeselected(javax.swing.event.MenuEvent evt) {
+            }
+            public void menuSelected(javax.swing.event.MenuEvent evt) {
+                jMenu3MenuSelected(evt);
+            }
+        });
         jMenu3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenu3ActionPerformed(evt);
@@ -86,6 +92,23 @@ public class ClientInformationSystemFrame extends javax.swing.JFrame {
         jMenuBar1.add(jMenu3);
 
         setJMenuBar(jMenuBar1);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblStorelocation, javax.swing.GroupLayout.DEFAULT_SIZE, 1136, Short.MAX_VALUE)
+                .addGap(15, 15, 15))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblStorelocation, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(517, Short.MAX_VALUE))
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -101,6 +124,10 @@ public class ClientInformationSystemFrame extends javax.swing.JFrame {
     private void jMenu3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu3ActionPerformed
         System.exit(1);
     }//GEN-LAST:event_jMenu3ActionPerformed
+
+    private void jMenu3MenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_jMenu3MenuSelected
+        System.exit(1);
+    }//GEN-LAST:event_jMenu3MenuSelected
 
     /**
      * @param args the command line arguments
