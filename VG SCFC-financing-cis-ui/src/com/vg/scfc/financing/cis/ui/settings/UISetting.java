@@ -27,6 +27,7 @@ import com.vg.scfc.financing.cis.service.MachineryService;
 import com.vg.scfc.financing.cis.service.MemoToFileService;
 import com.vg.scfc.financing.cis.service.PersonTypeService;
 import com.vg.scfc.financing.cis.service.PersonalInfoService;
+import com.vg.scfc.financing.cis.service.PrintReportService;
 import com.vg.scfc.financing.cis.service.PurchaseOrderService;
 import com.vg.scfc.financing.cis.service.ReligionService;
 import com.vg.scfc.financing.cis.service.RepresentativeEmploymentService;
@@ -38,6 +39,7 @@ import com.vg.scfc.financing.cis.service.TribeService;
 import com.vg.scfc.financing.cis.service.VehicleService;
 import com.vg.scfc.financing.commons.ent.Location;
 import com.vg.scfc.financing.commons.service.BarangayService;
+import com.vg.scfc.financing.commons.service.LocationService;
 import com.vg.vmi.dealer.uts.service.McColorService;
 import com.vg.vmi.dealer.uts.service.McMakeService;
 import com.vg.vmi.dealer.uts.service.McModelService;
@@ -87,6 +89,24 @@ public class UISetting {
     private static McColorService colorService;
     private static McModelService modelService;
     private static EmployeeService employeeService;
+    private static PrintReportService printReportService;
+    private static LocationService locationService;
+
+    public static PrintReportService getPrintReportService() {
+        return printReportService;
+    }
+
+    public static void setPrintReportService(PrintReportService printReportService) {
+        UISetting.printReportService = printReportService;
+    }
+
+    public static LocationService getLocationService() {
+        return locationService;
+    }
+
+    public static void setLocationService(LocationService locationService) {
+        UISetting.locationService = locationService;
+    }
 
     public static EmployeeService getEmployeeService() {
         return employeeService;

@@ -102,6 +102,7 @@ public class SearchPanelInstitution extends javax.swing.JPanel {
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        tblCustomer.setFont(new java.awt.Font("Monospaced", 1, 9)); // NOI18N
         tblCustomer.getTableHeader().setReorderingAllowed(false);
 
         org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, customers, tblCustomer);
@@ -154,7 +155,7 @@ public class SearchPanelInstitution extends javax.swing.JPanel {
         add(btnPrintVersion, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 580, 250, -1));
 
         lblRecordCount.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblRecordCount.setText("RECORD(S):");
+        lblRecordCount.setText("RECORD(S): 0");
         add(lblRecordCount, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 530, 220, -1));
 
         bindingGroup.bind();
@@ -219,6 +220,7 @@ public class SearchPanelInstitution extends javax.swing.JPanel {
         customers.clear();
         customers.addAll(c);
         if (!customers.isEmpty()) {
+            lblRecordCount.setText("RECORD(S): " + customers.size());
             tblCustomer.setRowSelectionInterval(0, 0);
         }
     }
@@ -228,7 +230,6 @@ public class SearchPanelInstitution extends javax.swing.JPanel {
         transactionForms.addAll(t);
         if (!transactionForms.isEmpty()) {
             tblTransactionForm.setRowSelectionInterval(0, 0);
-            lblRecordCount.setText("RECORD(S): " + transactionForms.size());
         }
     }
 }

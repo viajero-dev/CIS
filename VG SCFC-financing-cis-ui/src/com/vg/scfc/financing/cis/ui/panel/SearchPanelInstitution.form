@@ -46,6 +46,9 @@
       <SubComponents>
         <Component class="javax.swing.JTable" name="tblCustomer">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Monospaced" size="9" style="1"/>
+            </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
               <TableColumnModel selectionModel="0">
                 <Column maxWidth="70" minWidth="-1" prefWidth="70" resizable="true">
@@ -161,7 +164,7 @@
     <Component class="javax.swing.JLabel" name="lblRecordCount">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="4"/>
-        <Property name="text" type="java.lang.String" value="RECORD(S):"/>
+        <Property name="text" type="java.lang.String" value="RECORD(S): 0"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">

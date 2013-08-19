@@ -5,24 +5,28 @@
  */
 package com.vg.scfc.financing.cis.ui.panel;
 
+import com.vg.scfc.financing.cis.ent.Address;
 import com.vg.scfc.financing.cis.ent.Company;
 import com.vg.scfc.financing.cis.ent.TransactionForm;
+import com.vg.scfc.financing.cis.ui.controller.AddressController;
 import com.vg.scfc.financing.cis.ui.controller.CompanyController;
 import com.vg.scfc.financing.cis.ui.controller.EmploymentController;
 import com.vg.scfc.financing.cis.ui.controller.PersonalInfoController;
 import com.vg.scfc.financing.cis.ui.controller.RidersToBuyerController;
 import com.vg.scfc.financing.cis.ui.listener.BasicActionListener;
 import com.vg.scfc.financing.cis.ui.reusable.ApplicationFormAndDatePanel;
+import com.vg.scfc.financing.cis.ui.reusable.SimpleAddressPanel;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.text.ParseException;
-import java.util.Date;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author rodel
  */
-public class InstitutionalPanel extends javax.swing.JPanel {
+public class InstitutionalPanel extends javax.swing.JPanel implements KeyListener{
 
     /**
      * Creates new form InstitutionalPanel
@@ -60,6 +64,7 @@ public class InstitutionalPanel extends javax.swing.JPanel {
                 headerPanel.enableFields(true);
                 panelCompanyInformation.setFieldsEditable(true);
                 panelCompanyInformation.resetToDefault();
+                txtCompanyName.requestFocus();
             }
 
             @Override
@@ -67,6 +72,7 @@ public class InstitutionalPanel extends javax.swing.JPanel {
                 boolean isSaved = panelCompanyInformation.saveCompanyInformation();
                 if (!isSaved) {
                     UIValidator.promptErrorMessageOn("SAVE");
+                    AddressController.getInstance().createNew(headerPanel.getFormNo(), "APP", companyAddress);
                 } else {
                     UIValidator.promptSucessMessageFor("SAVE");
                     panelCompanyInformation.setFieldsEditable(false);
@@ -399,6 +405,9 @@ public class InstitutionalPanel extends javax.swing.JPanel {
         panelRepresentative1PersonalInformation.setFieldsEditable(false);
         panelRepresentative2Employment.setFieldsEditable(false);
         panelRepresentative2PersonalInformation.setFieldsEditable(false);
+        
+        txtCompanyName.addKeyListener(this);
+        txtCompleteAddress.addKeyListener(this);
     }
 
     /**
@@ -518,11 +527,16 @@ public class InstitutionalPanel extends javax.swing.JPanel {
         add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(285, 120, -1, -1));
 
         txtCompanyName.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
+        txtCompanyName.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtCompanyNameFocusLost(evt);
+            }
+        });
         add(txtCompanyName, new org.netbeans.lib.awtextra.AbsoluteConstraints(395, 90, 535, -1));
 
         txtCompleteAddress.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         add(txtCompleteAddress, new org.netbeans.lib.awtextra.AbsoluteConstraints(395, 115, 535, -1));
-        add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 143, 1036, 10));
+        add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 143, 1070, 10));
         add(searchPanelInstitution, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 85, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
@@ -534,6 +548,10 @@ public class InstitutionalPanel extends javax.swing.JPanel {
             UIValidator.promptErrorMessageOn("SAVE");
         }
     }//GEN-LAST:event_btnAgreeActionPerformed
+
+    private void txtCompanyNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCompanyNameFocusLost
+        txtCompanyName.setText(txtCompanyName.getText().toUpperCase());
+    }//GEN-LAST:event_txtCompanyNameFocusLost
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.vg.scfc.financing.cis.ui.reusable.AddEditButtonPanel addEditCompanyInfo;
@@ -569,4 +587,41 @@ public class InstitutionalPanel extends javax.swing.JPanel {
     private javax.swing.JTextField txtCompanyName;
     private javax.swing.JTextField txtCompleteAddress;
     // End of variables declaration//GEN-END:variables
+    private Address companyAddress;
+
+    public void setCompanyAddress(Address companyAddress) {
+        this.companyAddress = companyAddress;
+    }
+    
+    @Override
+    public void keyTyped(KeyEvent e) {
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        switch(e.getKeyCode()) {
+            case KeyEvent.VK_ENTER:
+                if(txtCompanyName.isFocusOwner()) {
+                    txtCompleteAddress.requestFocus();
+                }
+                break;
+            case KeyEvent.VK_UP:
+                if(txtCompleteAddress.isFocusOwner()) {
+                    txtCompanyName.requestFocus();
+                }
+                break;
+            case KeyEvent.VK_F5:
+                if(txtCompleteAddress.isFocusOwner()) {
+                    SimpleAddressPanel simpleAddressPanel = new SimpleAddressPanel();
+                    JOptionPane.showMessageDialog(null, simpleAddressPanel, "ADDRESS", JOptionPane.QUESTION_MESSAGE);
+                    setCompanyAddress(simpleAddressPanel.getAddress());
+                    txtCompleteAddress.setText(companyAddress.getAddress() + ", " + companyAddress.getBrgyDesc());
+                }
+                break;
+        }
+    }
 }

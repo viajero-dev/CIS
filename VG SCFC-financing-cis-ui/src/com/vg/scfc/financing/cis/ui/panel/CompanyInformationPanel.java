@@ -201,7 +201,7 @@ public class CompanyInformationPanel extends javax.swing.JPanel implements KeyLi
     }//GEN-LAST:event_txtEmailFocusLost
 
     private void txtOwnerFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtOwnerFocusLost
-         txtOwner.setText(UIValidator.validate(txtOwner));
+         txtOwner.setText(txtOwner.getText().toUpperCase());
     }//GEN-LAST:event_txtOwnerFocusLost
 
     private void txtNatureBusinessFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNatureBusinessFocusLost
@@ -383,7 +383,7 @@ public class CompanyInformationPanel extends javax.swing.JPanel implements KeyLi
     }
 
     public boolean saveCompanyInformation() {
-        Company c = CompanyController.getInstance().createNew(createNew(new Company()), headerPanel.getFormNo(), headerPanel.getApplicationDate(), txtCompanyName.getText());
+        Company c = CompanyController.getInstance().createNew(createNew(new Company()), headerPanel.getIDNo(), headerPanel.getApplicationDate(), txtCompanyName.getText());
         setCompany(c);
         return c != null;
     }

@@ -642,6 +642,7 @@ public class PurchaseOrderPanel2 extends javax.swing.JPanel implements KeyListen
         if (p == null) {
             resetToDefault();
         } else {
+            System.out.println("Version" + p.getVersion());
             switch(p.getPurpose()) {
                 case "PERSONAL" :
                     break;

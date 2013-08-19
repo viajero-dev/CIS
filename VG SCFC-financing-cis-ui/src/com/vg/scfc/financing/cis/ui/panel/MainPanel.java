@@ -1764,6 +1764,7 @@ public class MainPanel extends javax.swing.JPanel {
             panelMachinery.refreshTable(MachineryAssetsController.getInstance().findAll(form.getTxFormNo()));
             panelAddress.refreshTable(AddressController.getInstance().findByFormNo(form.getTxFormNo(), "APP"));
             PurchaseOrder p = PurchaseOrderController.getInstance().findByFormNo(form.getTxFormNo());
+            System.out.println("Version @ search: " + p.getVersion());
             headerPanel.setApplicationStatus(p.getStatus());
             panelPO.setPurchaseOrder(p);
             /* Spouse */
