@@ -27,7 +27,7 @@ public class AddressController {
         return instance;
     }
 
-    public List<Address> createNew(String formNo, String personType, Address a) {
+    public List<Address> save(String formNo, String personType, Address a) {
         List<Address> results = new ArrayList<>();
         try {
             PersonType p = UISetting.getPersonTypeService().findById(personType);

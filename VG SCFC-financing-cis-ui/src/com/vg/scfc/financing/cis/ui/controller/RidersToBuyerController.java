@@ -8,8 +8,6 @@ package com.vg.scfc.financing.cis.ui.controller;
 import com.vg.scfc.financing.cis.ent.Identification;
 import com.vg.scfc.financing.cis.ui.settings.UISetting;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -26,7 +24,7 @@ public class RidersToBuyerController {
         return instance;
     }
     
-    public Identification saveAgreement(String formNo, String personTypeID, Identification i) {
+    public Identification save(String formNo, String personTypeID, Identification i) {
         Identification result = null;
         try {
             i.setTxFormNo(formNo);
@@ -37,6 +35,8 @@ public class RidersToBuyerController {
             boolean isSaved = UISetting.getIdentificationService().insert(i);
             if(isSaved) {
                 result = UISetting.getIdentificationService().findById(formNo, personTypeID);
+            } else {
+                System.out.println("Failed to insert...");
             }
         } catch (Exception ex) {
             UIValidator.log(ex, RidersToBuyerController.class);
@@ -48,6 +48,16 @@ public class RidersToBuyerController {
         Identification result = null;
         try {
             result = UISetting.getIdentificationService().findById(formNo, "APP");
+        } catch (Exception ex) {
+            UIValidator.log(ex, RidersToBuyerController.class);
+        }
+        return result;
+    }
+    
+    public Identification findByFormNoAndPersonType(String formNo, String personTypeID) {
+        Identification result = null;
+        try {
+            result = UISetting.getIdentificationService().findById(formNo, personTypeID);
         } catch (Exception ex) {
             UIValidator.log(ex, RidersToBuyerController.class);
         }

@@ -33,12 +33,11 @@ public class CompanyController {
         try {
             /* Form Info */
             TransactionForm form = new TransactionForm();
-            String formNo = FormController.getInstance().newFormNo(UISetting.getStoreLocation().getId(), "3", formSeries);
-            form.setTxFormNo(formNo);
             form.setTxApplicationDate(applicationDate);
             form.setUser(UISetting.getSystemUser());
             form.setStation(UISetting.getComputerName());
             form.setLocation(UISetting.getStoreLocation());
+            form.setFormNo(formSeries);
 
             /* Transaction Mode */
             TransactionMode transactionMode = UISetting.getTransactionModeService().findByID(3);
@@ -52,7 +51,6 @@ public class CompanyController {
             customer.setStation(UISetting.getComputerName());
 
             /* Institution Info */
-            c.setTxFormNo(formNo);
             c.setUser(UISetting.getSystemUser());
             c.setLocation(UISetting.getStoreLocation());
             c.setStation(UISetting.getComputerName());

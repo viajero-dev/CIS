@@ -238,6 +238,22 @@ public class RidersToBuyerPanel extends javax.swing.JPanel implements KeyListene
         this.personType = personType;
     }
     
+    public void setFieldsEditable(boolean value) {
+        txtCompetent.setEditable(value);
+        txtIdNo.setEditable(value);
+        txtPlaceOfIssue.setEditable(value);
+        txtIssueDate.setEditable(value);
+        
+        txtCompetent.setFocusable(value);
+        txtIdNo.setFocusable(value);
+        txtPlaceOfIssue.setFocusable(value);
+        txtIssueDate.setFocusable(value);
+        
+        if(value) {
+            txtCompetent.requestFocus();
+        }
+    }
+    
     private Identification createNew(Identification i) {
         try {
             i.setDateOfIssue(txtIssueDate.getDate());
@@ -285,7 +301,8 @@ public class RidersToBuyerPanel extends javax.swing.JPanel implements KeyListene
     }
     
     public boolean saveAgreement(){
-        Identification i = RidersToBuyerController.getInstance().saveAgreement(headerPanel.getFormNo(), "APP", createNew(new Identification()));
+        System.out.println("Saving for " + headerPanel.getFormNo()+" (" + personType + ")...");
+        Identification i = RidersToBuyerController.getInstance().save(headerPanel.getFormNo(), personType, createNew(new Identification()));
         setIdentification(i);
         return i != null;
     }

@@ -46,6 +46,7 @@ public class AppliancesPanel extends javax.swing.JPanel implements KeyListener {
     }
 
     private void initApplianceTable() {
+        tableAppliance.putClientProperty("Quaqua.Table.style", "striped" );
         tableAppliance.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         tableAppliance.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 

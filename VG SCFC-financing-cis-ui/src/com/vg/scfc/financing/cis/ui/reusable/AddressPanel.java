@@ -64,6 +64,7 @@ public class AddressPanel extends javax.swing.JPanel implements KeyListener {
     }
 
     private void initAddressTable() {
+        tableAddress.putClientProperty("Quaqua.Table.style", "striped" );
         tableAddress.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         tableAddress.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 
@@ -529,13 +530,13 @@ public class AddressPanel extends javax.swing.JPanel implements KeyListener {
     }
 
     public boolean saveAddress() {
-        List<Address> a = AddressController.getInstance().createNew(headerPanel.getFormNo(), personType, createNew(new Address()));
+        List<Address> a = AddressController.getInstance().save(headerPanel.getFormNo(), personType, createNew(new Address()));
         refreshTable(a);
         return !a.isEmpty();
     }
     
     public boolean saveCoMakerAddress() {
-        List<Address> a = AddressController.getInstance().createNew(headerPanel.getFormNo(), mainPanel.getSelectedCoMaker().getPersonType().getTypeID(), createNew(new Address()));
+        List<Address> a = AddressController.getInstance().save(headerPanel.getFormNo(), mainPanel.getSelectedCoMaker().getPersonType().getTypeID(), createNew(new Address()));
         refreshTable(a);
         return !a.isEmpty();
     }

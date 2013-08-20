@@ -43,7 +43,7 @@ public class PictureReportPanel extends javax.swing.JPanel {
             Date fromDate = java.sql.Date.valueOf("2013-07-01");
             Date toDate = java.sql.Date.valueOf("2013-07-31");
             
-//            holder = UISetting.getPrintReportService().findApplicantsForPicturePrinting(location, toDate, toDate);
+            holder = UISetting.getPrintReportService().findApplicantsForPicturePrinting(location, toDate, toDate);
         } catch (Exception e) {
             LoggerFactory.getLogger(PictureReportPanel.class).error(StringUtils.formatException(e));
         }

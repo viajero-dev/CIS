@@ -5,20 +5,17 @@
  */
 package com.vg.scfc.financing.cis.ui.frames;
 
-import javax.swing.JFrame;
-
 /**
  *
  * @author rodel
  */
-public class InstitutionFrame extends javax.swing.JFrame {
+public class PictureReportFrame extends javax.swing.JFrame {
 
     /**
-     * Creates new form InstitutionFrame
+     * Creates new form PictureReportFrame
      */
-    public InstitutionFrame() {
+    public PictureReportFrame() {
         initComponents();
-        this.setExtendedState(this.getExtendedState() | JFrame.MAXIMIZED_BOTH);
     }
 
     /**
@@ -30,11 +27,11 @@ public class InstitutionFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        institutionalPanel1 = new com.vg.scfc.financing.cis.ui.panel.InstitutionalPanel();
+        summaryReportPanel1 = new com.vg.scfc.financing.cis.ui.panel.SummaryReportPanel();
 
-        setResizable(false);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(institutionalPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 710));
+        getContentPane().add(summaryReportPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -56,25 +53,25 @@ public class InstitutionFrame extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(InstitutionFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PictureReportFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(InstitutionFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PictureReportFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(InstitutionFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PictureReportFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(InstitutionFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PictureReportFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new InstitutionFrame().setVisible(true);
+                new PictureReportFrame().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.vg.scfc.financing.cis.ui.panel.InstitutionalPanel institutionalPanel1;
+    private com.vg.scfc.financing.cis.ui.panel.SummaryReportPanel summaryReportPanel1;
     // End of variables declaration//GEN-END:variables
 }

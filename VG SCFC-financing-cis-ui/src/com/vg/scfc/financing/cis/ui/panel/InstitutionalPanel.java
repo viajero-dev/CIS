@@ -20,13 +20,15 @@ import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.text.ParseException;
+import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.JTabbedPane;
 
 /**
  *
  * @author rodel
  */
-public class InstitutionalPanel extends javax.swing.JPanel implements KeyListener{
+public class InstitutionalPanel extends javax.swing.JPanel implements KeyListener {
 
     /**
      * Creates new form InstitutionalPanel
@@ -45,14 +47,20 @@ public class InstitutionalPanel extends javax.swing.JPanel implements KeyListene
         initFields();
     }
 
+    private void initTabs() {
+//        jTabbedPane1.setLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
+        jTabbedPane1.putClientProperty("Quaqua.TabbedPane.shortenTabs", Boolean.FALSE );
+    }
+
     private void initCompanyInfoAddEditListener() {
         panelCompanyInformation.setHeaderPanel(headerPanel);
         panelCompanyInformation.setTxtCompanyName(txtCompanyName);
+        panelCompanyInformation.setInstitutionalPanel(this);
         addEditCompanyInfo.setBasicActionListener(new BasicActionListener() {
 
             @Override
             public void onAdd() {
-                 ApplicationFormAndDatePanel formAndDatePanel = new ApplicationFormAndDatePanel();
+                ApplicationFormAndDatePanel formAndDatePanel = new ApplicationFormAndDatePanel();
                 JOptionPane.showMessageDialog(null, formAndDatePanel, "APPLICATION", JOptionPane.QUESTION_MESSAGE);
                 headerPanel.setFormNo("");
                 headerPanel.setIDNo(formAndDatePanel.getFormSeries());
@@ -69,10 +77,10 @@ public class InstitutionalPanel extends javax.swing.JPanel implements KeyListene
 
             @Override
             public boolean onSaveAdd() {
+                panelCompanyInformation.setAddress(companyAddress);
                 boolean isSaved = panelCompanyInformation.saveCompanyInformation();
                 if (!isSaved) {
                     UIValidator.promptErrorMessageOn("SAVE");
-                    AddressController.getInstance().createNew(headerPanel.getFormNo(), "APP", companyAddress);
                 } else {
                     UIValidator.promptSucessMessageFor("SAVE");
                     panelCompanyInformation.setFieldsEditable(false);
@@ -328,7 +336,7 @@ public class InstitutionalPanel extends javax.swing.JPanel implements KeyListene
             }
         });
     }
-    
+
     private void initPurchaseOrderAddEditListener() {
         panelPurchaseOrder.setHeaderPanel(headerPanel);
         addEditPurchaseOrder.setBasicActionListener(new BasicActionListener() {
@@ -342,7 +350,7 @@ public class InstitutionalPanel extends javax.swing.JPanel implements KeyListene
             @Override
             public boolean onSaveAdd() {
                 boolean isSaved = panelPurchaseOrder.savePurchaseOrder();
-                if(isSaved) {
+                if (isSaved) {
                     UIValidator.promptErrorMessageOn("SAVE");
                 } else {
                     UIValidator.promptSucessMessageFor("SAVE");
@@ -364,7 +372,7 @@ public class InstitutionalPanel extends javax.swing.JPanel implements KeyListene
             @Override
             public boolean onSaveEdit() {
                 boolean isUpdated = panelPurchaseOrder.updatePurchaseOrder();
-                if(isUpdated) {
+                if (isUpdated) {
                     UIValidator.promptErrorMessageOn("EDIT");
                 } else {
                     UIValidator.promptSucessMessageFor("EDIT");
@@ -387,9 +395,13 @@ public class InstitutionalPanel extends javax.swing.JPanel implements KeyListene
     public void fillValue(TransactionForm form) {
         if (form != null) {
             headerPanel.setFormNo(form.getTxFormNo());
+            headerPanel.setIDNo(form.getFormNo());
             headerPanel.setApplicationDate(form.getTxApplicationDate());
             headerPanel.enableFields(false);
-            txtCompanyName.setText(searchPanelInstitution.getCustomer().getName());
+            List<Address> addresses = AddressController.getInstance().findByFormNo(form.getTxFormNo(), "APP");
+            if (!addresses.isEmpty()) {
+                panelCompanyInformation.setAddress(addresses.get(0));
+            }
             panelCompanyInformation.setCompany((Company) CompanyController.getInstance().findByFormNo(form.getTxFormNo()));
             panelRepresentative1PersonalInformation.setPersonalInfo(PersonalInfoController.getInstance().findByFormNoAndPersonType(form.getTxFormNo(), "RP1"));
             panelRepresentative2PersonalInformation.setPersonalInfo(PersonalInfoController.getInstance().findByFormNoAndPersonType(form.getTxFormNo(), "RP2"));
@@ -405,7 +417,7 @@ public class InstitutionalPanel extends javax.swing.JPanel implements KeyListene
         panelRepresentative1PersonalInformation.setFieldsEditable(false);
         panelRepresentative2Employment.setFieldsEditable(false);
         panelRepresentative2PersonalInformation.setFieldsEditable(false);
-        
+
         txtCompanyName.addKeyListener(this);
         txtCompleteAddress.addKeyListener(this);
     }
@@ -592,7 +604,7 @@ public class InstitutionalPanel extends javax.swing.JPanel implements KeyListene
     public void setCompanyAddress(Address companyAddress) {
         this.companyAddress = companyAddress;
     }
-    
+
     @Override
     public void keyTyped(KeyEvent e) {
     }
@@ -603,25 +615,35 @@ public class InstitutionalPanel extends javax.swing.JPanel implements KeyListene
 
     @Override
     public void keyReleased(KeyEvent e) {
-        switch(e.getKeyCode()) {
+        switch (e.getKeyCode()) {
             case KeyEvent.VK_ENTER:
-                if(txtCompanyName.isFocusOwner()) {
-                    txtCompleteAddress.requestFocus();
-                }
+                if (txtCompanyName.isFocusOwner()) {
+                txtCompleteAddress.requestFocus();
+            }
                 break;
             case KeyEvent.VK_UP:
-                if(txtCompleteAddress.isFocusOwner()) {
-                    txtCompanyName.requestFocus();
-                }
+                if (txtCompleteAddress.isFocusOwner()) {
+                txtCompanyName.requestFocus();
+            }
                 break;
             case KeyEvent.VK_F5:
-                if(txtCompleteAddress.isFocusOwner()) {
-                    SimpleAddressPanel simpleAddressPanel = new SimpleAddressPanel();
-                    JOptionPane.showMessageDialog(null, simpleAddressPanel, "ADDRESS", JOptionPane.QUESTION_MESSAGE);
-                    setCompanyAddress(simpleAddressPanel.getAddress());
-                    txtCompleteAddress.setText(companyAddress.getAddress() + ", " + companyAddress.getBrgyDesc());
-                }
+                if (txtCompleteAddress.isFocusOwner()) {
+                SimpleAddressPanel simpleAddressPanel = new SimpleAddressPanel();
+                JOptionPane.showMessageDialog(null, simpleAddressPanel, "ADDRESS", JOptionPane.QUESTION_MESSAGE);
+                setCompanyAddress(simpleAddressPanel.getAddress());
+                txtCompleteAddress.setText(companyAddress.getAddress() + ", " + companyAddress.getBrgyDesc());
+            }
                 break;
+        }
+    }
+
+    public void fillValue(String companyName, Address address) {
+        txtCompanyName.setText(companyName);
+        if (address != null) {
+            txtCompleteAddress.setText(address.getAddress() + ", " + address.getBrgyDesc());
+            setCompanyAddress(address);
+        } else {
+            txtCompleteAddress.setText("");
         }
     }
 }

@@ -22,7 +22,7 @@ public class SimpleAddressFrame extends javax.swing.JFrame {
     }
 
     public SimpleAddressPanel getSimpleAddressPanel1() {
-        return simpleAddressPanel1;
+        return simpleAddressPanel;
     }
 
     /**
@@ -34,10 +34,10 @@ public class SimpleAddressFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        simpleAddressPanel1 = new com.vg.scfc.financing.cis.ui.reusable.SimpleAddressPanel();
+        simpleAddressPanel = new com.vg.scfc.financing.cis.ui.reusable.SimpleAddressPanel();
 
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(simpleAddressPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 120));
+        getContentPane().add(simpleAddressPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 120));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -78,10 +78,10 @@ public class SimpleAddressFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.vg.scfc.financing.cis.ui.reusable.SimpleAddressPanel simpleAddressPanel1;
+    private com.vg.scfc.financing.cis.ui.reusable.SimpleAddressPanel simpleAddressPanel;
     // End of variables declaration//GEN-END:variables
 
     public Address getAddress() {
-        return simpleAddressPanel1.getAddress();
+        return simpleAddressPanel.getAddress();
     }
 }

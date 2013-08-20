@@ -41,6 +41,7 @@ public class CreditReferencePanel extends javax.swing.JPanel implements KeyListe
     }
 
     private void initCreditReferenceTable() {
+        tableCreditReference.putClientProperty("Quaqua.Table.style", "striped" );
         tableCreditReference.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         tableCreditReference.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 

@@ -9,6 +9,7 @@ import com.vg.commons.renderer.CustomTableCellRenderer;
 import com.vg.scfc.financing.cis.ent.Customer;
 import com.vg.scfc.financing.cis.ent.TransactionForm;
 import com.vg.scfc.financing.cis.ui.controller.SearchController;
+import com.vg.scfc.financing.cis.ui.settings.UISetting;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 import java.text.SimpleDateFormat;
 import java.util.LinkedList;
@@ -35,10 +36,15 @@ public class SearchPanel extends javax.swing.JPanel {
     private void startUpSetUp() {
         initCustomerTable();
         initTransactionFormTable();
-//        refreshCustomerTable(SearchController.getInstance().findAll());
+        txtSearch.putClientProperty("Quaqua.TextField.style", "search");
+        txtSearch.setText("Search");
+//        refreshCustomerTable(SearchController.getInstance().findBySearchCriteriaLocationAndMode("", UISetting.getStoreLocation().getFinStartCode(), 2));
     }
 
     private void initCustomerTable() {
+        tblCustomer.putClientProperty(
+                "Quaqua.Table.style", "striped"
+                );
         tblCustomer.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         tblCustomer.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 
@@ -60,6 +66,9 @@ public class SearchPanel extends javax.swing.JPanel {
     }
 
     private void initTransactionFormTable() {
+        tblTransactionForm.putClientProperty(
+                "Quaqua.Table.style", "striped"
+                );
         tblTransactionForm.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         tblTransactionForm.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 
@@ -109,6 +118,9 @@ public class SearchPanel extends javax.swing.JPanel {
             }
         });
         txtSearch.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtSearchFocusGained(evt);
+            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtSearchFocusLost(evt);
             }
@@ -162,8 +174,12 @@ public class SearchPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_txtSearchFocusLost
 
     private void txtSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchActionPerformed
-        refreshCustomerTable(SearchController.getInstance().findBySearchCriteria(txtSearch.getText()));
+        refreshCustomerTable(SearchController.getInstance().findBySearchCriteriaLocationAndMode(txtSearch.getText(), UISetting.getStoreLocation().getFinStartCode(), 2));
     }//GEN-LAST:event_txtSearchActionPerformed
+
+    private void txtSearchFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSearchFocusGained
+        txtSearch.selectAll();
+    }//GEN-LAST:event_txtSearchFocusGained
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnPrintVersion;
@@ -222,5 +238,9 @@ public class SearchPanel extends javax.swing.JPanel {
         if (!transactionForms.isEmpty()) {
             tblTransactionForm.setRowSelectionInterval(0, 0);
         }
+    }
+
+    public void refresh() {
+        refreshCustomerTable(SearchController.getInstance().findAllWithLimit(10));
     }
 }

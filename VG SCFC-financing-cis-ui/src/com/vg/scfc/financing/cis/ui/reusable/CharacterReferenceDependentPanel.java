@@ -33,6 +33,7 @@ public class CharacterReferenceDependentPanel extends javax.swing.JPanel impleme
     }
 
     private void initTableCharacterReference() {
+        tableCharacterRef.putClientProperty("Quaqua.Table.style", "striped" );
         tableCharacterRef.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         tableCharacterRef.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 

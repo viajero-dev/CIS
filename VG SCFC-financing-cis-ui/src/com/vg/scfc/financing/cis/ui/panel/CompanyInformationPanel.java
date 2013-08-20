@@ -5,17 +5,19 @@
  */
 package com.vg.scfc.financing.cis.ui.panel;
 
-import com.vg.commons.util.DateUtil;
+import com.vg.scfc.financing.cis.ent.Address;
 import com.vg.scfc.financing.cis.ent.Company;
+import com.vg.scfc.financing.cis.ent.Customer;
+import com.vg.scfc.financing.cis.ui.controller.AddressController;
 import com.vg.scfc.financing.cis.ui.controller.CompanyController;
+import com.vg.scfc.financing.cis.ui.controller.SearchController;
 import com.vg.scfc.financing.cis.ui.reusable.HeaderPanel;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.text.ParseException;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.List;
 import javax.swing.JTextField;
 
 /**
@@ -201,7 +203,7 @@ public class CompanyInformationPanel extends javax.swing.JPanel implements KeyLi
     }//GEN-LAST:event_txtEmailFocusLost
 
     private void txtOwnerFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtOwnerFocusLost
-         txtOwner.setText(txtOwner.getText().toUpperCase());
+        txtOwner.setText(txtOwner.getText().toUpperCase());
     }//GEN-LAST:event_txtOwnerFocusLost
 
     private void txtNatureBusinessFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNatureBusinessFocusLost
@@ -253,6 +255,16 @@ public class CompanyInformationPanel extends javax.swing.JPanel implements KeyLi
     private HeaderPanel headerPanel;
     private JTextField txtCompanyName;
     private Company company;
+    private Address address;
+    private InstitutionalPanel institutionalPanel;
+
+    public void setInstitutionalPanel(InstitutionalPanel institutionalPanel) {
+        this.institutionalPanel = institutionalPanel;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
 
     public void setTxtCompanyName(JTextField txtCompanyName) {
         this.txtCompanyName = txtCompanyName;
@@ -334,7 +346,7 @@ public class CompanyInformationPanel extends javax.swing.JPanel implements KeyLi
         txtEmail.setEditable(value);
         txtIssuedOn.setEditable(value);
         txtExpireOn.setEditable(value);
-        
+
         txtOwner.setFocusable(value);
         txtOfficeAddress.setFocusable(value);
         txtNatureBusiness.setFocusable(value);
@@ -345,8 +357,8 @@ public class CompanyInformationPanel extends javax.swing.JPanel implements KeyLi
         txtEmail.setFocusable(value);
         txtIssuedOn.setFocusable(value);
         txtExpireOn.setFocusable(value);
-        
-        if(value) {
+
+        if (value) {
             txtOwner.requestFocus();
         }
     }
@@ -379,11 +391,21 @@ public class CompanyInformationPanel extends javax.swing.JPanel implements KeyLi
             txtEmail.setText(c.getEmail());
             txtIssuedOn.setDate(c.getIssuedDate());
             txtExpireOn.setDate(c.getExpirationDate());
+            Customer cust = SearchController.getInstance().findByFormNo(c.getTxFormNo());
+            if (cust != null) {
+                institutionalPanel.fillValue(cust.getName(), address);
+            }
         }
     }
 
     public boolean saveCompanyInformation() {
         Company c = CompanyController.getInstance().createNew(createNew(new Company()), headerPanel.getIDNo(), headerPanel.getApplicationDate(), txtCompanyName.getText());
+        address.setAddressType("PRESENT");
+        address.setTxFormNo(c.getTxFormNo());
+        List<Address> a = AddressController.getInstance().save(c.getTxFormNo(), "APP", address);
+        if (!a.isEmpty()) {
+            setAddress(a.get(0));
+        }
         setCompany(c);
         return c != null;
     }

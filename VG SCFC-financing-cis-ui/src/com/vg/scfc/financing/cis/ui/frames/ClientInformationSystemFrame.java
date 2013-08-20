@@ -41,12 +41,10 @@ public class ClientInformationSystemFrame extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("CLIENT INFORMATION SYSTEM");
 
-        lblStorelocation.setBackground(new java.awt.Color(211, 44, 44));
         lblStorelocation.setFont(new java.awt.Font("Courier 10 Pitch", 0, 24)); // NOI18N
         lblStorelocation.setForeground(java.awt.Color.black);
         lblStorelocation.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblStorelocation.setText("Store Location");
-        lblStorelocation.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         jMenu1.setText("New");
 

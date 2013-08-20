@@ -32,23 +32,22 @@ public class DependentPanel extends javax.swing.JPanel implements KeyListener {
     }
 
     private void initTableDependent() {
-        if (tableDependent != null) {
-            tableDependent.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-            tableDependent.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+        tableDependent.putClientProperty("Quaqua.Table.style", "striped");
+        tableDependent.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        tableDependent.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 
-                @Override
-                public void valueChanged(ListSelectionEvent lse) {
-                    try {
-                        selectedIndex = tableDependent.getSelectedRow();
-                        if (selectedIndex >= 0) {
-                            setDependent(dependents.get(selectedIndex));
-                        }
-                    } catch (Exception e) {
-                        UIValidator.log(e, CharacterReferenceDependentPanel.class);
+            @Override
+            public void valueChanged(ListSelectionEvent lse) {
+                try {
+                    selectedIndex = tableDependent.getSelectedRow();
+                    if (selectedIndex >= 0) {
+                        setDependent(dependents.get(selectedIndex));
                     }
+                } catch (Exception e) {
+                    UIValidator.log(e, CharacterReferenceDependentPanel.class);
                 }
-            });
-        }
+            }
+        });
     }
 
     /**
@@ -248,14 +247,14 @@ public class DependentPanel extends javax.swing.JPanel implements KeyListener {
         txtRefAddress.setEditable(value);
         txtRefContact.setEditable(value);
         txtRefRelationship.setEditable(value);
-        
+
         txtRefName.setFocusable(value);
         txtRefAddress.setFocusable(value);
         txtRefContact.setFocusable(value);
         txtRefRelationship.setFocusable(value);
         tableDependent.setFocusable(value);
-        
-        if(value) {
+
+        if (value) {
             txtRefName.requestFocus();
         }
     }

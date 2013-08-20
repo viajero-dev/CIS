@@ -39,6 +39,7 @@ public class VehiclePanel extends javax.swing.JPanel implements KeyListener {
     }
 
     private void initVehicleTable() {
+        tableVehicle.putClientProperty("Quaqua.Table.style", "striped" );
         tableVehicle.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         tableVehicle.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 

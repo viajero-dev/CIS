@@ -302,7 +302,7 @@ public class SimpleAddressPanel extends javax.swing.JPanel implements KeyListene
     }
 
     public void saveAddress() {
-        List<Address> a = AddressController.getInstance().createNew(formNo, personType, createNew(new Address()));
+        List<Address> a = AddressController.getInstance().save(formNo, personType, createNew(new Address()));
         if (a.isEmpty()) {
             UIValidator.promptErrorMessageOn("SAVE");
         } else {

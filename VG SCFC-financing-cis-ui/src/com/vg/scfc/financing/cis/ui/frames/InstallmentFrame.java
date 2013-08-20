@@ -5,6 +5,8 @@
  */
 package com.vg.scfc.financing.cis.ui.frames;
 
+import javax.swing.JFrame;
+
 /**
  *
  * @author rodel
@@ -16,6 +18,7 @@ public class InstallmentFrame extends javax.swing.JFrame {
      */
     public InstallmentFrame() {
         initComponents();
+       this.setExtendedState(this.getExtendedState() | JFrame.MAXIMIZED_BOTH);
     }
 
     /**

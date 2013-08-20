@@ -22,7 +22,7 @@ public class UIValidator {
     public static String validate(JTextField field) {
         String fieldValue = field.getText();
         if (Validator.getInstance().isEmpty(fieldValue)) {
-            JOptionPane.showMessageDialog(null, ErrorMessage.EMPTY_FIELD, ErrorMessage.ERROR_MESSAGE_TITLE, JOptionPane.WARNING_MESSAGE);
+//            JOptionPane.showMessageDialog(null, ErrorMessage.EMPTY_FIELD, ErrorMessage.ERROR_MESSAGE_TITLE, JOptionPane.WARNING_MESSAGE);
             field.requestFocus();
             return "";
         } else {
@@ -33,7 +33,7 @@ public class UIValidator {
     public static String isNumeric(JTextField field) {
         String fieldValue = field.getText();
         if (Validator.getInstance().isEmpty(fieldValue)) {
-            JOptionPane.showMessageDialog(null, ErrorMessage.EMPTY_FIELD, ErrorMessage.ERROR_MESSAGE_TITLE, JOptionPane.WARNING_MESSAGE);
+//            JOptionPane.showMessageDialog(null, ErrorMessage.EMPTY_FIELD, ErrorMessage.ERROR_MESSAGE_TITLE, JOptionPane.WARNING_MESSAGE);
             field.requestFocus();
             return "0";
         } else {

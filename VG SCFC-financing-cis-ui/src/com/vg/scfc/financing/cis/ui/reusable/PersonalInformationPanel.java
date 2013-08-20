@@ -47,6 +47,7 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
         initRadioButtonListener();
         initComboBoxValues();
         setFieldsEditable(false);
+        txtLastName.putClientProperty("Quaqua.TextField.style", "search");
     }
 
     /**
@@ -599,7 +600,9 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
                 break;
             case KeyEvent.VK_F5:
                 if(txtLastName.isFocusOwner()) {
-                    new SearchPersonalInfoFrame().setVisible(true);
+                    SearchPersonalInfoFrame s = new SearchPersonalInfoFrame();
+//                    s.setInfoPanel(this);
+                    s.setVisible(true);
                 } else if(txtPresentAddress.isFocusOwner()) {
                     SimpleAddressPanel simpleAddressPanel = new SimpleAddressPanel();
                     JOptionPane.showMessageDialog(null, simpleAddressPanel, "ADDRESS", JOptionPane.QUESTION_MESSAGE);
@@ -863,10 +866,10 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
     public void saveAddresses(PersonalInfo p) {
         presentAddress.setAddressType("PRESENT");
         presentAddress.setTxFormNo(p.getTxFormNo());
-        AddressController.getInstance().createNew(p.getTxFormNo(), p.getPersonType().getTypeID(), presentAddress);
+        AddressController.getInstance().save(p.getTxFormNo(), p.getPersonType().getTypeID(), presentAddress);
         previousAddress.setAddressType("PREVIOUS");
         previousAddress.setTxFormNo(p.getTxFormNo());
-        AddressController.getInstance().createNew(p.getTxFormNo(), p.getPersonType().getTypeID(), previousAddress);
+        AddressController.getInstance().save(p.getTxFormNo(), p.getPersonType().getTypeID(), previousAddress);
     }
 
     private PersonalInfo createNew(PersonalInfo p) {

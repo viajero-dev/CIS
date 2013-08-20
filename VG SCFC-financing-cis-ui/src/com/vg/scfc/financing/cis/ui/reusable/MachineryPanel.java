@@ -40,6 +40,7 @@ public class MachineryPanel extends javax.swing.JPanel implements KeyListener {
     }
 
     private void initMachineryTable() {
+        tableMachinery.putClientProperty("Quaqua.Table.style", "striped" );
         tableMachinery.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         tableMachinery.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 

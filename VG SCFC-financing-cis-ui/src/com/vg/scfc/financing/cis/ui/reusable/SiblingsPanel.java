@@ -48,6 +48,7 @@ public class SiblingsPanel extends javax.swing.JPanel implements KeyListener {
     }
 
     private void initTableSibling() {
+        tableSibling.putClientProperty("Quaqua.Table.style", "striped" );
         tableSibling.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         tableSibling.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 

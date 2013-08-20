@@ -17,6 +17,8 @@ import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -218,6 +220,33 @@ public class PersonalInfoController {
             }
         } catch (Exception e) {
             UIValidator.log(e, PersonalInfoController.class);
+        }
+        return results;
+    }
+
+    public List<PersonalInfo> findBySearchCriteria(String criteria) {
+        List<PersonalInfo> results = new ArrayList<>();
+        try {
+            results = UISetting.getPersonalInfoService().findBySearchString(criteria);
+        } catch (Exception ex) {
+            UIValidator.log(ex, PersonalInfoController.class);
+        }
+        return results;
+    }
+
+    public List<PersonalInfo> findBySearchCriteriaWithLimit(String criteria, int limit) {
+        List<PersonalInfo> results = new ArrayList<>();
+        try {
+            List<PersonalInfo> tempResults = UISetting.getPersonalInfoService().findBySearchString(criteria);
+            for (int i = 1; i <= limit; i++) {
+                if (tempResults.size() >= limit) {
+                    results.add(tempResults.get(i));
+                } else {
+                    results.addAll(tempResults);
+                }
+            }
+        } catch (Exception ex) {
+            UIValidator.log(ex, PersonalInfoController.class);
         }
         return results;
     }

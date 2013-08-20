@@ -5,6 +5,9 @@
  */
 package com.vg.scfc.financing.cis.ui.frames;
 
+import com.vg.scfc.financing.cis.ent.PersonalInfo;
+import com.vg.scfc.financing.cis.ui.reusable.PersonalInformationPanel;
+
 /**
  *
  * @author rodel
@@ -16,6 +19,8 @@ public class SearchPersonalInfoFrame extends javax.swing.JFrame {
      */
     public SearchPersonalInfoFrame() {
         initComponents();
+        searchPersonalInfoPanel.setFrame(this);
+        searchPersonalInfoPanel.setInfoPanel(infoPanel);
     }
 
     /**
@@ -27,11 +32,11 @@ public class SearchPersonalInfoFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        searchPersonalInfoPanel1 = new com.vg.scfc.financing.cis.ui.reusable.SearchPersonalInfoPanel();
+        searchPersonalInfoPanel = new com.vg.scfc.financing.cis.ui.reusable.SearchPersonalInfoPanel();
 
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(searchPersonalInfoPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        getContentPane().add(searchPersonalInfoPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -72,6 +77,15 @@ public class SearchPersonalInfoFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.vg.scfc.financing.cis.ui.reusable.SearchPersonalInfoPanel searchPersonalInfoPanel1;
+    private com.vg.scfc.financing.cis.ui.reusable.SearchPersonalInfoPanel searchPersonalInfoPanel;
     // End of variables declaration//GEN-END:variables
+    private PersonalInformationPanel infoPanel;
+
+    public void setInfoPanel(PersonalInformationPanel infoPanel) {
+        this.infoPanel = infoPanel;
+    }
+
+    public PersonalInfo getSelectedPersonalInfo() {
+        return searchPersonalInfoPanel.getPersonalInfo();
+    }
 }
