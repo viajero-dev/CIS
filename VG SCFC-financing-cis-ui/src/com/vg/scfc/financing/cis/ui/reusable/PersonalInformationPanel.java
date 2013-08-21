@@ -7,13 +7,15 @@ package com.vg.scfc.financing.cis.ui.reusable;
 
 import classes.VgImageIcon;
 import com.googlecode.javacv.cpp.opencv_core.IplImage;
+import com.vg.commons.util.UIMgr;
 import com.vg.scfc.financing.cis.ent.Address;
 import com.vg.scfc.financing.cis.ent.PersonalInfo;
 import com.vg.scfc.financing.cis.ent.Religion;
 import com.vg.scfc.financing.cis.ent.Tribe;
 import com.vg.scfc.financing.cis.ui.controller.AddressController;
 import com.vg.scfc.financing.cis.ui.controller.PersonalInfoController;
-import com.vg.scfc.financing.cis.ui.frames.SearchPersonalInfoFrame;
+import com.vg.scfc.financing.cis.ui.dialog.AddressDialog;
+import com.vg.scfc.financing.cis.ui.dialog.PersonalInfoDialog;
 import com.vg.scfc.financing.cis.ui.panel.MainPanel;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 import interfaces.Caller;
@@ -23,7 +25,6 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import javax.swing.JOptionPane;
 import ui.WebCamDlg;
 
 /**
@@ -43,9 +44,9 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
     private void startUpSettings() {
         initGenderOption();
         initTextBoxListener();
-        initComboBoxListener();
         initRadioButtonListener();
         initComboBoxValues();
+        initComboBoxListener();
         setFieldsEditable(false);
         txtLastName.putClientProperty("Quaqua.TextField.style", "search");
     }
@@ -79,6 +80,7 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
      * Add Key Listeners to all combo box
      */
     private void initComboBoxListener() {
+        
         comboTribe.addKeyListener(this);
         comboReligion.addKeyListener(this);
         txtCitizenship.addKeyListener(this);
@@ -114,6 +116,12 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
                 comboReligion.addItem(r.getReligionDesc());
             }
         }
+        comboTribe.setSelectedItem(null);
+        comboStatus.setSelectedItem(null);
+        comboMarriedOption.setSelectedItem(null);
+        comboEducationStatus.setSelectedItem(null);
+        comboReligion.setSelectedItem(null);
+        txtBirthDate.setDate(null);
     }
 
     /**
@@ -236,7 +244,6 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
         jPanel4.add(jLabel105, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 10, -1, -1));
 
         optionMale.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
-        optionMale.setSelected(true);
         optionMale.setText("Male");
         jPanel4.add(optionMale, new org.netbeans.lib.awtextra.AbsoluteConstraints(455, 5, -1, -1));
 
@@ -280,7 +287,7 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
         jPanel4.add(jLabel110, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 85, -1, -1));
 
         comboMarriedOption.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
-        comboMarriedOption.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Living Together", "Widower", "Legally Seperated", "Mutually Seperated", " " }));
+        comboMarriedOption.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Living Together", "Widower", "Legally Seperated", "Mutually Seperated" }));
         comboMarriedOption.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 comboMarriedOptionItemStateChanged(evt);
@@ -510,7 +517,7 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
 
     public void setPersonalInfo(PersonalInfo personalInfo) {
         this.personalInfo = personalInfo;
-        setPersonalInfoData(this.personalInfo);
+        setPersonalInfoData(this.personalInfo, false);
     }
 
     @Override
@@ -599,22 +606,31 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
             }
                 break;
             case KeyEvent.VK_F5:
-                if(txtLastName.isFocusOwner()) {
-                    SearchPersonalInfoFrame s = new SearchPersonalInfoFrame();
-//                    s.setInfoPanel(this);
-                    s.setVisible(true);
-                } else if(txtPresentAddress.isFocusOwner()) {
-                    SimpleAddressPanel simpleAddressPanel = new SimpleAddressPanel();
-                    JOptionPane.showMessageDialog(null, simpleAddressPanel, "ADDRESS", JOptionPane.QUESTION_MESSAGE);
-                    setAddress(simpleAddressPanel.getAddress());
-                    txtPresentAddress.setText(presentAddress.getAddress());
-                } else if(txtPreviousAddress.isFocusOwner()) {
-                    SimpleAddressPanel simpleAddressPanel = new SimpleAddressPanel();
-                    JOptionPane.showMessageDialog(null, simpleAddressPanel, "ADDRESS", JOptionPane.QUESTION_MESSAGE);
-                    setPreviousAddress(simpleAddressPanel.getAddress());
-                    txtPreviousAddress.setText(previousAddress.getAddress());
+                if (txtLastName.isFocusOwner()) {
+                PersonalInfoDialog personalInfoDlg = new PersonalInfoDialog(null, true);
+                UIMgr.centerToScreen(personalInfoDlg);
+                personalInfoDlg.setVisible(true);
+                if (personalInfoDlg.getPersonalInfo() != null) {
+                    setPersonalInfoData(personalInfoDlg.getPersonalInfo(), true);
                 }
-            break;
+            } else if (txtPresentAddress.isFocusOwner()) {
+                AddressDialog addressDialog = new AddressDialog(null, true);
+                UIMgr.centerToScreen(addressDialog);
+                addressDialog.setVisible(true);
+                if (addressDialog.getAddress() != null) {
+                    setAddress(addressDialog.getAddress());
+                }
+                txtPresentAddress.setText(presentAddress.getAddress());
+            } else if (txtPreviousAddress.isFocusOwner()) {
+                AddressDialog addressDialog = new AddressDialog(null, true);
+                UIMgr.centerToScreen(addressDialog);
+                addressDialog.setVisible(true);
+                if (addressDialog.getAddress() != null) {
+                    setPreviousAddress(addressDialog.getAddress());
+                }
+                txtPreviousAddress.setText(previousAddress.getAddress());
+            }
+                break;
         }
     }
 
@@ -680,7 +696,7 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
         txtPreviousAddress.setText("");
     }
 
-    public void setPersonalInfoData(Object o) {
+    public void setPersonalInfoData(Object o, boolean fromSearch) {
         if (o == null) {
             resetToDefault();
         } else {
@@ -747,7 +763,7 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
             int tribeIndex = 0;
             int selectedTribeIndex = 0;
             for (Tribe tribe : tribes) {
-                if(tribe.getTribeDesc().equals(p.getTribe().getTribeDesc())) {
+                if (tribe.getTribeDesc().equals(p.getTribe().getTribeDesc())) {
                     selectedTribeIndex = tribeIndex;
                     break;
                 } else {
@@ -755,11 +771,11 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
                 }
             }
             comboTribe.setSelectedIndex(selectedTribeIndex);
-            
+
             int religionIndex = 0;
             int selectedReligionIndex = 0;
             for (Religion religion : religions) {
-                if(religion.getReligionDesc().equals(p.getReligion().getReligionDesc())) {
+                if (religion.getReligionDesc().equals(p.getReligion().getReligionDesc())) {
                     selectedReligionIndex = religionIndex;
                     break;
                 } else {
@@ -767,14 +783,19 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
                 }
             }
             comboReligion.setSelectedIndex(selectedReligionIndex);
-            
+
             txtCitizenship.setText(p.getCitizenship());
-            List<Address> addresses = AddressController.getInstance().findByFormNo(p.getTxFormNo(), p.getPersonType().getTypeID());
-            for (Address address : addresses) {
-                if(address.getAddressType().equals("PRESENT")) {
-                    txtPresentAddress.setText(address.getAddress() + ", " + address.getBrgyDesc());
-                } else {
-                    txtPreviousAddress.setText(address.getAddress() + ", " + address.getBrgyDesc());
+            if (fromSearch) {
+                txtPresentAddress.setText("");
+                txtPreviousAddress.setText("");
+            } else {
+                List<Address> addresses = AddressController.getInstance().findByFormNo(p.getTxFormNo(), p.getPersonType().getTypeID());
+                for (Address address : addresses) {
+                    if (address.getAddressType().equals("PRESENT")) {
+                        txtPresentAddress.setText(address.getAddress() + ", " + address.getBrgyDesc());
+                    } else {
+                        txtPreviousAddress.setText(address.getAddress() + ", " + address.getBrgyDesc());
+                    }
                 }
             }
         }
@@ -805,10 +826,10 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
         setPersonalInfo(p);
         return p != null;
     }
-    
+
     public boolean saveCoMakerPersonalInfo() {
         String cmType;
-        if(mainPanel.getComakers().isEmpty()) {
+        if (mainPanel.getComakers().isEmpty()) {
             cmType = "CM1";
         } else {
             cmType = "CM2";
@@ -818,16 +839,16 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
         setPersonalInfo(p);
         return p != null;
     }
-    
+
     public boolean updateCoMakerPersonalInfo() {
         PersonalInfo p = PersonalInfoController.getInstance().update(headerPanel.getFormNo(), personalInfo.getPersonType().getTypeID(), createNew(personalInfo));
         setPersonalInfo(p);
         return p != null;
     }
-    
+
     public boolean saveCoMakerSpousePersonalInfo() {
         String cmType;
-        if(mainPanel.getSelectedCoMaker().getPersonType().getTypeID().equals("CM1")) {
+        if (mainPanel.getSelectedCoMaker().getPersonType().getTypeID().equals("CM1")) {
             cmType = "CS1";
         } else {
             cmType = "CS2";
@@ -837,10 +858,10 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
         setPersonalInfo(p);
         return p != null;
     }
-    
+
     public boolean updateCoMakerSpousePersonalInfo() {
         String cmType;
-        if(mainPanel.getSelectedCoMaker().getPersonType().getTypeID().equals("CM1")) {
+        if (mainPanel.getSelectedCoMaker().getPersonType().getTypeID().equals("CM1")) {
             cmType = "CS1";
         } else {
             cmType = "CS2";
@@ -849,27 +870,32 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
         setPersonalInfo(p);
         return p != null;
     }
-    
+
     public boolean saveRepresentativePersonalInfo() {
         PersonalInfo p = PersonalInfoController.getInstance().save(createNew(new PersonalInfo()), headerPanel.getFormNo(), personType, clientNo);
         saveAddresses(p);
         setPersonalInfo(p);
         return p != null;
     }
-    
+
     public boolean updateRepresentativePersonalInfo() {
         PersonalInfo p = PersonalInfoController.getInstance().update(headerPanel.getFormNo(), personType, createNew(personalInfo));
         setPersonalInfo(p);
         return p != null;
     }
-    
+
     public void saveAddresses(PersonalInfo p) {
-        presentAddress.setAddressType("PRESENT");
-        presentAddress.setTxFormNo(p.getTxFormNo());
-        AddressController.getInstance().save(p.getTxFormNo(), p.getPersonType().getTypeID(), presentAddress);
-        previousAddress.setAddressType("PREVIOUS");
-        previousAddress.setTxFormNo(p.getTxFormNo());
-        AddressController.getInstance().save(p.getTxFormNo(), p.getPersonType().getTypeID(), previousAddress);
+        if (presentAddress != null) {
+            presentAddress.setAddressType("PRESENT");
+            presentAddress.setTxFormNo(p.getTxFormNo());
+            AddressController.getInstance().save(p.getTxFormNo(), p.getPersonType().getTypeID(), presentAddress);
+        }
+
+        if (previousAddress != null) {
+            previousAddress.setAddressType("PREVIOUS");
+            previousAddress.setTxFormNo(p.getTxFormNo());
+            AddressController.getInstance().save(p.getTxFormNo(), p.getPersonType().getTypeID(), previousAddress);
+        }
     }
 
     private PersonalInfo createNew(PersonalInfo p) {

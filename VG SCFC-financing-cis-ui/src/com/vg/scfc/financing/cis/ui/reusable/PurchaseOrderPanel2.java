@@ -7,6 +7,7 @@ package com.vg.scfc.financing.cis.ui.reusable;
 
 import com.vg.commons.util.DateUtil;
 import com.vg.commons.util.NumberUtils;
+import com.vg.commons.util.UIMgr;
 import com.vg.hrm.user.ent.Employee;
 import com.vg.hrm.user.ui.dlg.EmployeesDlg;
 import com.vg.scfc.financing.cis.ent.PurchaseOrder;
@@ -38,6 +39,10 @@ public class PurchaseOrderPanel2 extends javax.swing.JPanel implements KeyListen
     public PurchaseOrderPanel2() {
         initComponents();
         initKeyListener();
+        txtMakeCode.putClientProperty("Quaqua.TextField.style", "search");
+        txtColorCode.putClientProperty("Quaqua.TextField.style", "search");
+        txtModelCode.putClientProperty("Quaqua.TextField.style", "search");
+        txtCICode.putClientProperty("Quaqua.TextField.style", "search");
     }
 
     private void initKeyListener() {
@@ -498,8 +503,8 @@ public class PurchaseOrderPanel2 extends javax.swing.JPanel implements KeyListen
                 MakeDlg makeDlg = new MakeDlg(null, true);
                 makeDlg.setMakeService(UISetting.getMakeService());
                 makeDlg.setDefault();
+                UIMgr.centerToScreen(makeDlg);
                 makeDlg.setVisible(true);
-                System.out.println(makeDlg.getSelectedMake().getCode());
                 if (makeDlg.getSelectedMake() != null) {
                     setMake(makeDlg.getSelectedMake());
                     txtMakeCode.setText(make.getCode());
@@ -509,8 +514,8 @@ public class PurchaseOrderPanel2 extends javax.swing.JPanel implements KeyListen
                 ColorDlg colorDlg = new ColorDlg(null, true);
                 colorDlg.setColorService(UISetting.getColorService());
                 colorDlg.setDefault();
+                UIMgr.centerToScreen(colorDlg);
                 colorDlg.setVisible(true);
-                System.out.println(colorDlg.getSelectedColor().getCode());
                 if (colorDlg.getSelectedColor() != null) {
                     setColor(colorDlg.getSelectedColor());
                     txtColorCode.setText(color.getCode());
@@ -520,8 +525,8 @@ public class PurchaseOrderPanel2 extends javax.swing.JPanel implements KeyListen
                 ModelDlg modelDlg = new ModelDlg(null, true);
                 modelDlg.setModelService(UISetting.getModelService());
                 modelDlg.setDefault();
+                UIMgr.centerToScreen(modelDlg);
                 modelDlg.setVisible(true);
-                System.out.println(modelDlg.getSelectedModel().getCode());
                 if (modelDlg.getSelectedModel() != null) {
                     setModel(modelDlg.getSelectedModel());
                     txtModelCode.setText(model.getCode().toUpperCase());
@@ -531,6 +536,7 @@ public class PurchaseOrderPanel2 extends javax.swing.JPanel implements KeyListen
                 EmployeesDlg employeeDlg = new EmployeesDlg(null, true);
                 employeeDlg.setEmployeeService(UISetting.getEmployeeService());
                 employeeDlg.setDefault();
+                UIMgr.centerToScreen(employeeDlg);
                 employeeDlg.setVisible(true);
                 if (employeeDlg.getSelectedEmployee() != null) {
                     setCi(employeeDlg.getSelectedEmployee());
@@ -551,8 +557,6 @@ public class PurchaseOrderPanel2 extends javax.swing.JPanel implements KeyListen
         txtDownPayment.setEditable(value);
         txtTerm.setEditable(value);
         txtMA.setEditable(value);
-//        txtPrice.setEditable(value);
-//        txtBal.setEditable(value);
         txtInsAmount.setEditable(value);
         txtInsComp.setEditable(value);
         txtReleasedDate.setEditable(value);
@@ -569,8 +573,6 @@ public class PurchaseOrderPanel2 extends javax.swing.JPanel implements KeyListen
         txtDownPayment.setFocusable(value);
         txtTerm.setFocusable(value);
         txtMA.setFocusable(value);
-//        txtPrice.setFocusable(value);
-//        txtBal.setFocusable(value);
         txtInsAmount.setFocusable(value);
         txtInsComp.setFocusable(value);
         txtReleasedDate.setFocusable(value);
@@ -620,19 +622,21 @@ public class PurchaseOrderPanel2 extends javax.swing.JPanel implements KeyListen
         p.setMonthlyAmortization(new BigDecimal(UIValidator.MoneyCommaRemover(txtMA.getText())).doubleValue());
         p.setInsuranceAmount(new BigDecimal(UIValidator.MoneyCommaRemover(txtInsAmount.getText())).doubleValue());
         p.setInsuranceCompany(txtInsComp.getText());
-        try {
-            p.setReleaseDate(txtReleasedDate.getDate());
-        } catch (ParseException ex) {
-            UIValidator.log(ex, PurchaseOrderPanel2.class);
-        }
         if (checkApproved.isSelected()) {
             p.setStatus("APPROVED");
+            p.setStatusDate(new Date());
+            try {
+                p.setReleaseDate(txtReleasedDate.getDate());
+            } catch (ParseException ex) {
+                UIValidator.log(ex, PurchaseOrderPanel2.class);
+            }
         } else if (checkDisApproved.isSelected()) {
             p.setStatus("DISAPPROVED");
+            p.setReleaseDate(null);
         } else {
-            p.setStatus("PENDING");
+            p.setStatus("");
+            p.setReleaseDate(null);
         }
-        p.setStatusDate(new Date());
         p.setCiCollector(txtCICode.getText());
         p.setRemarks(Validator.getInstance().newLineRemover(txtRemarks.getText()).toUpperCase());
         return p;
@@ -643,8 +647,8 @@ public class PurchaseOrderPanel2 extends javax.swing.JPanel implements KeyListen
             resetToDefault();
         } else {
             System.out.println("Version" + p.getVersion());
-            switch(p.getPurpose()) {
-                case "PERSONAL" :
+            switch (p.getPurpose()) {
+                case "PERSONAL":
                     break;
             }
             if (p.isBrandNew()) {

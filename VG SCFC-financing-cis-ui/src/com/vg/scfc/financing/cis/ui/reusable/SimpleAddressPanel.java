@@ -14,6 +14,7 @@ import com.vg.scfc.financing.commons.ui.dlg.BarangayDlg;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.List;
+import javax.swing.JDialog;
 
 /**
  *
@@ -126,6 +127,7 @@ public class SimpleAddressPanel extends javax.swing.JPanel implements KeyListene
         add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, -1, -1));
 
         optionAddressOwned.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
+        optionAddressOwned.setSelected(true);
         optionAddressOwned.setText("Owned");
         add(optionAddressOwned, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 55, -1, -1));
 
@@ -194,6 +196,11 @@ public class SimpleAddressPanel extends javax.swing.JPanel implements KeyListene
     private String personType;
     private Barangay barangay;
     private Address address;
+    private JDialog dialog;
+
+    public void setDialog(JDialog dialog) {
+        this.dialog = dialog;
+    }
 
     public void setPersonType(String personType) {
         this.personType = personType;

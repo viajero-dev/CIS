@@ -52,7 +52,7 @@ public class PersonalInfoController {
 
                 /* Customer Info */
                 Customer customer = new Customer();
-                customer.setName(p.getLastName().toUpperCase() + "," + p.getFirstName().toUpperCase() + " " + p.getMiddleName().toUpperCase());
+                customer.setName(p.getProperName());
                 customer.setTransactionMode(transactionMode);
                 customer.setUser(UISetting.getSystemUser());
                 customer.setLocation(UISetting.getStoreLocation());

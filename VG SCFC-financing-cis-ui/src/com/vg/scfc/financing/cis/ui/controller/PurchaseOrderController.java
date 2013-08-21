@@ -10,8 +10,6 @@ import com.vg.scfc.financing.cis.ent.PurchaseOrder;
 import com.vg.scfc.financing.cis.ui.settings.UISetting;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 import java.math.BigDecimal;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *

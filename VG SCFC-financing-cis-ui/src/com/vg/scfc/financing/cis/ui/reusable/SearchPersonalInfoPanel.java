@@ -12,6 +12,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.LinkedList;
 import java.util.List;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
@@ -55,8 +56,7 @@ public class SearchPersonalInfoPanel extends javax.swing.JPanel {
             public void keyReleased(KeyEvent e) {
                 switch (e.getKeyCode()) {
                     case KeyEvent.VK_F5:
-                        frame.setVisible(false);
-                        infoPanel.setPersonalInfo(personalInfo);
+                        dialog.setVisible(false);
                         break;
                 }
             }
@@ -158,17 +158,12 @@ public class SearchPersonalInfoPanel extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
     private int selectedIndex = 0;
     private PersonalInfo personalInfo;
-    private JFrame frame;
-    private PersonalInformationPanel infoPanel;
+    private JDialog dialog;
 
-    public void setInfoPanel(PersonalInformationPanel infoPanel) {
-        this.infoPanel = infoPanel;
+    public void setDialog(JDialog dialog) {
+        this.dialog = dialog;
     }
-
-    public void setFrame(JFrame frame) {
-        this.frame = frame;
-    }
-
+    
     public PersonalInfo getPersonalInfo() {
         return personalInfo;
     }

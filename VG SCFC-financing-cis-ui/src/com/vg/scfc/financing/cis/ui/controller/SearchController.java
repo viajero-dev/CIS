@@ -64,7 +64,7 @@ public class SearchController {
         }
         return results;
     }
-    
+
     public List<Customer> findBySearchCriteriaLocationAndMode(String criteria, String location, int transactionMode) {
         List<Customer> results = new ArrayList<>();
         try {
@@ -94,12 +94,22 @@ public class SearchController {
         }
         return results;
     }
-    
+
     public Customer findByFormNo(String formNo) {
         Customer result = null;
         try {
             TransactionForm form = FormController.getInstance().findByFormNo(formNo);
             result = UISetting.getCustomerService().findById(form.getClientNo());
+        } catch (Exception ex) {
+            UIValidator.log(ex, SearchController.class);
+        }
+        return result;
+    }
+
+    public Customer findCustomerByClientNo(String clientNo) {
+        Customer result = null;
+        try {
+            result = UISetting.getCustomerService().findById(clientNo);
         } catch (Exception ex) {
             UIValidator.log(ex, SearchController.class);
         }

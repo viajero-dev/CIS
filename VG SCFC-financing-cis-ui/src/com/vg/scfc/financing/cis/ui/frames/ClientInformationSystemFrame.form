@@ -25,10 +25,13 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuInstitutionActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem3">
+            <MenuItem class="javax.swing.JMenuItem" name="mnuCash">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Cash"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuCashActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>

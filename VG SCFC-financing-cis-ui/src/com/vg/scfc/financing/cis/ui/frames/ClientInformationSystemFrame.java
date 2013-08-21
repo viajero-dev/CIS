@@ -5,6 +5,8 @@
  */
 package com.vg.scfc.financing.cis.ui.frames;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import javax.swing.JLabel;
 
 /**
@@ -34,7 +36,7 @@ public class ClientInformationSystemFrame extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         mnuInstallment = new javax.swing.JMenuItem();
         mnuInstitution = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        mnuCash = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
 
@@ -64,8 +66,13 @@ public class ClientInformationSystemFrame extends javax.swing.JFrame {
         });
         jMenu1.add(mnuInstitution);
 
-        jMenuItem3.setText("Cash");
-        jMenu1.add(jMenuItem3);
+        mnuCash.setText("Cash");
+        mnuCash.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuCashActionPerformed(evt);
+            }
+        });
+        jMenu1.add(mnuCash);
 
         jMenuBar1.add(jMenu1);
 
@@ -127,6 +134,15 @@ public class ClientInformationSystemFrame extends javax.swing.JFrame {
         System.exit(1);
     }//GEN-LAST:event_jMenu3MenuSelected
 
+    private void mnuCashActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuCashActionPerformed
+        CashFrame f = new CashFrame();
+        Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+        int x = (int) ((dimension.getWidth() - f.getWidth()) / 2);
+        int y = (int) ((dimension.getHeight() - f.getHeight()) / 2);
+        f.setLocation(x, y);
+        f.setVisible(true);
+    }//GEN-LAST:event_mnuCashActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -167,12 +183,12 @@ public class ClientInformationSystemFrame extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JLabel lblStorelocation;
+    private javax.swing.JMenuItem mnuCash;
     private javax.swing.JMenuItem mnuInstallment;
     private javax.swing.JMenuItem mnuInstitution;
     // End of variables declaration//GEN-END:variables
-    
+
     public JLabel getLblStorelocation() {
         return lblStorelocation;
     }

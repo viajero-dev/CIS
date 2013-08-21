@@ -3,22 +3,23 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.vg.scfc.financing.cis.ui.frames;
+package com.vg.scfc.financing.cis.ui.dialog;
 
-import javax.swing.JFrame;
+import com.vg.scfc.financing.cis.ent.PersonalInfo;
 
 /**
  *
  * @author rodel
  */
-public class InstitutionFrame extends javax.swing.JFrame {
+public class PersonalInfoDialog extends javax.swing.JDialog {
 
     /**
-     * Creates new form InstitutionFrame
+     * Creates new form PersonalInfoDialog
      */
-    public InstitutionFrame() {
+    public PersonalInfoDialog(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
         initComponents();
-        this.setExtendedState(this.getExtendedState() | JFrame.MAXIMIZED_BOTH);
+        searchPersonalInfoPanel.setDialog(this);
     }
 
     /**
@@ -30,11 +31,11 @@ public class InstitutionFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        institutionalPanel1 = new com.vg.scfc.financing.cis.ui.panel.InstitutionalPanel();
+        searchPersonalInfoPanel = new com.vg.scfc.financing.cis.ui.reusable.SearchPersonalInfoPanel();
 
-        setTitle("INSTITUTION");
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(institutionalPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 710));
+        getContentPane().add(searchPersonalInfoPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -56,25 +57,37 @@ public class InstitutionFrame extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(InstitutionFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PersonalInfoDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(InstitutionFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PersonalInfoDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(InstitutionFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PersonalInfoDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(InstitutionFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PersonalInfoDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
-        /* Create and display the form */
+        /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new InstitutionFrame().setVisible(true);
+                PersonalInfoDialog dialog = new PersonalInfoDialog(new javax.swing.JFrame(), true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.vg.scfc.financing.cis.ui.panel.InstitutionalPanel institutionalPanel1;
+    private com.vg.scfc.financing.cis.ui.reusable.SearchPersonalInfoPanel searchPersonalInfoPanel;
     // End of variables declaration//GEN-END:variables
+
+    public PersonalInfo getPersonalInfo() {
+        return searchPersonalInfoPanel.getPersonalInfo();
+    }
+
 }

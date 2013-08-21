@@ -5,22 +5,18 @@
  */
 package com.vg.scfc.financing.cis.ui.frames;
 
-import com.vg.scfc.financing.cis.ent.PersonalInfo;
-import com.vg.scfc.financing.cis.ui.reusable.PersonalInformationPanel;
-
 /**
  *
  * @author rodel
  */
-public class SearchPersonalInfoFrame extends javax.swing.JFrame {
+public class CashFrame extends javax.swing.JFrame {
 
     /**
-     * Creates new form SearchPersonalInfoFrame
+     * Creates new form CashFrame
      */
-    public SearchPersonalInfoFrame() {
+    public CashFrame() {
         initComponents();
-        searchPersonalInfoPanel.setFrame(this);
-        searchPersonalInfoPanel.setInfoPanel(infoPanel);
+        cashPanel.setFrame(this);
     }
 
     /**
@@ -32,11 +28,12 @@ public class SearchPersonalInfoFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        searchPersonalInfoPanel = new com.vg.scfc.financing.cis.ui.reusable.SearchPersonalInfoPanel();
+        cashPanel = new com.vg.scfc.financing.cis.ui.panel.CashPanel();
 
+        setTitle("CASH ");
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(searchPersonalInfoPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        getContentPane().add(cashPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -58,34 +55,30 @@ public class SearchPersonalInfoFrame extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(SearchPersonalInfoFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CashFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(SearchPersonalInfoFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CashFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(SearchPersonalInfoFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CashFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(SearchPersonalInfoFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CashFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new SearchPersonalInfoFrame().setVisible(true);
+                new CashFrame().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.vg.scfc.financing.cis.ui.reusable.SearchPersonalInfoPanel searchPersonalInfoPanel;
+    private com.vg.scfc.financing.cis.ui.panel.CashPanel cashPanel;
     // End of variables declaration//GEN-END:variables
-    private PersonalInformationPanel infoPanel;
-
-    public void setInfoPanel(PersonalInformationPanel infoPanel) {
-        this.infoPanel = infoPanel;
+    
+    public void setPerson(boolean value) {
+        cashPanel.setIsPerson(value);
     }
 
-    public PersonalInfo getSelectedPersonalInfo() {
-        return searchPersonalInfoPanel.getPersonalInfo();
-    }
 }

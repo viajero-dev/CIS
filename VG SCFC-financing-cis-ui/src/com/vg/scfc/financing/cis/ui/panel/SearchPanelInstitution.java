@@ -38,7 +38,7 @@ public class SearchPanelInstitution extends javax.swing.JPanel {
     private void startUpSetUp() {
         initCustomerTable();
         initTransactionFormTable();
-        refreshCustomerTable(SearchController.getInstance().findBySearchCriteriaLocationAndMode("", UISetting.getStoreLocation().getFinStartCode(), 3));
+//        refreshCustomerTable(SearchController.getInstance().findBySearchCriteriaLocationAndMode("", UISetting.getStoreLocation().getFinStartCode(), 3));
     }
 
     private void initCustomerTable() {
@@ -133,6 +133,9 @@ public class SearchPanelInstitution extends javax.swing.JPanel {
             }
         });
         txtSearch.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtSearchFocusGained(evt);
+            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtSearchFocusLost(evt);
             }
@@ -172,6 +175,10 @@ public class SearchPanelInstitution extends javax.swing.JPanel {
     private void txtSearchFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSearchFocusLost
         txtSearch.setText(txtSearch.getText().toUpperCase());
     }//GEN-LAST:event_txtSearchFocusLost
+
+    private void txtSearchFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSearchFocusGained
+        txtSearch.selectAll();
+    }//GEN-LAST:event_txtSearchFocusGained
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnPrintVersion;

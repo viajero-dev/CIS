@@ -13,6 +13,7 @@ import com.vg.scfc.financing.cis.ui.controller.CompanyController;
 import com.vg.scfc.financing.cis.ui.controller.EmploymentController;
 import com.vg.scfc.financing.cis.ui.controller.PersonalInfoController;
 import com.vg.scfc.financing.cis.ui.controller.RidersToBuyerController;
+import com.vg.scfc.financing.cis.ui.controller.SearchController;
 import com.vg.scfc.financing.cis.ui.listener.BasicActionListener;
 import com.vg.scfc.financing.cis.ui.reusable.ApplicationFormAndDatePanel;
 import com.vg.scfc.financing.cis.ui.reusable.SimpleAddressPanel;
@@ -22,7 +23,6 @@ import java.awt.event.KeyListener;
 import java.text.ParseException;
 import java.util.List;
 import javax.swing.JOptionPane;
-import javax.swing.JTabbedPane;
 
 /**
  *
@@ -130,7 +130,7 @@ public class InstitutionalPanel extends javax.swing.JPanel implements KeyListene
             public void onAdd() {
                 panelRepresentative1PersonalInformation.setFieldsEditable(true);
                 panelRepresentative1PersonalInformation.resetToDefault();
-                panelRepresentative1PersonalInformation.setClientNo(searchPanelInstitution.getCustomer().getClientNo());
+                panelRepresentative1PersonalInformation.setClientNo(SearchController.getInstance().findByFormNo(headerPanel.getFormNo()).getClientNo());
             }
 
             @Override
@@ -238,7 +238,7 @@ public class InstitutionalPanel extends javax.swing.JPanel implements KeyListene
             public void onAdd() {
                 panelRepresentative2PersonalInformation.setFieldsEditable(true);
                 panelRepresentative2PersonalInformation.resetToDefault();
-                panelRepresentative2PersonalInformation.setClientNo(searchPanelInstitution.getCustomer().getClientNo());
+                panelRepresentative2PersonalInformation.setClientNo(SearchController.getInstance().findByFormNo(headerPanel.getFormNo()).getClientNo());
             }
 
             @Override
