@@ -91,9 +91,6 @@
                   <Subbinding sourcePath="${middleName}">
                     <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
                   </Subbinding>
-                  <Subbinding sourcePath="${person}">
-                    <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="Boolean.class"/>
-                  </Subbinding>
                 </BindingProperty>
               </BindingProperties>
             </Component>

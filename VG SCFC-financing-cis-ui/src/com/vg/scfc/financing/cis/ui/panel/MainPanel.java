@@ -27,6 +27,7 @@ import com.vg.scfc.financing.cis.ui.controller.VehicleAssetsController;
 import com.vg.scfc.financing.cis.ui.listener.AddEditChangeListener;
 import com.vg.scfc.financing.cis.ui.listener.BasicActionListener;
 import com.vg.scfc.financing.cis.ui.reusable.ApplicationFormAndDatePanel;
+import com.vg.scfc.financing.cis.ui.settings.UISetting;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 import java.math.BigDecimal;
 import java.text.ParseException;
@@ -34,11 +35,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import org.jdesktop.observablecollections.ObservableCollections;
+import vg.img.classes.VgImageIcon;
 
 /**
  *
@@ -1741,6 +1745,12 @@ public class MainPanel extends javax.swing.JPanel {
             headerPanel.enableFields(false);
             /* Applicant */
             panelPersonalInfo.setPersonalInfo(PersonalInfoController.getInstance().findByFormNoAndPersonType(form.getTxFormNo(), "APP"));
+            try {
+                VgImageIcon icon = UISetting.getImageService().findByName(form.getTxFormNo() + "_" + "APP");
+                panelPersonalInfo.setPhoto(icon);
+            } catch (Exception ex) {
+                Logger.getLogger(MainPanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
             panelEmploymentData.setEmployment(EmploymentController.getInstance().findByFormNoAndPersonType(form.getTxFormNo(), "APP"));
             panelFamilyBackground.setFamilies(FamilyBackgroundController.getInstance().findByFormNoAndPersonType(form.getTxFormNo(), "APP"));
             panelSibling.refreshTable(SiblingController.getInstance().findAll(form.getTxFormNo()));

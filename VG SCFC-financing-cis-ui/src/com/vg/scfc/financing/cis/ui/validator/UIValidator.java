@@ -8,6 +8,7 @@ package com.vg.scfc.financing.cis.ui.validator;
 import com.vg.commons.util.StringUtils;
 import com.vg.scfc.financing.cis.ui.messages.ErrorMessage;
 import com.vg.scfc.financing.cis.ui.messages.OtherMessage;
+import java.util.List;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -23,7 +24,7 @@ public class UIValidator {
         String fieldValue = field.getText();
         if (Validator.getInstance().isEmpty(fieldValue)) {
 //            JOptionPane.showMessageDialog(null, ErrorMessage.EMPTY_FIELD, ErrorMessage.ERROR_MESSAGE_TITLE, JOptionPane.WARNING_MESSAGE);
-            field.requestFocus();
+//            field.requestFocus();
             return "";
         } else {
             return Validator.getInstance().newLineRemover(fieldValue).toUpperCase();
@@ -34,7 +35,7 @@ public class UIValidator {
         String fieldValue = field.getText();
         if (Validator.getInstance().isEmpty(fieldValue)) {
 //            JOptionPane.showMessageDialog(null, ErrorMessage.EMPTY_FIELD, ErrorMessage.ERROR_MESSAGE_TITLE, JOptionPane.WARNING_MESSAGE);
-            field.requestFocus();
+//            field.requestFocus();
             return "0";
         } else {
             if (Validator.getInstance().isNumeric(fieldValue)) {
@@ -80,6 +81,10 @@ public class UIValidator {
         }
     }
 
+    public static void promptFormValidationMessage() {
+        JOptionPane.showMessageDialog(null, ErrorMessage.REQUIRED_FIELDS, ErrorMessage.ERROR_MESSAGE_TITLE, JOptionPane.WARNING_MESSAGE);
+    }
+
     public static void log(Exception e, Class c) {
         LoggerFactory.getLogger(c).error(StringUtils.formatException(e));
     }
@@ -98,13 +103,24 @@ public class UIValidator {
         }
         return selectedIndex;
     }
-    
+
     public static String generateFormSeries(String input) {
         String zeroes = "";
-        for (int i = 1; i <= 5-input.length(); i++) {
+        for (int i = 1; i <= 5 - input.length(); i++) {
             zeroes += "0";
         }
         return zeroes + input;
     }
-    
+
+    public static boolean validate(List<JTextField> fields) {
+        boolean isValid = true;
+        for (JTextField field : fields) {
+            if (field.getText().equals("")) {
+                isValid = false;
+                break;
+            }
+        }
+        return isValid;
+    }
+
 }

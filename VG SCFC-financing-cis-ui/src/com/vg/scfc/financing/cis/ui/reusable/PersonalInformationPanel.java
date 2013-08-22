@@ -5,8 +5,6 @@
  */
 package com.vg.scfc.financing.cis.ui.reusable;
 
-import classes.VgImageIcon;
-import com.googlecode.javacv.cpp.opencv_core.IplImage;
 import com.vg.commons.util.UIMgr;
 import com.vg.scfc.financing.cis.ent.Address;
 import com.vg.scfc.financing.cis.ent.PersonalInfo;
@@ -17,15 +15,16 @@ import com.vg.scfc.financing.cis.ui.controller.PersonalInfoController;
 import com.vg.scfc.financing.cis.ui.dialog.AddressDialog;
 import com.vg.scfc.financing.cis.ui.dialog.PersonalInfoDialog;
 import com.vg.scfc.financing.cis.ui.panel.MainPanel;
+import com.vg.scfc.financing.cis.ui.settings.UISetting;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
-import interfaces.Caller;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import ui.WebCamDlg;
+import javax.swing.JTextField;
+import vg.img.service.Caller;
+import vg.img.ui.WebCamDlg;
 
 /**
  *
@@ -80,7 +79,7 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
      * Add Key Listeners to all combo box
      */
     private void initComboBoxListener() {
-        
+
         comboTribe.addKeyListener(this);
         comboReligion.addKeyListener(this);
         txtCitizenship.addKeyListener(this);
@@ -121,7 +120,7 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
         comboMarriedOption.setSelectedItem(null);
         comboEducationStatus.setSelectedItem(null);
         comboReligion.setSelectedItem(null);
-        txtBirthDate.setDate(null);
+        txtBirthDate.setText("");
     }
 
     /**
@@ -354,7 +353,9 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
             }
         });
         jPanel4.add(btnTakePicture, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 140, 140, -1));
-        jPanel4.add(lblPhoto, new org.netbeans.lib.awtextra.AbsoluteConstraints(845, 10, 160, 120));
+
+        lblPhoto.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel4.add(lblPhoto, new org.netbeans.lib.awtextra.AbsoluteConstraints(855, 10, 130, 120));
 
         txtCitizenship.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtCitizenship.setText("FILIPINO");
@@ -419,23 +420,23 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
     private void txtBirthDateFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBirthDateFocusLost
         try {
             txtBirthDate.setDate(txtBirthDate.getDate());
-//            txtAge.setText(StringUtils.);
         } catch (ParseException ex) {
             UIValidator.log(ex, PersonalInfoController.class);
         }
     }//GEN-LAST:event_txtBirthDateFocusLost
 
-    private WebCamDlg dlg;
     private void btnTakePictureActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTakePictureActionPerformed
-        if (dlg == null) {
-            dlg = new WebCamDlg(null, true);
-        }
+        WebCamDlg dlg = new WebCamDlg(null, true);
         dlg.setCaller(this);
-        dlg.setFilename("123");
+        dlg.setService(UISetting.getImageService());
+        if (personalInfo != null) {
+            dlg.setFilename(personalInfo.getTxFormNo() + "_" + personalInfo.getPersonType().getTypeID());
+        } else {
+            dlg.setFilename("");
+        }
         if (!dlg.isVisible()) {
             dlg.setVisible(true);
         }
-        dlg.setPath("/home/rodel");
     }//GEN-LAST:event_btnTakePictureActionPerformed
 
     private void txtCitizenshipFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCitizenshipFocusLost
@@ -680,7 +681,7 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
         txtLastName.setText("");
         txtFirstName.setText("");
         txtMiddleName.setText("");
-        txtBirthDate.setDate(new Date());
+        txtBirthDate.setText("");
         txtBirthPlace.setText("");
         txtAge.setText("");
         optionMale.setSelected(true);
@@ -701,8 +702,6 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
             resetToDefault();
         } else {
             PersonalInfo p = (PersonalInfo) o;
-            System.out.println(p.getLastName());
-            System.out.println(p.getFirstName());
             txtLastName.setText(p.getLastName());
             txtFirstName.setText(p.getFirstName());
             txtMiddleName.setText(p.getMiddleName());
@@ -802,29 +801,49 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
     }
 
     public boolean savePersonalInfo() {
-        PersonalInfo o = PersonalInfoController.getInstance().save(createNew(new PersonalInfo()), headerPanel.getIDNo(), headerPanel.getApplicationDate(), personType);
-        saveAddresses(o);
-        setPersonalInfo(o);
-        return o != null;
+        if (validForm()) {
+            PersonalInfo o = PersonalInfoController.getInstance().save(createNew(new PersonalInfo()), headerPanel.getIDNo(), headerPanel.getApplicationDate(), personType);
+            saveAddresses(o);
+            setPersonalInfo(o);
+            return o != null;
+        } else {
+            UIValidator.promptFormValidationMessage();
+            return false;
+        }
     }
 
     public boolean updatePersonalInfo() {
-        PersonalInfo p = PersonalInfoController.getInstance().update(headerPanel.getFormNo(), personalInfo.getPersonType().getTypeID(), createNew(personalInfo));
-        setPersonalInfo(p);
-        return p != null;
+        if (validForm()) {
+            PersonalInfo p = PersonalInfoController.getInstance().update(headerPanel.getFormNo(), personalInfo.getPersonType().getTypeID(), createNew(personalInfo));
+            setPersonalInfo(p);
+            return p != null;
+        } else {
+            UIValidator.promptFormValidationMessage();
+            return false;
+        }
     }
 
     public boolean saveSpousePersonalInfo() {
-        PersonalInfo p = PersonalInfoController.getInstance().save(createNew(new PersonalInfo()), headerPanel.getFormNo(), personType, clientNo);
-        saveAddresses(p);
-        setPersonalInfo(p);
-        return p != null;
+        if (validForm()) {
+            PersonalInfo p = PersonalInfoController.getInstance().save(createNew(new PersonalInfo()), headerPanel.getFormNo(), personType, clientNo);
+            saveAddresses(p);
+            setPersonalInfo(p);
+            return p != null;
+        } else {
+            UIValidator.promptFormValidationMessage();
+            return false;
+        }
     }
 
     public boolean updateSpousePersonalInfo() {
-        PersonalInfo p = PersonalInfoController.getInstance().update(headerPanel.getFormNo(), personType, createNew(personalInfo));
-        setPersonalInfo(p);
-        return p != null;
+        if (validForm()) {
+            PersonalInfo p = PersonalInfoController.getInstance().update(headerPanel.getFormNo(), personType, createNew(personalInfo));
+            setPersonalInfo(p);
+            return p != null;
+        } else {
+            UIValidator.promptFormValidationMessage();
+            return false;
+        }
     }
 
     public boolean saveCoMakerPersonalInfo() {
@@ -834,16 +853,26 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
         } else {
             cmType = "CM2";
         }
-        PersonalInfo p = PersonalInfoController.getInstance().save(createNew(new PersonalInfo()), headerPanel.getFormNo(), cmType, clientNo);
-        saveAddresses(p);
-        setPersonalInfo(p);
-        return p != null;
+        if (validForm()) {
+            PersonalInfo p = PersonalInfoController.getInstance().save(createNew(new PersonalInfo()), headerPanel.getFormNo(), cmType, clientNo);
+            saveAddresses(p);
+            setPersonalInfo(p);
+            return p != null;
+        } else {
+            UIValidator.promptFormValidationMessage();
+            return false;
+        }
     }
 
     public boolean updateCoMakerPersonalInfo() {
-        PersonalInfo p = PersonalInfoController.getInstance().update(headerPanel.getFormNo(), personalInfo.getPersonType().getTypeID(), createNew(personalInfo));
-        setPersonalInfo(p);
-        return p != null;
+        if (validForm()) {
+            PersonalInfo p = PersonalInfoController.getInstance().update(headerPanel.getFormNo(), personalInfo.getPersonType().getTypeID(), createNew(personalInfo));
+            setPersonalInfo(p);
+            return p != null;
+        } else {
+            UIValidator.promptFormValidationMessage();
+            return false;
+        }
     }
 
     public boolean saveCoMakerSpousePersonalInfo() {
@@ -853,10 +882,15 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
         } else {
             cmType = "CS2";
         }
-        PersonalInfo p = PersonalInfoController.getInstance().save(createNew(new PersonalInfo()), headerPanel.getFormNo(), cmType, clientNo);
-        saveAddresses(p);
-        setPersonalInfo(p);
-        return p != null;
+        if (validForm()) {
+            PersonalInfo p = PersonalInfoController.getInstance().save(createNew(new PersonalInfo()), headerPanel.getFormNo(), cmType, clientNo);
+            saveAddresses(p);
+            setPersonalInfo(p);
+            return p != null;
+        } else {
+            UIValidator.promptFormValidationMessage();
+            return false;
+        }
     }
 
     public boolean updateCoMakerSpousePersonalInfo() {
@@ -866,22 +900,37 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
         } else {
             cmType = "CS2";
         }
-        PersonalInfo p = PersonalInfoController.getInstance().update(headerPanel.getFormNo(), cmType, createNew(personalInfo));
-        setPersonalInfo(p);
-        return p != null;
+        if (validForm()) {
+            PersonalInfo p = PersonalInfoController.getInstance().update(headerPanel.getFormNo(), cmType, createNew(personalInfo));
+            setPersonalInfo(p);
+            return p != null;
+        } else {
+            UIValidator.promptFormValidationMessage();
+            return false;
+        }
     }
 
     public boolean saveRepresentativePersonalInfo() {
-        PersonalInfo p = PersonalInfoController.getInstance().save(createNew(new PersonalInfo()), headerPanel.getFormNo(), personType, clientNo);
-        saveAddresses(p);
-        setPersonalInfo(p);
-        return p != null;
+        if (validForm()) {
+            PersonalInfo p = PersonalInfoController.getInstance().save(createNew(new PersonalInfo()), headerPanel.getFormNo(), personType, clientNo);
+            saveAddresses(p);
+            setPersonalInfo(p);
+            return p != null;
+        } else {
+            UIValidator.promptFormValidationMessage();
+            return false;
+        }
     }
 
     public boolean updateRepresentativePersonalInfo() {
-        PersonalInfo p = PersonalInfoController.getInstance().update(headerPanel.getFormNo(), personType, createNew(personalInfo));
-        setPersonalInfo(p);
-        return p != null;
+        if (validForm()) {
+            PersonalInfo p = PersonalInfoController.getInstance().update(headerPanel.getFormNo(), personType, createNew(personalInfo));
+            setPersonalInfo(p);
+            return p != null;
+        } else {
+            UIValidator.promptFormValidationMessage();
+            return false;
+        }
     }
 
     public void saveAddresses(PersonalInfo p) {
@@ -896,6 +945,16 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
             previousAddress.setTxFormNo(p.getTxFormNo());
             AddressController.getInstance().save(p.getTxFormNo(), p.getPersonType().getTypeID(), previousAddress);
         }
+    }
+
+    private boolean validForm() {
+        List<JTextField> requiredFields = new ArrayList<>();
+        requiredFields.add(txtLastName);
+        requiredFields.add(txtFirstName);
+        requiredFields.add(txtContact);
+        requiredFields.add(txtPresentAddress);
+        boolean valid = UIValidator.validate(requiredFields);
+        return valid;
     }
 
     private PersonalInfo createNew(PersonalInfo p) {
@@ -943,11 +1002,19 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
         return p;
     }
 
+//    @Override
+//    public void setPhoto(IplImage image) {
+//        if (image != null) {
+//            lblPhoto.setIcon(new VgImageIcon(image.getBufferedImage()));
+//        }
+//    }
     @Override
-    public void setPhoto(IplImage image) {
-        if (image != null) {
-            lblPhoto.setIcon(new VgImageIcon(image.getBufferedImage()));
-        }
+    public void setPhoto(vg.img.classes.VgImageIcon vii) {
+        lblPhoto.setIcon(vii);
+    }
+
+    @Override
+    public void updatePhoto(vg.img.classes.VgImageIcon vii) {
     }
 
 }

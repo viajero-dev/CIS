@@ -5,6 +5,7 @@
  */
 package com.vg.scfc.financing.cis.ui.reusable;
 
+import com.vg.commons.util.UIMgr;
 import com.vg.scfc.financing.cis.ent.Address;
 import com.vg.scfc.financing.cis.ui.controller.AddressController;
 import com.vg.scfc.financing.cis.ui.panel.MainPanel;
@@ -433,6 +434,7 @@ public class AddressPanel extends javax.swing.JPanel implements KeyListener {
                 if(txtBrgy.isFocusOwner()) {
                     BarangayDlg barangayDlg = new BarangayDlg(null, true);
                     barangayDlg.setBarangayService(UISetting.getBarangayService());
+                    UIMgr.centerToScreen(barangayDlg);
                     barangayDlg.setVisible(true);
                     if(barangayDlg.getBarangay() != null) {
                         setBarangay(barangayDlg.getBarangay());

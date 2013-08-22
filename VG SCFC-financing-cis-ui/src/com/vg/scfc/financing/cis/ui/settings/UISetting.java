@@ -43,6 +43,7 @@ import com.vg.scfc.financing.commons.service.LocationService;
 import com.vg.vmi.dealer.uts.service.McColorService;
 import com.vg.vmi.dealer.uts.service.McMakeService;
 import com.vg.vmi.dealer.uts.service.McModelService;
+import vg.img.service.ImageHandlingService;
 
 /**
  *
@@ -91,6 +92,15 @@ public class UISetting {
     private static EmployeeService employeeService;
     private static PrintReportService printReportService;
     private static LocationService locationService;
+    private static ImageHandlingService imageService;
+
+    public static ImageHandlingService getImageService() {
+        return imageService;
+    }
+
+    public static void setImageService(ImageHandlingService imageService) {
+        UISetting.imageService = imageService;
+    }
 
     public static PrintReportService getPrintReportService() {
         return printReportService;

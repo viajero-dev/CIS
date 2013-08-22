@@ -632,10 +632,10 @@ public class PurchaseOrderPanel2 extends javax.swing.JPanel implements KeyListen
             }
         } else if (checkDisApproved.isSelected()) {
             p.setStatus("DISAPPROVED");
-            p.setReleaseDate(null);
+//            p.setReleaseDate(null);
         } else {
             p.setStatus("");
-            p.setReleaseDate(null);
+//            p.setReleaseDate(null);
         }
         p.setCiCollector(txtCICode.getText());
         p.setRemarks(Validator.getInstance().newLineRemover(txtRemarks.getText()).toUpperCase());
@@ -673,7 +673,9 @@ public class PurchaseOrderPanel2 extends javax.swing.JPanel implements KeyListen
             txtBal.setText(NumberUtils.doubleToString(PurchaseOrderController.getInstance().computeBalance(new BigDecimal(price), new BigDecimal(p.getMonthlyAmortization()))));
             txtInsAmount.setText(NumberUtils.doubleToString(p.getInsuranceAmount()));
             txtInsComp.setText(p.getInsuranceCompany());
-            txtReleasedDate.setDate(p.getReleaseDate());
+            if (p.getReleaseDate() != null) {
+                txtReleasedDate.setDate(p.getReleaseDate());
+            }
             switch (p.getStatus()) {
                 case "APPROVED":
                     checkApproved.setSelected(true);
@@ -687,9 +689,12 @@ public class PurchaseOrderPanel2 extends javax.swing.JPanel implements KeyListen
                     break;
             }
             Employee e = PurchaseOrderController.getInstance().findByID(p.getCiCollector());
-            setCi(e);
-            txtCICode.setText(e.getId());
-            txtCIDesc.setText(e.getProperName());
+            if (e != null) {
+                setCi(e);
+                txtCICode.setText(e.getId());
+                txtCIDesc.setText(e.getProperName());
+            }
+
             txtRemarks.setText(p.getRemarks());
         }
     }
@@ -701,7 +706,7 @@ public class PurchaseOrderPanel2 extends javax.swing.JPanel implements KeyListen
     }
 
     public boolean updatePurchaseOrder() {
-        PurchaseOrder p = PurchaseOrderController.getInstance().update(headerPanel.getFormNo(), createNew(new PurchaseOrder()));
+        PurchaseOrder p = PurchaseOrderController.getInstance().update(headerPanel.getFormNo(), createNew(purchaseOrder));
         setPurchaseOrder(p);
         return p != null;
     }
