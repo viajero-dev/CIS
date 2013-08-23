@@ -1,0 +1,1097 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="561" pageHeight="360" columnWidth="561" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.3310000000000013"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="machinery1Quantity" class="java.lang.Integer">
+		<fieldDescription><![CDATA[machinery1Quantity]]></fieldDescription>
+	</field>
+	<field name="landAgricultural" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[landAgricultural]]></fieldDescription>
+	</field>
+	<field name="applianceAircon" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[applianceAircon]]></fieldDescription>
+	</field>
+	<field name="landResidential" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[landResidential]]></fieldDescription>
+	</field>
+	<field name="applianceWashing" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[applianceWashing]]></fieldDescription>
+	</field>
+	<field name="landAgriArea" class="java.lang.Double">
+		<fieldDescription><![CDATA[landAgriArea]]></fieldDescription>
+	</field>
+	<field name="applianceOthers" class="java.lang.String">
+		<fieldDescription><![CDATA[applianceOthers]]></fieldDescription>
+	</field>
+	<field name="landResiArea" class="java.lang.Double">
+		<fieldDescription><![CDATA[landResiArea]]></fieldDescription>
+	</field>
+	<field name="landResiValue" class="java.lang.Double">
+		<fieldDescription><![CDATA[landResiValue]]></fieldDescription>
+	</field>
+	<field name="landCommercial" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[landCommercial]]></fieldDescription>
+	</field>
+	<field name="machinery2Quantity" class="java.lang.Integer">
+		<fieldDescription><![CDATA[machinery2Quantity]]></fieldDescription>
+	</field>
+	<field name="machinery2Value" class="java.lang.Double">
+		<fieldDescription><![CDATA[machinery2Value]]></fieldDescription>
+	</field>
+	<field name="appliance" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[appliance]]></fieldDescription>
+	</field>
+	<field name="landCommLocation" class="java.lang.String">
+		<fieldDescription><![CDATA[landCommLocation]]></fieldDescription>
+	</field>
+	<field name="vehicle1Use" class="java.lang.String">
+		<fieldDescription><![CDATA[vehicle1Use]]></fieldDescription>
+	</field>
+	<field name="machinery1Value" class="java.lang.Double">
+		<fieldDescription><![CDATA[machinery1Value]]></fieldDescription>
+	</field>
+	<field name="machinery2Model" class="java.lang.String">
+		<fieldDescription><![CDATA[machinery2Model]]></fieldDescription>
+	</field>
+	<field name="machinery1Model" class="java.lang.String">
+		<fieldDescription><![CDATA[machinery1Model]]></fieldDescription>
+	</field>
+	<field name="vehicle" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[vehicle]]></fieldDescription>
+	</field>
+	<field name="vehicle2Age" class="java.lang.Integer">
+		<fieldDescription><![CDATA[vehicle2Age]]></fieldDescription>
+	</field>
+	<field name="machinery" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[machinery]]></fieldDescription>
+	</field>
+	<field name="vehicle1Model" class="java.lang.String">
+		<fieldDescription><![CDATA[vehicle1Model]]></fieldDescription>
+	</field>
+	<field name="vehicle1Value" class="java.lang.Double">
+		<fieldDescription><![CDATA[vehicle1Value]]></fieldDescription>
+	</field>
+	<field name="landResiLocation" class="java.lang.String">
+		<fieldDescription><![CDATA[landResiLocation]]></fieldDescription>
+	</field>
+	<field name="landCommValue" class="java.lang.Double">
+		<fieldDescription><![CDATA[landCommValue]]></fieldDescription>
+	</field>
+	<field name="vehicle1Age" class="java.lang.Integer">
+		<fieldDescription><![CDATA[vehicle1Age]]></fieldDescription>
+	</field>
+	<field name="vehicle2Value" class="java.lang.Double">
+		<fieldDescription><![CDATA[vehicle2Value]]></fieldDescription>
+	</field>
+	<field name="land" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[land]]></fieldDescription>
+	</field>
+	<field name="landAgriValue" class="java.lang.Double">
+		<fieldDescription><![CDATA[landAgriValue]]></fieldDescription>
+	</field>
+	<field name="applianceComponent" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[applianceComponent]]></fieldDescription>
+	</field>
+	<field name="applianceTv" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[applianceTv]]></fieldDescription>
+	</field>
+	<field name="landCommArea" class="java.lang.Double">
+		<fieldDescription><![CDATA[landCommArea]]></fieldDescription>
+	</field>
+	<field name="applianceRef" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[applianceRef]]></fieldDescription>
+	</field>
+	<field name="vehicle2Model" class="java.lang.String">
+		<fieldDescription><![CDATA[vehicle2Model]]></fieldDescription>
+	</field>
+	<field name="vehicle2Use" class="java.lang.String">
+		<fieldDescription><![CDATA[vehicle2Use]]></fieldDescription>
+	</field>
+	<field name="landAgriLocation" class="java.lang.String">
+		<fieldDescription><![CDATA[landAgriLocation]]></fieldDescription>
+	</field>
+	<field name="applianceComputer" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[applianceComputer]]></fieldDescription>
+	</field>
+	<field name="landResiDetail" class="java.lang.String">
+		<fieldDescription><![CDATA[landResiDetail]]></fieldDescription>
+	</field>
+	<field name="applianceValue" class="java.lang.Double"/>
+	<variable name="TOTAL_LAND" class="java.lang.Double">
+		<variableExpression><![CDATA[$F{landAgriValue} + $F{landCommValue} + $F{landResiValue}]]></variableExpression>
+	</variable>
+	<variable name="TOTAL_VEHICLE" class="java.lang.Double">
+		<variableExpression><![CDATA[$F{vehicle1Value} + $F{vehicle2Value}]]></variableExpression>
+	</variable>
+	<variable name="TOTAL_MACHINERY" class="java.lang.Double">
+		<variableExpression><![CDATA[$F{machinery1Value} + $F{machinery2Value}]]></variableExpression>
+	</variable>
+	<detail>
+		<band height="293" splitType="Stretch">
+			<staticText>
+				<reportElement positionType="Float" x="25" y="158" width="87" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[APPLIANCES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="25" y="4" width="162" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[LAND]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="10" y="4" width="13" height="13"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{land} == true) ? "X" : ""]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="Float" x="10" y="98" width="13" height="13"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{vehicle} == true) ? "X" : ""]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="25" y="98" width="54" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[VEHICLE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="25" y="217" width="106" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MACHINERY]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="Float" x="10" y="217" width="13" height="13"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{machinery} == true) ? "X" : ""]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="Float" x="10" y="158" width="13" height="13"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{appliance} == true) ? "X" : ""]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="28" y="20" width="13" height="13"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{landAgricultural} == true) ? "X" : ""]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="Float" x="28" y="36" width="13" height="13"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{landCommercial} == true) ? "X" : ""]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="Float" x="28" y="52" width="13" height="13"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{landResidential} == true) ? "X" : ""]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="42" y="20" width="97" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[AGRICULTURAL LAND]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="42" y="52" width="97" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[RESIDENTIAL LAND]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="42" y="36" width="97" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[COMMERCIAL LAND]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="141" y="20" width="29" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[AREA:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="141" y="36" width="29" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[AREA:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="141" y="52" width="29" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[AREA:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="false">
+				<reportElement x="169" y="20" width="30" height="13">
+					<printWhenExpression><![CDATA[$F{landAgriArea} > 0.0]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{landAgriArea}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement positionType="Float" x="169" y="36" width="30" height="13">
+					<printWhenExpression><![CDATA[$F{landCommArea} > 0.0]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{landCommArea}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement positionType="Float" x="169" y="52" width="30" height="13">
+					<printWhenExpression><![CDATA[$F{landResiArea} > 0.0]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{landResiArea}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="199" y="52" width="15" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[sq. m.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="199" y="20" width="15" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[Ha.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="199" y="36" width="15" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[sq. m.]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="Float" x="265" y="36" width="115" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{landCommLocation}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="216" y="52" width="50" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[LOCATION:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="265" y="20" width="115" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{landAgriLocation}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="216" y="20" width="50" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[LOCATION:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="Float" x="265" y="52" width="115" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{landResiLocation}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="216" y="36" width="50" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[LOCATION:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="381" y="36" width="95" height="13"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[ESTIMATED VALUE: P]]></text>
+			</staticText>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement mode="Transparent" x="475" y="20" width="85" height="13" forecolor="#000000" backcolor="#FFFFFF">
+					<printWhenExpression><![CDATA[$F{landAgriValue} > 0.0]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="Arial" size="9" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{landAgriValue}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="381" y="52" width="95" height="13"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[ESTIMATED VALUE: P]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="381" y="20" width="95" height="13"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[ESTIMATED VALUE: P]]></text>
+			</staticText>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement positionType="Float" mode="Transparent" x="475" y="52" width="85" height="13" forecolor="#000000" backcolor="#FFFFFF">
+					<printWhenExpression><![CDATA[$F{landResiValue} > 0.0]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="Arial" size="9" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{landResiValue}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement positionType="Float" mode="Transparent" x="475" y="36" width="85" height="13" forecolor="#000000" backcolor="#FFFFFF">
+					<printWhenExpression><![CDATA[$F{landCommValue} > 0.0]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="Arial" size="9" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{landCommValue}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="64" y="68" width="34" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[HOUSE]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="Float" x="49" y="68" width="13" height="13"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[(!$F{landResiDetail}.isEmpty()) ? "X" : ""]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="Float" x="267" y="68" width="13" height="13"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{landResiDetail}.equals( "SHANTY" )) ? "X" : ""]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="119" y="68" width="50" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[CONCRETE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="191" y="68" width="70" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[SEMI CONCRETE]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="Float" x="176" y="68" width="13" height="13"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{landResiDetail}.equals( "SEMI CONCRETE" )) ? "X" : ""]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="Float" x="104" y="68" width="13" height="13"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{landResiDetail}.equals( "CONCRETE" )) ? "X" : ""]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="282" y="68" width="35" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[SHANTY]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="338" y="68" width="35" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[OTHERS]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="Float" x="323" y="68" width="13" height="13"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[(!$F{landResiDetail}.isEmpty() 
+&& !$F{landResiDetail}.equals( "CONCRETE" ) 
+&& !$F{landResiDetail}.equals( "SEMI CONCRETE" ) 
+&& !$F{landResiDetail}.equals( "SHANTY" )) ? "X" : ""]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="Float" x="373" y="68" width="103" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{landResiDetail}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="28" y="113" width="62" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[TYPE/MODEL:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="28" y="129" width="62" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[TYPE/MODEL:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="89" y="129" width="132" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{vehicle2Model}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="89" y="113" width="132" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{vehicle1Model}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="223" y="129" width="23" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[AGE:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="Float" x="245" y="129" width="20" height="13">
+					<printWhenExpression><![CDATA[$F{vehicle2Age} > 0]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{vehicle2Age}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="223" y="113" width="23" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[AGE:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="Float" x="245" y="113" width="20" height="13">
+					<printWhenExpression><![CDATA[$F{vehicle1Age} > 0]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{vehicle1Age}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="339" y="112" width="40" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[PRIVATE]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="Float" x="324" y="112" width="13" height="13"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{vehicle1Use}.equals( "PRIVATE" )) ? "X" : ""]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="284" y="112" width="35" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[PUBLIC]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="Float" x="269" y="112" width="13" height="13"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{vehicle1Use}.equals( "PUBLIC" )) ? "X" : ""]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="284" y="128" width="35" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[PUBLIC]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="Float" x="324" y="128" width="13" height="13"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{vehicle2Use}.equals( "PRIVATE" )) ? "X" : ""]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="Float" x="269" y="128" width="13" height="13"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{vehicle2Use}.equals( "PUBLIC" )) ? "X" : ""]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="339" y="128" width="40" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[PRIVATE]]></text>
+			</staticText>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="475" y="128" width="85" height="13">
+					<printWhenExpression><![CDATA[$F{vehicle2Value} > 0.0]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+					<paragraph rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{vehicle2Value}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="381" y="128" width="95" height="13"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[ESTIMATED VALUE: P]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="381" y="112" width="95" height="13"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[ESTIMATED VALUE: P]]></text>
+			</staticText>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement positionType="Float" mode="Transparent" x="475" y="112" width="85" height="13" forecolor="#000000" backcolor="#FFFFFF">
+					<printWhenExpression><![CDATA[$F{vehicle1Value} > 0.0]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="Arial" size="9" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{vehicle1Value}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="282" y="82" width="193" height="13"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL ESTIMATED VALUE: P]]></text>
+			</staticText>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement positionType="Float" mode="Transparent" x="475" y="82" width="85" height="13" forecolor="#000000" backcolor="#FFFFFF">
+					<printWhenExpression><![CDATA[$V{TOTAL_LAND} > 0.0]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="Arial" size="9" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{TOTAL_LAND}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement positionType="Float" mode="Transparent" x="475" y="143" width="85" height="13" forecolor="#000000" backcolor="#FFFFFF">
+					<printWhenExpression><![CDATA[$V{TOTAL_VEHICLE} > 0.0]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="Arial" size="9" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{TOTAL_VEHICLE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="282" y="143" width="193" height="13"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL ESTIMATED VALUE: P]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="Float" x="378" y="172" width="13" height="13"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{applianceComputer} == true) ? "X" : ""]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="Float" x="192" y="172" width="13" height="13"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{applianceWashing} == true) ? "X" : ""]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="315" y="172" width="59" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[AIRCON UNIT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="116" y="172" width="72" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[REFRIGERATOR]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="Float" x="300" y="172" width="13" height="13"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{applianceAircon} == true) ? "X" : ""]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="43" y="172" width="54" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[TELEVISION]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="207" y="172" width="88" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[WASHING MACHINE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="393" y="172" width="52" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[COMPUTER]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="Float" x="28" y="172" width="13" height="13"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{applianceTv} == true) ? "X" : ""]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="Float" x="101" y="172" width="13" height="13"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{applianceRef} == true) ? "X" : ""]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="464" y="171" width="61" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[COMPONENT]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="Float" x="449" y="171" width="13" height="13"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{applianceComponent} == true) ? "X" : ""]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="64" y="188" width="43" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[OTHERS:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="Float" x="49" y="188" width="13" height="13"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[(!$F{applianceOthers}.isEmpty()) ? "X" : ""]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="Float" x="107" y="188" width="369" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{applianceOthers}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement positionType="Float" mode="Transparent" x="475" y="202" width="85" height="13" forecolor="#000000" backcolor="#FFFFFF">
+					<printWhenExpression><![CDATA[$F{applianceValue} > 0.0]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="Arial" size="9" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{applianceValue}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="284" y="202" width="191" height="13"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL ESTIMATED VALUE: P]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="Float" x="324" y="246" width="54" height="13">
+					<printWhenExpression><![CDATA[$F{machinery2Quantity} > 0]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{machinery2Quantity}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="274" y="231" width="50" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[QUANTITY:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="28" y="231" width="65" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[TYPE OF UNIT:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="Float" x="93" y="231" width="178" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{machinery1Model}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="Float" x="93" y="246" width="178" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{machinery2Model}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="Float" x="324" y="231" width="54" height="13">
+					<printWhenExpression><![CDATA[$F{machinery1Quantity} > 0]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{machinery1Quantity}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="274" y="246" width="50" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[QUANTITY:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="28" y="246" width="65" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[TYPE OF UNIT:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="399" y="246" width="77" height="13"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[ESTIMATED VALUE: P]]></text>
+			</staticText>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement positionType="Float" mode="Transparent" x="475" y="261" width="85" height="13" forecolor="#000000" backcolor="#FFFFFF">
+					<printWhenExpression><![CDATA[$V{TOTAL_MACHINERY} > 0.0]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="Arial" size="9" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{TOTAL_MACHINERY}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="284" y="261" width="191" height="13"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL ESTIMATED VALUE: P]]></text>
+			</staticText>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="475" y="246" width="85" height="13">
+					<printWhenExpression><![CDATA[$F{machinery2Value} > 0.0]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+					<paragraph rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{machinery2Value}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="381" y="231" width="95" height="13"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[ESTIMATED VALUE: P]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="284" y="277" width="191" height="13"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL ASSET: P]]></text>
+			</staticText>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement positionType="Float" mode="Transparent" x="475" y="277" width="85" height="13" forecolor="#000000" backcolor="#FFFFFF">
+					<printWhenExpression><![CDATA[($V{TOTAL_LAND} + $V{TOTAL_VEHICLE} + $F{applianceValue} + $V{TOTAL_MACHINERY}) > 0.0]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="Arial" size="9" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{TOTAL_LAND} + $V{TOTAL_VEHICLE} + $F{applianceValue} + $V{TOTAL_MACHINERY}]]></textFieldExpression>
+			</textField>
+			<elementGroup>
+				<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+					<reportElement positionType="Float" mode="Transparent" x="475" y="231" width="85" height="13" forecolor="#000000" backcolor="#FFFFFF">
+						<printWhenExpression><![CDATA[$F{machinery1Value} > 0.0]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="Arial" size="9" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+						<paragraph lineSpacing="Single" rightIndent="3"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{machinery1Value}]]></textFieldExpression>
+				</textField>
+			</elementGroup>
+			<line>
+				<reportElement positionType="Float" x="0" y="33" width="560" height="1" forecolor="#FFFFFF"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement positionType="Float" x="1" y="49" width="560" height="1" forecolor="#FFFFFF"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement positionType="Float" x="1" y="65" width="560" height="1" forecolor="#FFFFFF"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement positionType="Float" x="1" y="126" width="560" height="1" forecolor="#FFFFFF"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement positionType="Float" x="1" y="142" width="560" height="1" forecolor="#FFFFFF"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</line>
+		</band>
+	</detail>
+</jasperReport>

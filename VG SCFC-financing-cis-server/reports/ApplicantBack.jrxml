@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="612" pageHeight="936" columnWidth="562" leftMargin="25" rightMargin="25" topMargin="25" bottomMargin="25">
+	<property name="ireport.zoom" value="1.9487171000000034"/>
+	<property name="ireport.x" value="75"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["/home/raffy/NetBeansProjects/Financing/VG SCFC-financing-cis-coremgr/reports/"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="INCOME" class="com.vg.scfc.financing.cis.ent.SourceOfIncome"/>
+	<parameter name="EXPENDITURES" class="com.vg.scfc.financing.cis.value.ExpenditureReport"/>
+	<parameter name="ASSET" class="com.vg.scfc.financing.cis.value.AssetReport"/>
+	<parameter name="ID" class="com.vg.scfc.financing.cis.ent.Identification"/>
+	<parameter name="APP_NAME" class="java.lang.String"/>
+	<detail>
+		<band height="121" splitType="Stretch">
+			<subreport>
+				<reportElement x="0" y="15" width="562" height="10"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(Arrays.asList($P{INCOME}))]]></dataSourceExpression>
+				<subreportExpression><![CDATA["SourcesOfIncome.jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement x="0" y="0" width="277" height="15"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[H. SOURCES OF INCOME]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="31" width="277" height="15"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[I. EXPENDITURES]]></text>
+			</staticText>
+			<subreport>
+				<reportElement positionType="Float" x="0" y="46" width="562" height="10"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(Arrays.asList($P{EXPENDITURES}))]]></dataSourceExpression>
+				<subreportExpression><![CDATA["Expenditures.jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="62" width="277" height="15"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[J. ASSETS]]></text>
+			</staticText>
+			<subreport>
+				<reportElement positionType="Float" x="0" y="77" width="562" height="10"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(Arrays.asList($P{ASSET}))]]></dataSourceExpression>
+				<subreportExpression><![CDATA["Assets.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement positionType="Float" x="0" y="99" width="562" height="10"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(Arrays.asList($P{ID}))]]></dataSourceExpression>
+				<subreportExpression><![CDATA["Riders.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="50">
+			<staticText>
+				<reportElement positionType="Float" x="212" y="35" width="350" height="13"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Signature of Applicant over Printed Name]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="Float" x="212" y="16" width="350" height="18"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{APP_NAME}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

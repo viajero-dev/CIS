@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="credit" pageWidth="561" pageHeight="842" columnWidth="561" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.331000000000001"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="creItem" class="java.lang.String">
+		<fieldDescription><![CDATA[creItem]]></fieldDescription>
+	</field>
+	<field name="creRefAddress" class="java.lang.String">
+		<fieldDescription><![CDATA[creRefAddress]]></fieldDescription>
+	</field>
+	<field name="creRefAmountPaid" class="java.lang.Double">
+		<fieldDescription><![CDATA[creRefAmountPaid]]></fieldDescription>
+	</field>
+	<field name="creRefBalance" class="java.lang.Double">
+		<fieldDescription><![CDATA[creRefBalance]]></fieldDescription>
+	</field>
+	<field name="creRefLoanAmount" class="java.lang.Double">
+		<fieldDescription><![CDATA[creRefLoanAmount]]></fieldDescription>
+	</field>
+	<field name="creRefMonthly" class="java.lang.Double">
+		<fieldDescription><![CDATA[creRefMonthly]]></fieldDescription>
+	</field>
+	<field name="creRefName" class="java.lang.String">
+		<fieldDescription><![CDATA[creRefName]]></fieldDescription>
+	</field>
+	<field name="creRefTerm" class="java.lang.String">
+		<fieldDescription><![CDATA[creRefTerm]]></fieldDescription>
+	</field>
+	<columnHeader>
+		<band height="14" splitType="Stretch">
+			<staticText>
+				<reportElement x="181" y="0" width="90" height="13"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[ITEM ON CREDIT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="14" y="0" width="168" height="13"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[CREDITOR'S NAME AND ADDRESS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="270" y="0" width="70" height="13"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+					<paragraph leftIndent="1"/>
+				</textElement>
+				<text><![CDATA[LOAN AMOUNT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="403" y="0" width="30" height="13"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+					<paragraph leftIndent="1"/>
+				</textElement>
+				<text><![CDATA[TERM]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="339" y="0" width="65" height="13"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+					<paragraph leftIndent="1"/>
+				</textElement>
+				<text><![CDATA[MO. AMORT.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="432" y="0" width="65" height="13"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+					<paragraph leftIndent="1"/>
+				</textElement>
+				<text><![CDATA[AMOUNT PAID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="496" y="0" width="65" height="13"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+					<paragraph leftIndent="1"/>
+				</textElement>
+				<text><![CDATA[BALANCE]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="14" y="0" width="168" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[((($F{creRefName} != null) 
+&& ($F{creRefAddress} != null)) ? 
+($F{creRefName} + "/" + $F{creRefAddress}) : 
+((($F{creRefName} != null) && ($F{creRefAddress} == null)) ? $F{creRefName} : $F{creRefAddress}))]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="270" y="0" width="70" height="13">
+					<printWhenExpression><![CDATA[$F{creRefLoanAmount} > 0.0]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{creRefLoanAmount}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="181" y="0" width="90" height="13"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{creItem}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="403" y="0" width="30" height="13">
+					<printWhenExpression><![CDATA[!$F{creRefTerm}.equals("0")]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{creRefTerm}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="339" y="0" width="65" height="13">
+					<printWhenExpression><![CDATA[$F{creRefMonthly} > 0.0]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{creRefMonthly}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="496" y="0" width="65" height="13">
+					<printWhenExpression><![CDATA[$F{creRefBalance} > 0.0]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{creRefBalance}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="432" y="0" width="65" height="13">
+					<printWhenExpression><![CDATA[$F{creRefAmountPaid} > 0.0]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{creRefAmountPaid}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="0" width="15" height="13"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="13" width="561" height="1" forecolor="#FFFFFF"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</line>
+		</band>
+	</detail>
+</jasperReport>

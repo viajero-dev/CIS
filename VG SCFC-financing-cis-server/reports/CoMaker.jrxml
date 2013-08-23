@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="comaker" pageWidth="612" pageHeight="936" columnWidth="562" leftMargin="25" rightMargin="25" topMargin="25" bottomMargin="25">
+	<property name="ireport.zoom" value="3.4522712143931154"/>
+	<property name="ireport.x" value="256"/>
+	<property name="ireport.y" value="819"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["/home/raffy/NetBeansProjects/Financing/VG SCFC-financing-cis-coremgr/reports/"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="CM_PERSONAL_INFO" class="com.vg.scfc.financing.cis.ent.PersonalInfo"/>
+	<parameter name="CS_PERSONAL_INFO" class="com.vg.scfc.financing.cis.ent.PersonalInfo"/>
+	<parameter name="CS_EMPLOYMENT" class="com.vg.scfc.financing.cis.ent.Employment"/>
+	<parameter name="CM_EMPLOYMENT" class="com.vg.scfc.financing.cis.ent.Employment"/>
+	<parameter name="CM_FAMILY" class="com.vg.scfc.financing.cis.value.FamilyReport"/>
+	<parameter name="CS_FAMILY" class="com.vg.scfc.financing.cis.value.FamilyReport"/>
+	<parameter name="CM_INCOME" class="com.vg.scfc.financing.cis.ent.SourceOfIncome"/>
+	<parameter name="CM_ID" class="com.vg.scfc.financing.cis.ent.Identification"/>
+	<parameter name="CM_PRESENT_ADDRESS" class="com.vg.scfc.financing.cis.ent.Address"/>
+	<parameter name="CM_PREV_ADDRESS" class="com.vg.scfc.financing.cis.ent.Address"/>
+	<parameter name="CS_PREV_ADDRESS" class="com.vg.scfc.financing.cis.ent.Address"/>
+	<parameter name="APPLICATION_DATE" class="java.util.Date"/>
+	<parameter name="FORM_NO" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<title>
+		<band height="44" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="28" width="562" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CO-MAKER]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="13" width="562" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CREDIT APPLICATION FORM]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="562" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SOUTHPOINT CREDIT AND FINANCE CORP.]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="99" splitType="Stretch">
+			<printWhenExpression><![CDATA[new Boolean($V{PAGE_NUMBER}.intValue() == 1)]]></printWhenExpression>
+			<staticText>
+				<reportElement x="72" y="84" width="90" height="13"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date of Application:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="141" y="50" width="37" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[Renting]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="72" y="3" width="417" height="14"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{CM_PERSONAL_INFO}.getProperName()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="88" y="50" width="35" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[Owned]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="72" y="18" width="417" height="11"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FULL NAME]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="197" y="50" width="123" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[Living with Parents/Relatives]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="126" y="50" width="13" height="13"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($P{CM_PRESENT_ADDRESS}.getStatus().equals( "RENTING" )) ? "X" : ""]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="72" y="65" width="417" height="11"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[COMPLETE ADDRESS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="338" y="50" width="31" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[Others]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="73" y="50" width="13" height="13"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($P{CM_PRESENT_ADDRESS}.getStatus().equals( "OWNED" )) ? "X" : ""]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="72" y="33" width="417" height="14"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{CM_PRESENT_ADDRESS}.getFullAddress()]]></textFieldExpression>
+			</textField>
+			<textField pattern="MMMM dd. yyyy" isBlankWhenNull="true">
+				<reportElement x="162" y="84" width="151" height="13"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{APPLICATION_DATE}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="431" y="50" width="58" height="13"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$P{CM_PRESENT_ADDRESS}.getYearsOfStay()]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="323" y="50" width="13" height="13"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($P{CM_PRESENT_ADDRESS}.getStatus().equals( "OTHERS" )) ? "X" : ""]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="374" y="50" width="57" height="13"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Yrs. Of Stay:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="182" y="50" width="13" height="13"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($P{CM_PRESENT_ADDRESS}.getStatus().equals( "LIVING WITH PARENTS/RELATIVES" )) ? "X" : ""]]></textFieldExpression>
+			</textField>
+			<textField pattern="MMMM dd. yyyy" isBlankWhenNull="true">
+				<reportElement x="369" y="84" width="120" height="13"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($P{FORM_NO}.equals("00000")) ? "" : $P{FORM_NO}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="320" y="84" width="49" height="13"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Form No.:]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="143" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="277" height="15"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[A. CO-MAKER PERSONAL INFORMATION]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="285" y="0" width="277" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SPOUSE INFORMATION]]></text>
+			</staticText>
+			<subreport>
+				<reportElement x="0" y="15" width="277" height="10"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(Arrays.asList($P{CM_PERSONAL_INFO}))]]></dataSourceExpression>
+				<subreportExpression><![CDATA["PersonalInformation.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement x="285" y="15" width="277" height="10"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(Arrays.asList($P{CS_PERSONAL_INFO}))]]></dataSourceExpression>
+				<subreportExpression><![CDATA["PersonalInformation.jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="53" width="277" height="15"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[B. EMPLOYMENT DATA]]></text>
+			</staticText>
+			<subreport>
+				<reportElement positionType="Float" x="0" y="68" width="277" height="10"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(Arrays.asList($P{CM_EMPLOYMENT}))]]></dataSourceExpression>
+				<subreportExpression><![CDATA["Employment.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement positionType="Float" x="285" y="68" width="277" height="10"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(Arrays.asList($P{CS_EMPLOYMENT}))]]></dataSourceExpression>
+				<subreportExpression><![CDATA["Employment.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement positionType="Float" x="0" y="94" width="277" height="10"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(Arrays.asList($P{CM_FAMILY}))]]></dataSourceExpression>
+				<subreportExpression><![CDATA["Family.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement positionType="Float" x="285" y="94" width="277" height="10"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(Arrays.asList($P{CS_FAMILY}))]]></dataSourceExpression>
+				<subreportExpression><![CDATA["Family.jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="79" width="277" height="15"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[C. FAMILY BACKGROUND]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="106" width="277" height="15"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[D. SOURCES OF INCOME]]></text>
+			</staticText>
+			<subreport>
+				<reportElement positionType="Float" x="0" y="121" width="562" height="10"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(Arrays.asList($P{CM_INCOME}))]]></dataSourceExpression>
+				<subreportExpression><![CDATA["SourcesOfIncome.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement positionType="Float" x="0" y="132" width="562" height="10"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(Arrays.asList($P{CM_ID}))]]></dataSourceExpression>
+				<subreportExpression><![CDATA["Riders.jasper"]]></subreportExpression>
+			</subreport>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="Float" x="77" y="38" width="200" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{CM_PREV_ADDRESS}.getYearsOfStay()]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement positionType="Float" x="285" y="37" width="277" height="1" forecolor="#FFFFFF"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement positionType="Float" x="285" y="25" width="78" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+					<paragraph leftIndent="1"/>
+				</textElement>
+				<text><![CDATA[PREV. ADDRESS:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="38" width="78" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+					<paragraph leftIndent="1"/>
+				</textElement>
+				<text><![CDATA[YEARS OF STAY:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="Float" x="362" y="38" width="200" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{CS_PREV_ADDRESS}.getYearsOfStay()]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement positionType="Float" x="0" y="51" width="562" height="1" forecolor="#FFFFFF"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="25" width="78" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+					<paragraph leftIndent="1"/>
+				</textElement>
+				<text><![CDATA[PREV. ADDRESS:]]></text>
+			</staticText>
+			<line>
+				<reportElement positionType="Float" x="0" y="38" width="277" height="1" forecolor="#FFFFFF"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</line>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="362" y="25" width="200" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{CS_PREV_ADDRESS}.getFullAddress()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="285" y="38" width="78" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+					<paragraph leftIndent="1"/>
+				</textElement>
+				<text><![CDATA[YEARS OF STAY:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="77" y="25" width="200" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{CM_PREV_ADDRESS}.getFullAddress()]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement positionType="Float" x="0" y="78" width="562" height="1" forecolor="#FFFFFF"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement positionType="Float" x="0" y="104" width="562" height="1" forecolor="#FFFFFF"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</line>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="31">
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="Float" x="212" y="5" width="350" height="15"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{CM_PERSONAL_INFO}.getProperName()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="212" y="20" width="350" height="11"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="9" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Signature of Co-Maker over Printed Name]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+</jasperReport>

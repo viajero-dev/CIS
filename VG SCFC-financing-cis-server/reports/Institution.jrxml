@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="612" pageHeight="936" columnWidth="562" leftMargin="25" rightMargin="25" topMargin="25" bottomMargin="25">
+	<property name="ireport.zoom" value="1.6105100000000054"/>
+	<property name="ireport.x" value="13"/>
+	<property name="ireport.y" value="286"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["/home/raffy/NetBeansProjects/Financing/VG SCFC-financing-cis-coremgr/reports/"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="REP1_PERSONAL_INFO" class="com.vg.scfc.financing.cis.ent.PersonalInfo"/>
+	<parameter name="REP2_PERSONAL_INFO" class="com.vg.scfc.financing.cis.ent.PersonalInfo"/>
+	<parameter name="PURCHASE_ORDER" class="com.vg.scfc.financing.cis.ent.PurchaseOrder"/>
+	<parameter name="COMPANY" class="com.vg.scfc.financing.cis.ent.Company"/>
+	<parameter name="REP1_EMPLOYMENT" class="com.vg.scfc.financing.cis.ent.RepresentativeEmployment"/>
+	<parameter name="REP2_EMPLOYMENT" class="com.vg.scfc.financing.cis.ent.RepresentativeEmployment"/>
+	<parameter name="IDENTIFICATION" class="com.vg.scfc.financing.cis.ent.Identification"/>
+	<parameter name="COMPANY_NAME" class="java.lang.String"/>
+	<parameter name="APPLICATION_DATE" class="java.util.Date"/>
+	<parameter name="REP1_PRESENT_ADDRESS" class="com.vg.scfc.financing.cis.ent.Address"/>
+	<parameter name="REP1_PREV_ADDRESS" class="com.vg.scfc.financing.cis.ent.Address"/>
+	<parameter name="REP2_PRESENT_ADDRESS" class="com.vg.scfc.financing.cis.ent.Address"/>
+	<parameter name="REP2_PREV_ADDRESS" class="com.vg.scfc.financing.cis.ent.Address"/>
+	<parameter name="FORM_NO" class="java.lang.String"/>
+	<parameter name="COMPANY_ADDRESS" class="com.vg.scfc.financing.cis.ent.Address"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<title>
+		<band height="47" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="562" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SOUTHPOINT CREDIT AND FINANCE CORP.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="28" width="562" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[INSTITUTION]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="13" width="562" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CREDIT APPLICATION FORM]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="115" splitType="Stretch">
+			<textField>
+				<reportElement x="72" y="7" width="417" height="14"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{COMPANY_NAME}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="72" y="52" width="417" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[COMPLETE ADDRESS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="72" y="22" width="417" height="11"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[COMPANY NAME]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="72" y="37" width="417" height="14"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{COMPANY_ADDRESS}.getFullAddress()]]></textFieldExpression>
+			</textField>
+			<textField pattern="MMMM dd. yyyy" isBlankWhenNull="true">
+				<reportElement x="162" y="78" width="151" height="13"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{APPLICATION_DATE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="320" y="78" width="49" height="13"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Form No.:]]></text>
+			</staticText>
+			<textField pattern="MMMM dd. yyyy" isBlankWhenNull="true">
+				<reportElement x="369" y="78" width="120" height="13"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($P{FORM_NO}.equals( "00000" )) ? "" : $P{FORM_NO}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="72" y="78" width="90" height="13"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date of Application:]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<subreport>
+				<reportElement x="0" y="0" width="562" height="10"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(Arrays.asList($P{PURCHASE_ORDER}))]]></dataSourceExpression>
+				<subreportExpression><![CDATA["PurchaseOrder.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="155" splitType="Stretch">
+			<subreport>
+				<reportElement positionType="Float" x="285" y="50" width="277" height="10"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(Arrays.asList($P{REP2_PERSONAL_INFO}))]]></dataSourceExpression>
+				<subreportExpression><![CDATA["PersonalInformation.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement positionType="Float" x="0" y="50" width="277" height="10"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(Arrays.asList($P{REP1_PERSONAL_INFO}))]]></dataSourceExpression>
+				<subreportExpression><![CDATA["PersonalInformation.jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement positionType="Float" x="285" y="35" width="277" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[2ND REPRESENTATIVE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="35" width="277" height="15"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[B. 1ST REPRESENTATIVE]]></text>
+			</staticText>
+			<subreport>
+				<reportElement positionType="Float" x="0" y="138" width="562" height="10"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(Arrays.asList($P{IDENTIFICATION}))]]></dataSourceExpression>
+				<subreportExpression><![CDATA["Riders.jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement x="0" y="0" width="277" height="15"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[A. COMPANY INFORMATION]]></text>
+			</staticText>
+			<subreport>
+				<reportElement x="0" y="15" width="562" height="10"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(Arrays.asList($P{COMPANY}))]]></dataSourceExpression>
+				<subreportExpression><![CDATA["Company.jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="98" width="277" height="15"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[C. EMPLOYMENT DATA]]></text>
+			</staticText>
+			<subreport>
+				<reportElement positionType="Float" x="0" y="113" width="277" height="10"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(Arrays.asList($P{REP1_EMPLOYMENT}))]]></dataSourceExpression>
+				<subreportExpression><![CDATA["EmploymentRepresentative.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement positionType="Float" x="285" y="113" width="277" height="10"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(Arrays.asList($P{REP2_EMPLOYMENT}))]]></dataSourceExpression>
+				<subreportExpression><![CDATA["EmploymentRepresentative.jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="60" width="85" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+					<paragraph leftIndent="1"/>
+				</textElement>
+				<text><![CDATA[PERMANENT ADD.:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="285" y="74" width="77" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+					<paragraph leftIndent="1"/>
+				</textElement>
+				<text><![CDATA[PREV. ADDRESS:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="84" y="60" width="193" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{REP1_PRESENT_ADDRESS}.getFullAddress()]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="361" y="74" width="201" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{REP2_PREV_ADDRESS}.getFullAddress()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="285" y="60" width="85" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+					<paragraph leftIndent="1"/>
+				</textElement>
+				<text><![CDATA[PERMANENT ADD.:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="369" y="60" width="193" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{REP2_PRESENT_ADDRESS}.getFullAddress()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="74" width="77" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+					<paragraph leftIndent="1"/>
+				</textElement>
+				<text><![CDATA[PREV. ADDRESS:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="76" y="74" width="201" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{REP1_PREV_ADDRESS}.getFullAddress()]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement positionType="Float" x="0" y="73" width="277" height="1" forecolor="#FFFFFF"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement positionType="Float" x="285" y="73" width="277" height="1" forecolor="#FFFFFF"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement positionType="Float" x="0" y="87" width="562" height="1" forecolor="#FFFFFF"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</line>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="48">
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="Float" x="14" y="16" width="263" height="18"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{REP1_PERSONAL_INFO}.getProperName()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="14" y="35" width="263" height="13"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="9" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Signature of 1st Representative over Printed Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="285" y="35" width="262" height="13"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="9" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Signature of 2nd Representative over Printed Name]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="Float" x="285" y="16" width="262" height="18"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{REP2_PERSONAL_INFO}.getProperName()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

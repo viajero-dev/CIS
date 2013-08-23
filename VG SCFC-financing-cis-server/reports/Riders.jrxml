@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="561" pageHeight="216" columnWidth="561" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.4641000000000044"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="idNo" class="java.lang.String">
+		<fieldDescription><![CDATA[idNo]]></fieldDescription>
+	</field>
+	<field name="placeOfIssue" class="java.lang.String">
+		<fieldDescription><![CDATA[placeOfIssue]]></fieldDescription>
+	</field>
+	<field name="dateOfIssue" class="java.util.Date">
+		<fieldDescription><![CDATA[dateOfIssue]]></fieldDescription>
+	</field>
+	<field name="issuedBy" class="java.lang.String">
+		<fieldDescription><![CDATA[issuedBy]]></fieldDescription>
+	</field>
+	<detail>
+		<band height="155">
+			<staticText>
+				<reportElement x="0" y="2" width="561" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RIDERS TO THE BUYERS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="22" width="561" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+					<paragraph leftIndent="1"/>
+				</textElement>
+				<text><![CDATA[I certify that the above information I have disclosed in the SouthPoint Credit and Finance Corp. Credit Application Form is true and correct to the best of my]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="36" width="561" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+					<paragraph leftIndent="1"/>
+				</textElement>
+				<text><![CDATA[knowledge and belief. I hereby authorize its representative to conduct the corresponding credit investigation thereon.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="50" width="114" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+					<paragraph leftIndent="1"/>
+				</textElement>
+				<text><![CDATA[Competent Evidence of identity:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="209" y="50" width="70" height="14"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{idNo}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="334" y="50" width="121" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{placeOfIssue}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="279" y="50" width="56" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<text><![CDATA[Place of Issue:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="455" y="50" width="57" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<text><![CDATA[Date of Issue:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" pattern="MM/dd/yyyy" isBlankWhenNull="true">
+				<reportElement x="511" y="50" width="50" height="14"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dateOfIssue}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="67" width="561" height="15"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+					<paragraph leftIndent="1"/>
+				</textElement>
+				<text><![CDATA[INFORMATION REQUIRED UNDER R.A. 3765]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="81" width="561" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+					<paragraph leftIndent="1"/>
+				</textElement>
+				<text><![CDATA[1) Cash/delivered Price. 2) Downpayment. 3) Difference between 1 & 2. 4) Non-Finance charges 4A) __________ 4B) __________ 5) Total financed.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="95" width="561" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+					<paragraph leftIndent="1"/>
+				</textElement>
+				<text><![CDATA[6) Finance charges. 7) Simple annual percentage rate.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="112" width="561" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+					<paragraph leftIndent="1"/>
+				</textElement>
+				<text><![CDATA[I have read and agreed to the above terms and conditions and to all stipulated in the Contract of Sale with Reservation of the Title/Chattel Mortgage to be]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="126" width="561" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+					<paragraph leftIndent="1"/>
+				</textElement>
+				<text><![CDATA[executed if this proposal is accepted. The above stipulations contain all terms and condition of this proposed purchase.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="140" width="561" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+					<paragraph leftIndent="1"/>
+				</textElement>
+				<text><![CDATA[I hereby certify that I have benn duly furnished the above prior to the instant credit sale transaction.]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="113" y="50" width="70" height="14"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{issuedBy}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="183" y="50" width="26" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<text><![CDATA[ID No.]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="63" width="561" height="1" forecolor="#FFFFFF"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</line>
+		</band>
+	</detail>
+</jasperReport>

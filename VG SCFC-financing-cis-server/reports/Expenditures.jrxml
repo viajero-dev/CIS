@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="expenditures" pageWidth="561" pageHeight="842" columnWidth="561" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.464100000000002"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="livingAllowance" class="java.lang.Double">
+		<fieldDescription><![CDATA[livingAllowance]]></fieldDescription>
+	</field>
+	<field name="amortization" class="java.lang.Double">
+		<fieldDescription><![CDATA[amortization]]></fieldDescription>
+	</field>
+	<field name="totalExpenditures" class="java.lang.Double">
+		<fieldDescription><![CDATA[totalExpenditures]]></fieldDescription>
+	</field>
+	<field name="educationDetail" class="java.lang.String">
+		<fieldDescription><![CDATA[educationDetail]]></fieldDescription>
+	</field>
+	<field name="salaryDeduction" class="java.lang.Double">
+		<fieldDescription><![CDATA[salaryDeduction]]></fieldDescription>
+	</field>
+	<field name="houseHoldBill" class="java.lang.Double">
+		<fieldDescription><![CDATA[houseHoldBill]]></fieldDescription>
+	</field>
+	<field name="education" class="java.lang.Double">
+		<fieldDescription><![CDATA[education]]></fieldDescription>
+	</field>
+	<field name="maintenance" class="java.lang.Double">
+		<fieldDescription><![CDATA[maintenance]]></fieldDescription>
+	</field>
+	<field name="maintenanceDetail" class="java.lang.String">
+		<fieldDescription><![CDATA[maintenanceDetail]]></fieldDescription>
+	</field>
+	<field name="totalMonthlyIncome" class="java.lang.Double">
+		<fieldDescription><![CDATA[totalMonthlyIncome]]></fieldDescription>
+	</field>
+	<field name="others" class="java.lang.Double">
+		<fieldDescription><![CDATA[others]]></fieldDescription>
+	</field>
+	<detail>
+		<band height="126" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="78" width="337" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+					<paragraph leftIndent="1"/>
+				</textElement>
+				<text><![CDATA[OTHERS:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="26" width="337" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+					<paragraph leftIndent="1"/>
+				</textElement>
+				<text><![CDATA[AMORTIZATION (HOUSE, VEHICLE, LAND, ETC.):]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="337" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+					<paragraph leftIndent="1"/>
+				</textElement>
+				<text><![CDATA[REGULAR MONTHLY SALARY DEDUCTION:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="13" width="337" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+					<paragraph leftIndent="1"/>
+				</textElement>
+				<text><![CDATA[MONTHLY HOUSEHOLD BILL (ELECT., WATER, ETC.):]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="65" width="80" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+					<paragraph leftIndent="1"/>
+				</textElement>
+				<text><![CDATA[EDUCATION FOR:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="52" width="337" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+					<paragraph leftIndent="1"/>
+				</textElement>
+				<text><![CDATA[LIVING ALLOWANCE:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="39" width="95" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+					<paragraph leftIndent="1"/>
+				</textElement>
+				<text><![CDATA[MAINTENANCE FOR:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="80" y="65" width="257" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{educationDetail}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="95" y="39" width="242" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{maintenanceDetail}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement mode="Transparent" x="353" y="13" width="119" height="13" forecolor="#000000" backcolor="#FFFFFF">
+					<printWhenExpression><![CDATA[$F{houseHoldBill} > 0.0]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="Arial" size="9" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{houseHoldBill}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement mode="Transparent" x="353" y="39" width="119" height="13" forecolor="#000000" backcolor="#FFFFFF">
+					<printWhenExpression><![CDATA[$F{maintenance} > 0.0]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="Arial" size="9" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{maintenance}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement mode="Transparent" x="353" y="0" width="119" height="13" forecolor="#000000" backcolor="#FFFFFF">
+					<printWhenExpression><![CDATA[$F{salaryDeduction} > 0.0]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="Arial" size="9" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{salaryDeduction}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement mode="Transparent" x="353" y="52" width="119" height="13" forecolor="#000000" backcolor="#FFFFFF">
+					<printWhenExpression><![CDATA[$F{livingAllowance} > 0.0]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="Arial" size="9" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{livingAllowance}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement mode="Transparent" x="353" y="26" width="119" height="13" forecolor="#000000" backcolor="#FFFFFF">
+					<printWhenExpression><![CDATA[$F{amortization} > 0.0]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="Arial" size="9" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{amortization}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement mode="Transparent" x="353" y="65" width="119" height="13" forecolor="#000000" backcolor="#FFFFFF">
+					<printWhenExpression><![CDATA[$F{education} > 0.0]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="Arial" size="9" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{education}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement x="353" y="78" width="119" height="13">
+					<printWhenExpression><![CDATA[$F{others} > 0.0]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+					<paragraph rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{others}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="353" y="96" width="119" height="13" forecolor="#FF0000"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+					<paragraph leftIndent="1"/>
+				</textElement>
+				<text><![CDATA[TOTAL EXPENDITURES:]]></text>
+			</staticText>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement x="475" y="96" width="85" height="13" forecolor="#FF0000">
+					<printWhenExpression><![CDATA[$F{totalExpenditures} > 0.0]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+					<paragraph rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{totalExpenditures}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement x="475" y="109" width="85" height="13" forecolor="#0000FF">
+					<printWhenExpression><![CDATA[($F{totalMonthlyIncome} - $F{totalExpenditures}) > 0.0]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+					<paragraph rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{totalMonthlyIncome} - $F{totalExpenditures}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="353" y="109" width="119" height="13" forecolor="#0000FF"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NET INCOME:]]></text>
+			</staticText>
+		</band>
+	</detail>
+</jasperReport>

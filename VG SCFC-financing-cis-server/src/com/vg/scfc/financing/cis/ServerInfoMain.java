@@ -25,10 +25,12 @@ import com.vg.scfc.financing.cis.service.FamilyService;
 import com.vg.scfc.financing.cis.service.IdentificationService;
 import com.vg.scfc.financing.cis.service.LandService;
 import com.vg.scfc.financing.cis.service.LandTypeService;
+import com.vg.scfc.financing.cis.service.LiveUpdatePictureService;
 import com.vg.scfc.financing.cis.service.MachineryService;
 import com.vg.scfc.financing.cis.service.MemoToFileService;
 import com.vg.scfc.financing.cis.service.PersonTypeService;
 import com.vg.scfc.financing.cis.service.PersonalInfoService;
+import com.vg.scfc.financing.cis.service.PrintReportService;
 import com.vg.scfc.financing.cis.service.PurchaseOrderService;
 import com.vg.scfc.financing.cis.service.ReligionService;
 import com.vg.scfc.financing.cis.service.RepresentativeEmploymentService;
@@ -54,10 +56,12 @@ import com.vg.scfc.financing.cis.servicemgr.FamilyServiceManager;
 import com.vg.scfc.financing.cis.servicemgr.IdentificationServiceManager;
 import com.vg.scfc.financing.cis.servicemgr.LandServiceManager;
 import com.vg.scfc.financing.cis.servicemgr.LandTypeServiceManager;
+import com.vg.scfc.financing.cis.servicemgr.LiveUpdatePictureServiceManager;
 import com.vg.scfc.financing.cis.servicemgr.MachineryServiceManager;
 import com.vg.scfc.financing.cis.servicemgr.MemoToFileServiceManager;
 import com.vg.scfc.financing.cis.servicemgr.PersonTypeServiceManager;
 import com.vg.scfc.financing.cis.servicemgr.PersonalInfoServiceManager;
+import com.vg.scfc.financing.cis.servicemgr.PrintReportServiceManager;
 import com.vg.scfc.financing.cis.servicemgr.PurchaseOrderServiceManager;
 import com.vg.scfc.financing.cis.servicemgr.ReligionServiceManager;
 import com.vg.scfc.financing.cis.servicemgr.RepresentativeEmploymentServiceManager;
@@ -71,9 +75,11 @@ import com.vg.scfc.financing.cis.util.ClientInfoUtil;
 import com.vg.scfc.financing.commons.service.BarangayService;
 import com.vg.scfc.financing.commons.service.ControlAllowedAccessService;
 import com.vg.scfc.financing.commons.service.LocationService;
+import com.vg.scfc.financing.commons.service.ReportHeaderService;
 import com.vg.scfc.financing.commons.servicemgr.BarangayServiceManager;
 import com.vg.scfc.financing.commons.servicemgr.ControlAllowedAccessServiceManager;
 import com.vg.scfc.financing.commons.servicemgr.LocationServiceManager;
+import com.vg.scfc.financing.commons.servicemgr.ReportHeaderServiceManager;
 import com.vg.scfc.financing.commons.util.CommonsUtil;
 import com.vg.scfc.financing.commons.value.ConnectionProperties;
 import com.vg.vmi.dealer.uts.service.McColorService;
@@ -84,6 +90,10 @@ import com.vg.vmi.dealer.uts.servicemgr.McMakeServiceManager;
 import com.vg.vmi.dealer.uts.servicemgr.McModelServiceManager;
 import com.vg.vmi.dealer.uts.util.UnitTrackingUtil;
 import java.rmi.registry.Registry;
+import javax.swing.UIManager;
+import vg.img.service.ImageHandlingService;
+import vg.img.servicemgr.ImageHandlingManager;
+import vg.img.util.ImageSetting;
 
 /**
  *
@@ -129,11 +139,14 @@ public class ServerInfoMain {
     private McMakeServiceManager makeServiceManager;
     private McColorServiceManager colorServiceManager;
     private McModelServiceManager modelServiceManager;
+    private PrintReportServiceManager printReportServiceManager;
+    private ImageHandlingManager imageHandlingServiceManager;
+    private LiveUpdatePictureServiceManager liveUpdatePictureServiceManager;
+    private ReportHeaderServiceManager reportHeaderServiceManager;
 
     private void createRegistry(String host, int port) throws Exception {
         System.setProperty("java.rmi.server.hostname", host);
         registry = java.rmi.registry.LocateRegistry.createRegistry(port);
-
     }
 
     private void initRemoteObjects() throws Exception {
@@ -174,6 +187,10 @@ public class ServerInfoMain {
         makeServiceManager = new McMakeServiceManager();
         colorServiceManager = new McColorServiceManager();
         modelServiceManager = new McModelServiceManager();
+        printReportServiceManager = new PrintReportServiceManager();
+        imageHandlingServiceManager = new ImageHandlingManager();
+        liveUpdatePictureServiceManager = new LiveUpdatePictureServiceManager();
+        reportHeaderServiceManager = new ReportHeaderServiceManager();
     }
 
     private void bindRemoteObjects() throws Exception {
@@ -214,16 +231,22 @@ public class ServerInfoMain {
         registry.bind(McMakeService.class.getSimpleName(), makeServiceManager);
         registry.bind(McColorService.class.getSimpleName(), colorServiceManager);
         registry.bind(McModelService.class.getSimpleName(), modelServiceManager);
+        registry.bind(PrintReportService.class.getSimpleName(), printReportServiceManager);
+        registry.bind(ImageHandlingService.class.getSimpleName(), imageHandlingServiceManager);
+        registry.bind(LiveUpdatePictureService.class.getSimpleName(), liveUpdatePictureServiceManager);
+        registry.bind(ReportHeaderService.class.getSimpleName(), reportHeaderServiceManager);
     }
 
     public static void main(String[] args) {
         try {
+            System.setProperty("Quaqua.tabLayoutPolicy", "wrap");
+            UIManager.setLookAndFeel(ch.randelshofer.quaqua.QuaquaManager.getLookAndFeel());
             ServerInfoMain tx = new ServerInfoMain();
             tx.createRegistry(SettingProperties.getInstance().getServer(), SettingProperties.getInstance().getPort());
             tx.initRemoteObjects();
             tx.bindRemoteObjects();
             ConnectionProperties.setupConnection();
-//            VehicleManager.getInstance().initSessionFactory();
+            ImageSetting.setPath(System.getProperty("user.dir"));
             HrmUserUtil.setSessionFactory(ClientInfoUtil.getSessionFactory());
             CommonsUtil.setSessionFactory(ClientInfoUtil.getSessionFactory());
             UnitTrackingUtil.setSessionFactory(ClientInfoUtil.getSessionFactory());
