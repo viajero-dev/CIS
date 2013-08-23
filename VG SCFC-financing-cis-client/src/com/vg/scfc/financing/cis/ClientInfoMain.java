@@ -24,10 +24,12 @@ import com.vg.scfc.financing.cis.service.FamilyService;
 import com.vg.scfc.financing.cis.service.IdentificationService;
 import com.vg.scfc.financing.cis.service.LandService;
 import com.vg.scfc.financing.cis.service.LandTypeService;
+import com.vg.scfc.financing.cis.service.LiveUpdatePictureService;
 import com.vg.scfc.financing.cis.service.MachineryService;
 import com.vg.scfc.financing.cis.service.MemoToFileService;
 import com.vg.scfc.financing.cis.service.PersonTypeService;
 import com.vg.scfc.financing.cis.service.PersonalInfoService;
+import com.vg.scfc.financing.cis.service.PrintReportService;
 import com.vg.scfc.financing.cis.service.PurchaseOrderService;
 import com.vg.scfc.financing.cis.service.ReligionService;
 import com.vg.scfc.financing.cis.service.RepresentativeEmploymentService;
@@ -43,6 +45,7 @@ import com.vg.scfc.financing.commons.service.BarangayService;
 import com.vg.scfc.financing.commons.service.ControlAllowedAccessService;
 import com.vg.scfc.financing.commons.service.LocationService;
 import com.vg.scfc.financing.commons.service.LoginListener;
+import com.vg.scfc.financing.commons.service.ReportHeaderService;
 import com.vg.scfc.financing.commons.ui.dlg.LoginDlg;
 import com.vg.vmi.dealer.uts.service.McColorService;
 import com.vg.vmi.dealer.uts.service.McMakeService;
@@ -56,6 +59,7 @@ import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import org.slf4j.LoggerFactory;
+import vg.img.service.ImageHandlingService;
 
 /**
  *
@@ -100,7 +104,11 @@ public class ClientInfoMain implements LoginListener {
     private McMakeService makeService;
     private McColorService colorService;
     private McModelService modelService;
+    private PrintReportService printReportService;
     private Registry registry;
+    private ImageHandlingService imageHandlingService;
+    private LiveUpdatePictureService liveupdatePictureService;
+    private ReportHeaderService reportHeaderService;
     private LoginDlg loginDlg;
     private int failedLoginCounter = 0;
     private final int MAX_FAILED_LOGIN_ALLOWED = 3;
@@ -149,6 +157,10 @@ public class ClientInfoMain implements LoginListener {
         makeService = (McMakeService) registry.lookup(McMakeService.class.getSimpleName());
         colorService = (McColorService) registry.lookup(McColorService.class.getSimpleName());
         modelService = (McModelService) registry.lookup(McModelService.class.getSimpleName());
+        printReportService = (PrintReportService) registry.lookup(PrintReportService.class.getSimpleName());
+        imageHandlingService = (ImageHandlingService) registry.lookup(ImageHandlingService.class.getSimpleName());
+        liveupdatePictureService = (LiveUpdatePictureService) registry.lookup(LiveUpdatePictureService.class.getSimpleName());
+        reportHeaderService = (ReportHeaderService) registry.lookup(ReportHeaderService.class.getSimpleName());
     }
 
     public void setUISettings() {
@@ -186,6 +198,11 @@ public class ClientInfoMain implements LoginListener {
         UISetting.setColorService(colorService);
         UISetting.setModelService(modelService);
         UISetting.setEmployeeService(employeeService);
+        UISetting.setPrintReportService(printReportService);
+        UISetting.setImageService(imageHandlingService);
+        UISetting.setLiveUpdatePictureService(liveupdatePictureService);
+        UISetting.setLocationService(locationService);
+        UISetting.setReportHeaderService(reportHeaderService);
     }
 
     public void showLogInDialog(String locID, boolean enable) {
@@ -252,12 +269,14 @@ public class ClientInfoMain implements LoginListener {
     public static void main(String[] args) {
         ClientInfoMain tx = new ClientInfoMain();
         try {
-            for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
+//            for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    
+//                    break;
+//                }
+//            }
+            System.setProperty("Quaqua.tabLayoutPolicy", "scroll");
+            UIManager.setLookAndFeel(ch.randelshofer.quaqua.QuaquaManager.getLookAndFeel());
 
             System.setProperty("java.security.policy", "client.policy");
             System.setSecurityManager(new java.rmi.RMISecurityManager());
