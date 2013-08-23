@@ -136,7 +136,6 @@ public class SourceOfIncomePanel extends javax.swing.JPanel implements KeyListen
         add(lblHarvestSched, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 190, -1, -1));
 
         optionBusinessRegistered.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
-        optionBusinessRegistered.setSelected(true);
         optionBusinessRegistered.setText("Registered");
         optionBusinessRegistered.setEnabled(false);
         add(optionBusinessRegistered, new org.netbeans.lib.awtextra.AbsoluteConstraints(45, 80, -1, -1));
@@ -388,7 +387,7 @@ public class SourceOfIncomePanel extends javax.swing.JPanel implements KeyListen
     }//GEN-LAST:event_txtOtherSourceDescFocusLost
 
     private void checkFarmAgriItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_checkFarmAgriItemStateChanged
-        if(checkFarmAgri.isSelected()) {
+        if (checkFarmAgri.isSelected()) {
             txtAgri.setEnabled(true);
         } else {
             txtAgri.setEnabled(false);
@@ -396,7 +395,7 @@ public class SourceOfIncomePanel extends javax.swing.JPanel implements KeyListen
     }//GEN-LAST:event_checkFarmAgriItemStateChanged
 
     private void checkFarmLiveStockItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_checkFarmLiveStockItemStateChanged
-        if(checkFarmLiveStock.isSelected()) {
+        if (checkFarmLiveStock.isSelected()) {
             txtLiveStock.setEnabled(true);
         } else {
             txtLiveStock.setEnabled(false);
@@ -510,7 +509,7 @@ public class SourceOfIncomePanel extends javax.swing.JPanel implements KeyListen
                 checkFarmLiveStock.requestFocus();
             } else if (checkFarmLiveStock.isFocusOwner()) {
                 txtLiveStock.requestFocus();
-            }  else if (txtLiveStock.isFocusOwner()) {
+            } else if (txtLiveStock.isFocusOwner()) {
                 txtFarmHarvestSchedule.requestFocus();
             } else if (txtFarmHarvestSchedule.isFocusOwner()) {
                 txtFarmAvgProductIncome.requestFocus();
@@ -551,7 +550,7 @@ public class SourceOfIncomePanel extends javax.swing.JPanel implements KeyListen
         checkSourceOthers.setEnabled(value);
         txtOtherSourceDesc.setEditable(value);
         txtMonthlyIncomeForOtherSources.setEditable(value);
-        
+
         checkMonthlySalaryCompensation.setFocusable(value);
         txtMonthlySalaryCompensation.setFocusable(value);
         checkSourceBusiness.setFocusable(value);
@@ -571,8 +570,8 @@ public class SourceOfIncomePanel extends javax.swing.JPanel implements KeyListen
         checkSourceOthers.setFocusable(value);
         txtOtherSourceDesc.setFocusable(value);
         txtMonthlyIncomeForOtherSources.setFocusable(value);
-        
-        if(value) {
+
+        if (value) {
             checkMonthlySalaryCompensation.requestFocus();
         }
     }
@@ -599,7 +598,7 @@ public class SourceOfIncomePanel extends javax.swing.JPanel implements KeyListen
     public void setSourceOfIncomeData(Object o) {
         if (o == null) {
             resetToDefault();
-            totalMonthlyIncome((SourceOfIncome) o);
+//            totalMonthlyIncome((SourceOfIncome) o);
         } else {
             SourceOfIncome s = (SourceOfIncome) o;
             /* Monthly Salary Compensation */
@@ -632,13 +631,13 @@ public class SourceOfIncomePanel extends javax.swing.JPanel implements KeyListen
             } else {
                 checkSourceFarmProducts.setSelected(false);
             }
-            if(!s.getIncArgriculture().equals("") || !s.getIncArgriculture().equals(" ")) {
+            if (!s.getIncArgriculture().equals("") || !s.getIncArgriculture().equals(" ")) {
                 checkFarmAgri.setSelected(true);
             } else {
                 checkFarmAgri.setSelected(false);
             }
             txtAgri.setText(s.getIncArgriculture());
-            if(!s.getIncLiveStock().equals("") || !s.getIncLiveStock().equals(" ")) {
+            if (!s.getIncLiveStock().equals("") || !s.getIncLiveStock().equals(" ")) {
                 checkFarmLiveStock.setSelected(true);
             } else {
                 checkFarmLiveStock.setSelected(false);
@@ -656,7 +655,7 @@ public class SourceOfIncomePanel extends javax.swing.JPanel implements KeyListen
             }
             txtOtherSourceDesc.setText(s.getIncOtherSource());
             txtMonthlyIncomeForOtherSources.setText(new BigDecimal(s.getIncOther()).toPlainString());
-            totalMonthlyIncome(s);
+//            totalMonthlyIncome(s);
         }
     }
 
@@ -681,7 +680,7 @@ public class SourceOfIncomePanel extends javax.swing.JPanel implements KeyListen
         setSourceOfIncome((SourceOfIncome) o);
         return o != null;
     }
-    
+
     public boolean saveCoMakerSourceOfIncome() {
         Object o = null;
         try {
@@ -692,35 +691,58 @@ public class SourceOfIncomePanel extends javax.swing.JPanel implements KeyListen
         setSourceOfIncome((SourceOfIncome) o);
         return o != null;
     }
-    
+
     public void totalMonthlyIncome(SourceOfIncome s) {
         txtTotalMonthlyIncome.setText(SourceOfIncomeController.getInstance().computeTotalMonthlyIncome(s).toPlainString());
     }
 
     private SourceOfIncome createNew(SourceOfIncome s) throws ParseException {
-        s.setIncSalary(new BigDecimal(UIValidator.MoneyCommaRemover(txtMonthlySalaryCompensation.getText())).doubleValue());
-        s.setIncNature(txtBusinessNature.getText());
-        if (optionBusinessRegistered.isSelected()) {
-            s.setIncRegistered(true);
+        if (checkMonthlySalaryCompensation.isSelected()) {
+            s.setIncSalary(new BigDecimal(UIValidator.MoneyCommaRemover(txtMonthlySalaryCompensation.getText())).doubleValue());
         } else {
-            s.setIncRegistered(false);
+            s.setIncSalary(0);
         }
-        s.setIncBusiness(new BigDecimal(UIValidator.MoneyCommaRemover(txtMonthlyIncomeForBusiness.getText())).doubleValue());
-        if (checkFarmAgri.isSelected()) {
-            s.setIncArgriculture(txtAgri.getText());
+        if (checkSourceBusiness.isSelected()) {
+            s.setIncNature(txtBusinessNature.getText());
+            if (optionBusinessRegistered.isSelected()) {
+                s.setIncRegistered(true);
+            } else {
+                s.setIncRegistered(false);
+            }
+            s.setIncBusiness(new BigDecimal(UIValidator.MoneyCommaRemover(txtMonthlyIncomeForBusiness.getText())).doubleValue());
+        } else {
+            s.setIncNature("");
+            s.setIncRegistered(false);
+            s.setIncBusiness(0);
+        }
+        if (checkSourceFarmProducts.isSelected()) {
+            if (checkFarmAgri.isSelected()) {
+                s.setIncArgriculture(txtAgri.getText());
+            } else {
+                s.setIncArgriculture("");
+            }
+            if (checkFarmLiveStock.isSelected()) {
+                s.setIncLiveStock(txtBusinessNature.getText());
+            } else {
+                s.setIncLiveStock("");
+            }
+            s.setIncHarvestDate(DateUtil.toString(txtFarmHarvestSchedule.getDate(), "yyyy-MM-dd"));
+            s.setIncAverageProd(new BigDecimal(UIValidator.MoneyCommaRemover(txtFarmAvgProductIncome.getText())).doubleValue());
+            s.setIncFarm(new BigDecimal(UIValidator.MoneyCommaRemover(txtMonthlyIncomeForFarmProducts.getText())).doubleValue());
         } else {
             s.setIncArgriculture("");
-        }
-        if (checkFarmLiveStock.isSelected()) {
-            s.setIncLiveStock(txtBusinessNature.getText());
-        } else {
             s.setIncLiveStock("");
+            s.setIncAverageProd(0);
+            s.setIncFarm(0);
         }
-        s.setIncHarvestDate(DateUtil.toString(txtFarmHarvestSchedule.getDate(), "yyyy-MM-dd"));
-        s.setIncAverageProd(new BigDecimal(UIValidator.MoneyCommaRemover(txtFarmAvgProductIncome.getText())).doubleValue());
-        s.setIncFarm(new BigDecimal(UIValidator.MoneyCommaRemover(txtMonthlyIncomeForFarmProducts.getText())).doubleValue());
-        s.setIncOtherSource(txtOtherSourceDesc.getText());
-        s.setIncOther(new BigDecimal(UIValidator.MoneyCommaRemover(txtMonthlyIncomeForOtherSources.getText())).doubleValue());
+        if (checkSourceOthers.isSelected()) {
+            s.setIncOtherSource(txtOtherSourceDesc.getText());
+            s.setIncOther(new BigDecimal(UIValidator.MoneyCommaRemover(txtMonthlyIncomeForOtherSources.getText())).doubleValue());
+        } else {
+            s.setIncOtherSource("");
+            s.setIncOther(0);
+        }
+
         return s;
     }
 }

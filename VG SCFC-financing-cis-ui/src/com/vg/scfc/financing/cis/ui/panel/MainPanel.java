@@ -5,8 +5,13 @@
  */
 package com.vg.scfc.financing.cis.ui.panel;
 
+import com.vg.commons.dlg.WaitSplashScreen;
+import com.vg.commons.listener.DoJasperPrintReport;
+import com.vg.commons.util.NumberUtils;
+import com.vg.scfc.financing.cis.ent.Customer;
 import com.vg.scfc.financing.cis.ent.PersonalInfo;
 import com.vg.scfc.financing.cis.ent.PurchaseOrder;
+import com.vg.scfc.financing.cis.ent.SourceOfIncome;
 import com.vg.scfc.financing.cis.ent.TransactionForm;
 import com.vg.scfc.financing.cis.ui.controller.AddressController;
 import com.vg.scfc.financing.cis.ui.controller.ApplianceAssetsController;
@@ -21,7 +26,9 @@ import com.vg.scfc.financing.cis.ui.controller.MachineryAssetsController;
 import com.vg.scfc.financing.cis.ui.controller.PersonalInfoController;
 import com.vg.scfc.financing.cis.ui.controller.PhotoController;
 import com.vg.scfc.financing.cis.ui.controller.PurchaseOrderController;
+import com.vg.scfc.financing.cis.ui.controller.ReportController;
 import com.vg.scfc.financing.cis.ui.controller.RidersToBuyerController;
+import com.vg.scfc.financing.cis.ui.controller.SearchController;
 import com.vg.scfc.financing.cis.ui.controller.SiblingController;
 import com.vg.scfc.financing.cis.ui.controller.SourceOfIncomeController;
 import com.vg.scfc.financing.cis.ui.controller.VehicleAssetsController;
@@ -39,13 +46,14 @@ import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import net.sf.jasperreports.engine.JasperPrint;
 import org.jdesktop.observablecollections.ObservableCollections;
 
 /**
  *
  * @author rodel
  */
-public class MainPanel extends javax.swing.JPanel {
+public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport{
 
     /**
      * Creates new form MainPanel
@@ -83,10 +91,7 @@ public class MainPanel extends javax.swing.JPanel {
         initCoMakerSpouseAddressAddEditChangeListener();
         initPurchaseOrderAddEditListener();
         initIdentification();
-        /* Fill Values */
-        fillValue(searchPanel.getTransactionForm());
         initCoMakerTable();
-        searchPanel.setMainPanel(this);
         initTabs();
     }
 
@@ -95,6 +100,8 @@ public class MainPanel extends javax.swing.JPanel {
     }
 
     private void initFields() {
+        searchPanel.setMainPanel(this);
+        
         panelPersonalInfo.setFieldsEditable(false);
         panelEmploymentData.setFieldsEditable(false);
         panelFamilyBackground.setFieldsEditable(false);
@@ -150,6 +157,7 @@ public class MainPanel extends javax.swing.JPanel {
                 } else {
                     UIValidator.promptSucessMessageFor("SAVE");
                     panelPersonalInfo.setFieldsEditable(false);
+                    refreshSearch(headerPanel.getFormNo());
                 }
                 return isSaved;
             }
@@ -1692,7 +1700,7 @@ public class MainPanel extends javax.swing.JPanel {
                 } else {
                     UIValidator.promptSucessMessageFor("EDIT");
                     panelPO.setFieldsEditable(false);
-                    fillValue(FormController.getInstance().findByFormNo(headerPanel.getFormNo()));
+                    refreshSearch(headerPanel.getFormNo());
                 }
                 return isUpdated;
             }
@@ -1749,7 +1757,10 @@ public class MainPanel extends javax.swing.JPanel {
             panelCharacterReference.refreshTableCharacterReference(CharacterReferenceDependentController.getInstance().findCharacterReferencesByFormNo(form.getTxFormNo()));
             panelDependents.refreshTableDependent(CharacterReferenceDependentController.getInstance().findDependentsByFormNo(form.getTxFormNo()));
             panelCreditReference.refreshTable(CreditReferenceController.getInstance().findAll(form.getTxFormNo()));
-            panelSourceOfIncome.setSourceOfIncome(SourceOfIncomeController.getInstance().findByFormNoAndPersonType("", form.getTxFormNo(), "APP"));
+            SourceOfIncome s = SourceOfIncomeController.getInstance().findByFormNoAndPersonType("", form.getTxFormNo(), "APP");
+            txtTotalMonthlyIncome.setText(NumberUtils.doubleToString(SourceOfIncomeController.getInstance().computeTotalMonthlyIncome(s).doubleValue()));
+            panelSourceOfIncome.setSourceOfIncome(s);
+            panelExpenditures.setSourceOfIncome(s);
             panelExpenditures.setExpenditures(ExpenditureController.getInstance().findByFormNo(form.getTxFormNo()));
             panelLandAssets.setLands(LandAssetController.getInstance().findAllLandAssets(form.getTxFormNo()));
             panelVehicle.refreshTable(VehicleAssetsController.getInstance().findByFormNo(form.getTxFormNo()));
@@ -1789,6 +1800,10 @@ public class MainPanel extends javax.swing.JPanel {
             /* Riders to Buyers */
             panelRidersToBuyer.setIdentification(RidersToBuyerController.getInstance().findByFormNoAndPersonType(form.getTxFormNo(), "APP"));
             panelSpouseRidersToBuyer.setIdentification(RidersToBuyerController.getInstance().findByFormNoAndPersonType(form.getTxFormNo(), "SPO"));
+        } else {
+            headerPanel.setApplicationStatus("");
+            headerPanel.setFormNo("");
+            headerPanel.setIDNo("");
         }
     }
 
@@ -1813,6 +1828,13 @@ public class MainPanel extends javax.swing.JPanel {
                 panelCoMakerSpouseAddress.refreshTable(AddressController.getInstance().findByFormNo(p.getTxFormNo(), "CS2"));
                 break;
         }
+    }
+    
+    public void refreshSearch(String formNo) {
+        List<Customer> customers = new ArrayList<>();
+        Customer c = SearchController.getInstance().findByFormNo(formNo);
+        customers.add(c);
+        searchPanel.refreshCustomerTable(customers);
     }
 
     public void resetFields() {
@@ -1921,6 +1943,7 @@ public class MainPanel extends javax.swing.JPanel {
         tabPO = new javax.swing.JPanel();
         addEditPO = new com.vg.scfc.financing.cis.ui.reusable.AddEditButtonPanel();
         panelPO = new com.vg.scfc.financing.cis.ui.reusable.PurchaseOrderPanel2();
+        btnPrint = new javax.swing.JButton();
         jPanel32 = new javax.swing.JPanel();
         panelRidersToBuyer = new com.vg.scfc.financing.cis.ui.reusable.RidersToBuyerPanel();
         btnAgree1 = new javax.swing.JButton();
@@ -2087,8 +2110,16 @@ public class MainPanel extends javax.swing.JPanel {
         jTabbedPane1.addTab("Address", jPanel27);
 
         tabPO.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        tabPO.add(addEditPO, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 260, -1, -1));
+        tabPO.add(addEditPO, new org.netbeans.lib.awtextra.AbsoluteConstraints(515, 260, -1, -1));
         tabPO.add(panelPO, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, -1, -1));
+
+        btnPrint.setText("Print");
+        btnPrint.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrintActionPerformed(evt);
+            }
+        });
+        tabPO.add(btnPrint, new org.netbeans.lib.awtextra.AbsoluteConstraints(725, 260, 90, -1));
 
         jTabbedPane1.addTab("Purchase Order", tabPO);
 
@@ -2293,6 +2324,10 @@ public class MainPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnAgree3ActionPerformed
 
+    private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
+        new WaitSplashScreen(null, true, this, "PURCHASE ORDER").getThisDlg();
+    }//GEN-LAST:event_btnPrintActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.vg.scfc.financing.cis.ui.reusable.AddEditButtonPanel addEditAppliance;
     private com.vg.scfc.financing.cis.ui.reusable.AddEditChangeButtonPanel addEditChangeAddress;
@@ -2325,6 +2360,7 @@ public class MainPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnAgree1;
     private javax.swing.JButton btnAgree2;
     private javax.swing.JButton btnAgree3;
+    private javax.swing.JButton btnPrint;
     private java.util.List<PersonalInfo> comakers;
     private com.vg.scfc.financing.cis.ui.reusable.HeaderPanel headerPanel;
     private javax.swing.JPanel jPanel1;
@@ -2449,6 +2485,16 @@ public class MainPanel extends javax.swing.JPanel {
 
     public List<PersonalInfo> getComakers() {
         return comakers;
+    }
+
+    @Override
+    public JasperPrint printNow() throws Exception {
+        JasperPrint result = ReportController.getInstance().printPurchaseOrder(headerPanel.getFormNo());
+        if(result == null) {
+            throw new Exception();
+        } else {
+            return result;
+        }
     }
 
 }

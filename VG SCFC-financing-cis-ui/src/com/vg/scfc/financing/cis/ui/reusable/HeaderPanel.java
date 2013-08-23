@@ -67,9 +67,11 @@ public class HeaderPanel extends javax.swing.JPanel {
         jLabel3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(3, 48, 1040, -1));
 
+        txtIDNo.setEditable(false);
         txtIDNo.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtIDNo.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txtIDNo.setText("00000");
+        txtIDNo.setFocusable(false);
         add(txtIDNo, new org.netbeans.lib.awtextra.AbsoluteConstraints(958, 35, 70, -1));
 
         txtFormNo.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
@@ -82,6 +84,8 @@ public class HeaderPanel extends javax.swing.JPanel {
         labelApplicationStatus.setText("APPROVED");
         add(labelApplicationStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(748, 5, 280, -1));
 
+        txtAppDate.setEditable(false);
+        txtAppDate.setFocusable(false);
         txtAppDate.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         add(txtAppDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(958, 60, 70, -1));
 

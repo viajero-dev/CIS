@@ -318,20 +318,19 @@ public class PurchaseOrderPanel2 extends javax.swing.JPanel implements KeyListen
 
     private void txtDownPaymentFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDownPaymentFocusLost
         txtDownPayment.setText(NumberUtils.doubleToString(new BigDecimal(UIValidator.isNumeric(txtDownPayment)).doubleValue()));
-        txtPrice.setText(NumberUtils.doubleToString(PurchaseOrderController.getInstance().computePrice(new BigDecimal(UIValidator.MoneyCommaRemover(txtDownPayment.getText())),
-                (txtTerm.getText().equals("") ? new BigDecimal("1") : new BigDecimal(UIValidator.MoneyCommaRemover(txtTerm.getText()))))));
     }//GEN-LAST:event_txtDownPaymentFocusLost
 
     private void txtTermFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTermFocusLost
         txtTerm.setText(UIValidator.isNumeric(txtTerm));
-        txtPrice.setText(NumberUtils.doubleToString(PurchaseOrderController.getInstance().computePrice(new BigDecimal(UIValidator.MoneyCommaRemover(txtDownPayment.getText())),
-                (txtTerm.getText().equals("") ? new BigDecimal("1") : new BigDecimal(UIValidator.MoneyCommaRemover(txtTerm.getText()))))));
     }//GEN-LAST:event_txtTermFocusLost
 
     private void txtMAFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtMAFocusLost
         txtMA.setText(NumberUtils.doubleToString(new BigDecimal(UIValidator.isNumeric(txtMA)).doubleValue()));
+        txtPrice.setText(NumberUtils.doubleToString(PurchaseOrderController.getInstance().computePrice(new BigDecimal(UIValidator.MoneyCommaRemover(txtMA.getText())),
+                (txtTerm.getText().equals("") ? new BigDecimal("1") : new BigDecimal(UIValidator.MoneyCommaRemover(txtTerm.getText()))), 
+                (txtDownPayment.getText().equals("") ? new BigDecimal("0") : new BigDecimal(UIValidator.MoneyCommaRemover(txtDownPayment.getText()))))));
         txtBal.setText(NumberUtils.doubleToString(PurchaseOrderController.getInstance().computeBalance(new BigDecimal(UIValidator.MoneyCommaRemover(txtPrice.getText())),
-                new BigDecimal(UIValidator.MoneyCommaRemover(txtMA.getText())))));
+                new BigDecimal(UIValidator.MoneyCommaRemover(txtDownPayment.getText())))));
     }//GEN-LAST:event_txtMAFocusLost
 
     private void txtPriceFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPriceFocusLost
@@ -640,10 +639,8 @@ public class PurchaseOrderPanel2 extends javax.swing.JPanel implements KeyListen
             }
         } else if (checkDisApproved.isSelected()) {
             p.setStatus("DISAPPROVED");
-//            p.setReleaseDate(null);
         } else {
             p.setStatus("");
-//            p.setReleaseDate(null);
         }
         p.setCiCollector(txtCICode.getText());
         p.setRemarks(Validator.getInstance().newLineRemover(txtRemarks.getText()).toUpperCase());
@@ -652,11 +649,15 @@ public class PurchaseOrderPanel2 extends javax.swing.JPanel implements KeyListen
 
     private void setPurchaseOrderValues(PurchaseOrder p) {
         if (p == null) {
+            System.out.println("NULL PO");
             resetToDefault();
         } else {
-            System.out.println("Version" + p.getVersion());
             switch (p.getPurpose()) {
                 case "PERSONAL":
+                    comboPurpose.setSelectedIndex(0);
+                    break;
+                default:
+                    comboPurpose.setSelectedIndex(1);
                     break;
             }
             if (p.isBrandNew()) {
@@ -676,13 +677,15 @@ public class PurchaseOrderPanel2 extends javax.swing.JPanel implements KeyListen
             txtDownPayment.setText(NumberUtils.doubleToString(p.getDownPayment()));
             txtTerm.setText(p.getTerm() + "");
             txtMA.setText(NumberUtils.doubleToString(p.getMonthlyAmortization()));
-            double price = PurchaseOrderController.getInstance().computePrice(new BigDecimal(p.getDownPayment()), new BigDecimal(p.getTerm() + ""));
+            double price = PurchaseOrderController.getInstance().computePrice(new BigDecimal(p.getMonthlyAmortization()), new BigDecimal(p.getTerm() + ""), new BigDecimal(p.getDownPayment()));
             txtPrice.setText(NumberUtils.doubleToString(price));
-            txtBal.setText(NumberUtils.doubleToString(PurchaseOrderController.getInstance().computeBalance(new BigDecimal(price), new BigDecimal(p.getMonthlyAmortization()))));
+            txtBal.setText(NumberUtils.doubleToString(PurchaseOrderController.getInstance().computeBalance(new BigDecimal(price), new BigDecimal(p.getDownPayment()))));
             txtInsAmount.setText(NumberUtils.doubleToString(p.getInsuranceAmount()));
             txtInsComp.setText(p.getInsuranceCompany());
             if (p.getReleaseDate() != null) {
                 txtReleasedDate.setDate(p.getReleaseDate());
+            } else {
+                txtReleasedDate.setText("");
             }
             switch (p.getStatus()) {
                 case "APPROVED":

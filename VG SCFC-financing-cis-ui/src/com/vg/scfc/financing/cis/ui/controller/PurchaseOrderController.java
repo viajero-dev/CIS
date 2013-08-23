@@ -76,8 +76,8 @@ public class PurchaseOrderController {
         return result;
     }
     
-    public double computePrice(BigDecimal ma, BigDecimal term) {
-        return ma.multiply(term).doubleValue();
+    public double computePrice(BigDecimal ma, BigDecimal term, BigDecimal downpayment) {
+        return ma.multiply(term).add(downpayment).doubleValue();
     }
     
     public double computeBalance(BigDecimal price, BigDecimal downpayment) {

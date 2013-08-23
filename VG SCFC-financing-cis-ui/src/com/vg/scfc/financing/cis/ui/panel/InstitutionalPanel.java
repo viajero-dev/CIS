@@ -5,6 +5,8 @@
  */
 package com.vg.scfc.financing.cis.ui.panel;
 
+import com.vg.commons.dlg.WaitSplashScreen;
+import com.vg.commons.listener.DoJasperPrintReport;
 import com.vg.commons.util.UIMgr;
 import com.vg.scfc.financing.cis.ent.Address;
 import com.vg.scfc.financing.cis.ent.Company;
@@ -18,12 +20,12 @@ import com.vg.scfc.financing.cis.ui.controller.EmploymentController;
 import com.vg.scfc.financing.cis.ui.controller.FormController;
 import com.vg.scfc.financing.cis.ui.controller.PersonalInfoController;
 import com.vg.scfc.financing.cis.ui.controller.PurchaseOrderController;
+import com.vg.scfc.financing.cis.ui.controller.ReportController;
 import com.vg.scfc.financing.cis.ui.controller.RidersToBuyerController;
 import com.vg.scfc.financing.cis.ui.controller.SearchController;
 import com.vg.scfc.financing.cis.ui.dialog.AddressDialog;
 import com.vg.scfc.financing.cis.ui.listener.BasicActionListener;
 import com.vg.scfc.financing.cis.ui.reusable.ApplicationFormAndDatePanel;
-import com.vg.scfc.financing.cis.ui.reusable.SimpleAddressPanel;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -31,12 +33,13 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
+import net.sf.jasperreports.engine.JasperPrint;
 
 /**
  *
  * @author rodel
  */
-public class InstitutionalPanel extends javax.swing.JPanel implements KeyListener {
+public class InstitutionalPanel extends javax.swing.JPanel implements KeyListener, DoJasperPrintReport {
 
     /**
      * Creates new form InstitutionalPanel
@@ -405,7 +408,7 @@ public class InstitutionalPanel extends javax.swing.JPanel implements KeyListene
         ridersToBuyerPanel.setHeaderPanel(headerPanel);
         ridersToBuyerPanel.setPersonType("APP");
     }
-    
+
     public void refreshSearch(String formNo) {
         List<Customer> customers = new ArrayList<>();
         Customer c = SearchController.getInstance().findByFormNo(formNo);
@@ -490,6 +493,7 @@ public class InstitutionalPanel extends javax.swing.JPanel implements KeyListene
         jPanel8 = new javax.swing.JPanel();
         addEditPurchaseOrder = new com.vg.scfc.financing.cis.ui.reusable.AddEditButtonPanel();
         panelPurchaseOrder = new com.vg.scfc.financing.cis.ui.reusable.PurchaseOrderPanel2();
+        btnPrint = new javax.swing.JButton();
         headerPanel = new com.vg.scfc.financing.cis.ui.reusable.HeaderPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -556,8 +560,16 @@ public class InstitutionalPanel extends javax.swing.JPanel implements KeyListene
         jTabbedPane1.addTab("RIDERS TO BUYERS", jPanel7);
 
         jPanel8.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel8.add(addEditPurchaseOrder, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 260, -1, -1));
+        jPanel8.add(addEditPurchaseOrder, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 260, -1, -1));
         jPanel8.add(panelPurchaseOrder, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 5, 830, 250));
+
+        btnPrint.setText("Print");
+        btnPrint.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrintActionPerformed(evt);
+            }
+        });
+        jPanel8.add(btnPrint, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 260, 90, -1));
 
         jTabbedPane1.addTab("Purchase Order", jPanel8);
 
@@ -599,6 +611,10 @@ public class InstitutionalPanel extends javax.swing.JPanel implements KeyListene
         txtCompanyName.setText(txtCompanyName.getText().toUpperCase());
     }//GEN-LAST:event_txtCompanyNameFocusLost
 
+    private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
+        new WaitSplashScreen(null, true, this, "PURCHASE ORDER").getThisDlg();
+    }//GEN-LAST:event_btnPrintActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.vg.scfc.financing.cis.ui.reusable.AddEditButtonPanel addEditCompanyInfo;
     private com.vg.scfc.financing.cis.ui.reusable.AddEditButtonPanel addEditPurchaseOrder;
@@ -607,6 +623,7 @@ public class InstitutionalPanel extends javax.swing.JPanel implements KeyListene
     private com.vg.scfc.financing.cis.ui.reusable.AddEditButtonPanel addEditRepresentative2Employment;
     private com.vg.scfc.financing.cis.ui.reusable.AddEditButtonPanel addEditRepresentative2PersonalInfo;
     private javax.swing.JButton btnAgree;
+    private javax.swing.JButton btnPrint;
     private com.vg.scfc.financing.cis.ui.reusable.HeaderPanel headerPanel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -679,6 +696,16 @@ public class InstitutionalPanel extends javax.swing.JPanel implements KeyListene
             setCompanyAddress(address);
         } else {
             txtCompleteAddress.setText("");
+        }
+    }
+
+    @Override
+    public JasperPrint printNow() throws Exception {
+        JasperPrint result = ReportController.getInstance().printPurchaseOrder(headerPanel.getFormNo());
+        if (result == null) {
+            throw new Exception();
+        } else {
+            return result;
         }
     }
 }

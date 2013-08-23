@@ -816,10 +816,11 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
     
     public boolean savePersonalInfo() {
         if (validForm()) {
-            PersonalInfo o = PersonalInfoController.getInstance().save(createNew(new PersonalInfo()), headerPanel.getIDNo(), headerPanel.getApplicationDate(), personType);
-            saveAddresses(o);
-            setPersonalInfo(o);
-            return o != null;
+            PersonalInfo p = PersonalInfoController.getInstance().save(createNew(new PersonalInfo()), headerPanel.getIDNo(), headerPanel.getApplicationDate(), personType);
+            saveAddresses(p);
+            setPersonalInfo(p);
+            headerPanel.setFormNo(p.getTxFormNo());
+            return p != null;
         } else {
             UIValidator.promptFormValidationMessage();
             return false;

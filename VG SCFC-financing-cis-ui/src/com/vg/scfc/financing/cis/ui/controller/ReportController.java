@@ -7,8 +7,6 @@ package com.vg.scfc.financing.cis.ui.controller;
 
 import com.vg.scfc.financing.cis.ui.settings.UISetting;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import net.sf.jasperreports.engine.JasperPrint;
 
 /**
@@ -48,11 +46,21 @@ public class ReportController {
         }
         return result;
     }
-    
+
     public JasperPrint print(String formNo) {
         JasperPrint result = null;
         try {
             result = UISetting.getPrintReportService().printInstitution(formNo);
+        } catch (Exception ex) {
+            UIValidator.log(ex, ReportController.class);
+        }
+        return result;
+    }
+
+    public JasperPrint printPurchaseOrder(String formNo) {
+        JasperPrint result = null;
+        try {
+            result = UISetting.getPrintReportService().printPurchaseOrder(UISetting.getStoreLocation(), formNo);
         } catch (Exception ex) {
             UIValidator.log(ex, ReportController.class);
         }

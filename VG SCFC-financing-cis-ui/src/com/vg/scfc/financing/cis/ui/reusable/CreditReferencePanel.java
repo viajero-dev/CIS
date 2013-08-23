@@ -41,7 +41,7 @@ public class CreditReferencePanel extends javax.swing.JPanel implements KeyListe
     }
 
     private void initCreditReferenceTable() {
-        tableCreditReference.putClientProperty("Quaqua.Table.style", "striped" );
+        tableCreditReference.putClientProperty("Quaqua.Table.style", "striped");
         tableCreditReference.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         tableCreditReference.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 
@@ -357,8 +357,8 @@ public class CreditReferencePanel extends javax.swing.JPanel implements KeyListe
         txtCRAmountPaid.setFocusable(value);
         txtCRRemainingBal.setFocusable(value);
         tableCreditReference.setFocusable(value);
-        
-        if(value) {
+
+        if (value) {
             txtCRName.requestFocus();
         }
     }
@@ -416,11 +416,27 @@ public class CreditReferencePanel extends javax.swing.JPanel implements KeyListe
         c.setCreRefName(txtCRName.getText());
         c.setCreRefAddress(txtCRAddress.getText());
         c.setCreItem(txtCRItemOnCredit.getText());
-        c.setCreRefLoanAmount(new BigDecimal(UIValidator.MoneyCommaRemover(txtCRLoanAmount.getText())).doubleValue());
-        c.setCreRefMonthly(new BigDecimal(UIValidator.MoneyCommaRemover(txtCRMonthlyAmort.getText())).doubleValue());
+        if (txtCRLoanAmount.getText().equals("")) {
+            c.setCreRefLoanAmount(0);
+        } else {
+            c.setCreRefLoanAmount(new BigDecimal(UIValidator.MoneyCommaRemover(txtCRLoanAmount.getText())).doubleValue());
+        }
+        if (txtCRMonthlyAmort.getText().equals("")) {
+            c.setCreRefMonthly(0);
+        } else {
+            c.setCreRefMonthly(new BigDecimal(UIValidator.MoneyCommaRemover(txtCRMonthlyAmort.getText())).doubleValue());
+        }
         c.setCreRefTerm(txtCRTerm.getText());
-        c.setCreRefAmountPaid(new BigDecimal(UIValidator.MoneyCommaRemover(txtCRAmountPaid.getText())).doubleValue());
-        c.setCreRefBalance(new BigDecimal(UIValidator.MoneyCommaRemover(txtCRRemainingBal.getText())).doubleValue());
+        if (txtCRAmountPaid.getText().equals("")) {
+            c.setCreRefAmountPaid(0);
+        } else {
+            c.setCreRefAmountPaid(new BigDecimal(UIValidator.MoneyCommaRemover(txtCRAmountPaid.getText())).doubleValue());
+        }
+        if (txtCRRemainingBal.getText().equals("")) {
+            c.setCreRefBalance(0);
+        } else {
+            c.setCreRefBalance(new BigDecimal(UIValidator.MoneyCommaRemover(txtCRRemainingBal.getText())).doubleValue());
+        }
         return c;
     }
 }

@@ -8,7 +8,9 @@ package com.vg.scfc.financing.cis.ui.reusable;
 import com.vg.commons.util.NumberUtils;
 import com.vg.scfc.financing.cis.ent.Expenditure;
 import com.vg.scfc.financing.cis.ent.ExpenditureType;
+import com.vg.scfc.financing.cis.ent.SourceOfIncome;
 import com.vg.scfc.financing.cis.ui.controller.ExpenditureController;
+import com.vg.scfc.financing.cis.ui.controller.SourceOfIncomeController;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 import com.vg.scfc.financing.cis.ui.validator.Validator;
 import java.awt.event.KeyEvent;
@@ -268,7 +270,7 @@ public class ExpendituresPanel extends javax.swing.JPanel implements KeyListener
     }//GEN-LAST:event_txtMonthlyHouseholdBillFocusLost
 
     private void txtAmortizationFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtAmortizationFocusLost
-        txtAmortization.setText(NumberUtils.doubleToString(new BigDecimal(UIValidator.isNumeric(txtAmortization)).doubleValue())); 
+        txtAmortization.setText(NumberUtils.doubleToString(new BigDecimal(UIValidator.isNumeric(txtAmortization)).doubleValue()));
         computeTotalExpenditureAndNetIncome(UIValidator.MoneyCommaRemover(txtAmortization.getText()));
     }//GEN-LAST:event_txtAmortizationFocusLost
 
@@ -277,21 +279,21 @@ public class ExpendituresPanel extends javax.swing.JPanel implements KeyListener
     }//GEN-LAST:event_txtMaintenanceDescFocusLost
 
     private void txtMaintenanceFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtMaintenanceFocusLost
-        txtMaintenance.setText(NumberUtils.doubleToString(new BigDecimal(UIValidator.isNumeric(txtMaintenance)).doubleValue())); 
+        txtMaintenance.setText(NumberUtils.doubleToString(new BigDecimal(UIValidator.isNumeric(txtMaintenance)).doubleValue()));
         computeTotalExpenditureAndNetIncome(UIValidator.MoneyCommaRemover(txtMaintenance.getText()));
     }//GEN-LAST:event_txtMaintenanceFocusLost
 
     private void txtLivingAllowanceFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtLivingAllowanceFocusLost
-        txtLivingAllowance.setText(NumberUtils.doubleToString(new BigDecimal(UIValidator.isNumeric(txtLivingAllowance)).doubleValue())); 
+        txtLivingAllowance.setText(NumberUtils.doubleToString(new BigDecimal(UIValidator.isNumeric(txtLivingAllowance)).doubleValue()));
         computeTotalExpenditureAndNetIncome(UIValidator.MoneyCommaRemover(txtLivingAllowance.getText()));
     }//GEN-LAST:event_txtLivingAllowanceFocusLost
 
     private void txtEducationDescFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEducationDescFocusLost
-        txtEducationDesc.setText(UIValidator.validate(txtEducationDesc)); 
+        txtEducationDesc.setText(UIValidator.validate(txtEducationDesc));
     }//GEN-LAST:event_txtEducationDescFocusLost
 
     private void txtEducationFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEducationFocusLost
-        txtEducation.setText(NumberUtils.doubleToString(new BigDecimal(UIValidator.isNumeric(txtEducation)).doubleValue())); 
+        txtEducation.setText(NumberUtils.doubleToString(new BigDecimal(UIValidator.isNumeric(txtEducation)).doubleValue()));
         computeTotalExpenditureAndNetIncome(UIValidator.MoneyCommaRemover(txtEducation.getText()));
     }//GEN-LAST:event_txtEducationFocusLost
 
@@ -336,6 +338,11 @@ public class ExpendituresPanel extends javax.swing.JPanel implements KeyListener
     private BigDecimal totalMonthlyIncome;
     private HeaderPanel headerPanel;
     private BigDecimal total = new BigDecimal("0");
+    private SourceOfIncome sourceOfIncome;
+
+    public void setSourceOfIncome(SourceOfIncome sourceOfIncome) {
+        this.sourceOfIncome = sourceOfIncome;
+    }
 
     public void setHeaderPanel(HeaderPanel headerPanel) {
         this.headerPanel = headerPanel;
@@ -448,7 +455,7 @@ public class ExpendituresPanel extends javax.swing.JPanel implements KeyListener
         total = total.add(toBigDecimal(value));
         txtTotalExpenditure.setText(total.round(MathContext.UNLIMITED).toString());
     }
-    
+
     private BigDecimal toBigDecimal(String value) {
         return new BigDecimal(value);
     }
@@ -463,7 +470,7 @@ public class ExpendituresPanel extends javax.swing.JPanel implements KeyListener
         txtEducation.setEditable(value);
         txtEducationDesc.setEditable(value);
         txtOthers.setEditable(value);
-        
+
         txtMonthlyDeduction.setFocusable(value);
         txtMonthlyHouseholdBill.setFocusable(value);
         txtAmortization.setFocusable(value);
@@ -473,8 +480,8 @@ public class ExpendituresPanel extends javax.swing.JPanel implements KeyListener
         txtEducation.setFocusable(value);
         txtEducationDesc.setFocusable(value);
         txtOthers.setFocusable(value);
-        
-        if(value) {
+
+        if (value) {
             txtMonthlyDeduction.requestFocus();
         }
     }
@@ -496,6 +503,8 @@ public class ExpendituresPanel extends javax.swing.JPanel implements KeyListener
     public void setExpenditureData(List<Expenditure> expenditures) {
         if (expenditures == null || expenditures.isEmpty()) {
             resetToDefault();
+            BigDecimal totalIncome = (sourceOfIncome == null ? new BigDecimal("0") : SourceOfIncomeController.getInstance().computeTotalMonthlyIncome(sourceOfIncome));
+            txtNetIncome.setText(totalIncome.toEngineeringString());
         } else {
             for (Expenditure e : expenditures) {
                 switch (e.getExpenditureType().getId()) {
@@ -532,9 +541,9 @@ public class ExpendituresPanel extends javax.swing.JPanel implements KeyListener
                 }
             }
             BigDecimal totalExpenditures = ExpenditureController.getInstance().totalExpenditures(expenditures);
-
+            BigDecimal totalIncome = (sourceOfIncome == null ? new BigDecimal("0") : SourceOfIncomeController.getInstance().computeTotalMonthlyIncome(sourceOfIncome));
             txtTotalExpenditure.setText(totalExpenditures.toPlainString());
-            txtNetIncome.setText(getTotalMonthlyIncome().subtract(totalExpenditures).toPlainString());
+            txtNetIncome.setText(totalIncome.subtract(totalExpenditures).toPlainString());
         }
     }
 
@@ -637,63 +646,63 @@ public class ExpendituresPanel extends javax.swing.JPanel implements KeyListener
                     case 1:
                         /* Regular Monthly Salary Deduction */
                         if (!txtMonthlyDeduction.getText().equals("")) {
-                            expenditure.setAmount(new BigDecimal(UIValidator.MoneyCommaRemover(txtMonthlyDeduction.getText())).doubleValue());
-                        } else {
-                            expenditure.setAmount(0);
-                        }
+                        expenditure.setAmount(new BigDecimal(UIValidator.MoneyCommaRemover(txtMonthlyDeduction.getText())).doubleValue());
+                    } else {
+                        expenditure.setAmount(0);
+                    }
                         break;
                     case 2:
                         /* Monthly Household Bill */
                         if (!txtMonthlyHouseholdBill.getText().equals("")) {
-                            expenditure.setAmount(new BigDecimal(UIValidator.MoneyCommaRemover(txtMonthlyHouseholdBill.getText())).doubleValue());
-                        } else {
-                            expenditure.setAmount(0);
-                        }
+                        expenditure.setAmount(new BigDecimal(UIValidator.MoneyCommaRemover(txtMonthlyHouseholdBill.getText())).doubleValue());
+                    } else {
+                        expenditure.setAmount(0);
+                    }
                         break;
                     case 3:
                         /* Amortization */
                         if (!txtAmortization.getText().equals("")) {
-                            expenditure.setAmount(new BigDecimal(UIValidator.MoneyCommaRemover(txtAmortization.getText())).doubleValue());
-                        } else {
-                            expenditure.setAmount(0);
-                        }
+                        expenditure.setAmount(new BigDecimal(UIValidator.MoneyCommaRemover(txtAmortization.getText())).doubleValue());
+                    } else {
+                        expenditure.setAmount(0);
+                    }
                         break;
                     case 4:
                         /* Maintenance */
                         if (!txtMaintenance.getText().equals("")) {
-                            expenditure.setAdditionalInfo(txtMaintenanceDesc.getText());
-                            expenditure.setAmount(new BigDecimal(UIValidator.MoneyCommaRemover(txtMaintenance.getText())).doubleValue());
-                        } else {
-                            expenditure.setAdditionalInfo("");
-                            expenditure.setAmount(0);
-                        }
+                        expenditure.setAdditionalInfo(txtMaintenanceDesc.getText());
+                        expenditure.setAmount(new BigDecimal(UIValidator.MoneyCommaRemover(txtMaintenance.getText())).doubleValue());
+                    } else {
+                        expenditure.setAdditionalInfo("");
+                        expenditure.setAmount(0);
+                    }
                         break;
                     case 5:
                         /* Living allowance */
                         if (!txtLivingAllowance.getText().equals("")) {
-                            expenditure.setAmount(new BigDecimal(UIValidator.MoneyCommaRemover(txtLivingAllowance.getText())).doubleValue());
-                        } else {
-                            expenditure.setAmount(0);
-                        }
+                        expenditure.setAmount(new BigDecimal(UIValidator.MoneyCommaRemover(txtLivingAllowance.getText())).doubleValue());
+                    } else {
+                        expenditure.setAmount(0);
+                    }
                         break;
                     case 6:
                         /* Education */
                         if (!txtEducation.getText().equals("")) {
-                            expenditure.setAdditionalInfo(txtEducationDesc.getText());
-                            expenditure.setAmount(new BigDecimal(UIValidator.MoneyCommaRemover(txtEducation.getText())).doubleValue());
-                        } else {
-                            expenditure.setAdditionalInfo("");
-                            expenditure.setAmount(0);
-                        }
+                        expenditure.setAdditionalInfo(txtEducationDesc.getText());
+                        expenditure.setAmount(new BigDecimal(UIValidator.MoneyCommaRemover(txtEducation.getText())).doubleValue());
+                    } else {
+                        expenditure.setAdditionalInfo("");
+                        expenditure.setAmount(0);
+                    }
                         break;
-                   case 7:
-                       /* Others */
+                    case 7:
+                        /* Others */
                         if (!txtOthers.getText().equals("")) {
-                            expenditure.setAmount(new BigDecimal(UIValidator.MoneyCommaRemover(txtOthers.getText())).doubleValue());
-                        } else {
-                            expenditure.setAmount(0);
-                        }
-                       break;
+                        expenditure.setAmount(new BigDecimal(UIValidator.MoneyCommaRemover(txtOthers.getText())).doubleValue());
+                    } else {
+                        expenditure.setAmount(0);
+                    }
+                        break;
                 }
             }
             return e;
