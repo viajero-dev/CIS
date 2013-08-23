@@ -170,7 +170,7 @@
               <StringArray count="5">
                 <StringItem index="0" value="Summary of Applicants - ALL"/>
                 <StringItem index="1" value="Summary of Applicants - APPROVED"/>
-                <StringItem index="2" value="Summary of Applicants - DISAPPTOVED"/>
+                <StringItem index="2" value="Summary of Applicants - DISAPPROVED"/>
                 <StringItem index="3" value="Summary of Applicants - PENDING"/>
                 <StringItem index="4" value="Summary of Forms"/>
               </StringArray>

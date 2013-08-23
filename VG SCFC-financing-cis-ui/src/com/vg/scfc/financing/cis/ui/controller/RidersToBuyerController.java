@@ -6,6 +6,7 @@
 package com.vg.scfc.financing.cis.ui.controller;
 
 import com.vg.scfc.financing.cis.ent.Identification;
+import com.vg.scfc.financing.cis.ent.PersonType;
 import com.vg.scfc.financing.cis.ui.settings.UISetting;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 
@@ -28,7 +29,11 @@ public class RidersToBuyerController {
         Identification result = null;
         try {
             i.setTxFormNo(formNo);
-            i.setPersonType(UISetting.getPersonTypeService().findById(personTypeID));
+            PersonType ptype = UISetting.getPersonTypeService().findById(personTypeID);
+            if(ptype == null) {
+                System.out.println("NULL person type.");
+            }
+            i.setPersonType(ptype);
             i.setUser(UISetting.getSystemUser());
             i.setLocation(UISetting.getStoreLocation());
             i.setStation(UISetting.getComputerName());

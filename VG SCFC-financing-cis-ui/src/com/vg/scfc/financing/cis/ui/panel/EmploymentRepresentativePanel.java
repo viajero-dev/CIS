@@ -27,7 +27,7 @@ public class EmploymentRepresentativePanel extends javax.swing.JPanel implements
         initComponents();
         initKeyListener();
     }
-    
+
     private void initKeyListener() {
         comboEmploymentStatus.addKeyListener(this);
         txtPosition.addKeyListener(this);
@@ -156,7 +156,7 @@ public class EmploymentRepresentativePanel extends javax.swing.JPanel implements
     }//GEN-LAST:event_txtDepartmentFocusLost
 
     private void txtMonthlyCompensationFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtMonthlyCompensationFocusLost
-        txtMonthlyCompensation.setText(NumberUtils.doubleToString(new BigDecimal(UIValidator.validate(txtMonthlyCompensation)).doubleValue()));
+        txtMonthlyCompensation.setText((txtMonthlyCompensation.getText().equals("") ? "0.00" : NumberUtils.doubleToString(new BigDecimal(UIValidator.isNumeric(txtMonthlyCompensation)).doubleValue())));
     }//GEN-LAST:event_txtMonthlyCompensationFocusLost
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -192,7 +192,7 @@ public class EmploymentRepresentativePanel extends javax.swing.JPanel implements
     public void setPersonType(String personType) {
         this.personType = personType;
     }
-    
+
     @Override
     public void keyTyped(KeyEvent e) {
     }
@@ -237,14 +237,14 @@ public class EmploymentRepresentativePanel extends javax.swing.JPanel implements
         txtDepartment.setEditable(value);
         txtYearInService.setEditable(value);
         txtMonthlyCompensation.setEditable(value);
-        
+
         comboEmploymentStatus.setFocusable(value);
         txtPosition.setFocusable(value);
         txtDepartment.setFocusable(value);
         txtYearInService.setFocusable(value);
         txtMonthlyCompensation.setFocusable(value);
-        
-        if(value) {
+
+        if (value) {
             comboEmploymentStatus.requestFocus();
         }
     }
@@ -270,29 +270,29 @@ public class EmploymentRepresentativePanel extends javax.swing.JPanel implements
             txtMonthlyCompensation.setText(NumberUtils.doubleToString(r.getSalary()));
         }
     }
-    
+
     public boolean saveEmployment() {
         RepresentativeEmployment r = EmploymentController.getInstance().save(headerPanel.getFormNo(), personType, create(new RepresentativeEmployment()));
         setRepresentativeEmployment(r);
         return r != null;
     }
-    
+
     public boolean updateEmployment() {
         RepresentativeEmployment r = EmploymentController.getInstance().update(headerPanel.getFormNo(), create(representativeEmployment));
         setRepresentativeEmployment(r);
         return r != null;
     }
-    
+
     private RepresentativeEmployment create(RepresentativeEmployment r) {
         r.setStatus((String) comboEmploymentStatus.getSelectedItem());
         r.setPosition(txtPosition.getText());
         r.setDepartment(txtDepartment.getText());
-        if(txtYearInService.getText().equals("")) {
+        if (txtYearInService.getText().equals("")) {
             r.setYearOfService(0);
         } else {
             r.setYearOfService(Integer.parseInt(txtYearInService.getText()));
         }
-        if(txtMonthlyCompensation.getText().equals("")) {
+        if (txtMonthlyCompensation.getText().equals("")) {
             r.setSalary(0);
         } else {
             r.setSalary(new BigDecimal(UIValidator.MoneyCommaRemover(txtMonthlyCompensation.getText())).doubleValue());

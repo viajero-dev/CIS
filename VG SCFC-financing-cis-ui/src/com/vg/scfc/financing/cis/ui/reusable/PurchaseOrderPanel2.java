@@ -590,8 +590,11 @@ public class PurchaseOrderPanel2 extends javax.swing.JPanel implements KeyListen
         comboPurpose.setSelectedIndex(0);
         comboMotorStatus.setSelectedIndex(0);
         txtMakeCode.setText("");
+        txtMakeDesc.setText("");
         txtColorCode.setText("");
+        txtColorDesc.setText("");
         txtModelCode.setText("");
+        txtModelDesc.setText("");
         txtDownPayment.setText("");
         txtTerm.setText("");
         txtMA.setText("");
@@ -603,6 +606,7 @@ public class PurchaseOrderPanel2 extends javax.swing.JPanel implements KeyListen
         checkApproved.setSelected(false);
         checkDisApproved.setSelected(false);
         txtCICode.setText("");
+        txtCIDesc.setText("");
         txtRemarks.setText("");
     }
 
@@ -620,7 +624,11 @@ public class PurchaseOrderPanel2 extends javax.swing.JPanel implements KeyListen
         p.setDownPayment(new BigDecimal(UIValidator.MoneyCommaRemover(txtDownPayment.getText())).doubleValue());
         p.setTerm(Integer.parseInt(txtTerm.getText()));
         p.setMonthlyAmortization(new BigDecimal(UIValidator.MoneyCommaRemover(txtMA.getText())).doubleValue());
-        p.setInsuranceAmount(new BigDecimal(UIValidator.MoneyCommaRemover(txtInsAmount.getText())).doubleValue());
+        if (txtInsAmount.getText().equals("")) {
+            p.setInsuranceAmount(0);
+        } else {
+            p.setInsuranceAmount(new BigDecimal(UIValidator.MoneyCommaRemover(txtInsAmount.getText())).doubleValue());
+        }
         p.setInsuranceCompany(txtInsComp.getText());
         if (checkApproved.isSelected()) {
             p.setStatus("APPROVED");
@@ -694,7 +702,6 @@ public class PurchaseOrderPanel2 extends javax.swing.JPanel implements KeyListen
                 txtCICode.setText(e.getId());
                 txtCIDesc.setText(e.getProperName());
             }
-
             txtRemarks.setText(p.getRemarks());
         }
     }

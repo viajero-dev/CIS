@@ -406,6 +406,7 @@ public class CompanyInformationPanel extends javax.swing.JPanel implements KeyLi
         if (!a.isEmpty()) {
             setAddress(a.get(0));
         }
+        headerPanel.setFormNo(c.getTxFormNo());
         setCompany(c);
         return c != null;
     }

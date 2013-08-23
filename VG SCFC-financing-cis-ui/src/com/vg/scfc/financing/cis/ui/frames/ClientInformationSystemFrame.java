@@ -5,6 +5,9 @@
  */
 package com.vg.scfc.financing.cis.ui.frames;
 
+import com.vg.commons.util.UIMgr;
+import com.vg.scfc.financing.cis.ui.dialog.PictureReportDlg;
+import com.vg.scfc.financing.cis.ui.dialog.SummaryReportDlg;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.JLabel;
@@ -38,6 +41,8 @@ public class ClientInformationSystemFrame extends javax.swing.JFrame {
         mnuInstitution = new javax.swing.JMenuItem();
         mnuCash = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+        mnuSummaryReport = new javax.swing.JMenuItem();
+        mnuPrintPicture = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -77,6 +82,23 @@ public class ClientInformationSystemFrame extends javax.swing.JFrame {
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Report");
+
+        mnuSummaryReport.setText("Summary Report");
+        mnuSummaryReport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuSummaryReportActionPerformed(evt);
+            }
+        });
+        jMenu2.add(mnuSummaryReport);
+
+        mnuPrintPicture.setText("Print Picture");
+        mnuPrintPicture.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuPrintPictureActionPerformed(evt);
+            }
+        });
+        jMenu2.add(mnuPrintPicture);
+
         jMenuBar1.add(jMenu2);
 
         jMenu3.setText("Exit");
@@ -143,6 +165,18 @@ public class ClientInformationSystemFrame extends javax.swing.JFrame {
         f.setVisible(true);
     }//GEN-LAST:event_mnuCashActionPerformed
 
+    private void mnuSummaryReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuSummaryReportActionPerformed
+        SummaryReportDlg s = new SummaryReportDlg(this, true);
+        UIMgr.centerToScreen(s);
+        s.setVisible(true);
+    }//GEN-LAST:event_mnuSummaryReportActionPerformed
+
+    private void mnuPrintPictureActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuPrintPictureActionPerformed
+        PictureReportDlg p = new PictureReportDlg(this, true);
+        UIMgr.centerToScreen(p);
+        p.setVisible(true);
+    }//GEN-LAST:event_mnuPrintPictureActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -187,6 +221,8 @@ public class ClientInformationSystemFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem mnuCash;
     private javax.swing.JMenuItem mnuInstallment;
     private javax.swing.JMenuItem mnuInstitution;
+    private javax.swing.JMenuItem mnuPrintPicture;
+    private javax.swing.JMenuItem mnuSummaryReport;
     // End of variables declaration//GEN-END:variables
 
     public JLabel getLblStorelocation() {

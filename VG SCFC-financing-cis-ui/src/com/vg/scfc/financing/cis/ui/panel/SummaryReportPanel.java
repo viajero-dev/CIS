@@ -10,34 +10,52 @@
  */
 package com.vg.scfc.financing.cis.ui.panel;
 
+import com.vg.commons.dlg.WaitSplashScreen;
+import com.vg.commons.listener.DoJasperPrintReport;
 import com.vg.commons.util.StringUtils;
 import com.vg.scfc.financing.cis.ui.settings.UISetting;
+import com.vg.scfc.financing.cis.ui.validator.UIValidator;
+import com.vg.scfc.financing.cis.value.SummaryReport;
 import com.vg.scfc.financing.commons.ent.Location;
+import com.vg.scfc.financing.commons.ent.ReportHeader;
+import java.util.Date;
 import java.util.List;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.swing.JRViewer;
 import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author raffy
  */
-public class SummaryReportPanel extends javax.swing.JPanel {
+public class SummaryReportPanel extends javax.swing.JPanel implements DoJasperPrintReport {
     
+    private String reportTitle = "";
     private List<Location> locations;
+    private ReportHeader reportHeader;
+
+    public void setReportHeader(ReportHeader reportHeader) {
+        this.reportHeader = reportHeader;
+    }
     
     private void setComponents() {
+        cboBranch.removeAllItems();
         try {
-//            locations = UISetting.getLocationService().findAll();
+            locations = UISetting.getLocationService().findAll();
+            System.out.println(locations.size());
             for (Location location : locations) {
                 cboBranch.addItem(location);
             }
         } catch (Exception ex) {
-            LoggerFactory.getLogger(SummaryReportPanel.class).error(StringUtils.formatException(ex));
+            ex.printStackTrace();
+            System.out.println(ex);
+            UIValidator.log(ex, SummaryReportPanel.class);
         }
     }
     
     public void setDefault() {
         cboBranch.setSelectedItem(UISetting.getStoreLocation());
-        cboBranch.setSelectedIndex(0);
+        cboReport.setSelectedIndex(0);
         txtFromDate.requestFocus();
     }
 
@@ -84,7 +102,7 @@ public class SummaryReportPanel extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
         jLabel2.setText("Branch:");
 
-        jLabel3.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Dialog", 1, 10));
         jLabel3.setText("Report:");
 
         jLabel4.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
@@ -94,7 +112,7 @@ public class SummaryReportPanel extends javax.swing.JPanel {
         cboBranch.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         cboReport.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
-        cboReport.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Summary of Applicants - ALL", "Summary of Applicants - APPROVED", "Summary of Applicants - DISAPPTOVED", "Summary of Applicants - PENDING", "Summary of Forms" }));
+        cboReport.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Summary of Applicants - ALL", "Summary of Applicants - APPROVED", "Summary of Applicants - DISAPPROVED", "Summary of Applicants - PENDING", "Summary of Forms" }));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -172,7 +190,7 @@ public class SummaryReportPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
-        
+  new WaitSplashScreen(null, true, this, reportTitle).getThisDlg();
     }//GEN-LAST:event_btnPrintActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -187,4 +205,60 @@ public class SummaryReportPanel extends javax.swing.JPanel {
     private com.vg.commons.formattedfields.FormattedSimpleDateField txtFromDate;
     private com.vg.commons.formattedfields.FormattedSimpleDateField txtToDate;
     // End of variables declaration//GEN-END:variables
+
+    private JasperPrint printSummary() {
+        JasperPrint jasperPrint = null;
+        try {
+            
+            Location location = (Location) cboBranch.getSelectedItem();
+            Date fromDate = txtFromDate.getDate();
+            Date toDate = txtToDate.getDate();
+
+            switch(cboReport.getSelectedIndex()) {
+                case 0:
+                    reportTitle = "SUMMARY OF APPLICANTS - ALL";
+                    jasperPrint = UISetting.getPrintReportService().
+                            printApplicantSummary(location, fromDate, toDate,
+                            SummaryReport.SUMMARY_APPLICANTS_ALL, UISetting.getReportHeader());
+                    break;
+                case 1:
+                    reportTitle = "SUMMARY OF APPLICANTS - APPROVED";
+                    jasperPrint = UISetting.getPrintReportService().
+                            printApplicantSummary(location, fromDate, toDate,
+                            SummaryReport.SUMMARY_APPLICANTS_APPROVED, UISetting.getReportHeader());
+                    break;
+                case 2:
+                    reportTitle = "SUMMARY OF APPLICANTS - DISAPPROVED";
+                    jasperPrint = UISetting.getPrintReportService().
+                            printApplicantSummary(location, fromDate, toDate,
+                            SummaryReport.SUMMARY_APPLICANTS_DISAPPROVED, UISetting.getReportHeader());
+                    break;
+                case 3:
+                    reportTitle = "SUMMARY OF APPLICANTS - PENDING";
+                    jasperPrint = UISetting.getPrintReportService().
+                            printApplicantSummary(location, fromDate, toDate,
+                            SummaryReport.SUMMARY_APPLICANTS_PENDING, UISetting.getReportHeader());
+                    break;
+                case 4:
+                    reportTitle = "SUMMARY OF FORMS";
+                    jasperPrint = UISetting.getPrintReportService().
+                            printFormSummary(location, fromDate, toDate);
+                    break;
+            }
+        } catch (Exception e) {
+            LoggerFactory.getLogger(SummaryReportPanel.class).error(StringUtils.formatException(e));
+        } finally {
+            return jasperPrint;
+        }
+    }
+    
+    @Override
+    public net.sf.jasperreports.engine.JasperPrint printNow() throws Exception {
+        JasperPrint jasperPrint = printSummary();
+        if(jasperPrint == null) 
+            throw new Exception();
+        else
+            return jasperPrint;
+    }
+    
 }

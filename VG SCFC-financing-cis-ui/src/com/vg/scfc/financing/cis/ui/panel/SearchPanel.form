@@ -149,13 +149,16 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="btnPrintVersion">
+    <Component class="javax.swing.JButton" name="btnPrint">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Print Version"/>
+        <Property name="text" type="java.lang.String" value="Print Report"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPrintActionPerformed"/>
+      </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="5" y="580" width="250" height="-1"/>
+          <AbsoluteConstraints x="5" y="575" width="250" height="-1"/>
         </Constraint>
       </Constraints>
     </Component>

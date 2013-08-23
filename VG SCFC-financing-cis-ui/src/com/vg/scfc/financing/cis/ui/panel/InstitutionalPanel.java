@@ -5,15 +5,22 @@
  */
 package com.vg.scfc.financing.cis.ui.panel;
 
+import com.vg.commons.util.UIMgr;
 import com.vg.scfc.financing.cis.ent.Address;
 import com.vg.scfc.financing.cis.ent.Company;
+import com.vg.scfc.financing.cis.ent.Customer;
+import com.vg.scfc.financing.cis.ent.Identification;
+import com.vg.scfc.financing.cis.ent.PurchaseOrder;
 import com.vg.scfc.financing.cis.ent.TransactionForm;
 import com.vg.scfc.financing.cis.ui.controller.AddressController;
 import com.vg.scfc.financing.cis.ui.controller.CompanyController;
 import com.vg.scfc.financing.cis.ui.controller.EmploymentController;
+import com.vg.scfc.financing.cis.ui.controller.FormController;
 import com.vg.scfc.financing.cis.ui.controller.PersonalInfoController;
+import com.vg.scfc.financing.cis.ui.controller.PurchaseOrderController;
 import com.vg.scfc.financing.cis.ui.controller.RidersToBuyerController;
 import com.vg.scfc.financing.cis.ui.controller.SearchController;
+import com.vg.scfc.financing.cis.ui.dialog.AddressDialog;
 import com.vg.scfc.financing.cis.ui.listener.BasicActionListener;
 import com.vg.scfc.financing.cis.ui.reusable.ApplicationFormAndDatePanel;
 import com.vg.scfc.financing.cis.ui.reusable.SimpleAddressPanel;
@@ -21,6 +28,7 @@ import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -49,7 +57,7 @@ public class InstitutionalPanel extends javax.swing.JPanel implements KeyListene
 
     private void initTabs() {
 //        jTabbedPane1.setLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
-        jTabbedPane1.putClientProperty("Quaqua.TabbedPane.shortenTabs", Boolean.FALSE );
+        jTabbedPane1.putClientProperty("Quaqua.TabbedPane.shortenTabs", Boolean.FALSE);
     }
 
     private void initCompanyInfoAddEditListener() {
@@ -72,6 +80,8 @@ public class InstitutionalPanel extends javax.swing.JPanel implements KeyListene
                 headerPanel.enableFields(true);
                 panelCompanyInformation.setFieldsEditable(true);
                 panelCompanyInformation.resetToDefault();
+                txtCompanyName.setText("");
+                txtCompleteAddress.setText("");
                 txtCompanyName.requestFocus();
             }
 
@@ -84,6 +94,7 @@ public class InstitutionalPanel extends javax.swing.JPanel implements KeyListene
                 } else {
                     UIValidator.promptSucessMessageFor("SAVE");
                     panelCompanyInformation.setFieldsEditable(false);
+                    refreshSearch(headerPanel.getFormNo());
                 }
                 return isSaved;
             }
@@ -350,11 +361,12 @@ public class InstitutionalPanel extends javax.swing.JPanel implements KeyListene
             @Override
             public boolean onSaveAdd() {
                 boolean isSaved = panelPurchaseOrder.savePurchaseOrder();
-                if (isSaved) {
+                if (!isSaved) {
                     UIValidator.promptErrorMessageOn("SAVE");
                 } else {
                     UIValidator.promptSucessMessageFor("SAVE");
                     panelPurchaseOrder.setFieldsEditable(false);
+                    fillValue(FormController.getInstance().findByFormNo(headerPanel.getFormNo()));
                 }
                 return isSaved;
             }
@@ -372,11 +384,12 @@ public class InstitutionalPanel extends javax.swing.JPanel implements KeyListene
             @Override
             public boolean onSaveEdit() {
                 boolean isUpdated = panelPurchaseOrder.updatePurchaseOrder();
-                if (isUpdated) {
+                if (!isUpdated) {
                     UIValidator.promptErrorMessageOn("EDIT");
                 } else {
                     UIValidator.promptSucessMessageFor("EDIT");
                     panelPurchaseOrder.setFieldsEditable(false);
+                    refreshSearch(headerPanel.getFormNo());
                 }
                 return isUpdated;
             }
@@ -390,6 +403,14 @@ public class InstitutionalPanel extends javax.swing.JPanel implements KeyListene
 
     private void initRidersToBuyer() {
         ridersToBuyerPanel.setHeaderPanel(headerPanel);
+        ridersToBuyerPanel.setPersonType("APP");
+    }
+    
+    public void refreshSearch(String formNo) {
+        List<Customer> customers = new ArrayList<>();
+        Customer c = SearchController.getInstance().findByFormNo(formNo);
+        customers.add(c);
+        searchPanelInstitution.refreshCustomerTable(customers);
     }
 
     public void fillValue(TransactionForm form) {
@@ -407,7 +428,20 @@ public class InstitutionalPanel extends javax.swing.JPanel implements KeyListene
             panelRepresentative2PersonalInformation.setPersonalInfo(PersonalInfoController.getInstance().findByFormNoAndPersonType(form.getTxFormNo(), "RP2"));
             panelRepresentative1Employment.setRepresentativeEmployment(EmploymentController.getInstance().findRepresentativeEmploymentByFormNoAndPersonType(form.getTxFormNo(), "RP1"));
             panelRepresentative2Employment.setRepresentativeEmployment(EmploymentController.getInstance().findRepresentativeEmploymentByFormNoAndPersonType(form.getTxFormNo(), "RP2"));
-            ridersToBuyerPanel.setIdentification(RidersToBuyerController.getInstance().findByFormNo(form.getTxFormNo()));
+            PurchaseOrder p = PurchaseOrderController.getInstance().findByFormNo(form.getTxFormNo());
+            if (p != null) {
+                headerPanel.setApplicationStatus(p.getStatus());
+                panelPurchaseOrder.setPurchaseOrder(p);
+            } else {
+                headerPanel.setApplicationStatus("");
+                panelPurchaseOrder.setPurchaseOrder(null);
+            }
+            Identification i = RidersToBuyerController.getInstance().findByFormNo(form.getTxFormNo());
+            if (i != null) {
+                ridersToBuyerPanel.setIdentification(i);
+            } else {
+                ridersToBuyerPanel.setIdentification(null);
+            }
         }
     }
 
@@ -528,7 +562,7 @@ public class InstitutionalPanel extends javax.swing.JPanel implements KeyListene
         jTabbedPane1.addTab("Purchase Order", jPanel8);
 
         add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 340, 1050, 350));
-        add(headerPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 0, -1, -1));
+        add(headerPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 0, -1, -1));
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel1.setText("Company Name");
@@ -628,9 +662,10 @@ public class InstitutionalPanel extends javax.swing.JPanel implements KeyListene
                 break;
             case KeyEvent.VK_F5:
                 if (txtCompleteAddress.isFocusOwner()) {
-                SimpleAddressPanel simpleAddressPanel = new SimpleAddressPanel();
-                JOptionPane.showMessageDialog(null, simpleAddressPanel, "ADDRESS", JOptionPane.QUESTION_MESSAGE);
-                setCompanyAddress(simpleAddressPanel.getAddress());
+                AddressDialog addressDialog = new AddressDialog(null, true);
+                UIMgr.centerToScreen(addressDialog);
+                addressDialog.setVisible(true);
+                setCompanyAddress(addressDialog.getAddress());
                 txtCompleteAddress.setText(companyAddress.getAddress() + ", " + companyAddress.getBrgyDesc());
             }
                 break;

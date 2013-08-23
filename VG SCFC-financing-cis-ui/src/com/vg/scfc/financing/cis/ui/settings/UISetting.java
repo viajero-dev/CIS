@@ -23,6 +23,7 @@ import com.vg.scfc.financing.cis.service.FamilyService;
 import com.vg.scfc.financing.cis.service.IdentificationService;
 import com.vg.scfc.financing.cis.service.LandService;
 import com.vg.scfc.financing.cis.service.LandTypeService;
+import com.vg.scfc.financing.cis.service.LiveUpdatePictureService;
 import com.vg.scfc.financing.cis.service.MachineryService;
 import com.vg.scfc.financing.cis.service.MemoToFileService;
 import com.vg.scfc.financing.cis.service.PersonTypeService;
@@ -38,8 +39,10 @@ import com.vg.scfc.financing.cis.service.TransactionModeService;
 import com.vg.scfc.financing.cis.service.TribeService;
 import com.vg.scfc.financing.cis.service.VehicleService;
 import com.vg.scfc.financing.commons.ent.Location;
+import com.vg.scfc.financing.commons.ent.ReportHeader;
 import com.vg.scfc.financing.commons.service.BarangayService;
 import com.vg.scfc.financing.commons.service.LocationService;
+import com.vg.scfc.financing.commons.service.ReportHeaderService;
 import com.vg.vmi.dealer.uts.service.McColorService;
 import com.vg.vmi.dealer.uts.service.McMakeService;
 import com.vg.vmi.dealer.uts.service.McModelService;
@@ -54,7 +57,8 @@ public class UISetting {
     private static Location storeLocation;
     private static Employee systemUser;
     private static String computerName;
-
+    private static ReportHeader reportHeader;
+    
     /* RMI - Services */
     private static AddressService addressService;
     private static ApplianceService applianceService;
@@ -93,6 +97,28 @@ public class UISetting {
     private static PrintReportService printReportService;
     private static LocationService locationService;
     private static ImageHandlingService imageService;
+    private static ReportHeaderService reportHeaderService;
+    private static LiveUpdatePictureService liveUpdatePictureService;
+
+    public static ReportHeader getReportHeader() throws Exception {
+        return reportHeaderService.findByLocationID(storeLocation.getFinCode());
+    }
+
+    public static ReportHeaderService getReportHeaderService() {
+        return reportHeaderService;
+    }
+
+    public static void setReportHeaderService(ReportHeaderService reportHeaderService) {
+        UISetting.reportHeaderService = reportHeaderService;
+    }
+
+    public static LiveUpdatePictureService getLiveUpdatePictureService() {
+        return liveUpdatePictureService;
+    }
+
+    public static void setLiveUpdatePictureService(LiveUpdatePictureService liveUpdatePictureService) {
+        UISetting.liveUpdatePictureService = liveUpdatePictureService;
+    }
 
     public static ImageHandlingService getImageService() {
         return imageService;

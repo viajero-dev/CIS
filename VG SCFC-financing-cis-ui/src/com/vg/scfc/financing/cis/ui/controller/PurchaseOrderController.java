@@ -28,6 +28,7 @@ public class PurchaseOrderController {
 
     public PurchaseOrder save(String formNo, PurchaseOrder p) {
         PurchaseOrder result = null;
+        System.out.println(formNo);
         p.setTxFormNo(formNo);
         p.setLocation(UISetting.getStoreLocation());
         p.setStation(UISetting.getComputerName());
@@ -35,6 +36,7 @@ public class PurchaseOrderController {
         try {
             result = UISetting.getPurchaseOrderService().insert(p);
         } catch (Exception ex) {
+            ex.printStackTrace();
             UIValidator.log(ex, PurchaseOrderController.class);
         }
         return result;

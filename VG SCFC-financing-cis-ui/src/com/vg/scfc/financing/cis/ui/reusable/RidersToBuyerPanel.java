@@ -25,7 +25,7 @@ public class RidersToBuyerPanel extends javax.swing.JPanel implements KeyListene
         initComponents();
         initKeyListeners();
     }
-    
+
     private void initKeyListeners() {
         txtCompetent.addKeyListener(this);
         txtIdNo.addKeyListener(this);
@@ -237,23 +237,30 @@ public class RidersToBuyerPanel extends javax.swing.JPanel implements KeyListene
     public void setPersonType(String personType) {
         this.personType = personType;
     }
-    
+
     public void setFieldsEditable(boolean value) {
         txtCompetent.setEditable(value);
         txtIdNo.setEditable(value);
         txtPlaceOfIssue.setEditable(value);
         txtIssueDate.setEditable(value);
-        
+
         txtCompetent.setFocusable(value);
         txtIdNo.setFocusable(value);
         txtPlaceOfIssue.setFocusable(value);
         txtIssueDate.setFocusable(value);
-        
-        if(value) {
+
+        if (value) {
             txtCompetent.requestFocus();
         }
     }
-    
+
+    public void resetToDefault() {
+        txtCompetent.setText("");
+        txtIdNo.setText("");
+        txtIssueDate.setText("");
+        txtPlaceOfIssue.setText("");
+    }
+
     private Identification createNew(Identification i) {
         try {
             i.setDateOfIssue(txtIssueDate.getDate());
@@ -265,10 +272,10 @@ public class RidersToBuyerPanel extends javax.swing.JPanel implements KeyListene
         i.setIssuedBy(txtCompetent.getText());
         return i;
     }
-    
+
     public void setRidersToBuyerValues(Identification i) {
-        if(i == null) {
-            
+        if (i == null) {
+            resetToDefault();
         } else {
             txtCompetent.setText(i.getIssuedBy());
             txtIdNo.setText(i.getIdNo());
@@ -299,9 +306,9 @@ public class RidersToBuyerPanel extends javax.swing.JPanel implements KeyListene
                 break;
         }
     }
-    
-    public boolean saveAgreement(){
-        System.out.println("Saving for " + headerPanel.getFormNo()+" (" + personType + ")...");
+
+    public boolean saveAgreement() {
+        System.out.println("Saving for " + headerPanel.getFormNo() + " (" + personType + ")...");
         Identification i = RidersToBuyerController.getInstance().save(headerPanel.getFormNo(), personType, createNew(new Identification()));
         setIdentification(i);
         return i != null;

@@ -5,10 +5,17 @@
  */
 package com.vg.scfc.financing.cis.ui.panel;
 
+import com.vg.commons.dlg.WaitSplashScreen;
+import com.vg.commons.listener.DoJasperPrintReport;
 import com.vg.commons.renderer.CustomTableCellRenderer;
+import com.vg.commons.util.UIMgr;
 import com.vg.scfc.financing.cis.ent.Customer;
+import com.vg.scfc.financing.cis.ent.PersonalInfo;
 import com.vg.scfc.financing.cis.ent.TransactionForm;
+import com.vg.scfc.financing.cis.ui.controller.PersonalInfoController;
+import com.vg.scfc.financing.cis.ui.controller.ReportController;
 import com.vg.scfc.financing.cis.ui.controller.SearchController;
+import com.vg.scfc.financing.cis.ui.dialog.CAFReportDlg;
 import com.vg.scfc.financing.cis.ui.settings.UISetting;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 import java.text.SimpleDateFormat;
@@ -17,13 +24,14 @@ import java.util.List;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import net.sf.jasperreports.engine.JasperPrint;
 import org.jdesktop.observablecollections.ObservableCollections;
 
 /**
  *
  * @author rodel
  */
-public class SearchPanelInstitution extends javax.swing.JPanel {
+public class SearchPanelInstitution extends javax.swing.JPanel implements DoJasperPrintReport {
 
     /**
      * Creates new form SearchPanelInstitution
@@ -42,7 +50,7 @@ public class SearchPanelInstitution extends javax.swing.JPanel {
     }
 
     private void initCustomerTable() {
-        tblCustomer.putClientProperty("Quaqua.Table.style", "striped" );
+        tblCustomer.putClientProperty("Quaqua.Table.style", "striped");
         tblCustomer.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         tblCustomer.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 
@@ -158,7 +166,12 @@ public class SearchPanelInstitution extends javax.swing.JPanel {
 
         add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 360, 250, 160));
 
-        btnPrintVersion.setText("Print Version");
+        btnPrintVersion.setText("Print Report");
+        btnPrintVersion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrintVersionActionPerformed(evt);
+            }
+        });
         add(btnPrintVersion, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 580, 250, -1));
 
         lblRecordCount.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -179,6 +192,10 @@ public class SearchPanelInstitution extends javax.swing.JPanel {
     private void txtSearchFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSearchFocusGained
         txtSearch.selectAll();
     }//GEN-LAST:event_txtSearchFocusGained
+
+    private void btnPrintVersionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintVersionActionPerformed
+        new WaitSplashScreen(null, true, this, "CREDIT APPLICATION FORM").getThisDlg();
+    }//GEN-LAST:event_btnPrintVersionActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnPrintVersion;
@@ -241,6 +258,15 @@ public class SearchPanelInstitution extends javax.swing.JPanel {
         transactionForms.addAll(t);
         if (!transactionForms.isEmpty()) {
             tblTransactionForm.setRowSelectionInterval(0, 0);
+        }
+    }
+
+    @Override
+    public JasperPrint printNow() throws Exception {
+        if (transactionForm != null) {
+            return ReportController.getInstance().print(transactionForm.getTxFormNo());
+        } else {
+            return null;
         }
     }
 }
