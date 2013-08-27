@@ -75,11 +75,9 @@ public class FamilyBackgroundPanel extends javax.swing.JPanel implements KeyList
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel2.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel2.setText("Father's Name");
         add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 10, -1, -1));
 
-        txtFatherAddress.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtFatherAddress.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtFatherAddressFocusLost(evt);
@@ -87,11 +85,9 @@ public class FamilyBackgroundPanel extends javax.swing.JPanel implements KeyList
         });
         add(txtFatherAddress, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 30, 290, -1));
 
-        jLabel3.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel3.setText("Address");
         add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 35, -1, -1));
 
-        txtFatherOccupation.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtFatherOccupation.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtFatherOccupationFocusLost(evt);
@@ -99,11 +95,9 @@ public class FamilyBackgroundPanel extends javax.swing.JPanel implements KeyList
         });
         add(txtFatherOccupation, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 55, 160, -1));
 
-        jLabel4.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel4.setText("Occupation");
         add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 60, -1, -1));
 
-        txtFatherName.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtFatherName.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtFatherNameFocusLost(evt);
@@ -111,11 +105,9 @@ public class FamilyBackgroundPanel extends javax.swing.JPanel implements KeyList
         });
         add(txtFatherName, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 5, 290, -1));
 
-        jLabel6.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel6.setText("Mother's Name");
         add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 85, -1, -1));
 
-        txtMotherAddress.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtMotherAddress.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtMotherAddressFocusLost(evt);
@@ -123,11 +115,9 @@ public class FamilyBackgroundPanel extends javax.swing.JPanel implements KeyList
         });
         add(txtMotherAddress, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 105, 290, -1));
 
-        jLabel7.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel7.setText("Address");
         add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 110, -1, -1));
 
-        txtMotherOccupation.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtMotherOccupation.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtMotherOccupationFocusLost(evt);
@@ -135,11 +125,9 @@ public class FamilyBackgroundPanel extends javax.swing.JPanel implements KeyList
         });
         add(txtMotherOccupation, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 130, 160, -1));
 
-        jLabel8.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel8.setText("Occupation");
         add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 135, -1, -1));
 
-        txtMotherName.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtMotherName.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtMotherNameFocusLost(evt);
@@ -147,11 +135,9 @@ public class FamilyBackgroundPanel extends javax.swing.JPanel implements KeyList
         });
         add(txtMotherName, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 80, 290, -1));
 
-        jLabel9.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel9.setText("Age");
         add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 60, -1, -1));
 
-        txtFatherAge.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtFatherAge.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtFatherAgeFocusLost(evt);
@@ -159,11 +145,9 @@ public class FamilyBackgroundPanel extends javax.swing.JPanel implements KeyList
         });
         add(txtFatherAge, new org.netbeans.lib.awtextra.AbsoluteConstraints(335, 55, 75, -1));
 
-        jLabel10.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel10.setText("Age");
         add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 135, -1, -1));
 
-        txtMotherAge.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtMotherAge.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtMotherAgeFocusLost(evt);

@@ -87,11 +87,9 @@ public class CompanyInformationPanel extends javax.swing.JPanel implements KeyLi
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel1.setText("Owner/President");
         add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 10, -1, -1));
 
-        txtOwner.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtOwner.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtOwnerFocusLost(evt);
@@ -99,11 +97,9 @@ public class CompanyInformationPanel extends javax.swing.JPanel implements KeyLi
         });
         add(txtOwner, new org.netbeans.lib.awtextra.AbsoluteConstraints(125, 5, 535, -1));
 
-        jLabel2.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel2.setText("Office Address");
         add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 35, -1, -1));
 
-        txtOfficeAddress.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtOfficeAddress.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtOfficeAddressFocusLost(evt);
@@ -111,11 +107,9 @@ public class CompanyInformationPanel extends javax.swing.JPanel implements KeyLi
         });
         add(txtOfficeAddress, new org.netbeans.lib.awtextra.AbsoluteConstraints(125, 30, 535, -1));
 
-        jLabel3.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel3.setText("Nature of Buss.");
         add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 60, -1, -1));
 
-        txtNatureBusiness.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtNatureBusiness.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtNatureBusinessFocusLost(evt);
@@ -123,11 +117,9 @@ public class CompanyInformationPanel extends javax.swing.JPanel implements KeyLi
         });
         add(txtNatureBusiness, new org.netbeans.lib.awtextra.AbsoluteConstraints(125, 55, 255, -1));
 
-        jLabel4.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel4.setText("Years of Operation");
         add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 60, -1, -1));
 
-        txtYearOfOperation.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtYearOfOperation.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtYearOfOperationFocusLost(evt);
@@ -135,11 +127,9 @@ public class CompanyInformationPanel extends javax.swing.JPanel implements KeyLi
         });
         add(txtYearOfOperation, new org.netbeans.lib.awtextra.AbsoluteConstraints(515, 55, 145, -1));
 
-        jLabel5.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel5.setText("Contact #");
         add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 85, -1, -1));
 
-        txtContact.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtContact.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtContactFocusLost(evt);
@@ -147,11 +137,9 @@ public class CompanyInformationPanel extends javax.swing.JPanel implements KeyLi
         });
         add(txtContact, new org.netbeans.lib.awtextra.AbsoluteConstraints(125, 80, 120, -1));
 
-        jLabel6.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel6.setText("T.I.N.");
         add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 85, -1, -1));
 
-        txtTIN.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtTIN.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtTINFocusLost(evt);
@@ -159,11 +147,9 @@ public class CompanyInformationPanel extends javax.swing.JPanel implements KeyLi
         });
         add(txtTIN, new org.netbeans.lib.awtextra.AbsoluteConstraints(295, 80, 140, -1));
 
-        jLabel7.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel7.setText("E-mail");
         add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 85, -1, -1));
 
-        txtEmail.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtEmail.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtEmailFocusLost(evt);
@@ -171,11 +157,9 @@ public class CompanyInformationPanel extends javax.swing.JPanel implements KeyLi
         });
         add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 80, 170, -1));
 
-        jLabel8.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel8.setText("Buss. Permit #");
         add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 110, -1, -1));
 
-        txtBussPermitNo.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtBussPermitNo.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtBussPermitNoFocusLost(evt);
@@ -183,11 +167,9 @@ public class CompanyInformationPanel extends javax.swing.JPanel implements KeyLi
         });
         add(txtBussPermitNo, new org.netbeans.lib.awtextra.AbsoluteConstraints(125, 105, 150, -1));
 
-        jLabel9.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel9.setText("Issued on");
         add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 110, -1, -1));
 
-        jLabel10.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel10.setText("Expires On");
         add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 110, -1, -1));
 

@@ -17,22 +17,20 @@ import com.vg.scfc.financing.cis.ent.TransactionForm;
 import com.vg.scfc.financing.cis.ui.controller.AddressController;
 import com.vg.scfc.financing.cis.ui.controller.CompanyController;
 import com.vg.scfc.financing.cis.ui.controller.EmploymentController;
-import com.vg.scfc.financing.cis.ui.controller.FormController;
 import com.vg.scfc.financing.cis.ui.controller.PersonalInfoController;
 import com.vg.scfc.financing.cis.ui.controller.PurchaseOrderController;
 import com.vg.scfc.financing.cis.ui.controller.ReportController;
 import com.vg.scfc.financing.cis.ui.controller.RidersToBuyerController;
 import com.vg.scfc.financing.cis.ui.controller.SearchController;
 import com.vg.scfc.financing.cis.ui.dialog.AddressDialog;
+import com.vg.scfc.financing.cis.ui.dialog.ApplicationFormDlg;
 import com.vg.scfc.financing.cis.ui.listener.BasicActionListener;
-import com.vg.scfc.financing.cis.ui.reusable.ApplicationFormAndDatePanel;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JOptionPane;
 import net.sf.jasperreports.engine.JasperPrint;
 
 /**
@@ -71,12 +69,14 @@ public class InstitutionalPanel extends javax.swing.JPanel implements KeyListene
 
             @Override
             public void onAdd() {
-                ApplicationFormAndDatePanel formAndDatePanel = new ApplicationFormAndDatePanel();
-                JOptionPane.showMessageDialog(null, formAndDatePanel, "APPLICATION", JOptionPane.QUESTION_MESSAGE);
+                resetToDefault();
+                 ApplicationFormDlg form = new ApplicationFormDlg(null, true);
+                UIMgr.centerToScreen(form);
+                form.setVisible(true);
                 headerPanel.setFormNo("");
-                headerPanel.setIDNo(formAndDatePanel.getFormSeries());
+                headerPanel.setIDNo(form.getFormSeries());
                 try {
-                    headerPanel.setApplicationDate(formAndDatePanel.getApplicationDate());
+                    headerPanel.setApplicationDate(form.getApplicationDate());
                 } catch (ParseException ex) {
                     UIValidator.log(ex, MainPanel.class);
                 }
@@ -155,6 +155,7 @@ public class InstitutionalPanel extends javax.swing.JPanel implements KeyListene
                 } else {
                     UIValidator.promptSucessMessageFor("SAVE");
                     panelRepresentative1PersonalInformation.setFieldsEditable(false);
+                    refreshSearch(headerPanel.getFormNo());
                 }
                 return isSaved;
             }
@@ -208,6 +209,7 @@ public class InstitutionalPanel extends javax.swing.JPanel implements KeyListene
                 } else {
                     UIValidator.promptSucessMessageFor("SAVE");
                     panelRepresentative1Employment.setFieldsEditable(false);
+                    refreshSearch(headerPanel.getFormNo());
                 }
                 return isSaved;
             }
@@ -263,6 +265,7 @@ public class InstitutionalPanel extends javax.swing.JPanel implements KeyListene
                 } else {
                     UIValidator.promptSucessMessageFor("SAVE");
                     panelRepresentative2PersonalInformation.setFieldsEditable(false);
+                    refreshSearch(headerPanel.getFormNo());
                 }
                 return isSaved;
             }
@@ -316,6 +319,7 @@ public class InstitutionalPanel extends javax.swing.JPanel implements KeyListene
                 } else {
                     UIValidator.promptSucessMessageFor("SAVE");
                     panelRepresentative2Employment.setFieldsEditable(false);
+                    refreshSearch(headerPanel.getFormNo());
                 }
                 return isSaved;
             }
@@ -369,7 +373,7 @@ public class InstitutionalPanel extends javax.swing.JPanel implements KeyListene
                 } else {
                     UIValidator.promptSucessMessageFor("SAVE");
                     panelPurchaseOrder.setFieldsEditable(false);
-                    fillValue(FormController.getInstance().findByFormNo(headerPanel.getFormNo()));
+                    refreshSearch(headerPanel.getFormNo());
                 }
                 return isSaved;
             }
@@ -415,6 +419,17 @@ public class InstitutionalPanel extends javax.swing.JPanel implements KeyListene
         customers.add(c);
         searchPanelInstitution.refreshCustomerTable(customers);
     }
+    
+    public void resetToDefault() {
+        panelCompanyInformation.resetToDefault();
+        panelPurchaseOrder.resetToDefault();
+        panelRepresentative1Employment.resetToDefault();
+        panelRepresentative1PersonalInformation.resetToDefault();
+        panelRepresentative2Employment.resetToDefault();
+        panelRepresentative2PersonalInformation.resetToDefault();
+        txtCompanyName.setText("");
+        txtCompleteAddress.setText("");
+    }
 
     public void fillValue(TransactionForm form) {
         if (form != null) {
@@ -454,6 +469,8 @@ public class InstitutionalPanel extends javax.swing.JPanel implements KeyListene
         panelRepresentative1PersonalInformation.setFieldsEditable(false);
         panelRepresentative2Employment.setFieldsEditable(false);
         panelRepresentative2PersonalInformation.setFieldsEditable(false);
+        panelPurchaseOrder.setFieldsEditable(false);
+        ridersToBuyerPanel.setFieldsEditable(false);
 
         txtCompanyName.addKeyListener(this);
         txtCompleteAddress.addKeyListener(this);

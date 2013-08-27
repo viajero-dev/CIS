@@ -20,9 +20,6 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Arial" size="11" style="1"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="Owner/President"/>
       </Properties>
       <Constraints>
@@ -32,11 +29,6 @@
       </Constraints>
     </Component>
     <Component class="javax.swing.JTextField" name="txtOwner">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Monospaced" size="9" style="0"/>
-        </Property>
-      </Properties>
       <Events>
         <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtOwnerFocusLost"/>
       </Events>
@@ -48,9 +40,6 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Arial" size="11" style="1"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="Office Address"/>
       </Properties>
       <Constraints>
@@ -60,11 +49,6 @@
       </Constraints>
     </Component>
     <Component class="javax.swing.JTextField" name="txtOfficeAddress">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Monospaced" size="9" style="0"/>
-        </Property>
-      </Properties>
       <Events>
         <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtOfficeAddressFocusLost"/>
       </Events>
@@ -76,9 +60,6 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Arial" size="11" style="1"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="Nature of Buss."/>
       </Properties>
       <Constraints>
@@ -88,11 +69,6 @@
       </Constraints>
     </Component>
     <Component class="javax.swing.JTextField" name="txtNatureBusiness">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Monospaced" size="9" style="0"/>
-        </Property>
-      </Properties>
       <Events>
         <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtNatureBusinessFocusLost"/>
       </Events>
@@ -104,9 +80,6 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Arial" size="11" style="1"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="Years of Operation"/>
       </Properties>
       <Constraints>
@@ -116,11 +89,6 @@
       </Constraints>
     </Component>
     <Component class="javax.swing.JTextField" name="txtYearOfOperation">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Monospaced" size="9" style="0"/>
-        </Property>
-      </Properties>
       <Events>
         <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtYearOfOperationFocusLost"/>
       </Events>
@@ -132,9 +100,6 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel5">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Arial" size="11" style="1"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="Contact #"/>
       </Properties>
       <Constraints>
@@ -144,11 +109,6 @@
       </Constraints>
     </Component>
     <Component class="javax.swing.JTextField" name="txtContact">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Monospaced" size="9" style="0"/>
-        </Property>
-      </Properties>
       <Events>
         <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtContactFocusLost"/>
       </Events>
@@ -160,9 +120,6 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel6">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Arial" size="11" style="1"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="T.I.N."/>
       </Properties>
       <Constraints>
@@ -172,11 +129,6 @@
       </Constraints>
     </Component>
     <Component class="javax.swing.JTextField" name="txtTIN">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Monospaced" size="9" style="0"/>
-        </Property>
-      </Properties>
       <Events>
         <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtTINFocusLost"/>
       </Events>
@@ -188,9 +140,6 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel7">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Arial" size="11" style="1"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="E-mail"/>
       </Properties>
       <Constraints>
@@ -200,11 +149,6 @@
       </Constraints>
     </Component>
     <Component class="javax.swing.JTextField" name="txtEmail">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Monospaced" size="9" style="0"/>
-        </Property>
-      </Properties>
       <Events>
         <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtEmailFocusLost"/>
       </Events>
@@ -216,9 +160,6 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel8">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Arial" size="11" style="1"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="Buss. Permit #"/>
       </Properties>
       <Constraints>
@@ -228,11 +169,6 @@
       </Constraints>
     </Component>
     <Component class="javax.swing.JTextField" name="txtBussPermitNo">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Monospaced" size="9" style="0"/>
-        </Property>
-      </Properties>
       <Events>
         <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtBussPermitNoFocusLost"/>
       </Events>
@@ -244,9 +180,6 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel9">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Arial" size="11" style="1"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="Issued on"/>
       </Properties>
       <Constraints>
@@ -257,9 +190,6 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel10">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Arial" size="11" style="1"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="Expires On"/>
       </Properties>
       <Constraints>

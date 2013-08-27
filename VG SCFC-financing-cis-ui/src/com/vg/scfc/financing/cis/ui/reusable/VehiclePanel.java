@@ -91,6 +91,9 @@ public class VehiclePanel extends javax.swing.JPanel implements KeyListener {
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        tableVehicle.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        tableVehicle.setShowHorizontalLines(false);
+        tableVehicle.setShowVerticalLines(false);
         tableVehicle.getTableHeader().setReorderingAllowed(false);
 
         org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, vehicles, tableVehicle);
@@ -116,11 +119,9 @@ public class VehiclePanel extends javax.swing.JPanel implements KeyListener {
 
         add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 5, 600, 90));
 
-        jLabel1.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel1.setText("Type/Model");
         add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 120, -1, -1));
 
-        txtTypeModel.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtTypeModel.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtTypeModelFocusLost(evt);
@@ -128,11 +129,9 @@ public class VehiclePanel extends javax.swing.JPanel implements KeyListener {
         });
         add(txtTypeModel, new org.netbeans.lib.awtextra.AbsoluteConstraints(93, 115, 255, -1));
 
-        jLabel2.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel2.setText("Yrs. Used");
         add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 145, -1, -1));
 
-        txtYrsUsed.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtYrsUsed.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtYrsUsedFocusLost(evt);
@@ -140,15 +139,12 @@ public class VehiclePanel extends javax.swing.JPanel implements KeyListener {
         });
         add(txtYrsUsed, new org.netbeans.lib.awtextra.AbsoluteConstraints(93, 140, 80, -1));
 
-        jLabel3.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel3.setText("Use as");
         add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 145, -1, -1));
 
-        jLabel4.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel4.setText("Est. Value");
         add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 170, -1, -1));
 
-        txtEstValue.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtEstValue.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtEstValueFocusLost(evt);
@@ -156,7 +152,6 @@ public class VehiclePanel extends javax.swing.JPanel implements KeyListener {
         });
         add(txtEstValue, new org.netbeans.lib.awtextra.AbsoluteConstraints(93, 165, 255, -1));
 
-        comboUsed.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         comboUsed.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Public", "Private" }));
         add(comboUsed, new org.netbeans.lib.awtextra.AbsoluteConstraints(228, 140, 120, -1));
 

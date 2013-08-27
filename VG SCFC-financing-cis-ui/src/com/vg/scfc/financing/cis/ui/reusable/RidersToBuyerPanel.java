@@ -69,25 +69,24 @@ public class RidersToBuyerPanel extends javax.swing.JPanel implements KeyListene
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel1.setText("I certify that the above Information I have disclosed in the SouthPoint Credit and Finance Corp. Credit Application Form is true and correct to the best of my knowledge and belief.");
         jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 5, 860, -1));
 
-        jLabel2.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel2.setText("I hereby authorize its representative to conduct the corresponding credit investigation thereon.");
         jLabel2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 25, 860, -1));
 
-        jLabel3.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel3.setText("Competent Evidence of Identity:");
         jLabel3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 45, 160, -1));
 
-        txtCompetent.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtCompetent.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtCompetentFocusLost(evt);
@@ -95,22 +94,19 @@ public class RidersToBuyerPanel extends javax.swing.JPanel implements KeyListene
         });
         add(txtCompetent, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 42, 150, -1));
 
-        jLabel4.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel4.setText("ID No.");
         jLabel4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(325, 45, 30, -1));
-
-        txtFormNo1.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         add(txtFormNo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(495, 90, 80, -1));
 
-        jLabel5.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel5.setText("Place of Issue:");
         jLabel5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(465, 45, 80, -1));
 
-        txtPlaceOfIssue.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtPlaceOfIssue.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtPlaceOfIssueFocusLost(evt);
@@ -118,7 +114,7 @@ public class RidersToBuyerPanel extends javax.swing.JPanel implements KeyListene
         });
         add(txtPlaceOfIssue, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 42, 150, -1));
 
-        jLabel6.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel6.setText("Date of Issue:");
         jLabel6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -127,19 +123,18 @@ public class RidersToBuyerPanel extends javax.swing.JPanel implements KeyListene
         txtIssueDate.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         add(txtIssueDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 42, 90, -1));
 
-        jLabel7.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel7.setText("INFORMATION REQUIRED UNDER R.A. 3765");
         jLabel7.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 75, 230, -1));
 
-        jLabel8.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel8.setText("1)Cash/Delivered Price. 2)Downpayment. 3)Difference Between 1&2. 4)Non-finance Charges 4A)");
         jLabel8.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 95, 480, -1));
 
-        txtIdNo.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtIdNo.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtIdNoFocusLost(evt);
@@ -147,40 +142,38 @@ public class RidersToBuyerPanel extends javax.swing.JPanel implements KeyListene
         });
         add(txtIdNo, new org.netbeans.lib.awtextra.AbsoluteConstraints(355, 42, 100, -1));
 
-        jLabel9.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel9.setText("4B)");
         jLabel9.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 95, 20, -1));
-
-        txtFormNo4.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         add(txtFormNo4, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 90, 80, -1));
 
-        jLabel10.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        jLabel10.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel10.setText("5)Total financed.");
         jLabel10.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(685, 95, 100, -1));
 
-        jLabel11.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        jLabel11.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel11.setText("6)Finance charges. 7)Simple annual percentage rate.");
         jLabel11.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 115, 860, -1));
 
-        jLabel12.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        jLabel12.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel12.setText("I have read and agreed to the above terms and conditions and to all stipulated in the Contract of Sale with Reservation of the Title/Chattel Mortgage to be executed if this proposal");
         jLabel12.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 135, 860, -1));
 
-        jLabel13.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        jLabel13.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel13.setText("is accepted. The above stipulations contain all terms and conditions of this proposed purchase. ");
         jLabel13.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 155, 860, -1));
 
-        jLabel14.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        jLabel14.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel14.setText("I hereby certify that I have been duly furnished the above prior to the instant credit sale transaction.");
         jLabel14.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);

@@ -24,9 +24,6 @@
   <SubComponents>
     <Component class="javax.swing.JCheckBox" name="checkMonthlySalaryCompensation">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Arial" size="11" style="1"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="Monthly Salary Compensation"/>
       </Properties>
       <Events>
@@ -40,9 +37,6 @@
     </Component>
     <Component class="javax.swing.JCheckBox" name="checkSourceBusiness">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Arial" size="11" style="1"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="Business"/>
       </Properties>
       <Events>
@@ -56,9 +50,6 @@
     </Component>
     <Component class="javax.swing.JLabel" name="lblHarvestSched">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Arial" size="11" style="1"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="Harvest Schedule"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
@@ -70,9 +61,6 @@
     </Component>
     <Component class="javax.swing.JRadioButton" name="optionBusinessRegistered">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Monospaced" size="9" style="0"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="Registered"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
@@ -84,9 +72,6 @@
     </Component>
     <Component class="javax.swing.JRadioButton" name="optionBusinessNotRegistered">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Monospaced" size="9" style="0"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="Not Registered"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
@@ -98,9 +83,6 @@
     </Component>
     <Component class="javax.swing.JCheckBox" name="checkSourceFarmProducts">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Arial" size="11" style="1"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="Farm Products"/>
       </Properties>
       <Events>
@@ -114,9 +96,6 @@
     </Component>
     <Component class="javax.swing.JCheckBox" name="checkFarmLiveStock">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Arial" size="11" style="1"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="LiveStock"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
@@ -131,9 +110,6 @@
     </Component>
     <Component class="javax.swing.JCheckBox" name="checkFarmAgri">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Arial" size="11" style="1"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="Agricultural"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
@@ -148,9 +124,6 @@
     </Component>
     <Component class="javax.swing.JLabel" name="lblNatureOfBusiness">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Arial" size="11" style="1"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="Nature of Business"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
@@ -162,9 +135,6 @@
     </Component>
     <Component class="javax.swing.JTextField" name="txtMonthlySalaryCompensation">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Monospaced" size="9" style="0"/>
-        </Property>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
@@ -178,9 +148,6 @@
     </Component>
     <Component class="javax.swing.JLabel" name="lblAvgProductIncome">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Arial" size="11" style="1"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="Avg. Product Inc"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
@@ -192,9 +159,6 @@
     </Component>
     <Component class="javax.swing.JTextField" name="txtFarmAvgProductIncome">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Monospaced" size="9" style="0"/>
-        </Property>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
@@ -208,9 +172,6 @@
     </Component>
     <Component class="javax.swing.JCheckBox" name="checkSourceOthers">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Arial" size="11" style="1"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="Other Sources"/>
       </Properties>
       <Events>
@@ -224,9 +185,6 @@
     </Component>
     <Component class="javax.swing.JLabel" name="lblOtherSourceDesc">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Arial" size="11" style="1"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="Please specify"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
@@ -238,9 +196,6 @@
     </Component>
     <Component class="javax.swing.JTextField" name="txtOtherSourceDesc">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Monospaced" size="9" style="0"/>
-        </Property>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
@@ -254,9 +209,6 @@
     </Component>
     <Component class="javax.swing.JLabel" name="lblAvgMonthlyIncome">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Arial" size="11" style="1"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="Avg. Monthly Compensation"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
@@ -268,9 +220,6 @@
     </Component>
     <Component class="javax.swing.JTextField" name="txtBusinessNature">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Monospaced" size="9" style="0"/>
-        </Property>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
@@ -284,9 +233,6 @@
     </Component>
     <Component class="javax.swing.JLabel" name="lblAvgMonthlyIncomeForBusiness">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Arial" size="11" style="1"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="Avg. Monthly Income"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
@@ -298,9 +244,6 @@
     </Component>
     <Component class="javax.swing.JTextField" name="txtMonthlyIncomeForBusiness">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Monospaced" size="9" style="0"/>
-        </Property>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
@@ -314,9 +257,6 @@
     </Component>
     <Component class="javax.swing.JLabel" name="lblAvgMonthlyIncomeForOtherSources">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Arial" size="11" style="1"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="Avg. Monthly Income"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
@@ -328,9 +268,6 @@
     </Component>
     <Component class="javax.swing.JTextField" name="txtMonthlyIncomeForFarmProducts">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Monospaced" size="9" style="0"/>
-        </Property>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
@@ -344,9 +281,6 @@
     </Component>
     <Component class="javax.swing.JLabel" name="lblAvgMonthlyIncomeForFarmProducts">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Arial" size="11" style="1"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="Avg. Monthly Income"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
@@ -358,9 +292,6 @@
     </Component>
     <Component class="javax.swing.JTextField" name="txtMonthlyIncomeForOtherSources">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Monospaced" size="9" style="0"/>
-        </Property>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
@@ -375,9 +306,6 @@
     <Component class="com.vg.commons.formattedfields.FormattedSimpleDateField" name="txtFarmHarvestSchedule">
       <Properties>
         <Property name="enabled" type="boolean" value="false"/>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Monospaced" size="9" style="0"/>
-        </Property>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -387,9 +315,6 @@
     </Component>
     <Component class="javax.swing.JTextField" name="txtAgri">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Monospaced" size="9" style="0"/>
-        </Property>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Constraints>
@@ -400,9 +325,6 @@
     </Component>
     <Component class="javax.swing.JTextField" name="txtLiveStock">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Monospaced" size="9" style="0"/>
-        </Property>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Constraints>

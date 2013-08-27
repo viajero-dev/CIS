@@ -70,19 +70,15 @@ public class EmploymentDataPanel extends javax.swing.JPanel implements KeyListen
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel2.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel2.setText("Address");
         add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 85, -1, -1));
 
-        comboEmploymentStatus.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         comboEmploymentStatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Regular", "Self-Employed", "Project-Hired", "Contractual", "Probationary", "Others" }));
         add(comboEmploymentStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 5, 144, -1));
 
-        jLabel3.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel3.setText("Status");
         add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 10, -1, -1));
 
-        txtCompanyEmployer.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtCompanyEmployer.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtCompanyEmployerFocusLost(evt);
@@ -90,11 +86,9 @@ public class EmploymentDataPanel extends javax.swing.JPanel implements KeyListen
         });
         add(txtCompanyEmployer, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 55, 320, -1));
 
-        jLabel4.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel4.setText("Position/Department");
         add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 35, -1, -1));
 
-        txtPositionDepartment.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtPositionDepartment.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtPositionDepartmentFocusLost(evt);
@@ -102,11 +96,9 @@ public class EmploymentDataPanel extends javax.swing.JPanel implements KeyListen
         });
         add(txtPositionDepartment, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 30, 320, -1));
 
-        jLabel5.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel5.setText("Company/Employer");
         add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 60, -1, -1));
 
-        txtEmployerAddress.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtEmployerAddress.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtEmployerAddressFocusLost(evt);
@@ -114,11 +106,9 @@ public class EmploymentDataPanel extends javax.swing.JPanel implements KeyListen
         });
         add(txtEmployerAddress, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 80, 320, -1));
 
-        jLabel6.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel6.setText("Contact #");
         add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 110, -1, -1));
 
-        txtEmployerContact.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtEmployerContact.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtEmployerContactFocusLost(evt);
@@ -126,11 +116,9 @@ public class EmploymentDataPanel extends javax.swing.JPanel implements KeyListen
         });
         add(txtEmployerContact, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 105, 144, -1));
 
-        jLabel7.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel7.setText("Business");
         add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 136, -1, -1));
 
-        txtEmployerBusinessNature.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtEmployerBusinessNature.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtEmployerBusinessNatureFocusLost(evt);
@@ -138,11 +126,9 @@ public class EmploymentDataPanel extends javax.swing.JPanel implements KeyListen
         });
         add(txtEmployerBusinessNature, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 131, 320, -1));
 
-        jLabel8.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel8.setText("Years in Service");
         add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(295, 110, -1, -1));
 
-        txtYearInService.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtYearInService.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtYearInServiceFocusLost(evt);
@@ -356,7 +342,7 @@ public class EmploymentDataPanel extends javax.swing.JPanel implements KeyListen
         txtEmployerBusinessNature.setFocusable(value);
         txtYearInService.setFocusable(value);
         
-        if(value) {
+        if(value == true) {
             comboEmploymentStatus.requestFocus();
         }
     }

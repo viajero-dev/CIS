@@ -40,6 +40,9 @@
       <SubComponents>
         <Component class="javax.swing.JTable" name="tableVehicle">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Arial" size="12" style="0"/>
+            </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
               <TableColumnModel selectionModel="0">
                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
@@ -59,6 +62,8 @@
                 </Column>
               </TableColumnModel>
             </Property>
+            <Property name="showHorizontalLines" type="boolean" value="false"/>
+            <Property name="showVerticalLines" type="boolean" value="false"/>
             <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
               <TableHeader reorderingAllowed="false" resizingAllowed="true"/>
             </Property>
@@ -87,9 +92,6 @@
     </Container>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Arial" size="11" style="1"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="Type/Model"/>
       </Properties>
       <Constraints>
@@ -99,11 +101,6 @@
       </Constraints>
     </Component>
     <Component class="javax.swing.JTextField" name="txtTypeModel">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Monospaced" size="9" style="0"/>
-        </Property>
-      </Properties>
       <Events>
         <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtTypeModelFocusLost"/>
       </Events>
@@ -115,9 +112,6 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Arial" size="11" style="1"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="Yrs. Used"/>
       </Properties>
       <Constraints>
@@ -127,11 +121,6 @@
       </Constraints>
     </Component>
     <Component class="javax.swing.JTextField" name="txtYrsUsed">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Monospaced" size="9" style="0"/>
-        </Property>
-      </Properties>
       <Events>
         <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtYrsUsedFocusLost"/>
       </Events>
@@ -143,9 +132,6 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Arial" size="11" style="1"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="Use as"/>
       </Properties>
       <Constraints>
@@ -156,9 +142,6 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Arial" size="11" style="1"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="Est. Value"/>
       </Properties>
       <Constraints>
@@ -168,11 +151,6 @@
       </Constraints>
     </Component>
     <Component class="javax.swing.JTextField" name="txtEstValue">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Monospaced" size="9" style="0"/>
-        </Property>
-      </Properties>
       <Events>
         <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtEstValueFocusLost"/>
       </Events>
@@ -184,9 +162,6 @@
     </Component>
     <Component class="javax.swing.JComboBox" name="comboUsed">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Monospaced" size="9" style="0"/>
-        </Property>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="2">
             <StringItem index="0" value="Public"/>

@@ -95,11 +95,9 @@ public class ExpendituresPanel extends javax.swing.JPanel implements KeyListener
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel4.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel4.setText("Regular Monthly Salary Deduction");
         add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 10, -1, -1));
 
-        txtMonthlyDeduction.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtMonthlyDeduction.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txtMonthlyDeduction.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -108,11 +106,9 @@ public class ExpendituresPanel extends javax.swing.JPanel implements KeyListener
         });
         add(txtMonthlyDeduction, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 5, 140, -1));
 
-        jLabel5.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel5.setText("Monthly Household Bill");
         add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 35, -1, -1));
 
-        txtMonthlyHouseholdBill.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtMonthlyHouseholdBill.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txtMonthlyHouseholdBill.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -121,11 +117,9 @@ public class ExpendituresPanel extends javax.swing.JPanel implements KeyListener
         });
         add(txtMonthlyHouseholdBill, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 30, 140, -1));
 
-        jLabel6.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel6.setText("Amortization (House, Vehicle, etc.)");
         add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 60, -1, -1));
 
-        txtMaintenanceDesc.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtMaintenanceDesc.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtMaintenanceDescFocusLost(evt);
@@ -133,11 +127,9 @@ public class ExpendituresPanel extends javax.swing.JPanel implements KeyListener
         });
         add(txtMaintenanceDesc, new org.netbeans.lib.awtextra.AbsoluteConstraints(115, 80, 140, -1));
 
-        jLabel7.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel7.setText("Maintenance for");
         add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 85, -1, -1));
 
-        txtAmortization.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtAmortization.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txtAmortization.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -146,7 +138,6 @@ public class ExpendituresPanel extends javax.swing.JPanel implements KeyListener
         });
         add(txtAmortization, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 55, 140, -1));
 
-        txtMaintenance.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtMaintenance.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txtMaintenance.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -155,11 +146,9 @@ public class ExpendituresPanel extends javax.swing.JPanel implements KeyListener
         });
         add(txtMaintenance, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 80, 140, -1));
 
-        jLabel8.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel8.setText("Living Allowance");
         add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 110, -1, -1));
 
-        txtLivingAllowance.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtLivingAllowance.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txtLivingAllowance.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -168,11 +157,9 @@ public class ExpendituresPanel extends javax.swing.JPanel implements KeyListener
         });
         add(txtLivingAllowance, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 105, 140, -1));
 
-        jLabel9.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel9.setText("Education for");
         add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 136, -1, -1));
 
-        txtEducationDesc.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtEducationDesc.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtEducationDescFocusLost(evt);
@@ -180,7 +167,6 @@ public class ExpendituresPanel extends javax.swing.JPanel implements KeyListener
         });
         add(txtEducationDesc, new org.netbeans.lib.awtextra.AbsoluteConstraints(115, 131, 140, -1));
 
-        txtEducation.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtEducation.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txtEducation.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -189,49 +175,38 @@ public class ExpendituresPanel extends javax.swing.JPanel implements KeyListener
         });
         add(txtEducation, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 131, 140, -1));
 
-        jLabel10.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel10.setText("Others");
         add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 161, -1, -1));
 
         txtTotalExpenditure.setEditable(false);
-        txtTotalExpenditure.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtTotalExpenditure.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txtTotalExpenditure.setFocusable(false);
         add(txtTotalExpenditure, new org.netbeans.lib.awtextra.AbsoluteConstraints(475, 190, 140, -1));
 
-        jLabel11.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel11.setText("P");
         add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(465, 195, -1, -1));
 
-        jLabel12.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel12.setText("P");
         add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 35, -1, -1));
 
-        jLabel13.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel13.setText("P");
         add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 136, -1, -1));
 
-        jLabel14.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel14.setText("P");
         add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 110, -1, -1));
 
-        jLabel15.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel15.setText("P");
         add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 85, -1, -1));
 
-        jLabel16.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel16.setText("P");
         add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 60, -1, -1));
 
-        jLabel17.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel17.setText("P");
         add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 10, -1, -1));
 
-        jLabel18.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel18.setText("Total Expenditures");
         add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(325, 195, -1, -1));
 
-        txtOthers.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtOthers.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txtOthers.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -240,20 +215,16 @@ public class ExpendituresPanel extends javax.swing.JPanel implements KeyListener
         });
         add(txtOthers, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 159, 140, -1));
 
-        jLabel19.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel19.setText("P");
         add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 161, -1, -1));
 
-        jLabel20.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel20.setText("Net Income");
         add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(325, 220, -1, -1));
 
-        jLabel21.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel21.setText("P");
         add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(465, 220, -1, -1));
 
         txtNetIncome.setEditable(false);
-        txtNetIncome.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtNetIncome.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txtNetIncome.setFocusable(false);
         add(txtNetIncome, new org.netbeans.lib.awtextra.AbsoluteConstraints(475, 215, 140, -1));
@@ -504,7 +475,7 @@ public class ExpendituresPanel extends javax.swing.JPanel implements KeyListener
         if (expenditures == null || expenditures.isEmpty()) {
             resetToDefault();
             BigDecimal totalIncome = (sourceOfIncome == null ? new BigDecimal("0") : SourceOfIncomeController.getInstance().computeTotalMonthlyIncome(sourceOfIncome));
-            txtNetIncome.setText(totalIncome.toEngineeringString());
+            txtNetIncome.setText(NumberUtils.doubleToString(totalIncome.doubleValue()));
         } else {
             for (Expenditure e : expenditures) {
                 switch (e.getExpenditureType().getId()) {
@@ -543,7 +514,7 @@ public class ExpendituresPanel extends javax.swing.JPanel implements KeyListener
             BigDecimal totalExpenditures = ExpenditureController.getInstance().totalExpenditures(expenditures);
             BigDecimal totalIncome = (sourceOfIncome == null ? new BigDecimal("0") : SourceOfIncomeController.getInstance().computeTotalMonthlyIncome(sourceOfIncome));
             txtTotalExpenditure.setText(totalExpenditures.toPlainString());
-            txtNetIncome.setText(totalIncome.subtract(totalExpenditures).toPlainString());
+            txtNetIncome.setText(NumberUtils.doubleToString(totalIncome.subtract(totalExpenditures).doubleValue()));
         }
     }
 

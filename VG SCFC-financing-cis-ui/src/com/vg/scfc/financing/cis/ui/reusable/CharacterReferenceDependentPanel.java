@@ -91,54 +91,49 @@ public class CharacterReferenceDependentPanel extends javax.swing.JPanel impleme
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel1.setText("Name");
         add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 105, -1, -1));
 
-        jLabel2.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel2.setText("Address");
         add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 130, -1, -1));
 
-        jLabel3.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel3.setText("Contact");
         add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 155, -1, -1));
 
-        txtRefContact.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtRefContact.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtRefContactFocusLost(evt);
             }
         });
-        add(txtRefContact, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 150, 140, -1));
+        add(txtRefContact, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 150, 140, -1));
 
-        txtRefAddress.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtRefAddress.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtRefAddressFocusLost(evt);
             }
         });
-        add(txtRefAddress, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 125, 255, -1));
+        add(txtRefAddress, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 125, 255, -1));
 
-        txtRefName.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtRefName.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtRefNameFocusLost(evt);
             }
         });
-        add(txtRefName, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 100, 255, -1));
+        add(txtRefName, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 100, 255, -1));
 
-        jLabel4.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel4.setText("Relationship");
         add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 180, -1, -1));
 
-        txtRefRelationship.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtRefRelationship.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtRefRelationshipFocusLost(evt);
             }
         });
-        add(txtRefRelationship, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 175, 140, -1));
+        add(txtRefRelationship, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 175, 140, -1));
 
+        tableCharacterRef.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        tableCharacterRef.setShowHorizontalLines(false);
+        tableCharacterRef.setShowVerticalLines(false);
         tableCharacterRef.getTableHeader().setReorderingAllowed(false);
 
         org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, characterReferences, tableCharacterRef);

@@ -105,102 +105,89 @@ public class CreditReferencePanel extends javax.swing.JPanel implements KeyListe
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel1.setText("Name");
         add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 105, -1, -1));
 
-        txtCRName.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtCRName.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtCRNameFocusLost(evt);
             }
         });
-        add(txtCRName, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 100, 359, -1));
+        add(txtCRName, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 100, 359, -1));
 
-        jLabel2.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel2.setText("Item on credit");
         add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 155, -1, -1));
 
-        txtCRItemOnCredit.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtCRItemOnCredit.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtCRItemOnCreditFocusLost(evt);
             }
         });
-        add(txtCRItemOnCredit, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 150, 127, -1));
+        add(txtCRItemOnCredit, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 150, 127, -1));
 
-        jLabel3.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel3.setText("Loan Amount");
         add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 155, -1, -1));
 
-        txtCRLoanAmount.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtCRLoanAmount.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtCRLoanAmountFocusLost(evt);
             }
         });
-        add(txtCRLoanAmount, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 150, 127, -1));
+        add(txtCRLoanAmount, new org.netbeans.lib.awtextra.AbsoluteConstraints(352, 150, 127, -1));
 
-        jLabel4.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel4.setText("Monthly Amort.");
         add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 180, -1, -1));
 
-        txtCRMonthlyAmort.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtCRMonthlyAmort.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtCRMonthlyAmortFocusLost(evt);
             }
         });
-        add(txtCRMonthlyAmort, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 175, 127, -1));
+        add(txtCRMonthlyAmort, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 175, 127, -1));
 
-        jLabel5.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel5.setText("Term");
         add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 180, -1, -1));
 
-        txtCRTerm.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtCRTerm.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtCRTermFocusLost(evt);
             }
         });
-        add(txtCRTerm, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 175, 127, -1));
+        add(txtCRTerm, new org.netbeans.lib.awtextra.AbsoluteConstraints(352, 175, 127, -1));
 
-        jLabel6.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel6.setText("Amount paid");
         add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 205, -1, -1));
 
-        txtCRAmountPaid.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtCRAmountPaid.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtCRAmountPaidFocusLost(evt);
             }
         });
-        add(txtCRAmountPaid, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 200, 127, -1));
+        add(txtCRAmountPaid, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 200, 127, -1));
 
-        jLabel7.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel7.setText("Remaining Bal.");
         add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 205, -1, -1));
 
-        txtCRRemainingBal.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtCRRemainingBal.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtCRRemainingBalFocusLost(evt);
             }
         });
-        add(txtCRRemainingBal, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 200, 127, -1));
+        add(txtCRRemainingBal, new org.netbeans.lib.awtextra.AbsoluteConstraints(352, 200, 127, -1));
 
-        jLabel8.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel8.setText("Address");
         add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 130, -1, -1));
 
-        txtCRAddress.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtCRAddress.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtCRAddressFocusLost(evt);
             }
         });
-        add(txtCRAddress, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 125, 359, -1));
+        add(txtCRAddress, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 125, 359, -1));
 
+        tableCreditReference.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        tableCreditReference.setShowHorizontalLines(false);
+        tableCreditReference.setShowVerticalLines(false);
         tableCreditReference.getTableHeader().setReorderingAllowed(false);
 
         org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, creditReferences, tableCreditReference);

@@ -127,7 +127,11 @@ public class SearchPanel extends javax.swing.JPanel {
         });
         add(txtSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 250, -1));
 
-        tblCustomer.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
+        tblCustomer.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
+        tblCustomer.setRowHeight(19);
+        tblCustomer.setRowMargin(2);
+        tblCustomer.setShowHorizontalLines(false);
+        tblCustomer.setShowVerticalLines(false);
 
         org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, customers, tblCustomer);
         org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${clientNo}"));
@@ -137,6 +141,7 @@ public class SearchPanel extends javax.swing.JPanel {
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${name}"));
         columnBinding.setColumnName("Name");
         columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
         jScrollPane1.setViewportView(tblCustomer);
@@ -145,13 +150,19 @@ public class SearchPanel extends javax.swing.JPanel {
 
         add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 30, 250, 340));
 
+        tblTransactionForm.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
+        tblTransactionForm.setRowHeight(19);
+        tblTransactionForm.setRowMargin(2);
+
         jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, transactionForms, tblTransactionForm);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${txFormNo}"));
         columnBinding.setColumnName("Form #");
         columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${txApplicationDate}"));
         columnBinding.setColumnName("Date");
         columnBinding.setColumnClass(java.util.Date.class);
+        columnBinding.setEditable(false);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
         jScrollPane2.setViewportView(tblTransactionForm);

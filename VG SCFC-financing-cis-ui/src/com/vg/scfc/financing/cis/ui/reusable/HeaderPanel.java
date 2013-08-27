@@ -49,26 +49,22 @@ public class HeaderPanel extends javax.swing.JPanel {
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("SOUTHPOINT CREDIT AND FINANCE CORP.");
         jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(3, 5, 1040, -1));
 
-        jLabel2.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("CREDIT APPLICATION FORM");
         jLabel2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(3, 28, 1040, -1));
 
-        jLabel3.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("All Information will be treated confidential. Please print legibly and check appropriate boxes");
         jLabel3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(3, 48, 1040, -1));
 
         txtIDNo.setEditable(false);
-        txtIDNo.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtIDNo.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txtIDNo.setText("00000");
         txtIDNo.setFocusable(false);
@@ -86,14 +82,12 @@ public class HeaderPanel extends javax.swing.JPanel {
 
         txtAppDate.setEditable(false);
         txtAppDate.setFocusable(false);
-        txtAppDate.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
+        txtAppDate.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         add(txtAppDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(958, 60, 70, -1));
 
-        jLabel4.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel4.setText("Application Date");
         add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 65, -1, -1));
 
-        jLabel5.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel5.setText("Form No");
         add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 40, -1, -1));
     }// </editor-fold>//GEN-END:initComponents

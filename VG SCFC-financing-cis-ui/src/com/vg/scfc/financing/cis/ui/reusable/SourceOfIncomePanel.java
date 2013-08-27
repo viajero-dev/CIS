@@ -112,7 +112,6 @@ public class SourceOfIncomePanel extends javax.swing.JPanel implements KeyListen
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        checkMonthlySalaryCompensation.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         checkMonthlySalaryCompensation.setText("Monthly Salary Compensation");
         checkMonthlySalaryCompensation.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -121,7 +120,6 @@ public class SourceOfIncomePanel extends javax.swing.JPanel implements KeyListen
         });
         add(checkMonthlySalaryCompensation, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 5, -1, -1));
 
-        checkSourceBusiness.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         checkSourceBusiness.setText("Business");
         checkSourceBusiness.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -130,22 +128,18 @@ public class SourceOfIncomePanel extends javax.swing.JPanel implements KeyListen
         });
         add(checkSourceBusiness, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 30, -1, -1));
 
-        lblHarvestSched.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         lblHarvestSched.setText("Harvest Schedule");
         lblHarvestSched.setEnabled(false);
         add(lblHarvestSched, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 190, -1, -1));
 
-        optionBusinessRegistered.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         optionBusinessRegistered.setText("Registered");
         optionBusinessRegistered.setEnabled(false);
         add(optionBusinessRegistered, new org.netbeans.lib.awtextra.AbsoluteConstraints(45, 80, -1, -1));
 
-        optionBusinessNotRegistered.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         optionBusinessNotRegistered.setText("Not Registered");
         optionBusinessNotRegistered.setEnabled(false);
         add(optionBusinessNotRegistered, new org.netbeans.lib.awtextra.AbsoluteConstraints(145, 80, -1, -1));
 
-        checkSourceFarmProducts.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         checkSourceFarmProducts.setText("Farm Products");
         checkSourceFarmProducts.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -154,7 +148,6 @@ public class SourceOfIncomePanel extends javax.swing.JPanel implements KeyListen
         });
         add(checkSourceFarmProducts, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 110, -1, -1));
 
-        checkFarmLiveStock.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         checkFarmLiveStock.setText("LiveStock");
         checkFarmLiveStock.setEnabled(false);
         checkFarmLiveStock.addItemListener(new java.awt.event.ItemListener() {
@@ -164,7 +157,6 @@ public class SourceOfIncomePanel extends javax.swing.JPanel implements KeyListen
         });
         add(checkFarmLiveStock, new org.netbeans.lib.awtextra.AbsoluteConstraints(45, 160, -1, -1));
 
-        checkFarmAgri.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         checkFarmAgri.setText("Agricultural");
         checkFarmAgri.setEnabled(false);
         checkFarmAgri.addItemListener(new java.awt.event.ItemListener() {
@@ -174,12 +166,10 @@ public class SourceOfIncomePanel extends javax.swing.JPanel implements KeyListen
         });
         add(checkFarmAgri, new org.netbeans.lib.awtextra.AbsoluteConstraints(45, 135, -1, -1));
 
-        lblNatureOfBusiness.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         lblNatureOfBusiness.setText("Nature of Business");
         lblNatureOfBusiness.setEnabled(false);
         add(lblNatureOfBusiness, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 60, -1, -1));
 
-        txtMonthlySalaryCompensation.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtMonthlySalaryCompensation.setEnabled(false);
         txtMonthlySalaryCompensation.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -188,12 +178,10 @@ public class SourceOfIncomePanel extends javax.swing.JPanel implements KeyListen
         });
         add(txtMonthlySalaryCompensation, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 5, 127, -1));
 
-        lblAvgProductIncome.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         lblAvgProductIncome.setText("Avg. Product Inc");
         lblAvgProductIncome.setEnabled(false);
         add(lblAvgProductIncome, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 215, -1, -1));
 
-        txtFarmAvgProductIncome.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtFarmAvgProductIncome.setEnabled(false);
         txtFarmAvgProductIncome.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -202,7 +190,6 @@ public class SourceOfIncomePanel extends javax.swing.JPanel implements KeyListen
         });
         add(txtFarmAvgProductIncome, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 210, 127, -1));
 
-        checkSourceOthers.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         checkSourceOthers.setText("Other Sources");
         checkSourceOthers.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -211,12 +198,10 @@ public class SourceOfIncomePanel extends javax.swing.JPanel implements KeyListen
         });
         add(checkSourceOthers, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 235, -1, -1));
 
-        lblOtherSourceDesc.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         lblOtherSourceDesc.setText("Please specify");
         lblOtherSourceDesc.setEnabled(false);
         add(lblOtherSourceDesc, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 265, -1, -1));
 
-        txtOtherSourceDesc.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtOtherSourceDesc.setEnabled(false);
         txtOtherSourceDesc.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -225,12 +210,10 @@ public class SourceOfIncomePanel extends javax.swing.JPanel implements KeyListen
         });
         add(txtOtherSourceDesc, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 260, 150, -1));
 
-        lblAvgMonthlyIncome.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         lblAvgMonthlyIncome.setText("Avg. Monthly Compensation");
         lblAvgMonthlyIncome.setEnabled(false);
         add(lblAvgMonthlyIncome, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 10, -1, -1));
 
-        txtBusinessNature.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtBusinessNature.setEnabled(false);
         txtBusinessNature.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -239,12 +222,10 @@ public class SourceOfIncomePanel extends javax.swing.JPanel implements KeyListen
         });
         add(txtBusinessNature, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 55, 127, -1));
 
-        lblAvgMonthlyIncomeForBusiness.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         lblAvgMonthlyIncomeForBusiness.setText("Avg. Monthly Income");
         lblAvgMonthlyIncomeForBusiness.setEnabled(false);
         add(lblAvgMonthlyIncomeForBusiness, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 60, -1, -1));
 
-        txtMonthlyIncomeForBusiness.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtMonthlyIncomeForBusiness.setEnabled(false);
         txtMonthlyIncomeForBusiness.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -253,12 +234,10 @@ public class SourceOfIncomePanel extends javax.swing.JPanel implements KeyListen
         });
         add(txtMonthlyIncomeForBusiness, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 55, 127, -1));
 
-        lblAvgMonthlyIncomeForOtherSources.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         lblAvgMonthlyIncomeForOtherSources.setText("Avg. Monthly Income");
         lblAvgMonthlyIncomeForOtherSources.setEnabled(false);
         add(lblAvgMonthlyIncomeForOtherSources, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 265, -1, -1));
 
-        txtMonthlyIncomeForFarmProducts.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtMonthlyIncomeForFarmProducts.setEnabled(false);
         txtMonthlyIncomeForFarmProducts.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -267,12 +246,10 @@ public class SourceOfIncomePanel extends javax.swing.JPanel implements KeyListen
         });
         add(txtMonthlyIncomeForFarmProducts, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 210, 127, -1));
 
-        lblAvgMonthlyIncomeForFarmProducts.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         lblAvgMonthlyIncomeForFarmProducts.setText("Avg. Monthly Income");
         lblAvgMonthlyIncomeForFarmProducts.setEnabled(false);
         add(lblAvgMonthlyIncomeForFarmProducts, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 215, -1, -1));
 
-        txtMonthlyIncomeForOtherSources.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtMonthlyIncomeForOtherSources.setEnabled(false);
         txtMonthlyIncomeForOtherSources.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -282,14 +259,11 @@ public class SourceOfIncomePanel extends javax.swing.JPanel implements KeyListen
         add(txtMonthlyIncomeForOtherSources, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 260, 127, -1));
 
         txtFarmHarvestSchedule.setEnabled(false);
-        txtFarmHarvestSchedule.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         add(txtFarmHarvestSchedule, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 185, 127, -1));
 
-        txtAgri.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtAgri.setEnabled(false);
         add(txtAgri, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 135, 127, -1));
 
-        txtLiveStock.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtLiveStock.setEnabled(false);
         add(txtLiveStock, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 160, 127, -1));
     }// </editor-fold>//GEN-END:initComponents

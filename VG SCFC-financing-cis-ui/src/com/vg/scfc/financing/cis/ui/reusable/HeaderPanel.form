@@ -20,9 +20,6 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Arial" size="11" style="1"/>
-        </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
         <Property name="text" type="java.lang.String" value="SOUTHPOINT CREDIT AND FINANCE CORP."/>
         <Property name="horizontalTextPosition" type="int" value="0"/>
@@ -35,9 +32,6 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Arial" size="11" style="1"/>
-        </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
         <Property name="text" type="java.lang.String" value="CREDIT APPLICATION FORM"/>
         <Property name="horizontalTextPosition" type="int" value="0"/>
@@ -50,9 +44,6 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Arial" size="11" style="0"/>
-        </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
         <Property name="text" type="java.lang.String" value="All Information will be treated confidential. Please print legibly and check appropriate boxes"/>
         <Property name="horizontalTextPosition" type="int" value="0"/>
@@ -66,9 +57,6 @@
     <Component class="javax.swing.JTextField" name="txtIDNo">
       <Properties>
         <Property name="editable" type="boolean" value="false"/>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Monospaced" size="9" style="0"/>
-        </Property>
         <Property name="horizontalAlignment" type="int" value="4"/>
         <Property name="text" type="java.lang.String" value="00000"/>
         <Property name="focusable" type="boolean" value="false"/>
@@ -112,7 +100,7 @@
         <Property name="editable" type="boolean" value="false"/>
         <Property name="focusable" type="boolean" value="false"/>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Monospaced" size="9" style="0"/>
+          <Font name="Arial" size="11" style="0"/>
         </Property>
       </Properties>
       <Constraints>
@@ -123,9 +111,6 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Arial" size="11" style="1"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="Application Date"/>
       </Properties>
       <Constraints>
@@ -136,9 +121,6 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel5">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Arial" size="11" style="1"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="Form No"/>
       </Properties>
       <Constraints>

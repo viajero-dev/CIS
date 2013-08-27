@@ -24,9 +24,6 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Arial" size="11" style="1"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="Brgy."/>
       </Properties>
       <Constraints>
@@ -37,9 +34,6 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Arial" size="11" style="1"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="Description"/>
       </Properties>
       <Constraints>
@@ -50,9 +44,6 @@
     </Component>
     <Component class="javax.swing.JTextField" name="txtBrgy">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Monospaced" size="9" style="0"/>
-        </Property>
         <Property name="toolTipText" type="java.lang.String" value="Press F5 to search"/>
       </Properties>
       <Constraints>
@@ -64,9 +55,6 @@
     <Component class="javax.swing.JTextField" name="txtDesc">
       <Properties>
         <Property name="editable" type="boolean" value="false"/>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Monospaced" size="9" style="0"/>
-        </Property>
         <Property name="toolTipText" type="java.lang.String" value="Press F5 to search"/>
         <Property name="focusable" type="boolean" value="false"/>
       </Properties>
@@ -78,9 +66,6 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Arial" size="11" style="1"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="Zipcode"/>
       </Properties>
       <Constraints>
@@ -91,9 +76,6 @@
     </Component>
     <Component class="javax.swing.JTextField" name="txtZipcode">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Monospaced" size="9" style="0"/>
-        </Property>
         <Property name="toolTipText" type="java.lang.String" value="Press F5 to search"/>
       </Properties>
       <Events>
@@ -107,9 +89,6 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Arial" size="11" style="1"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="Street"/>
       </Properties>
       <Constraints>
@@ -120,9 +99,6 @@
     </Component>
     <Component class="javax.swing.JTextField" name="txtStreet">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Monospaced" size="9" style="0"/>
-        </Property>
         <Property name="toolTipText" type="java.lang.String" value="Press F5 to search"/>
       </Properties>
       <Events>
@@ -136,9 +112,6 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel5">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Arial" size="11" style="1"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="Status"/>
       </Properties>
       <Constraints>
@@ -149,9 +122,6 @@
     </Component>
     <Component class="javax.swing.JRadioButton" name="optionAddressOwned">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Monospaced" size="9" style="0"/>
-        </Property>
         <Property name="selected" type="boolean" value="true"/>
         <Property name="text" type="java.lang.String" value="Owned"/>
       </Properties>
@@ -163,9 +133,6 @@
     </Component>
     <Component class="javax.swing.JRadioButton" name="optionAddressRenting">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Monospaced" size="9" style="0"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="Renting"/>
       </Properties>
       <Constraints>
@@ -176,9 +143,6 @@
     </Component>
     <Component class="javax.swing.JRadioButton" name="optionAddressLiving">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Monospaced" size="9" style="0"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="Living with Parents/Relatives"/>
       </Properties>
       <Constraints>
@@ -189,9 +153,6 @@
     </Component>
     <Component class="javax.swing.JRadioButton" name="optionAddressOthers">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Monospaced" size="9" style="0"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="Others"/>
       </Properties>
       <Constraints>
@@ -202,9 +163,6 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel6">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Arial" size="11" style="1"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="Yrs. of stay"/>
       </Properties>
       <Constraints>
@@ -215,9 +173,6 @@
     </Component>
     <Component class="javax.swing.JTextField" name="txtYrsOfStay">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Monospaced" size="9" style="0"/>
-        </Property>
         <Property name="toolTipText" type="java.lang.String" value="Press F5 to search"/>
       </Properties>
       <Events>

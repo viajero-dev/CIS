@@ -100,10 +100,6 @@ public class LandPanel extends javax.swing.JPanel implements KeyListener {
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         optionHouse = new javax.swing.JRadioButton();
-        optionConcrete = new javax.swing.JRadioButton();
-        optionSemiConcrete = new javax.swing.JRadioButton();
-        optionShanity = new javax.swing.JRadioButton();
-        optionOthers = new javax.swing.JRadioButton();
         txtOtherDesc = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         txtEstValueAgri = new javax.swing.JTextField();
@@ -113,10 +109,13 @@ public class LandPanel extends javax.swing.JPanel implements KeyListener {
         txtEstValueResidential = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
         txtTotalEstValue = new javax.swing.JTextField();
+        optionConcrete = new javax.swing.JCheckBox();
+        optionSemiConcrete = new javax.swing.JCheckBox();
+        optionShanity = new javax.swing.JCheckBox();
+        optionOthers = new javax.swing.JCheckBox();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        checkAgricultural.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         checkAgricultural.setText("Agricultural Land");
         checkAgricultural.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -125,11 +124,9 @@ public class LandPanel extends javax.swing.JPanel implements KeyListener {
         });
         add(checkAgricultural, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 5, -1, -1));
 
-        jLabel1.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel1.setText("Area");
         add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 10, -1, -1));
 
-        txtAreaAgri.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtAreaAgri.setEnabled(false);
         txtAreaAgri.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -138,20 +135,17 @@ public class LandPanel extends javax.swing.JPanel implements KeyListener {
         });
         add(txtAreaAgri, new org.netbeans.lib.awtextra.AbsoluteConstraints(215, 5, 85, -1));
 
-        jLabel2.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel2.setText("Location");
         add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 10, -1, -1));
 
-        txtLocationAgri.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtLocationAgri.setEnabled(false);
         txtLocationAgri.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtLocationAgriFocusLost(evt);
             }
         });
-        add(txtLocationAgri, new org.netbeans.lib.awtextra.AbsoluteConstraints(425, 5, 85, -1));
+        add(txtLocationAgri, new org.netbeans.lib.awtextra.AbsoluteConstraints(425, 5, 270, -1));
 
-        checkCommercial.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         checkCommercial.setText("Commercial Land");
         checkCommercial.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -160,11 +154,9 @@ public class LandPanel extends javax.swing.JPanel implements KeyListener {
         });
         add(checkCommercial, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 35, -1, -1));
 
-        jLabel3.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel3.setText("Area");
         add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 40, -1, -1));
 
-        txtAreaCommercial.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtAreaCommercial.setEnabled(false);
         txtAreaCommercial.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -173,20 +165,17 @@ public class LandPanel extends javax.swing.JPanel implements KeyListener {
         });
         add(txtAreaCommercial, new org.netbeans.lib.awtextra.AbsoluteConstraints(215, 35, 85, -1));
 
-        jLabel4.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel4.setText("Location");
         add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 40, -1, -1));
 
-        txtLocationCommercial.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtLocationCommercial.setEnabled(false);
         txtLocationCommercial.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtLocationCommercialFocusLost(evt);
             }
         });
-        add(txtLocationCommercial, new org.netbeans.lib.awtextra.AbsoluteConstraints(425, 35, 85, -1));
+        add(txtLocationCommercial, new org.netbeans.lib.awtextra.AbsoluteConstraints(425, 35, 270, -1));
 
-        checkResidential.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         checkResidential.setText("Residential Land");
         checkResidential.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -195,11 +184,9 @@ public class LandPanel extends javax.swing.JPanel implements KeyListener {
         });
         add(checkResidential, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 65, -1, -1));
 
-        jLabel5.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel5.setText("Area");
         add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 70, -1, -1));
 
-        txtAreaResidential.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtAreaResidential.setEnabled(false);
         txtAreaResidential.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -208,32 +195,26 @@ public class LandPanel extends javax.swing.JPanel implements KeyListener {
         });
         add(txtAreaResidential, new org.netbeans.lib.awtextra.AbsoluteConstraints(215, 65, 85, -1));
 
-        jLabel6.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel6.setText("Location");
         add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 70, -1, -1));
 
-        txtLocationResidential.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtLocationResidential.setEnabled(false);
         txtLocationResidential.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtLocationResidentialFocusLost(evt);
             }
         });
-        add(txtLocationResidential, new org.netbeans.lib.awtextra.AbsoluteConstraints(425, 65, 85, -1));
+        add(txtLocationResidential, new org.netbeans.lib.awtextra.AbsoluteConstraints(425, 65, 270, -1));
 
-        jLabel7.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel7.setText("-Ha");
         add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(305, 10, -1, -1));
 
-        jLabel8.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel8.setText("sq.m");
         add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(305, 40, -1, -1));
 
-        jLabel9.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel9.setText("sq.m");
         add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(305, 70, -1, -1));
 
-        optionHouse.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         optionHouse.setText("House");
         optionHouse.setEnabled(false);
         optionHouse.addItemListener(new java.awt.event.ItemListener() {
@@ -241,103 +222,66 @@ public class LandPanel extends javax.swing.JPanel implements KeyListener {
                 optionHouseItemStateChanged(evt);
             }
         });
-        add(optionHouse, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 95, -1, -1));
+        add(optionHouse, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 96, -1, -1));
 
-        optionConcrete.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
-        optionConcrete.setText("Concrete");
-        optionConcrete.setEnabled(false);
-        optionConcrete.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                optionConcreteItemStateChanged(evt);
-            }
-        });
-        add(optionConcrete, new org.netbeans.lib.awtextra.AbsoluteConstraints(95, 95, -1, -1));
-
-        optionSemiConcrete.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
-        optionSemiConcrete.setText("Semi Concrete");
-        optionSemiConcrete.setEnabled(false);
-        optionSemiConcrete.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                optionSemiConcreteItemStateChanged(evt);
-            }
-        });
-        add(optionSemiConcrete, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 95, -1, -1));
-
-        optionShanity.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
-        optionShanity.setText("Shanity");
-        optionShanity.setEnabled(false);
-        optionShanity.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                optionShanityFocusLost(evt);
-            }
-        });
-        add(optionShanity, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 95, -1, -1));
-
-        optionOthers.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
-        optionOthers.setText("Others");
-        optionOthers.setEnabled(false);
-        optionOthers.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                optionOthersItemStateChanged(evt);
-            }
-        });
-        add(optionOthers, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 95, -1, -1));
-
-        txtOtherDesc.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtOtherDesc.setEnabled(false);
         txtOtherDesc.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtOtherDescFocusLost(evt);
             }
         });
-        add(txtOtherDesc, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 95, 110, -1));
+        add(txtOtherDesc, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 95, 185, -1));
 
-        jLabel10.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel10.setText("Estimated value");
-        add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 10, -1, -1));
+        add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 10, -1, -1));
 
-        txtEstValueAgri.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtEstValueAgri.setEnabled(false);
         txtEstValueAgri.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtEstValueAgriFocusLost(evt);
             }
         });
-        add(txtEstValueAgri, new org.netbeans.lib.awtextra.AbsoluteConstraints(646, 5, 120, -1));
+        add(txtEstValueAgri, new org.netbeans.lib.awtextra.AbsoluteConstraints(825, 5, 120, -1));
 
-        jLabel11.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel11.setText("Estimated value");
-        add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 70, -1, -1));
+        add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 70, -1, -1));
 
-        txtEstValueCommercial.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtEstValueCommercial.setEnabled(false);
         txtEstValueCommercial.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtEstValueCommercialFocusLost(evt);
             }
         });
-        add(txtEstValueCommercial, new org.netbeans.lib.awtextra.AbsoluteConstraints(646, 35, 120, -1));
+        add(txtEstValueCommercial, new org.netbeans.lib.awtextra.AbsoluteConstraints(825, 35, 120, -1));
 
-        jLabel12.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel12.setText("Estimated value");
-        add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 40, -1, -1));
+        add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 40, -1, -1));
 
-        txtEstValueResidential.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtEstValueResidential.setEnabled(false);
         txtEstValueResidential.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtEstValueResidentialFocusLost(evt);
             }
         });
-        add(txtEstValueResidential, new org.netbeans.lib.awtextra.AbsoluteConstraints(646, 65, 120, -1));
+        add(txtEstValueResidential, new org.netbeans.lib.awtextra.AbsoluteConstraints(825, 65, 120, -1));
 
-        jLabel13.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel13.setText("Total Estimated value");
-        add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(521, 125, -1, -1));
+        add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(685, 125, -1, -1));
 
         txtTotalEstValue.setEditable(false);
-        txtTotalEstValue.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
-        add(txtTotalEstValue, new org.netbeans.lib.awtextra.AbsoluteConstraints(646, 120, 120, -1));
+        add(txtTotalEstValue, new org.netbeans.lib.awtextra.AbsoluteConstraints(825, 120, 120, -1));
+
+        optionConcrete.setText("CONCRETE");
+        add(optionConcrete, new org.netbeans.lib.awtextra.AbsoluteConstraints(95, 96, -1, -1));
+
+        optionSemiConcrete.setText("SEMI CONCRETE");
+        add(optionSemiConcrete, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 96, -1, -1));
+
+        optionShanity.setText("SHANITY");
+        add(optionShanity, new org.netbeans.lib.awtextra.AbsoluteConstraints(335, 96, -1, -1));
+
+        optionOthers.setText("OTHERS");
+        add(optionOthers, new org.netbeans.lib.awtextra.AbsoluteConstraints(425, 96, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void checkAgriculturalItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_checkAgriculturalItemStateChanged
@@ -386,14 +330,6 @@ public class LandPanel extends javax.swing.JPanel implements KeyListener {
         }
     }//GEN-LAST:event_checkResidentialItemStateChanged
 
-    private void optionOthersItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_optionOthersItemStateChanged
-        if (optionOthers.isSelected()) {
-            txtOtherDesc.setEnabled(true);
-        } else {
-            txtOtherDesc.setEnabled(false);
-        }
-    }//GEN-LAST:event_optionOthersItemStateChanged
-
     private void txtAreaAgriFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtAreaAgriFocusLost
         txtAreaAgri.setText(NumberUtils.doubleToString(new BigDecimal(UIValidator.isNumeric(txtAreaAgri)).doubleValue()));
     }//GEN-LAST:event_txtAreaAgriFocusLost
@@ -436,24 +372,6 @@ public class LandPanel extends javax.swing.JPanel implements KeyListener {
         }
     }//GEN-LAST:event_optionHouseItemStateChanged
 
-    private void optionConcreteItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_optionConcreteItemStateChanged
-        if (optionConcrete.isSelected()) {
-            additionalInfo = "CONCRETE";
-        }
-    }//GEN-LAST:event_optionConcreteItemStateChanged
-
-    private void optionSemiConcreteItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_optionSemiConcreteItemStateChanged
-        if (optionSemiConcrete.isSelected()) {
-            additionalInfo = "SEMI CONCRETE";
-        }
-    }//GEN-LAST:event_optionSemiConcreteItemStateChanged
-
-    private void optionShanityFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_optionShanityFocusLost
-        if (optionShanity.isSelected()) {
-            additionalInfo = "SHANITY";
-        }
-    }//GEN-LAST:event_optionShanityFocusLost
-
     private void txtOtherDescFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtOtherDescFocusLost
         additionalInfo = UIValidator.validate(txtOtherDesc);
     }//GEN-LAST:event_txtOtherDescFocusLost
@@ -475,12 +393,12 @@ public class LandPanel extends javax.swing.JPanel implements KeyListener {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JRadioButton optionConcrete;
+    private javax.swing.JCheckBox optionConcrete;
     private javax.swing.JRadioButton optionHouse;
-    private javax.swing.JRadioButton optionOthers;
+    private javax.swing.JCheckBox optionOthers;
     private javax.swing.ButtonGroup optionResidentialGroup;
-    private javax.swing.JRadioButton optionSemiConcrete;
-    private javax.swing.JRadioButton optionShanity;
+    private javax.swing.JCheckBox optionSemiConcrete;
+    private javax.swing.JCheckBox optionShanity;
     private javax.swing.JTextField txtAreaAgri;
     private javax.swing.JTextField txtAreaCommercial;
     private javax.swing.JTextField txtAreaResidential;
@@ -644,6 +562,7 @@ public class LandPanel extends javax.swing.JPanel implements KeyListener {
     public void setLandAssets(List<Land> l) {
         if (l.isEmpty()) {
             resetToDefault();
+            txtTotalEstValue.setText(NumberUtils.doubleToString(LandAssetController.getInstance().computeTotalEstimatedValue(l)));
         } else {
             for (Land land : l) {
                 switch (land.getLandType().getId()) {
@@ -677,34 +596,34 @@ public class LandPanel extends javax.swing.JPanel implements KeyListener {
                                 txtOtherDesc.setEnabled(false);
                                 break;
                             case "CONCRETE":
-                                optionHouse.setSelected(false);
+//                                optionHouse.setSelected(false);
                                 optionConcrete.setSelected(true);
-                                optionSemiConcrete.setSelected(false);
-                                optionShanity.setSelected(false);
-                                optionOthers.setSelected(false);
-                                txtOtherDesc.setEnabled(false);
+//                                optionSemiConcrete.setSelected(false);
+//                                optionShanity.setSelected(false);
+//                                optionOthers.setSelected(false);
+//                                txtOtherDesc.setEnabled(false);
                                 break;
                             case "SEMI CONCRETE":
-                                optionHouse.setSelected(false);
-                                optionConcrete.setSelected(false);
+//                                optionHouse.setSelected(false);
+//                                optionConcrete.setSelected(false);
                                 optionSemiConcrete.setSelected(true);
-                                optionShanity.setSelected(false);
-                                optionOthers.setSelected(false);
-                                txtOtherDesc.setEnabled(false);
+//                                optionShanity.setSelected(false);
+//                                optionOthers.setSelected(false);
+//                                txtOtherDesc.setEnabled(false);
                                 break;
                             case "SHANITY":
-                                optionHouse.setSelected(false);
-                                optionConcrete.setSelected(false);
-                                optionSemiConcrete.setSelected(false);
+//                                optionHouse.setSelected(false);
+//                                optionConcrete.setSelected(false);
+//                                optionSemiConcrete.setSelected(false);
                                 optionShanity.setSelected(true);
-                                optionOthers.setSelected(false);
-                                txtOtherDesc.setEnabled(false);
+//                                optionOthers.setSelected(false);
+//                                txtOtherDesc.setEnabled(false);
                                 break;
                             default:
-                                optionHouse.setSelected(false);
-                                optionConcrete.setSelected(false);
-                                optionSemiConcrete.setSelected(false);
-                                optionShanity.setSelected(false);
+//                                optionHouse.setSelected(false);
+//                                optionConcrete.setSelected(false);
+//                                optionSemiConcrete.setSelected(false);
+//                                optionShanity.setSelected(false);
                                 optionOthers.setSelected(true);
                                 txtOtherDesc.setText(land.getAdditionalInfo());
                                 break;
@@ -712,6 +631,7 @@ public class LandPanel extends javax.swing.JPanel implements KeyListener {
                         break;
                 }
             }
+             txtTotalEstValue.setText(NumberUtils.doubleToString(LandAssetController.getInstance().computeTotalEstimatedValue(l)));
         }
     }
 
@@ -760,9 +680,14 @@ public class LandPanel extends javax.swing.JPanel implements KeyListener {
         txtEstValueCommercial.setText("");
         checkResidential.setSelected(false);
         txtAreaResidential.setText("");
-        txtLocationCommercial.setText("");
+        txtLocationResidential.setText("");
         txtEstValueResidential.setText("");
         txtOtherDesc.setText("");
+        optionConcrete.setSelected(false);
+        optionSemiConcrete.setSelected(false);
+        optionShanity.setSelected(false);
+        optionOthers.setSelected(false);
+        optionHouse.setSelected(false);
     }
 
     public boolean saveLandAssets() {

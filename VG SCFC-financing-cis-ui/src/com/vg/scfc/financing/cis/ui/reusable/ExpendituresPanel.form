@@ -20,9 +20,6 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="jLabel4">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Arial" size="11" style="1"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="Regular Monthly Salary Deduction"/>
       </Properties>
       <Constraints>
@@ -33,9 +30,6 @@
     </Component>
     <Component class="javax.swing.JTextField" name="txtMonthlyDeduction">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Monospaced" size="9" style="0"/>
-        </Property>
         <Property name="horizontalAlignment" type="int" value="4"/>
       </Properties>
       <Events>
@@ -49,9 +43,6 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel5">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Arial" size="11" style="1"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="Monthly Household Bill"/>
       </Properties>
       <Constraints>
@@ -62,9 +53,6 @@
     </Component>
     <Component class="javax.swing.JTextField" name="txtMonthlyHouseholdBill">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Monospaced" size="9" style="0"/>
-        </Property>
         <Property name="horizontalAlignment" type="int" value="4"/>
       </Properties>
       <Events>
@@ -78,9 +66,6 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel6">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Arial" size="11" style="1"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="Amortization (House, Vehicle, etc.)"/>
       </Properties>
       <Constraints>
@@ -90,11 +75,6 @@
       </Constraints>
     </Component>
     <Component class="javax.swing.JTextField" name="txtMaintenanceDesc">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Monospaced" size="9" style="0"/>
-        </Property>
-      </Properties>
       <Events>
         <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtMaintenanceDescFocusLost"/>
       </Events>
@@ -106,9 +86,6 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel7">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Arial" size="11" style="1"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="Maintenance for"/>
       </Properties>
       <Constraints>
@@ -119,9 +96,6 @@
     </Component>
     <Component class="javax.swing.JTextField" name="txtAmortization">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Monospaced" size="9" style="0"/>
-        </Property>
         <Property name="horizontalAlignment" type="int" value="4"/>
       </Properties>
       <Events>
@@ -135,9 +109,6 @@
     </Component>
     <Component class="javax.swing.JTextField" name="txtMaintenance">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Monospaced" size="9" style="0"/>
-        </Property>
         <Property name="horizontalAlignment" type="int" value="4"/>
       </Properties>
       <Events>
@@ -151,9 +122,6 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel8">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Arial" size="11" style="1"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="Living Allowance"/>
       </Properties>
       <Constraints>
@@ -164,9 +132,6 @@
     </Component>
     <Component class="javax.swing.JTextField" name="txtLivingAllowance">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Monospaced" size="9" style="0"/>
-        </Property>
         <Property name="horizontalAlignment" type="int" value="4"/>
       </Properties>
       <Events>
@@ -180,9 +145,6 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel9">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Arial" size="11" style="1"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="Education for"/>
       </Properties>
       <Constraints>
@@ -192,11 +154,6 @@
       </Constraints>
     </Component>
     <Component class="javax.swing.JTextField" name="txtEducationDesc">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Monospaced" size="9" style="0"/>
-        </Property>
-      </Properties>
       <Events>
         <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtEducationDescFocusLost"/>
       </Events>
@@ -208,9 +165,6 @@
     </Component>
     <Component class="javax.swing.JTextField" name="txtEducation">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Monospaced" size="9" style="0"/>
-        </Property>
         <Property name="horizontalAlignment" type="int" value="4"/>
       </Properties>
       <Events>
@@ -224,9 +178,6 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel10">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Arial" size="11" style="1"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="Others"/>
       </Properties>
       <Constraints>
@@ -238,9 +189,6 @@
     <Component class="javax.swing.JTextField" name="txtTotalExpenditure">
       <Properties>
         <Property name="editable" type="boolean" value="false"/>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Monospaced" size="9" style="0"/>
-        </Property>
         <Property name="horizontalAlignment" type="int" value="4"/>
         <Property name="focusable" type="boolean" value="false"/>
       </Properties>
@@ -252,9 +200,6 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel11">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Arial" size="11" style="1"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="P"/>
       </Properties>
       <Constraints>
@@ -265,9 +210,6 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel12">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Arial" size="11" style="1"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="P"/>
       </Properties>
       <Constraints>
@@ -278,9 +220,6 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel13">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Arial" size="11" style="1"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="P"/>
       </Properties>
       <Constraints>
@@ -291,9 +230,6 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel14">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Arial" size="11" style="1"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="P"/>
       </Properties>
       <Constraints>
@@ -304,9 +240,6 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel15">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Arial" size="11" style="1"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="P"/>
       </Properties>
       <Constraints>
@@ -317,9 +250,6 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel16">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Arial" size="11" style="1"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="P"/>
       </Properties>
       <Constraints>
@@ -330,9 +260,6 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel17">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Arial" size="11" style="1"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="P"/>
       </Properties>
       <Constraints>
@@ -343,9 +270,6 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel18">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Arial" size="11" style="1"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="Total Expenditures"/>
       </Properties>
       <Constraints>
@@ -356,9 +280,6 @@
     </Component>
     <Component class="javax.swing.JTextField" name="txtOthers">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Monospaced" size="9" style="0"/>
-        </Property>
         <Property name="horizontalAlignment" type="int" value="4"/>
       </Properties>
       <Events>
@@ -372,9 +293,6 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel19">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Arial" size="11" style="1"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="P"/>
       </Properties>
       <Constraints>
@@ -385,9 +303,6 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel20">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Arial" size="11" style="1"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="Net Income"/>
       </Properties>
       <Constraints>
@@ -398,9 +313,6 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel21">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Arial" size="11" style="1"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="P"/>
       </Properties>
       <Constraints>
@@ -412,9 +324,6 @@
     <Component class="javax.swing.JTextField" name="txtNetIncome">
       <Properties>
         <Property name="editable" type="boolean" value="false"/>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Monospaced" size="9" style="0"/>
-        </Property>
         <Property name="horizontalAlignment" type="int" value="4"/>
         <Property name="focusable" type="boolean" value="false"/>
       </Properties>

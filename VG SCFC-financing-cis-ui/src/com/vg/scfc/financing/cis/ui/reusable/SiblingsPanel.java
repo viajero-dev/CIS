@@ -91,11 +91,9 @@ public class SiblingsPanel extends javax.swing.JPanel implements KeyListener {
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel1.setText("Name");
         add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 105, -1, -1));
 
-        txtSiblingName.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtSiblingName.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtSiblingNameFocusLost(evt);
@@ -103,11 +101,9 @@ public class SiblingsPanel extends javax.swing.JPanel implements KeyListener {
         });
         add(txtSiblingName, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 100, 255, -1));
 
-        jLabel2.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel2.setText("Address");
         add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, -1, -1));
 
-        txtSiblingAddress.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtSiblingAddress.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtSiblingAddressFocusLost(evt);
@@ -115,11 +111,9 @@ public class SiblingsPanel extends javax.swing.JPanel implements KeyListener {
         });
         add(txtSiblingAddress, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 125, 255, -1));
 
-        jLabel3.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel3.setText("Contact");
         add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 155, -1, -1));
 
-        txtSiblingContact.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtSiblingContact.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtSiblingContactFocusLost(evt);

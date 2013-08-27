@@ -282,9 +282,6 @@
                     </Component>
                     <Component class="javax.swing.JLabel" name="lblAvgMonthlyIncomeForOtherSources">
                       <Properties>
-                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="Arial" size="11" style="1"/>
-                        </Property>
                         <Property name="text" type="java.lang.String" value="Total Monthly Income"/>
                       </Properties>
                       <Constraints>
@@ -296,9 +293,6 @@
                     <Component class="javax.swing.JTextField" name="txtTotalMonthlyIncome">
                       <Properties>
                         <Property name="editable" type="boolean" value="false"/>
-                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="Monospaced" size="9" style="0"/>
-                        </Property>
                         <Property name="focusable" type="boolean" value="false"/>
                       </Properties>
                       <Constraints>
@@ -353,7 +347,7 @@
                   <SubComponents>
                     <Container class="javax.swing.JTabbedPane" name="jTabbedPane2">
                       <Properties>
-                        <Property name="tabPlacement" type="int" value="2"/>
+                        <Property name="tabPlacement" type="int" value="3"/>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Arial" size="11" style="1"/>
                         </Property>
@@ -382,7 +376,7 @@
                             <Component class="com.vg.scfc.financing.cis.ui.reusable.LandPanel" name="panelLandAssets">
                               <Constraints>
                                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                                  <AbsoluteConstraints x="0" y="5" width="-1" height="-1"/>
+                                  <AbsoluteConstraints x="0" y="5" width="970" height="150"/>
                                 </Constraint>
                               </Constraints>
                             </Component>

@@ -42,6 +42,7 @@ public class CashPanel extends javax.swing.JPanel implements KeyListener {
         initAddEditButtonListener();
         txtSearch.putClientProperty("Quaqua.TextField.style", "search");
         txtSearch.setText("Search");
+        setFieldsEditable(false, true);
     }
 
     private void initKeyListeners() {
@@ -210,11 +211,9 @@ public class CashPanel extends javax.swing.JPanel implements KeyListener {
         jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblLastname.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         lblLastname.setText("Lastname");
         jPanel2.add(lblLastname, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 25, -1, -1));
 
-        txtLastname.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
         txtLastname.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtLastnameFocusLost(evt);
@@ -222,7 +221,6 @@ public class CashPanel extends javax.swing.JPanel implements KeyListener {
         });
         jPanel2.add(txtLastname, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 20, 375, -1));
 
-        txtFirstname.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
         txtFirstname.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtFirstnameFocusLost(evt);
@@ -230,11 +228,9 @@ public class CashPanel extends javax.swing.JPanel implements KeyListener {
         });
         jPanel2.add(txtFirstname, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 45, 375, -1));
 
-        lblFirstname.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         lblFirstname.setText("Firstname");
         jPanel2.add(lblFirstname, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 50, -1, -1));
 
-        txtMiddlename.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
         txtMiddlename.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtMiddlenameFocusLost(evt);
@@ -242,23 +238,17 @@ public class CashPanel extends javax.swing.JPanel implements KeyListener {
         });
         jPanel2.add(txtMiddlename, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 70, 375, -1));
 
-        lblMiddlename.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         lblMiddlename.setText("Middlename");
         jPanel2.add(lblMiddlename, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 75, -1, -1));
-
-        txtBarangayCode.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
         jPanel2.add(txtBarangayCode, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 95, 100, -1));
 
         txtBarangayDesc.setEditable(false);
-        txtBarangayDesc.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
         txtBarangayDesc.setFocusable(false);
         jPanel2.add(txtBarangayDesc, new org.netbeans.lib.awtextra.AbsoluteConstraints(195, 95, 270, -1));
 
-        jLabel4.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel4.setText("Barangay");
         jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 100, -1, -1));
 
-        txtAddress.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
         txtAddress.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtAddressFocusLost(evt);
@@ -266,11 +256,9 @@ public class CashPanel extends javax.swing.JPanel implements KeyListener {
         });
         jPanel2.add(txtAddress, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 120, 375, -1));
 
-        jLabel5.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel5.setText("Address");
         jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 125, -1, -1));
 
-        txtZipCode.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
         txtZipCode.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtZipCodeFocusLost(evt);
@@ -278,11 +266,9 @@ public class CashPanel extends javax.swing.JPanel implements KeyListener {
         });
         jPanel2.add(txtZipCode, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 145, 150, -1));
 
-        jLabel6.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel6.setText("Zipcode");
         jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 150, -1, -1));
 
-        txtContact.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
         txtContact.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtContactFocusLost(evt);
@@ -290,7 +276,6 @@ public class CashPanel extends javax.swing.JPanel implements KeyListener {
         });
         jPanel2.add(txtContact, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 170, 260, -1));
 
-        jLabel7.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel7.setText("Contact #");
         jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 175, -1, -1));
         jPanel2.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 200, 470, -1));

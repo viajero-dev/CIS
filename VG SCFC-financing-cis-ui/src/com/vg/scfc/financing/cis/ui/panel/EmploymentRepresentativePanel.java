@@ -58,11 +58,9 @@ public class EmploymentRepresentativePanel extends javax.swing.JPanel implements
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel3.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel3.setText("Status");
         add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 10, -1, -1));
 
-        comboEmploymentStatus.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         comboEmploymentStatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "REGULAR", "SELF-EMPLOYED", "PROJECT HIRED", "CONTRACTUAL", "PROBATIONARY", "OTHERS" }));
         comboEmploymentStatus.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -71,11 +69,9 @@ public class EmploymentRepresentativePanel extends javax.swing.JPanel implements
         });
         add(comboEmploymentStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 5, 144, -1));
 
-        jLabel4.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel4.setText("Position");
         add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 35, -1, -1));
 
-        txtPosition.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtPosition.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtPositionFocusLost(evt);
@@ -83,11 +79,9 @@ public class EmploymentRepresentativePanel extends javax.swing.JPanel implements
         });
         add(txtPosition, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 30, 140, -1));
 
-        jLabel5.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel5.setText("Department");
         add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 60, -1, -1));
 
-        txtDepartment.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtDepartment.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtDepartmentFocusLost(evt);
@@ -95,11 +89,9 @@ public class EmploymentRepresentativePanel extends javax.swing.JPanel implements
         });
         add(txtDepartment, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 55, 320, -1));
 
-        jLabel8.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel8.setText("Years in Service");
         add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(295, 35, -1, -1));
 
-        txtYearInService.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtYearInService.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtYearInServiceFocusLost(evt);
@@ -107,11 +99,9 @@ public class EmploymentRepresentativePanel extends javax.swing.JPanel implements
         });
         add(txtYearInService, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 30, 70, -1));
 
-        jLabel2.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel2.setText("Monthly Salary Compensation");
         add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 85, -1, -1));
 
-        txtMonthlyCompensation.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtMonthlyCompensation.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtMonthlyCompensationFocusLost(evt);

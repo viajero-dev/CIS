@@ -12,6 +12,8 @@ import java.util.List;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import net.java.balloontip.BalloonTip;
+import net.java.balloontip.utils.FadingUtils;
 import org.slf4j.LoggerFactory;
 
 /**
@@ -32,16 +34,17 @@ public class UIValidator {
     }
 
     public static String isNumeric(JTextField field) {
+        BalloonTip tip = null;
         String fieldValue = field.getText();
         if (Validator.getInstance().isEmpty(fieldValue)) {
-//            JOptionPane.showMessageDialog(null, ErrorMessage.EMPTY_FIELD, ErrorMessage.ERROR_MESSAGE_TITLE, JOptionPane.WARNING_MESSAGE);
-//            field.requestFocus();
             return "0";
         } else {
             if (Validator.getInstance().isNumeric(fieldValue)) {
                 return fieldValue;
             } else {
-                JOptionPane.showMessageDialog(null, ErrorMessage.NON_NUMERIC, ErrorMessage.ERROR_MESSAGE_TITLE, JOptionPane.WARNING_MESSAGE);
+                tip = new BalloonTip(field, ErrorMessage.NON_NUMERIC);
+                FadingUtils.fadeOutBalloon(tip, null, 5000, 24);
+//                JOptionPane.showMessageDialog(null, ErrorMessage.NON_NUMERIC, ErrorMessage.ERROR_MESSAGE_TITLE, JOptionPane.WARNING_MESSAGE);
                 field.requestFocus();
                 field.setText("");
                 return "0";
@@ -67,6 +70,8 @@ public class UIValidator {
             case "EDIT":
                 JOptionPane.showMessageDialog(null, ErrorMessage.FAILED_TO_UPDATE, ErrorMessage.ERROR_MESSAGE_TITLE, JOptionPane.WARNING_MESSAGE);
                 break;
+             default:
+                 break;
         }
     }
 
@@ -77,6 +82,8 @@ public class UIValidator {
                 break;
             case "EDIT":
                 JOptionPane.showMessageDialog(null, OtherMessage.SUCCESSFUL_UPDATE, ErrorMessage.ERROR_MESSAGE_TITLE, JOptionPane.INFORMATION_MESSAGE);
+                break;
+            default:
                 break;
         }
     }

@@ -117,39 +117,28 @@ public class PurchaseOrderPanel2 extends javax.swing.JPanel implements KeyListen
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel4.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel4.setText("Purpose");
         add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 10, -1, -1));
 
-        comboPurpose.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         comboPurpose.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "PERSONAL", "BUSINESS", "OTHERS" }));
         add(comboPurpose, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 5, 100, -1));
 
         txtMakeDesc.setEditable(false);
-        txtMakeDesc.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtMakeDesc.setFocusable(false);
         add(txtMakeDesc, new org.netbeans.lib.awtextra.AbsoluteConstraints(155, 30, 250, -1));
 
-        jLabel5.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel5.setText("Make");
         add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 35, -1, -1));
-
-        txtMakeCode.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         add(txtMakeCode, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, 70, -1));
-
-        txtColorCode.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         add(txtColorCode, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 55, 70, -1));
 
         txtColorDesc.setEditable(false);
-        txtColorDesc.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtColorDesc.setFocusable(false);
         add(txtColorDesc, new org.netbeans.lib.awtextra.AbsoluteConstraints(155, 55, 250, -1));
 
-        jLabel6.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel6.setText("Color");
         add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 60, -1, -1));
 
-        txtTerm.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtTerm.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtTermFocusLost(evt);
@@ -157,20 +146,16 @@ public class PurchaseOrderPanel2 extends javax.swing.JPanel implements KeyListen
         });
         add(txtTerm, new org.netbeans.lib.awtextra.AbsoluteConstraints(315, 105, 90, -1));
 
-        jLabel7.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel7.setText("Model");
         add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 85, -1, -1));
 
         txtModelDesc.setEditable(false);
-        txtModelDesc.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtModelDesc.setFocusable(false);
         add(txtModelDesc, new org.netbeans.lib.awtextra.AbsoluteConstraints(155, 80, 250, -1));
 
-        jLabel8.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel8.setText("Down.");
         add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 110, -1, -1));
 
-        txtDownPayment.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtDownPayment.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtDownPaymentFocusLost(evt);
@@ -178,19 +163,14 @@ public class PurchaseOrderPanel2 extends javax.swing.JPanel implements KeyListen
         });
         add(txtDownPayment, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 105, 160, -1));
 
-        jLabel9.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel9.setText("Term");
         add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 110, -1, -1));
-
-        txtModelCode.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         add(txtModelCode, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 80, 70, -1));
 
-        jLabel11.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel11.setText("Price");
         add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 10, -1, -1));
 
         txtPrice.setEditable(false);
-        txtPrice.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtPrice.setFocusable(false);
         txtPrice.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -199,11 +179,9 @@ public class PurchaseOrderPanel2 extends javax.swing.JPanel implements KeyListen
         });
         add(txtPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 5, 325, -1));
 
-        jLabel12.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel12.setText("M.A.");
         add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 135, -1, -1));
 
-        txtMA.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtMA.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtMAFocusLost(evt);
@@ -211,14 +189,12 @@ public class PurchaseOrderPanel2 extends javax.swing.JPanel implements KeyListen
         });
         add(txtMA, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 130, 325, -1));
 
-        jLabel15.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel15.setText("Released Date");
         add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 110, -1, -1));
 
         txtReleasedDate.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         add(txtReleasedDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 105, 70, -1));
 
-        checkApproved.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         checkApproved.setText("APPROVED");
         checkApproved.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -227,7 +203,6 @@ public class PurchaseOrderPanel2 extends javax.swing.JPanel implements KeyListen
         });
         add(checkApproved, new org.netbeans.lib.awtextra.AbsoluteConstraints(605, 105, -1, -1));
 
-        checkDisApproved.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         checkDisApproved.setForeground(new java.awt.Color(203, 28, 28));
         checkDisApproved.setText("DISAPPROVED");
         checkDisApproved.addItemListener(new java.awt.event.ItemListener() {
@@ -238,7 +213,6 @@ public class PurchaseOrderPanel2 extends javax.swing.JPanel implements KeyListen
         add(checkDisApproved, new org.netbeans.lib.awtextra.AbsoluteConstraints(715, 105, -1, -1));
 
         txtBal.setEditable(false);
-        txtBal.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtBal.setFocusable(false);
         txtBal.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -247,11 +221,9 @@ public class PurchaseOrderPanel2 extends javax.swing.JPanel implements KeyListen
         });
         add(txtBal, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 30, 325, -1));
 
-        jLabel17.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel17.setText("Bal.");
         add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 35, -1, -1));
 
-        txtInsAmount.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtInsAmount.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtInsAmountFocusLost(evt);
@@ -259,15 +231,12 @@ public class PurchaseOrderPanel2 extends javax.swing.JPanel implements KeyListen
         });
         add(txtInsAmount, new org.netbeans.lib.awtextra.AbsoluteConstraints(545, 55, 270, -1));
 
-        jLabel18.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel18.setText("Insurance Amount");
         add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 60, -1, -1));
 
-        jLabel19.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel19.setText("Insurance Comp.");
         add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 85, -1, -1));
 
-        txtInsComp.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtInsComp.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtInsCompFocusLost(evt);
@@ -275,29 +244,24 @@ public class PurchaseOrderPanel2 extends javax.swing.JPanel implements KeyListen
         });
         add(txtInsComp, new org.netbeans.lib.awtextra.AbsoluteConstraints(545, 80, 270, -1));
 
-        jLabel13.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel13.setText("Remarks");
         add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 160, -1, -1));
 
         txtRemarks.setColumns(20);
+        txtRemarks.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         txtRemarks.setRows(5);
         jScrollPane1.setViewportView(txtRemarks);
 
         add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 155, 735, -1));
 
-        comboMotorStatus.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         comboMotorStatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "REPO", "BRAND NEW" }));
         add(comboMotorStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 5, 110, -1));
-
-        txtCICode.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         add(txtCICode, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 130, 70, -1));
 
         txtCIDesc.setEditable(false);
-        txtCIDesc.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtCIDesc.setFocusable(false);
         add(txtCIDesc, new org.netbeans.lib.awtextra.AbsoluteConstraints(565, 130, 250, -1));
 
-        jLabel16.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel16.setText("CI Coll.");
         add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 135, -1, -1));
     }// </editor-fold>//GEN-END:initComponents

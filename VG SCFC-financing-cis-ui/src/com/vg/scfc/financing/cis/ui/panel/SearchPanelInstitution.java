@@ -8,14 +8,10 @@ package com.vg.scfc.financing.cis.ui.panel;
 import com.vg.commons.dlg.WaitSplashScreen;
 import com.vg.commons.listener.DoJasperPrintReport;
 import com.vg.commons.renderer.CustomTableCellRenderer;
-import com.vg.commons.util.UIMgr;
 import com.vg.scfc.financing.cis.ent.Customer;
-import com.vg.scfc.financing.cis.ent.PersonalInfo;
 import com.vg.scfc.financing.cis.ent.TransactionForm;
-import com.vg.scfc.financing.cis.ui.controller.PersonalInfoController;
 import com.vg.scfc.financing.cis.ui.controller.ReportController;
 import com.vg.scfc.financing.cis.ui.controller.SearchController;
-import com.vg.scfc.financing.cis.ui.dialog.CAFReportDlg;
 import com.vg.scfc.financing.cis.ui.settings.UISetting;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 import java.text.SimpleDateFormat;
@@ -72,6 +68,7 @@ public class SearchPanelInstitution extends javax.swing.JPanel implements DoJasp
     }
 
     private void initTransactionFormTable() {
+        tblTransactionForm.putClientProperty("Quaqua.Table.style", "striped");
         tblTransactionForm.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         tblTransactionForm.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 
@@ -114,7 +111,9 @@ public class SearchPanelInstitution extends javax.swing.JPanel implements DoJasp
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        tblCustomer.setFont(new java.awt.Font("Monospaced", 1, 9)); // NOI18N
+        tblCustomer.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        tblCustomer.setShowHorizontalLines(false);
+        tblCustomer.setShowVerticalLines(false);
         tblCustomer.getTableHeader().setReorderingAllowed(false);
 
         org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, customers, tblCustomer);
@@ -149,6 +148,10 @@ public class SearchPanelInstitution extends javax.swing.JPanel implements DoJasp
             }
         });
         add(txtSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 250, -1));
+
+        tblTransactionForm.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        tblTransactionForm.setShowHorizontalLines(false);
+        tblTransactionForm.setShowVerticalLines(false);
 
         jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, transactionForms, tblTransactionForm);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${txFormNo}"));

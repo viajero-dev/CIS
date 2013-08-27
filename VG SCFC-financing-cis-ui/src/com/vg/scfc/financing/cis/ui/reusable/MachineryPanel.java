@@ -89,6 +89,9 @@ public class MachineryPanel extends javax.swing.JPanel implements KeyListener {
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        tableMachinery.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        tableMachinery.setShowHorizontalLines(false);
+        tableMachinery.setShowVerticalLines(false);
         tableMachinery.getTableHeader().setReorderingAllowed(false);
 
         org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, machineries, tableMachinery);
@@ -105,11 +108,9 @@ public class MachineryPanel extends javax.swing.JPanel implements KeyListener {
 
         add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 5, 380, 100));
 
-        jLabel1.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel1.setText("Type");
         add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 120, -1, -1));
 
-        txtMachineType.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtMachineType.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtMachineTypeFocusLost(evt);
@@ -117,11 +118,9 @@ public class MachineryPanel extends javax.swing.JPanel implements KeyListener {
         });
         add(txtMachineType, new org.netbeans.lib.awtextra.AbsoluteConstraints(93, 115, 170, -1));
 
-        jLabel2.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel2.setText("Quantity");
         add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 145, -1, -1));
 
-        txtMachineQty.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtMachineQty.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtMachineQtyFocusLost(evt);
@@ -129,11 +128,9 @@ public class MachineryPanel extends javax.swing.JPanel implements KeyListener {
         });
         add(txtMachineQty, new org.netbeans.lib.awtextra.AbsoluteConstraints(93, 140, 80, -1));
 
-        jLabel3.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel3.setText("Est. of value");
         add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 170, -1, -1));
 
-        txtMachineEstValue.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtMachineEstValue.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtMachineEstValueFocusLost(evt);
@@ -142,10 +139,9 @@ public class MachineryPanel extends javax.swing.JPanel implements KeyListener {
         add(txtMachineEstValue, new org.netbeans.lib.awtextra.AbsoluteConstraints(93, 165, 170, -1));
 
         txtTotalEstValue.setEditable(false);
-        txtTotalEstValue.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
-        add(txtTotalEstValue, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 200, 140, -1));
+        txtTotalEstValue.setFocusable(false);
+        add(txtTotalEstValue, new org.netbeans.lib.awtextra.AbsoluteConstraints(265, 200, 140, -1));
 
-        jLabel4.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel4.setText("Total Est. of value");
         add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 205, -1, -1));
         add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 190, 400, -1));

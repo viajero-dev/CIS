@@ -8,6 +8,7 @@ package com.vg.scfc.financing.cis.ui.panel;
 import com.vg.commons.dlg.WaitSplashScreen;
 import com.vg.commons.listener.DoJasperPrintReport;
 import com.vg.commons.util.NumberUtils;
+import com.vg.commons.util.UIMgr;
 import com.vg.scfc.financing.cis.ent.Customer;
 import com.vg.scfc.financing.cis.ent.PersonalInfo;
 import com.vg.scfc.financing.cis.ent.PurchaseOrder;
@@ -20,7 +21,6 @@ import com.vg.scfc.financing.cis.ui.controller.CreditReferenceController;
 import com.vg.scfc.financing.cis.ui.controller.EmploymentController;
 import com.vg.scfc.financing.cis.ui.controller.ExpenditureController;
 import com.vg.scfc.financing.cis.ui.controller.FamilyBackgroundController;
-import com.vg.scfc.financing.cis.ui.controller.FormController;
 import com.vg.scfc.financing.cis.ui.controller.LandAssetController;
 import com.vg.scfc.financing.cis.ui.controller.MachineryAssetsController;
 import com.vg.scfc.financing.cis.ui.controller.PersonalInfoController;
@@ -32,9 +32,9 @@ import com.vg.scfc.financing.cis.ui.controller.SearchController;
 import com.vg.scfc.financing.cis.ui.controller.SiblingController;
 import com.vg.scfc.financing.cis.ui.controller.SourceOfIncomeController;
 import com.vg.scfc.financing.cis.ui.controller.VehicleAssetsController;
+import com.vg.scfc.financing.cis.ui.dialog.ApplicationFormDlg;
 import com.vg.scfc.financing.cis.ui.listener.AddEditChangeListener;
 import com.vg.scfc.financing.cis.ui.listener.BasicActionListener;
-import com.vg.scfc.financing.cis.ui.reusable.ApplicationFormAndDatePanel;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 import java.math.BigDecimal;
 import java.text.ParseException;
@@ -42,7 +42,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -135,18 +134,19 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
 
             @Override
             public void onAdd() {
-                ApplicationFormAndDatePanel formAndDatePanel = new ApplicationFormAndDatePanel();
-                JOptionPane.showMessageDialog(null, formAndDatePanel, "APPLICATION", JOptionPane.QUESTION_MESSAGE);
+                resetFields();
+                ApplicationFormDlg form = new ApplicationFormDlg(null, true);
+                UIMgr.centerToScreen(form);
+                form.setVisible(true);
                 headerPanel.setFormNo("");
-                headerPanel.setIDNo(formAndDatePanel.getFormSeries());
+                headerPanel.setIDNo(form.getFormSeries());
                 try {
-                    headerPanel.setApplicationDate(formAndDatePanel.getApplicationDate());
+                    headerPanel.setApplicationDate(form.getApplicationDate());
                 } catch (ParseException ex) {
                     UIValidator.log(ex, MainPanel.class);
                 }
                 headerPanel.enableFields(false);
                 panelPersonalInfo.setFieldsEditable(true);
-                panelPersonalInfo.resetToDefault();
             }
 
             @Override
@@ -211,6 +211,7 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
                 } else {
                     UIValidator.promptSucessMessageFor("SAVE");
                     panelEmploymentData.setFieldsEditable(false);
+                     refreshSearch(headerPanel.getFormNo());
                 }
                 return isSaved;
             }
@@ -264,6 +265,7 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
                 } else {
                     UIValidator.promptSucessMessageFor("SAVE");
                     panelFamilyBackground.setFieldsEditable(false);
+                     refreshSearch(headerPanel.getFormNo());
                 }
                 return isSaved;
             }
@@ -316,6 +318,7 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
                 } else {
                     UIValidator.promptSucessMessageFor("SAVE");
                     panelSibling.setFieldsEditable(false);
+                     refreshSearch(headerPanel.getFormNo());
                 }
                 return isSaved;
             }
@@ -368,6 +371,7 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
                 } else {
                     UIValidator.promptSucessMessageFor("SAVE");
                     panelCharacterReference.setFieldsEditable(false);
+                     refreshSearch(headerPanel.getFormNo());
                 }
                 return isSaved;
             }
@@ -420,6 +424,7 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
                 } else {
                     UIValidator.promptSucessMessageFor("SAVE");
                     panelDependents.setFieldsEditable(false);
+                     refreshSearch(headerPanel.getFormNo());
                 }
                 return isSaved;
             }
@@ -472,6 +477,7 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
                 } else {
                     UIValidator.promptSucessMessageFor("SAVE");
                     panelCreditReference.setFieldsEditable(false);
+                     refreshSearch(headerPanel.getFormNo());
                 }
                 return isSaved;
             }
@@ -526,6 +532,7 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
                 } else {
                     UIValidator.promptSucessMessageFor("SAVE");
                     panelSourceOfIncome.setFieldsEditable(false);
+                     refreshSearch(headerPanel.getFormNo());
                 }
                 return isSaved;
             }
@@ -579,6 +586,7 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
                 } else {
                     UIValidator.promptSucessMessageFor("SAVE");
                     panelExpenditures.setFieldsEditable(false);
+                     refreshSearch(headerPanel.getFormNo());
                 }
                 return isSaved;
             }
@@ -631,6 +639,7 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
                 } else {
                     UIValidator.promptSucessMessageFor("SAVE");
                     panelLandAssets.setFieldsEditable(false);
+                     refreshSearch(headerPanel.getFormNo());
                 }
                 return isSaved;
             }
@@ -683,6 +692,7 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
                 } else {
                     UIValidator.promptSucessMessageFor("SAVE");
                     panelVehicle.setFieldsEditable(false);
+                     refreshSearch(headerPanel.getFormNo());
                 }
                 return isSaved;
             }
@@ -735,6 +745,7 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
                 } else {
                     UIValidator.promptSucessMessageFor("SAVE");
                     panelAppliance.setFieldsEditable(false);
+                     refreshSearch(headerPanel.getFormNo());
                 }
                 return isSaved;
             }
@@ -784,6 +795,9 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
                 boolean isSaved = panelMachinery.saveMachinery();
                 if (!isSaved) {
                     UIValidator.promptErrorMessageOn("SAVE");
+                } else {
+                    UIValidator.promptSucessMessageFor("SAVE");
+                    refreshSearch(headerPanel.getFormNo());
                 }
                 return isSaved;
             }
@@ -836,6 +850,7 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
                 } else {
                     UIValidator.promptSucessMessageFor("SAVE");
                     panelSpousePersonalInfo.setFieldsEditable(false);
+                     refreshSearch(headerPanel.getFormNo());
                 }
                 return isSaved;
             }
@@ -889,6 +904,7 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
                 } else {
                     UIValidator.promptSucessMessageFor("SAVE");
                     panelSpouseEmployment.setFieldsEditable(false);
+                     refreshSearch(headerPanel.getFormNo());
                 }
                 return isSaved;
             }
@@ -943,6 +959,7 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
                 } else {
                     UIValidator.promptSucessMessageFor("SAVE");
                     panelSpouseFamilyBackground.setFieldsEditable(false);
+                     refreshSearch(headerPanel.getFormNo());
                 }
                 return isSaved;
             }
@@ -1108,6 +1125,7 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
                 } else {
                     UIValidator.promptSucessMessageFor("SAVE");
                     panelCoMakerFamilyBackground.setFieldsEditable(false);
+                     refreshSearch(headerPanel.getFormNo());
                 }
                 return isSaved;
             }
@@ -1166,6 +1184,7 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
                 } else {
                     UIValidator.promptSucessMessageFor("SAVE");
                     panelCoMakerSourceOfIncome.setFieldsEditable(false);
+                     refreshSearch(headerPanel.getFormNo());
                 }
                 return isSaved;
             }
@@ -1224,6 +1243,7 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
                 } else {
                     UIValidator.promptSucessMessageFor("SAVE");
                     panelCoMakerSpousePersonalInformation.setFieldsEditable(false);
+                     refreshSearch(headerPanel.getFormNo());
                 }
                 return isSaved;
             }
@@ -1278,6 +1298,7 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
                 } else {
                     UIValidator.promptSucessMessageFor("SAVE");
                     panelCoMakerSpouseEmploymentData.setFieldsEditable(false);
+                     refreshSearch(headerPanel.getFormNo());
                 }
                 return isSaved;
             }
@@ -1332,6 +1353,7 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
                 } else {
                     UIValidator.promptSucessMessageFor("SAVE");
                     panelCoMakerSpouseFamilyBackground.setFieldsEditable(false);
+                     refreshSearch(headerPanel.getFormNo());
                 }
                 return isSaved;
             }
@@ -1387,6 +1409,7 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
                 } else {
                     UIValidator.promptSucessMessageFor("SAVE");
                     panelAddress.setFieldsEditable(false);
+                     refreshSearch(headerPanel.getFormNo());
                 }
                 return isSaved;
             }
@@ -1462,6 +1485,7 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
                 } else {
                     UIValidator.promptSucessMessageFor("SAVE");
                     panelSpouseAddress.setFieldsEditable(false);
+                     refreshSearch(headerPanel.getFormNo());
                 }
                 return isSaved;
             }
@@ -1537,6 +1561,7 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
                 } else {
                     UIValidator.promptSucessMessageFor("SAVE");
                     panelCoMakerAddress.setFieldsEditable(false);
+                     refreshSearch(headerPanel.getFormNo());
                 }
                 return isSaved;
             }
@@ -1604,6 +1629,9 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
                 boolean isSaved = panelCoMakerSpouseAddress.saveAddress();
                 if (!isSaved) {
                     UIValidator.promptErrorMessageOn("SAVE");
+                } else {
+                    UIValidator.promptSucessMessageFor("SAVE");
+                     refreshSearch(headerPanel.getFormNo());
                 }
                 return isSaved;
             }
@@ -1676,7 +1704,7 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
                 } else {
                     UIValidator.promptSucessMessageFor("SAVE");
                     panelPO.setFieldsEditable(false);
-                    fillValue(FormController.getInstance().findByFormNo(headerPanel.getFormNo()));
+                     refreshSearch(headerPanel.getFormNo());
                 }
                 return isSaved;
             }
@@ -1838,7 +1866,7 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
     }
 
     public void resetFields() {
-        headerPanel.enableFields(true);
+        headerPanel.enableFields(false);
 
         panelPersonalInfo.resetToDefault();
         panelEmploymentData.resetToDefault();
@@ -1874,7 +1902,7 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
         /* Purchase Order */
         panelPO.resetToDefault();
         /* Riders to Buyers */
-//        panelRidersToBuyer.res
+        panelRidersToBuyer.resetToDefault();
     }
 
     public void clearHeader() {
@@ -2053,12 +2081,10 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
         jPanel8.add(panelSourceOfIncome, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
         jPanel8.add(addEditSourceOfInc, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 240, -1, -1));
 
-        lblAvgMonthlyIncomeForOtherSources.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         lblAvgMonthlyIncomeForOtherSources.setText("Total Monthly Income");
         jPanel8.add(lblAvgMonthlyIncomeForOtherSources, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 290, -1, -1));
 
         txtTotalMonthlyIncome.setEditable(false);
-        txtTotalMonthlyIncome.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtTotalMonthlyIncome.setFocusable(false);
         jPanel8.add(txtTotalMonthlyIncome, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 285, 127, -1));
 
@@ -2072,11 +2098,11 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
 
         jPanel10.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTabbedPane2.setTabPlacement(javax.swing.JTabbedPane.LEFT);
+        jTabbedPane2.setTabPlacement(javax.swing.JTabbedPane.BOTTOM);
         jTabbedPane2.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
 
         jPanel11.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel11.add(panelLandAssets, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 5, -1, -1));
+        jPanel11.add(panelLandAssets, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 5, 970, 150));
         jPanel11.add(addEditLandAssets, new org.netbeans.lib.awtextra.AbsoluteConstraints(92, 215, -1, -1));
 
         jTabbedPane2.addTab("Land", jPanel11);

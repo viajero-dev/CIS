@@ -86,6 +86,9 @@ public class AppliancesPanel extends javax.swing.JPanel implements KeyListener {
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        tableAppliance.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        tableAppliance.setShowHorizontalLines(false);
+        tableAppliance.setShowVerticalLines(false);
         tableAppliance.getTableHeader().setReorderingAllowed(false);
 
         org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, appliances, tableAppliance);
@@ -100,12 +103,10 @@ public class AppliancesPanel extends javax.swing.JPanel implements KeyListener {
 
         add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 5, 433, 90));
 
-        jLabel2.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel2.setText("Type:");
         add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 110, -1, -1));
 
-        comboApplianceType.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
-        comboApplianceType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Television", "Refrigerator", "Washing Machine", "Aircon Unit", "Computer", "DVD/VCD", "Others" }));
+        comboApplianceType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "TELEVISION", "REFRIGERATOR", "WASHING MACHINE", "AIRCON UNIT", "COMPUTER", "DVD/VCD", "OTHERS" }));
         comboApplianceType.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 comboApplianceTypeItemStateChanged(evt);
@@ -113,11 +114,9 @@ public class AppliancesPanel extends javax.swing.JPanel implements KeyListener {
         });
         add(comboApplianceType, new org.netbeans.lib.awtextra.AbsoluteConstraints(55, 105, 144, -1));
 
-        jLabel3.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel3.setText("Est. value");
         add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 110, -1, -1));
 
-        txtEstValue.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtEstValue.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtEstValueFocusLost(evt);
@@ -125,12 +124,10 @@ public class AppliancesPanel extends javax.swing.JPanel implements KeyListener {
         });
         add(txtEstValue, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 105, 140, -1));
 
-        jLabel4.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel4.setText("Total Est. value");
         add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(221, 135, -1, -1));
 
         txtTotalEstValue.setEditable(false);
-        txtTotalEstValue.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtTotalEstValue.setFocusable(false);
         add(txtTotalEstValue, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 130, 140, -1));
 

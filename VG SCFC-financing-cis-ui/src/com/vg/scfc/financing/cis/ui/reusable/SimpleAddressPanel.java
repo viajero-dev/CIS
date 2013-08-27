@@ -78,29 +78,23 @@ public class SimpleAddressPanel extends javax.swing.JPanel implements KeyListene
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel1.setText("Brgy.");
         add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
-        jLabel4.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel4.setText("Description");
         add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, -1, -1));
 
-        txtBrgy.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtBrgy.setToolTipText("Press F5 to search");
         add(txtBrgy, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 5, 80, -1));
 
         txtDesc.setEditable(false);
-        txtDesc.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtDesc.setToolTipText("Press F5 to search");
         txtDesc.setFocusable(false);
         add(txtDesc, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, 500, -1));
 
-        jLabel2.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel2.setText("Zipcode");
         add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 10, -1, -1));
 
-        txtZipcode.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtZipcode.setToolTipText("Press F5 to search");
         txtZipcode.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -109,11 +103,9 @@ public class SimpleAddressPanel extends javax.swing.JPanel implements KeyListene
         });
         add(txtZipcode, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 5, 80, -1));
 
-        jLabel3.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel3.setText("Street");
         add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 10, -1, -1));
 
-        txtStreet.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtStreet.setToolTipText("Press F5 to search");
         txtStreet.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -122,32 +114,25 @@ public class SimpleAddressPanel extends javax.swing.JPanel implements KeyListene
         });
         add(txtStreet, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 5, 230, -1));
 
-        jLabel5.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel5.setText("Status");
         add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, -1, -1));
 
-        optionAddressOwned.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         optionAddressOwned.setSelected(true);
         optionAddressOwned.setText("Owned");
         add(optionAddressOwned, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 55, -1, -1));
 
-        optionAddressRenting.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         optionAddressRenting.setText("Renting");
         add(optionAddressRenting, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 55, -1, -1));
 
-        optionAddressLiving.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         optionAddressLiving.setText("Living with Parents/Relatives");
         add(optionAddressLiving, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 55, -1, -1));
 
-        optionAddressOthers.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         optionAddressOthers.setText("Others");
         add(optionAddressOthers, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 55, -1, -1));
 
-        jLabel6.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel6.setText("Yrs. of stay");
         add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 60, -1, -1));
 
-        txtYrsOfStay.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtYrsOfStay.setToolTipText("Press F5 to search");
         txtYrsOfStay.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {

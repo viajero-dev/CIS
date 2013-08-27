@@ -26,6 +26,9 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JTextField;
+import net.java.balloontip.BalloonTip;
+import net.java.balloontip.utils.FadingUtils;
+import net.java.balloontip.utils.ToolTipUtils;
 import vg.img.service.Caller;
 import vg.img.ui.WebCamDlg;
 
@@ -184,9 +187,11 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
         jLabel1.setText("Last name");
         jPanel4.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 10, -1, -1));
 
-        txtLastName.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtLastName.setToolTipText("PRESS F5 FOR EXISTING CUSTOMER");
         txtLastName.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtLastNameFocusGained(evt);
+            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtLastNameFocusLost(evt);
             }
@@ -197,7 +202,6 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
         jLabel100.setText("First name");
         jPanel4.add(jLabel100, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 35, -1, -1));
 
-        txtFirstName.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtFirstName.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtFirstNameFocusLost(evt);
@@ -209,7 +213,6 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
         jLabel101.setText("Middle name");
         jPanel4.add(jLabel101, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 60, -1, -1));
 
-        txtMiddleName.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtMiddleName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtMiddleNameActionPerformed(evt);
@@ -226,15 +229,16 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
         jPanel4.add(jLabel103, new org.netbeans.lib.awtextra.AbsoluteConstraints(225, 85, -1, -1));
 
         txtAge.setEditable(false);
-        txtAge.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         jPanel4.add(txtAge, new org.netbeans.lib.awtextra.AbsoluteConstraints(265, 80, 83, -1));
 
         jLabel104.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel104.setText("Previous Address");
         jPanel4.add(jLabel104, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 161, -1, -1));
 
-        txtPreviousAddress.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtPreviousAddress.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtPreviousAddressFocusGained(evt);
+            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtPreviousAddressFocusLost(evt);
             }
@@ -305,7 +309,6 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
         jLabel113.setText("Contact");
         jPanel4.add(jLabel113, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 35, -1, -1));
 
-        txtContact.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtContact.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtContactActionPerformed(evt);
@@ -321,7 +324,6 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
         jLabel116.setText("Present Address");
         jPanel4.add(jLabel116, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 136, -1, -1));
 
-        txtBirthPlace.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtBirthPlace.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtBirthPlaceFocusLost(evt);
@@ -333,8 +335,10 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
         jLabel111.setText("Birth Place");
         jPanel4.add(jLabel111, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 110, -1, -1));
 
-        txtPresentAddress.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtPresentAddress.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtPresentAddressFocusGained(evt);
+            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtPresentAddressFocusLost(evt);
             }
@@ -457,6 +461,21 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
         txtCitizenship.setText(txtCitizenship.getText().toUpperCase());
     }//GEN-LAST:event_txtCitizenshipFocusLost
 
+    private void txtLastNameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtLastNameFocusGained
+        lastnameTip = new BalloonTip(txtLastName, "PRESS F5 FOR EXISTING RECORDS");
+        FadingUtils.fadeOutBalloon(lastnameTip, null, 5000, 24);
+    }//GEN-LAST:event_txtLastNameFocusGained
+
+    private void txtPresentAddressFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPresentAddressFocusGained
+        addressTip = new BalloonTip(txtPresentAddress, "PRESS F5 FOR ADDRESS DIALOG");
+        FadingUtils.fadeOutBalloon(addressTip, null, 5000, 24);
+    }//GEN-LAST:event_txtPresentAddressFocusGained
+
+    private void txtPreviousAddressFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPreviousAddressFocusGained
+       addressTip = new BalloonTip(txtPreviousAddress, "PRESS F5 FOR ADDRESS DIALOG");
+       FadingUtils.fadeOutBalloon(addressTip, null, 5000, 24);
+    }//GEN-LAST:event_txtPreviousAddressFocusGained
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnTakePicture;
     private javax.swing.JComboBox comboEducationStatus;
@@ -505,6 +524,8 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
     private MainPanel mainPanel;
     private Address presentAddress;
     private Address previousAddress;
+    BalloonTip lastnameTip;
+    BalloonTip addressTip;
     
     public void setPreviousAddress(Address previousAddress) {
         this.previousAddress = previousAddress;
@@ -719,7 +740,7 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
             txtLastName.setText(p.getLastName());
             txtFirstName.setText(p.getFirstName());
             txtMiddleName.setText(p.getMiddleName());
-            txtBirthDate.setText(p.getDateOfBirth().toString());
+            txtBirthDate.setDate(p.getDateOfBirth());
             txtAge.setText(p.getAge() + "");
             txtBirthPlace.setText(p.getPlaceOfBirth());
             switch (p.getGender().toUpperCase()) {
@@ -733,7 +754,7 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
                     break;
             }
             txtContact.setText(p.getContactNo());
-            switch (p.getCivilStatus()) {
+            switch (p.getCivilStatus().trim().toUpperCase()) {
                 case "SINGLE":
                     comboStatus.setSelectedIndex(0);
                     comboMarriedOption.setEnabled(false);

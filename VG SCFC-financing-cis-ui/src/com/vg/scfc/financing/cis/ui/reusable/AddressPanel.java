@@ -119,6 +119,9 @@ public class AddressPanel extends javax.swing.JPanel implements KeyListener {
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        tableAddress.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        tableAddress.setShowHorizontalLines(false);
+        tableAddress.setShowVerticalLines(false);
         tableAddress.getTableHeader().setReorderingAllowed(false);
 
         org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, addresses, tableAddress);
@@ -145,11 +148,9 @@ public class AddressPanel extends javax.swing.JPanel implements KeyListener {
 
         add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 5, 570, 90));
 
-        jLabel1.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel1.setText("Brgy.");
         add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 120, -1, -1));
 
-        txtBrgy.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtBrgy.setToolTipText("Press F5 to search");
         txtBrgy.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -158,11 +159,9 @@ public class AddressPanel extends javax.swing.JPanel implements KeyListener {
         });
         add(txtBrgy, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 115, 80, -1));
 
-        jLabel2.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel2.setText("Zipcode");
         add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(155, 120, -1, -1));
 
-        txtYrsOfStay.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtYrsOfStay.setToolTipText("Press F5 to search");
         txtYrsOfStay.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -171,11 +170,9 @@ public class AddressPanel extends javax.swing.JPanel implements KeyListener {
         });
         add(txtYrsOfStay, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 165, 80, -1));
 
-        jLabel3.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel3.setText("Street");
         add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(315, 120, -1, -1));
 
-        txtStreet.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtStreet.setToolTipText("Press F5 to search");
         txtStreet.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -184,61 +181,52 @@ public class AddressPanel extends javax.swing.JPanel implements KeyListener {
         });
         add(txtStreet, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 115, 230, -1));
 
-        jLabel4.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel4.setText("Description");
         add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 145, -1, -1));
 
         txtDesc.setEditable(false);
-        txtDesc.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtDesc.setToolTipText("Press F5 to search");
         txtDesc.setFocusable(false);
         add(txtDesc, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 140, 500, -1));
 
-        jLabel5.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel5.setText("Status");
         add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 170, -1, -1));
 
-        optionAddressOwned.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         optionAddressOwned.setText("Owned");
         optionAddressOwned.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 optionAddressOwnedItemStateChanged(evt);
             }
         });
-        add(optionAddressOwned, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 166, -1, -1));
+        add(optionAddressOwned, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 165, -1, -1));
 
-        optionAddressRenting.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         optionAddressRenting.setText("Renting");
         optionAddressRenting.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 optionAddressRentingItemStateChanged(evt);
             }
         });
-        add(optionAddressRenting, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 166, -1, -1));
+        add(optionAddressRenting, new org.netbeans.lib.awtextra.AbsoluteConstraints(125, 165, -1, -1));
 
-        optionAddressLiving.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         optionAddressLiving.setText("Living with Parents/Relatives");
         optionAddressLiving.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 optionAddressLivingItemStateChanged(evt);
             }
         });
-        add(optionAddressLiving, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 166, -1, -1));
+        add(optionAddressLiving, new org.netbeans.lib.awtextra.AbsoluteConstraints(195, 165, -1, -1));
 
-        optionAddressOthers.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         optionAddressOthers.setText("Others");
         optionAddressOthers.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 optionAddressOthersItemStateChanged(evt);
             }
         });
-        add(optionAddressOthers, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 166, -1, -1));
+        add(optionAddressOthers, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 165, -1, -1));
 
-        jLabel6.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel6.setText("Yrs. of stay");
         add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 170, -1, -1));
 
-        txtZipcode.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtZipcode.setToolTipText("Press F5 to search");
         txtZipcode.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -247,27 +235,24 @@ public class AddressPanel extends javax.swing.JPanel implements KeyListener {
         });
         add(txtZipcode, new org.netbeans.lib.awtextra.AbsoluteConstraints(215, 115, 80, -1));
 
-        jLabel7.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel7.setText("Use as");
         add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 195, -1, -1));
 
-        optionPresent.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         optionPresent.setText("Present Address");
         optionPresent.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 optionPresentItemStateChanged(evt);
             }
         });
-        add(optionPresent, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 190, -1, -1));
+        add(optionPresent, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 189, -1, -1));
 
-        optionPrevious.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         optionPrevious.setText("Previous Address");
         optionPrevious.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 optionPreviousItemStateChanged(evt);
             }
         });
-        add(optionPrevious, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 190, -1, -1));
+        add(optionPrevious, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 189, -1, -1));
 
         bindingGroup.bind();
     }// </editor-fold>//GEN-END:initComponents

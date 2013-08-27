@@ -48,13 +48,17 @@ public class CAFReportPanel extends javax.swing.JPanel implements DoJasperPrintR
         jSeparator1 = new javax.swing.JSeparator();
         btnPrint = new javax.swing.JButton();
 
+        optionFront.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         optionFront.setSelected(true);
         optionFront.setText("Front Page");
 
+        optionBack.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         optionBack.setText("Back Page");
 
+        optionCM1.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         optionCM1.setText("Co-Maker 1");
 
+        optionCM2.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         optionCM2.setText("Co-Maker 2");
 
         btnPrint.setText("Print");
@@ -78,7 +82,7 @@ public class CAFReportPanel extends javax.swing.JPanel implements DoJasperPrintR
                             .addComponent(optionBack)
                             .addComponent(optionCM1)
                             .addComponent(optionCM2))
-                        .addGap(0, 16, Short.MAX_VALUE))
+                        .addGap(0, 17, Short.MAX_VALUE))
                     .addComponent(btnPrint, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );

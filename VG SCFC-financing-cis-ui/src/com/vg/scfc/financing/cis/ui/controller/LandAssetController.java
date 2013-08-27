@@ -85,5 +85,13 @@ public class LandAssetController {
         }
         return result;
     }
+    
+    public double computeTotalEstimatedValue(List<Land> lands) {
+        double total = 0;
+        for (Land land : lands) {
+            total += land.getAmount();
+        }
+        return total;
+    }
 
 }

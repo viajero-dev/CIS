@@ -5,17 +5,19 @@
  */
 package com.vg.scfc.financing.cis.ui.reusable;
 
+import com.vg.commons.formattedfields.JTextFieldLimit;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.text.ParseException;
 import java.util.Date;
+import javax.swing.JDialog;
 
 /**
  *
  * @author rodel
  */
-public class ApplicationFormAndDatePanel extends javax.swing.JPanel implements KeyListener{
+public class ApplicationFormAndDatePanel extends javax.swing.JPanel implements KeyListener {
 
     /**
      * Creates new form ApplicationFormAndDatePanel
@@ -24,7 +26,7 @@ public class ApplicationFormAndDatePanel extends javax.swing.JPanel implements K
         initComponents();
         initKeyListener();
     }
-    
+
     private void initKeyListener() {
         txtFormSeries.addKeyListener(this);
         txtAppDate.addKeyListener(this);
@@ -49,14 +51,14 @@ public class ApplicationFormAndDatePanel extends javax.swing.JPanel implements K
         }
         jLabel2 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
+        btnFinish = new javax.swing.JButton();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("SansSerif", 1, 10)); // NOI18N
         jLabel1.setText("Form Series");
         add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 10, -1, -1));
 
-        txtFormSeries.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
+        txtFormSeries.setDocument(new JTextFieldLimit(5));
         txtFormSeries.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtFormSeriesFocusLost(evt);
@@ -64,31 +66,48 @@ public class ApplicationFormAndDatePanel extends javax.swing.JPanel implements K
         });
         add(txtFormSeries, new org.netbeans.lib.awtextra.AbsoluteConstraints(124, 5, 152, -1));
 
-        txtAppDate.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
+        txtAppDate.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
         add(txtAppDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(124, 30, 152, -1));
 
-        jLabel2.setFont(new java.awt.Font("SansSerif", 1, 10)); // NOI18N
         jLabel2.setText("Application Date");
         add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 35, -1, -1));
         add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 55, 290, 10));
+
+        btnFinish.setText("Finish");
+        btnFinish.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFinishActionPerformed(evt);
+            }
+        });
+        add(btnFinish, new org.netbeans.lib.awtextra.AbsoluteConstraints(195, 60, 80, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtFormSeriesFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFormSeriesFocusLost
         txtFormSeries.setText(UIValidator.generateFormSeries(UIValidator.validate(txtFormSeries)));
     }//GEN-LAST:event_txtFormSeriesFocusLost
 
+    private void btnFinishActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinishActionPerformed
+        dlg.setVisible(false);
+    }//GEN-LAST:event_btnFinishActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnFinish;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JSeparator jSeparator1;
     private com.vg.commons.formattedfields.FormattedSimpleDateField txtAppDate;
     private javax.swing.JTextField txtFormSeries;
     // End of variables declaration//GEN-END:variables
-    
+    private JDialog dlg;
+
+    public void setDlg(JDialog dlg) {
+        this.dlg = dlg;
+    }
+
     public String getFormSeries() {
         return txtFormSeries.getText().trim();
     }
-    
+
     public Date getApplicationDate() throws ParseException {
         return txtAppDate.getDate();
     }
@@ -103,16 +122,18 @@ public class ApplicationFormAndDatePanel extends javax.swing.JPanel implements K
 
     @Override
     public void keyReleased(KeyEvent e) {
-        switch(e.getKeyCode()) {
+        switch (e.getKeyCode()) {
             case KeyEvent.VK_ENTER:
-                if(txtFormSeries.isFocusOwner()) {
+                if (txtFormSeries.isFocusOwner()) {
                     txtAppDate.requestFocus();
+                } else if(txtAppDate.isFocusOwner()) {
+                    btnFinish.requestFocus();
                 }
                 break;
             case KeyEvent.VK_UP:
-                if(txtAppDate.isFocusOwner()) {
-                    txtFormSeries.requestFocus();
-                }
+                if (txtAppDate.isFocusOwner()) {
+                txtFormSeries.requestFocus();
+            }
                 break;
         }
     }
