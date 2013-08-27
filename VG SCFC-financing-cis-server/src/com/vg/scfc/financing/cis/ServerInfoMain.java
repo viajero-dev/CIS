@@ -72,6 +72,7 @@ import com.vg.scfc.financing.cis.servicemgr.TransactionModeServiceManager;
 import com.vg.scfc.financing.cis.servicemgr.TribeServiceManager;
 import com.vg.scfc.financing.cis.servicemgr.VehicleServiceManager;
 import com.vg.scfc.financing.cis.util.ClientInfoUtil;
+import com.vg.scfc.financing.commons.entmgr.MiscManager;
 import com.vg.scfc.financing.commons.service.BarangayService;
 import com.vg.scfc.financing.commons.service.ControlAllowedAccessService;
 import com.vg.scfc.financing.commons.service.LocationService;
@@ -89,8 +90,13 @@ import com.vg.vmi.dealer.uts.servicemgr.McColorServiceManager;
 import com.vg.vmi.dealer.uts.servicemgr.McMakeServiceManager;
 import com.vg.vmi.dealer.uts.servicemgr.McModelServiceManager;
 import com.vg.vmi.dealer.uts.util.UnitTrackingUtil;
+import java.awt.Font;
+import static java.rmi.registry.LocateRegistry.getRegistry;
 import java.rmi.registry.Registry;
+import java.util.Enumeration;
+import java.util.Hashtable;
 import javax.swing.UIManager;
+import javax.swing.plaf.FontUIResource;
 import vg.img.service.ImageHandlingService;
 import vg.img.servicemgr.ImageHandlingManager;
 import vg.img.util.ImageSetting;
@@ -240,20 +246,52 @@ public class ServerInfoMain {
     public static void main(String[] args) {
         try {
             System.setProperty("Quaqua.tabLayoutPolicy", "wrap");
+
             UIManager.setLookAndFeel(ch.randelshofer.quaqua.QuaquaManager.getLookAndFeel());
             ServerInfoMain tx = new ServerInfoMain();
             tx.createRegistry(SettingProperties.getInstance().getServer(), SettingProperties.getInstance().getPort());
             tx.initRemoteObjects();
             tx.bindRemoteObjects();
             ConnectionProperties.setupConnection();
-            ImageSetting.setPath(System.getProperty("user.dir"));
             HrmUserUtil.setSessionFactory(ClientInfoUtil.getSessionFactory());
             CommonsUtil.setSessionFactory(ClientInfoUtil.getSessionFactory());
             UnitTrackingUtil.setSessionFactory(ClientInfoUtil.getSessionFactory());
+            ImageSetting.setPath(MiscManager.getInstance().findByCode("PIC_PATH").getDescription());  
             new ServerInfoMainFrame().setVisible(true);
         } catch (Exception e) {
+            System.out.println(e);
+            e.printStackTrace();
             System.exit(0);
         }
+    }
 
+    private static void setFontSize() {
+        int fontSize = 20;
+        Hashtable defaults = UIManager.getDefaults();
+        Enumeration keys = defaults.keys();
+        while (keys.hasMoreElements()) {
+            Object key = keys.nextElement();
+
+            if ((key instanceof String) && (((String) key).endsWith(".font"))) {
+                FontUIResource font = (FontUIResource) UIManager.get(key);
+                System.out.println("---" + key);
+                UIManager.put(key, new FontUIResource("Lucida Grande", Font.BOLD, 20));
+                defaults.put(key, new FontUIResource("Lucida Grande", Font.BOLD, 20));
+            }
+        }
+    }
+
+    public static void setUIFont() {
+        java.util.Enumeration keys = UIManager.getDefaults().keys();
+        while (keys.hasMoreElements()) {
+            Object key = keys.nextElement();
+            Object value = UIManager.get(key);
+            
+//            if ((key instanceof String) && (((String) key).endsWith(".font"))) {
+            if (value != null && value instanceof javax.swing.plaf.FontUIResource) {
+                System.out.println(key);
+                UIManager.put(key, new FontUIResource("Lucida Grande", Font.PLAIN, 20));
+            }
+        }
     }
 }

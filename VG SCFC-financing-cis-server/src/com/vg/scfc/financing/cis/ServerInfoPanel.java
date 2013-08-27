@@ -40,26 +40,60 @@ public class ServerInfoPanel extends javax.swing.JPanel {
         bthExit = new javax.swing.JButton();
 
         setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        add(lblIP, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, 150, 15));
-        add(lblPort, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 30, 150, 15));
 
-        jLabel2.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
-        jLabel2.setText("IP        :");
-        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
+        lblIP.setFont(new java.awt.Font("Arial Black", 0, 11)); // NOI18N
 
-        jLabel3.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
-        jLabel3.setText("Port      :");
-        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 70, -1));
+        lblPort.setFont(new java.awt.Font("Arial Black", 0, 11)); // NOI18N
 
-        bthExit.setFont(new java.awt.Font("Monospaced", 1, 10)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Arial Black", 0, 11)); // NOI18N
+        jLabel2.setText("IP           ");
+
+        jLabel3.setFont(new java.awt.Font("Arial Black", 0, 11)); // NOI18N
+        jLabel3.setText("PORT      ");
+
+        bthExit.setFont(new java.awt.Font("Arial Black", 1, 12)); // NOI18N
         bthExit.setText("Exit");
         bthExit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bthExitActionPerformed(evt);
             }
         });
-        add(bthExit, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 220, -1));
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblIP, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblPort, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(bthExit, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(7, 7, 7)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addComponent(lblIP, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addComponent(lblPort, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(bthExit)
+                .addContainerGap())
+        );
     }// </editor-fold>//GEN-END:initComponents
 
 private void bthExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bthExitActionPerformed

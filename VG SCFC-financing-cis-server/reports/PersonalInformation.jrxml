@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="personalinfo" pageWidth="280" pageHeight="144" columnWidth="280" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
-	<property name="ireport.zoom" value="3.138428376721007"/>
+	<property name="ireport.zoom" value="2.1435888100000047"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<queryString>
@@ -200,7 +200,7 @@
 				<textFieldExpression><![CDATA[$F{age}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement positionType="Float" x="44" y="79" width="125" height="13"/>
+				<reportElement positionType="Float" x="44" y="79" width="103" height="13"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="9" isBold="true"/>
 					<paragraph leftIndent="2"/>
@@ -208,7 +208,7 @@
 				<textFieldExpression><![CDATA[$F{gender}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement positionType="Float" x="34" y="92" width="135" height="13"/>
+				<reportElement positionType="Float" x="34" y="92" width="113" height="13"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="9" isBold="true"/>
 					<paragraph leftIndent="2"/>
@@ -248,7 +248,7 @@
 				<text><![CDATA[MARITAL STATUS:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="Float" x="170" y="79" width="109" height="13"/>
+				<reportElement positionType="Float" x="147" y="79" width="132" height="13"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="Arial" size="9"/>
 					<paragraph leftIndent="1"/>
@@ -272,7 +272,7 @@
 				<textFieldExpression><![CDATA[($F{civilStatus} != null) ? ((!$F{civilStatus}.equals( "SINGLE" )) ? $F{civilStatus} : "") : $F{civilStatus}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement positionType="Float" x="170" y="92" width="109" height="13"/>
+				<reportElement positionType="Float" x="147" y="92" width="132" height="13"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="9" isBold="true"/>
 					<paragraph leftIndent="2"/>
