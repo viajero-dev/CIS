@@ -50,14 +50,17 @@ import com.vg.scfc.financing.commons.ui.dlg.LoginDlg;
 import com.vg.vmi.dealer.uts.service.McColorService;
 import com.vg.vmi.dealer.uts.service.McMakeService;
 import com.vg.vmi.dealer.uts.service.McModelService;
+import java.awt.Font;
 import java.net.InetAddress;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.Enumeration;
+import java.util.Hashtable;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
-import javax.swing.UIManager.LookAndFeelInfo;
+import javax.swing.plaf.FontUIResource;
 import org.slf4j.LoggerFactory;
 import vg.img.service.ImageHandlingService;
 
@@ -237,7 +240,7 @@ public class ClientInfoMain implements LoginListener {
                 UISetting.setSystemUser(loginDlg.getEmployee());
                 UISetting.setComputerName(InetAddress.getLocalHost().getHostName());
                 ClientInformationSystemFrame c = new ClientInformationSystemFrame();
-                c.getLblStorelocation().setText( loginDlg.getUser().getId() + " - " + UISetting.getSystemUser().getFullName() + " @ " + loginDlg.getStoreLocation().getId() + " - " + loginDlg.getStoreLocation().getDescription());
+                c.getLblStorelocation().setText( loginDlg.getUser().getId() + " - " + UISetting.getSystemUser().getFullName() + " @ " + loginDlg.getStoreLocation().getFinCode()+ " - " + loginDlg.getStoreLocation().getFinDesc());
                 c.setExtendedState(c.getExtendedState() | JFrame.MAXIMIZED_BOTH);
                 c.setVisible(true);
                 loginDlg.dispose();
@@ -269,14 +272,12 @@ public class ClientInfoMain implements LoginListener {
     public static void main(String[] args) {
         ClientInfoMain tx = new ClientInfoMain();
         try {
-//            for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    
-//                    break;
-//                }
-//            }
             System.setProperty("Quaqua.tabLayoutPolicy", "scroll");
             UIManager.setLookAndFeel(ch.randelshofer.quaqua.QuaquaManager.getLookAndFeel());
+            UIManager.put("Label.font", new Font("Arial", Font.BOLD, 12));
+            UIManager.put("TextField.font", new Font("Arial", Font.PLAIN, 13));
+            UIManager.put("ComboBox.font", new Font("Arial", Font.PLAIN, 13));
+            UIManager.put("RadioButton.font", new Font("Arial", Font.PLAIN, 13));
 
             System.setProperty("java.security.policy", "client.policy");
             System.setSecurityManager(new java.rmi.RMISecurityManager());
@@ -296,7 +297,6 @@ public class ClientInfoMain implements LoginListener {
             tx.getRegistry(host, port);
             tx.initService();
             tx.setUISettings();
-
             tx.showLogInDialog(args[1], x);
 
         } catch (Exception e) {
