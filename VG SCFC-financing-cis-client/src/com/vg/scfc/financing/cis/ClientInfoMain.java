@@ -51,16 +51,15 @@ import com.vg.vmi.dealer.uts.service.McColorService;
 import com.vg.vmi.dealer.uts.service.McMakeService;
 import com.vg.vmi.dealer.uts.service.McModelService;
 import java.awt.Font;
+import java.awt.HeadlessException;
 import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-import java.util.Enumeration;
-import java.util.Hashtable;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
-import javax.swing.plaf.FontUIResource;
 import org.slf4j.LoggerFactory;
 import vg.img.service.ImageHandlingService;
 
@@ -265,13 +264,15 @@ public class ClientInfoMain implements LoginListener {
                 }
 
             }
-        } catch (Exception e) {
+        } catch (UnknownHostException e) {
+        } catch (HeadlessException e) {
         }
     }
 
     public static void main(String[] args) {
         ClientInfoMain tx = new ClientInfoMain();
         try {
+            System.setProperty("java.util.Arrays.useLegacyMergeSort", "true");
             System.setProperty("Quaqua.tabLayoutPolicy", "scroll");
             UIManager.setLookAndFeel(ch.randelshofer.quaqua.QuaquaManager.getLookAndFeel());
             UIManager.put("Label.font", new Font("Arial", Font.BOLD, 12));
@@ -300,7 +301,6 @@ public class ClientInfoMain implements LoginListener {
             tx.showLogInDialog(args[1], x);
 
         } catch (Exception e) {
-            e.printStackTrace();
             LoggerFactory.getLogger(ClientInfoMain.class).error(StringUtils.formatException(e));
             JOptionPane.showMessageDialog(null, "Cannot connect to server.", "MESSAGE", JOptionPane.WARNING_MESSAGE);
         }
