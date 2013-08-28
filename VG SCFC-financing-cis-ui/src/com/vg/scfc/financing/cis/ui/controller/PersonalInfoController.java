@@ -103,7 +103,6 @@ public class PersonalInfoController {
     public PersonalInfo save(PersonalInfo p, String formNo, String personTypeID, String clientNo) {
         PersonalInfo result = null;
         try {
-            System.out.println("setting clientNo to: " + clientNo);
             /* Person Type */
             PersonType personType = UISetting.getPersonTypeService().findById(personTypeID);
 

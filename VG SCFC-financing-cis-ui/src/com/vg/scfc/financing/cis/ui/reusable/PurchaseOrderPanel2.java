@@ -26,6 +26,8 @@ import java.awt.event.KeyListener;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.util.Date;
+import net.java.balloontip.BalloonTip;
+import net.java.balloontip.utils.FadingUtils;
 
 /**
  *
@@ -129,7 +131,19 @@ public class PurchaseOrderPanel2 extends javax.swing.JPanel implements KeyListen
 
         jLabel5.setText("Make");
         add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 35, -1, -1));
+
+        txtMakeCode.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtMakeCodeFocusGained(evt);
+            }
+        });
         add(txtMakeCode, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, 70, -1));
+
+        txtColorCode.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtColorCodeFocusGained(evt);
+            }
+        });
         add(txtColorCode, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 55, 70, -1));
 
         txtColorDesc.setEditable(false);
@@ -165,6 +179,12 @@ public class PurchaseOrderPanel2 extends javax.swing.JPanel implements KeyListen
 
         jLabel9.setText("Term");
         add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 110, -1, -1));
+
+        txtModelCode.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtModelCodeFocusGained(evt);
+            }
+        });
         add(txtModelCode, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 80, 70, -1));
 
         jLabel11.setText("Price");
@@ -192,8 +212,8 @@ public class PurchaseOrderPanel2 extends javax.swing.JPanel implements KeyListen
         jLabel15.setText("Released Date");
         add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 110, -1, -1));
 
-        txtReleasedDate.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
-        add(txtReleasedDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 105, 70, -1));
+        txtReleasedDate.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        add(txtReleasedDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 105, 80, -1));
 
         checkApproved.setText("APPROVED");
         checkApproved.addItemListener(new java.awt.event.ItemListener() {
@@ -248,7 +268,7 @@ public class PurchaseOrderPanel2 extends javax.swing.JPanel implements KeyListen
         add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 160, -1, -1));
 
         txtRemarks.setColumns(20);
-        txtRemarks.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        txtRemarks.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
         txtRemarks.setRows(5);
         jScrollPane1.setViewportView(txtRemarks);
 
@@ -256,6 +276,12 @@ public class PurchaseOrderPanel2 extends javax.swing.JPanel implements KeyListen
 
         comboMotorStatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "REPO", "BRAND NEW" }));
         add(comboMotorStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 5, 110, -1));
+
+        txtCICode.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtCICodeFocusGained(evt);
+            }
+        });
         add(txtCICode, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 130, 70, -1));
 
         txtCIDesc.setEditable(false);
@@ -312,6 +338,26 @@ public class PurchaseOrderPanel2 extends javax.swing.JPanel implements KeyListen
     private void txtInsCompFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtInsCompFocusLost
         txtInsComp.setText(UIValidator.validate(txtInsComp));
     }//GEN-LAST:event_txtInsCompFocusLost
+
+    private void txtMakeCodeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtMakeCodeFocusGained
+        BalloonTip makeCodeTip = new BalloonTip(txtMakeCode, "PRESS F5 FOR SEARCH");
+        FadingUtils.fadeOutBalloon(makeCodeTip, null, 5000, 24);
+    }//GEN-LAST:event_txtMakeCodeFocusGained
+
+    private void txtColorCodeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtColorCodeFocusGained
+        BalloonTip colorCodeTip = new BalloonTip(txtColorCode, "PRESS F5 FOR SEARCH");
+        FadingUtils.fadeOutBalloon(colorCodeTip, null, 5000, 24);
+    }//GEN-LAST:event_txtColorCodeFocusGained
+
+    private void txtModelCodeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtModelCodeFocusGained
+        BalloonTip modelCodeTip = new BalloonTip(txtModelCode, "PRESS F5 FOR SEARCH");
+        FadingUtils.fadeOutBalloon(modelCodeTip, null, 5000, 24);
+    }//GEN-LAST:event_txtModelCodeFocusGained
+
+    private void txtCICodeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCICodeFocusGained
+        BalloonTip ciCodeTip = new BalloonTip(txtCICode, "PRESS F5 FOR SEARCH");
+        FadingUtils.fadeOutBalloon(ciCodeTip, null, 5000, 24);
+    }//GEN-LAST:event_txtCICodeFocusGained
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox checkApproved;

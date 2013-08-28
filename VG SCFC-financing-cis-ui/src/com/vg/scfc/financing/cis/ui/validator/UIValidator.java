@@ -8,9 +8,12 @@ package com.vg.scfc.financing.cis.ui.validator;
 import com.vg.commons.util.StringUtils;
 import com.vg.scfc.financing.cis.ui.messages.ErrorMessage;
 import com.vg.scfc.financing.cis.ui.messages.OtherMessage;
+import java.awt.Component;
+import java.awt.Container;
 import java.util.List;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 import net.java.balloontip.BalloonTip;
 import net.java.balloontip.utils.FadingUtils;
@@ -70,8 +73,8 @@ public class UIValidator {
             case "EDIT":
                 JOptionPane.showMessageDialog(null, ErrorMessage.FAILED_TO_UPDATE, ErrorMessage.ERROR_MESSAGE_TITLE, JOptionPane.WARNING_MESSAGE);
                 break;
-             default:
-                 break;
+            default:
+                break;
         }
     }
 
@@ -128,6 +131,36 @@ public class UIValidator {
             }
         }
         return isValid;
+    }
+
+    public static void manageTab(List<JPanel> panels, String tabName) {
+        for (JPanel panel : panels) {
+            if (panel.getName().equals(tabName)) {
+                panel.setEnabled(true);
+            } else {
+                for (Component c : panel.getComponents()) {
+                    c.setEnabled(false);
+                    if (c instanceof Container) {
+                        for (Component component : ((Container) c).getComponents()) {
+                            component.setEnabled(false);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public static void enableTabs(List<JPanel> panels) {
+        for (JPanel panel : panels) {
+            for (Component c : panel.getComponents()) {
+                c.setEnabled(true);
+                if (c instanceof Container) {
+                    for (Component component : ((Container) c).getComponents()) {
+                        component.setEnabled(true);
+                    }
+                }
+            }
+        }
     }
 
 }

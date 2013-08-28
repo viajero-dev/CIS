@@ -31,6 +31,7 @@ import java.awt.event.KeyListener;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JPanel;
 import net.sf.jasperreports.engine.JasperPrint;
 
 /**
@@ -54,11 +55,6 @@ public class InstitutionalPanel extends javax.swing.JPanel implements KeyListene
         fillValue(searchPanelInstitution.getTransactionForm());
         searchPanelInstitution.setInstitutionalPanel(this);
         initFields();
-    }
-
-    private void initTabs() {
-//        jTabbedPane1.setLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
-        jTabbedPane1.putClientProperty("Quaqua.TabbedPane.shortenTabs", Boolean.FALSE);
     }
 
     private void initCompanyInfoAddEditListener() {
@@ -86,6 +82,7 @@ public class InstitutionalPanel extends javax.swing.JPanel implements KeyListene
                 txtCompanyName.setText("");
                 txtCompleteAddress.setText("");
                 txtCompanyName.requestFocus();
+                managedTab("tabCompany");
             }
 
             @Override
@@ -99,13 +96,15 @@ public class InstitutionalPanel extends javax.swing.JPanel implements KeyListene
                     panelCompanyInformation.setFieldsEditable(false);
                     refreshSearch(headerPanel.getFormNo());
                 }
+                
+                enableTabs();
                 return isSaved;
             }
 
             @Override
             public void onCancelAdd() {
                 panelCompanyInformation.setFieldsEditable(false);
-                // TODO, reset UI
+                enableTabs();
             }
 
             @Override
@@ -113,6 +112,7 @@ public class InstitutionalPanel extends javax.swing.JPanel implements KeyListene
                 panelCompanyInformation.setHeaderPanel(headerPanel);
                 panelCompanyInformation.setTxtCompanyName(txtCompanyName);
                 panelCompanyInformation.setFieldsEditable(true);
+                managedTab("tabCompany");
             }
 
             @Override
@@ -124,13 +124,15 @@ public class InstitutionalPanel extends javax.swing.JPanel implements KeyListene
                     UIValidator.promptSucessMessageFor("EDIT");
                     panelCompanyInformation.setFieldsEditable(false);
                 }
+                
+                enableTabs();
                 return isUpdated;
             }
 
             @Override
             public void onCancelEdit() {
                 panelCompanyInformation.setFieldsEditable(false);
-                // TODO, reset UI
+                enableTabs();
             }
         });
     }
@@ -144,7 +146,7 @@ public class InstitutionalPanel extends javax.swing.JPanel implements KeyListene
             public void onAdd() {
                 panelRepresentative1PersonalInformation.setFieldsEditable(true);
                 panelRepresentative1PersonalInformation.resetToDefault();
-                panelRepresentative1PersonalInformation.setClientNo(SearchController.getInstance().findByFormNo(headerPanel.getFormNo()).getClientNo());
+                managedTab("tabR1PersonalInfo");
             }
 
             @Override
@@ -157,6 +159,8 @@ public class InstitutionalPanel extends javax.swing.JPanel implements KeyListene
                     panelRepresentative1PersonalInformation.setFieldsEditable(false);
                     refreshSearch(headerPanel.getFormNo());
                 }
+                
+                enableTabs();
                 return isSaved;
             }
 
@@ -164,11 +168,13 @@ public class InstitutionalPanel extends javax.swing.JPanel implements KeyListene
             public void onCancelAdd() {
                 panelRepresentative1PersonalInformation.resetToDefault();
                 panelRepresentative1PersonalInformation.setFieldsEditable(false);
+                enableTabs();
             }
 
             @Override
             public void onEdit() {
                 panelRepresentative1PersonalInformation.setFieldsEditable(true);
+                managedTab("tabR1PersonalInfo");
             }
 
             @Override
@@ -180,12 +186,15 @@ public class InstitutionalPanel extends javax.swing.JPanel implements KeyListene
                     UIValidator.promptSucessMessageFor("EDIT");
                     panelRepresentative1PersonalInformation.setFieldsEditable(false);
                 }
+                
+                enableTabs();
                 return isUpdated;
             }
 
             @Override
             public void onCancelEdit() {
                 panelRepresentative1PersonalInformation.setFieldsEditable(false);
+                enableTabs();
             }
         });
     }
@@ -199,6 +208,7 @@ public class InstitutionalPanel extends javax.swing.JPanel implements KeyListene
             public void onAdd() {
                 panelRepresentative1Employment.setFieldsEditable(true);
                 panelRepresentative1Employment.resetToDefault();
+                managedTab("tabR1Employment");
             }
 
             @Override
@@ -211,18 +221,21 @@ public class InstitutionalPanel extends javax.swing.JPanel implements KeyListene
                     panelRepresentative1Employment.setFieldsEditable(false);
                     refreshSearch(headerPanel.getFormNo());
                 }
+                
+                enableTabs();
                 return isSaved;
             }
 
             @Override
             public void onCancelAdd() {
                 panelRepresentative1Employment.setFieldsEditable(false);
-                //TODO, reset UI
+                enableTabs();
             }
 
             @Override
             public void onEdit() {
                 panelRepresentative1Employment.setFieldsEditable(true);
+                managedTab("tabR1Employment");
             }
 
             @Override
@@ -234,13 +247,15 @@ public class InstitutionalPanel extends javax.swing.JPanel implements KeyListene
                     UIValidator.promptSucessMessageFor("EDIT");
                     panelRepresentative1Employment.setFieldsEditable(false);
                 }
+                
+                enableTabs();
                 return isUpdated;
             }
 
             @Override
             public void onCancelEdit() {
                 panelRepresentative1Employment.setFieldsEditable(false);
-                //TODO, reset UI
+                enableTabs();
             }
         });
     }
@@ -254,7 +269,7 @@ public class InstitutionalPanel extends javax.swing.JPanel implements KeyListene
             public void onAdd() {
                 panelRepresentative2PersonalInformation.setFieldsEditable(true);
                 panelRepresentative2PersonalInformation.resetToDefault();
-                panelRepresentative2PersonalInformation.setClientNo(SearchController.getInstance().findByFormNo(headerPanel.getFormNo()).getClientNo());
+                managedTab("tabR2PersonalInfo");
             }
 
             @Override
@@ -267,6 +282,8 @@ public class InstitutionalPanel extends javax.swing.JPanel implements KeyListene
                     panelRepresentative2PersonalInformation.setFieldsEditable(false);
                     refreshSearch(headerPanel.getFormNo());
                 }
+                
+                enableTabs();
                 return isSaved;
             }
 
@@ -274,11 +291,13 @@ public class InstitutionalPanel extends javax.swing.JPanel implements KeyListene
             public void onCancelAdd() {
                 panelRepresentative2PersonalInformation.resetToDefault();
                 panelRepresentative2PersonalInformation.setFieldsEditable(false);
+                enableTabs();
             }
 
             @Override
             public void onEdit() {
                 panelRepresentative2PersonalInformation.setFieldsEditable(true);
+                managedTab("tabR2PersonalInfo");
             }
 
             @Override
@@ -290,12 +309,15 @@ public class InstitutionalPanel extends javax.swing.JPanel implements KeyListene
                     UIValidator.promptSucessMessageFor("SAVE");
                     panelRepresentative2PersonalInformation.setFieldsEditable(false);
                 }
+                
+                enableTabs();
                 return isUpdated;
             }
 
             @Override
             public void onCancelEdit() {
                 panelRepresentative2PersonalInformation.setFieldsEditable(false);
+                enableTabs();
             }
         });
     }
@@ -309,6 +331,7 @@ public class InstitutionalPanel extends javax.swing.JPanel implements KeyListene
             public void onAdd() {
                 panelRepresentative2Employment.setFieldsEditable(true);
                 panelRepresentative2Employment.resetToDefault();
+                managedTab("tabR2Employment");
             }
 
             @Override
@@ -321,18 +344,21 @@ public class InstitutionalPanel extends javax.swing.JPanel implements KeyListene
                     panelRepresentative2Employment.setFieldsEditable(false);
                     refreshSearch(headerPanel.getFormNo());
                 }
+                
+                enableTabs();
                 return isSaved;
             }
 
             @Override
             public void onCancelAdd() {
                 panelRepresentative2Employment.setFieldsEditable(false);
-                //TODO, reset UI
+                enableTabs();
             }
 
             @Override
             public void onEdit() {
                 panelRepresentative2Employment.setFieldsEditable(true);
+                managedTab("tabR2Employment");
             }
 
             @Override
@@ -344,13 +370,15 @@ public class InstitutionalPanel extends javax.swing.JPanel implements KeyListene
                     UIValidator.promptSucessMessageFor("EDIT");
                     panelRepresentative2Employment.setFieldsEditable(false);
                 }
+                
+                enableTabs();
                 return isUpdated;
             }
 
             @Override
             public void onCancelEdit() {
                 panelRepresentative2Employment.setFieldsEditable(false);
-                //TODO, reset UI
+                enableTabs();
             }
         });
     }
@@ -363,6 +391,7 @@ public class InstitutionalPanel extends javax.swing.JPanel implements KeyListene
             public void onAdd() {
                 panelPurchaseOrder.setFieldsEditable(true);
                 panelPurchaseOrder.resetToDefault();
+                managedTab("tabPO");
             }
 
             @Override
@@ -375,17 +404,21 @@ public class InstitutionalPanel extends javax.swing.JPanel implements KeyListene
                     panelPurchaseOrder.setFieldsEditable(false);
                     refreshSearch(headerPanel.getFormNo());
                 }
+                
+                enableTabs();
                 return isSaved;
             }
 
             @Override
             public void onCancelAdd() {
                 panelPurchaseOrder.setFieldsEditable(false);
+                enableTabs();
             }
 
             @Override
             public void onEdit() {
                 panelPurchaseOrder.setFieldsEditable(true);
+                managedTab("tabPO");
             }
 
             @Override
@@ -398,12 +431,15 @@ public class InstitutionalPanel extends javax.swing.JPanel implements KeyListene
                     panelPurchaseOrder.setFieldsEditable(false);
                     refreshSearch(headerPanel.getFormNo());
                 }
+                
+                enableTabs();
                 return isUpdated;
             }
 
             @Override
             public void onCancelEdit() {
                 panelPurchaseOrder.setFieldsEditable(false);
+                enableTabs();
             }
         });
     }
@@ -442,7 +478,9 @@ public class InstitutionalPanel extends javax.swing.JPanel implements KeyListene
                 panelCompanyInformation.setAddress(addresses.get(0));
             }
             panelCompanyInformation.setCompany((Company) CompanyController.getInstance().findByFormNo(form.getTxFormNo()));
+            panelRepresentative1PersonalInformation.setClientNo(SearchController.getInstance().findByFormNo(form.getFormNo()).getClientNo());
             panelRepresentative1PersonalInformation.setPersonalInfo(PersonalInfoController.getInstance().findByFormNoAndPersonType(form.getTxFormNo(), "RP1"));
+            panelRepresentative2PersonalInformation.setClientNo(SearchController.getInstance().findByFormNo(form.getFormNo()).getClientNo());
             panelRepresentative2PersonalInformation.setPersonalInfo(PersonalInfoController.getInstance().findByFormNoAndPersonType(form.getTxFormNo(), "RP2"));
             panelRepresentative1Employment.setRepresentativeEmployment(EmploymentController.getInstance().findRepresentativeEmploymentByFormNoAndPersonType(form.getTxFormNo(), "RP1"));
             panelRepresentative2Employment.setRepresentativeEmployment(EmploymentController.getInstance().findRepresentativeEmploymentByFormNoAndPersonType(form.getTxFormNo(), "RP2"));
@@ -475,6 +513,32 @@ public class InstitutionalPanel extends javax.swing.JPanel implements KeyListene
         txtCompanyName.addKeyListener(this);
         txtCompleteAddress.addKeyListener(this);
     }
+    
+    private void managedTab(String tabName) {
+        List<JPanel> panels = new ArrayList<>();
+        panels.add(tabID);
+        panels.add(tabPO);
+        panels.add(tabR1Employment);
+        panels.add(tabR1PersonalInfo);
+        panels.add(tabR2Employment);
+        panels.add(tabR2PersonalInfo);
+        panels.add(tabCompany);
+        
+        UIValidator.manageTab(panels, tabName);
+    }
+    
+    private void enableTabs() {
+        List<JPanel> panels = new ArrayList<>();
+        panels.add(tabID);
+        panels.add(tabPO);
+        panels.add(tabR1Employment);
+        panels.add(tabR1PersonalInfo);
+        panels.add(tabR2Employment);
+        panels.add(tabR2PersonalInfo);
+        panels.add(tabCompany);
+        
+        UIValidator.enableTabs(panels);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -485,59 +549,60 @@ public class InstitutionalPanel extends javax.swing.JPanel implements KeyListene
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panelCompanyInformation = new com.vg.scfc.financing.cis.ui.panel.CompanyInformationPanel();
-        addEditCompanyInfo = new com.vg.scfc.financing.cis.ui.reusable.AddEditButtonPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jTabbedPane2 = new javax.swing.JTabbedPane();
-        jPanel3 = new javax.swing.JPanel();
+        tabR1PersonalInfo = new javax.swing.JPanel();
         panelRepresentative1PersonalInformation = new com.vg.scfc.financing.cis.ui.reusable.PersonalInformationPanel();
         addEditRepresentative1PersonalInfo = new com.vg.scfc.financing.cis.ui.reusable.AddEditButtonPanel();
-        jPanel4 = new javax.swing.JPanel();
+        tabR1Employment = new javax.swing.JPanel();
         addEditRepresentative1Employment = new com.vg.scfc.financing.cis.ui.reusable.AddEditButtonPanel();
         panelRepresentative1Employment = new com.vg.scfc.financing.cis.ui.panel.EmploymentRepresentativePanel();
         jPanel2 = new javax.swing.JPanel();
         jTabbedPane3 = new javax.swing.JTabbedPane();
-        jPanel5 = new javax.swing.JPanel();
+        tabR2PersonalInfo = new javax.swing.JPanel();
         panelRepresentative2PersonalInformation = new com.vg.scfc.financing.cis.ui.reusable.PersonalInformationPanel();
         addEditRepresentative2PersonalInfo = new com.vg.scfc.financing.cis.ui.reusable.AddEditButtonPanel();
-        jPanel6 = new javax.swing.JPanel();
+        tabR2Employment = new javax.swing.JPanel();
         addEditRepresentative2Employment = new com.vg.scfc.financing.cis.ui.reusable.AddEditButtonPanel();
         panelRepresentative2Employment = new com.vg.scfc.financing.cis.ui.panel.EmploymentRepresentativePanel();
-        jPanel7 = new javax.swing.JPanel();
+        tabID = new javax.swing.JPanel();
         ridersToBuyerPanel = new com.vg.scfc.financing.cis.ui.reusable.RidersToBuyerPanel();
         btnAgree = new javax.swing.JButton();
-        jPanel8 = new javax.swing.JPanel();
+        tabPO = new javax.swing.JPanel();
         addEditPurchaseOrder = new com.vg.scfc.financing.cis.ui.reusable.AddEditButtonPanel();
         panelPurchaseOrder = new com.vg.scfc.financing.cis.ui.reusable.PurchaseOrderPanel2();
         btnPrint = new javax.swing.JButton();
         headerPanel = new com.vg.scfc.financing.cis.ui.reusable.HeaderPanel();
+        searchPanelInstitution = new com.vg.scfc.financing.cis.ui.panel.SearchPanelInstitution();
+        tabCompany = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         txtCompanyName = new javax.swing.JTextField();
         txtCompleteAddress = new javax.swing.JTextField();
+        panelCompanyInformation = new com.vg.scfc.financing.cis.ui.panel.CompanyInformationPanel();
+        addEditCompanyInfo = new com.vg.scfc.financing.cis.ui.reusable.AddEditButtonPanel();
         jSeparator1 = new javax.swing.JSeparator();
-        searchPanelInstitution = new com.vg.scfc.financing.cis.ui.panel.SearchPanelInstitution();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        add(panelCompanyInformation, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 150, 670, -1));
-        add(addEditCompanyInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(395, 300, -1, -1));
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jTabbedPane2.setTabPlacement(javax.swing.JTabbedPane.BOTTOM);
 
-        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel3.add(panelRepresentative1PersonalInformation, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1020, -1));
-        jPanel3.add(addEditRepresentative1PersonalInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(95, 200, -1, -1));
+        tabR1PersonalInfo.setName("tabR1PersonalInfo"); // NOI18N
+        tabR1PersonalInfo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        tabR1PersonalInfo.add(panelRepresentative1PersonalInformation, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1020, -1));
+        tabR1PersonalInfo.add(addEditRepresentative1PersonalInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(95, 200, -1, -1));
 
-        jTabbedPane2.addTab("Personal Information", jPanel3);
+        jTabbedPane2.addTab("Personal Information", tabR1PersonalInfo);
 
-        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel4.add(addEditRepresentative1Employment, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 130, -1, -1));
-        jPanel4.add(panelRepresentative1Employment, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        tabR1Employment.setName("tabR1Employment"); // NOI18N
+        tabR1Employment.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        tabR1Employment.add(addEditRepresentative1Employment, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 130, -1, -1));
+        tabR1Employment.add(panelRepresentative1Employment, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
-        jTabbedPane2.addTab("Employment Data", jPanel4);
+        jTabbedPane2.addTab("Employment Data", tabR1Employment);
 
         jPanel1.add(jTabbedPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1040, 310));
 
@@ -547,24 +612,27 @@ public class InstitutionalPanel extends javax.swing.JPanel implements KeyListene
 
         jTabbedPane3.setTabPlacement(javax.swing.JTabbedPane.BOTTOM);
 
-        jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel5.add(panelRepresentative2PersonalInformation, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
-        jPanel5.add(addEditRepresentative2PersonalInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(95, 200, -1, -1));
+        tabR2PersonalInfo.setName("tabR2PersonalInfo"); // NOI18N
+        tabR2PersonalInfo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        tabR2PersonalInfo.add(panelRepresentative2PersonalInformation, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        tabR2PersonalInfo.add(addEditRepresentative2PersonalInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(95, 200, -1, -1));
 
-        jTabbedPane3.addTab("Personal Information", jPanel5);
+        jTabbedPane3.addTab("Personal Information", tabR2PersonalInfo);
 
-        jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel6.add(addEditRepresentative2Employment, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 130, -1, -1));
-        jPanel6.add(panelRepresentative2Employment, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        tabR2Employment.setName("tabR2Employment"); // NOI18N
+        tabR2Employment.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        tabR2Employment.add(addEditRepresentative2Employment, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 130, -1, -1));
+        tabR2Employment.add(panelRepresentative2Employment, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
-        jTabbedPane3.addTab("Employment Data", jPanel6);
+        jTabbedPane3.addTab("Employment Data", tabR2Employment);
 
         jPanel2.add(jTabbedPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1035, 310));
 
         jTabbedPane1.addTab("2nd Representative", jPanel2);
 
-        jPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel7.add(ridersToBuyerPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, -1, -1));
+        tabID.setName("tabID"); // NOI18N
+        tabID.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        tabID.add(ridersToBuyerPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, -1, -1));
 
         btnAgree.setText("Agree");
         btnAgree.addActionListener(new java.awt.event.ActionListener() {
@@ -572,13 +640,14 @@ public class InstitutionalPanel extends javax.swing.JPanel implements KeyListene
                 btnAgreeActionPerformed(evt);
             }
         });
-        jPanel7.add(btnAgree, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 245, 130, -1));
+        tabID.add(btnAgree, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 245, 130, -1));
 
-        jTabbedPane1.addTab("RIDERS TO BUYERS", jPanel7);
+        jTabbedPane1.addTab("RIDERS TO BUYERS", tabID);
 
-        jPanel8.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel8.add(addEditPurchaseOrder, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 260, -1, -1));
-        jPanel8.add(panelPurchaseOrder, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 5, 830, 250));
+        tabPO.setName("tabPO"); // NOI18N
+        tabPO.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        tabPO.add(addEditPurchaseOrder, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 260, -1, -1));
+        tabPO.add(panelPurchaseOrder, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 5, 830, 250));
 
         btnPrint.setText("Print");
         btnPrint.addActionListener(new java.awt.event.ActionListener() {
@@ -586,20 +655,25 @@ public class InstitutionalPanel extends javax.swing.JPanel implements KeyListene
                 btnPrintActionPerformed(evt);
             }
         });
-        jPanel8.add(btnPrint, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 260, 90, -1));
+        tabPO.add(btnPrint, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 260, 90, -1));
 
-        jTabbedPane1.addTab("Purchase Order", jPanel8);
+        jTabbedPane1.addTab("Purchase Order", tabPO);
 
         add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 340, 1050, 350));
         add(headerPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 0, -1, -1));
+        add(searchPanelInstitution, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 85, -1, -1));
+
+        tabCompany.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        tabCompany.setName("tabCompany"); // NOI18N
+        tabCompany.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel1.setText("Company Name");
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(285, 95, -1, -1));
+        tabCompany.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel2.setText("Complete Address");
-        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(285, 120, -1, -1));
+        tabCompany.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, -1, -1));
 
         txtCompanyName.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtCompanyName.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -607,12 +681,15 @@ public class InstitutionalPanel extends javax.swing.JPanel implements KeyListene
                 txtCompanyNameFocusLost(evt);
             }
         });
-        add(txtCompanyName, new org.netbeans.lib.awtextra.AbsoluteConstraints(395, 90, 535, -1));
+        tabCompany.add(txtCompanyName, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 15, 535, -1));
 
         txtCompleteAddress.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
-        add(txtCompleteAddress, new org.netbeans.lib.awtextra.AbsoluteConstraints(395, 115, 535, -1));
-        add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 143, 1070, 10));
-        add(searchPanelInstitution, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 85, -1, -1));
+        tabCompany.add(txtCompleteAddress, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 35, 535, -1));
+        tabCompany.add(panelCompanyInformation, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 70, 670, -1));
+        tabCompany.add(addEditCompanyInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 205, -1, -1));
+        tabCompany.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 1070, 10));
+
+        add(tabCompany, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 85, 1050, 250));
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAgreeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgreeActionPerformed
@@ -646,12 +723,6 @@ public class InstitutionalPanel extends javax.swing.JPanel implements KeyListene
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
@@ -664,6 +735,13 @@ public class InstitutionalPanel extends javax.swing.JPanel implements KeyListene
     private com.vg.scfc.financing.cis.ui.reusable.PersonalInformationPanel panelRepresentative2PersonalInformation;
     private com.vg.scfc.financing.cis.ui.reusable.RidersToBuyerPanel ridersToBuyerPanel;
     private com.vg.scfc.financing.cis.ui.panel.SearchPanelInstitution searchPanelInstitution;
+    private javax.swing.JPanel tabCompany;
+    private javax.swing.JPanel tabID;
+    private javax.swing.JPanel tabPO;
+    private javax.swing.JPanel tabR1Employment;
+    private javax.swing.JPanel tabR1PersonalInfo;
+    private javax.swing.JPanel tabR2Employment;
+    private javax.swing.JPanel tabR2PersonalInfo;
     private javax.swing.JTextField txtCompanyName;
     private javax.swing.JTextField txtCompleteAddress;
     // End of variables declaration//GEN-END:variables
