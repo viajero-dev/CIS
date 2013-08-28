@@ -199,6 +199,7 @@ public class SiblingsPanel extends javax.swing.JPanel implements KeyListener {
     @Override
     public void keyReleased(KeyEvent e) {
         switch (e.getKeyCode()) {
+            case KeyEvent.VK_TAB:
             case KeyEvent.VK_ENTER:
                 if (txtSiblingName.isFocusOwner()) {
                 txtSiblingAddress.requestFocus();

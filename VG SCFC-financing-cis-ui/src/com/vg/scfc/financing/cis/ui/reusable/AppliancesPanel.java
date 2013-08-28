@@ -46,7 +46,7 @@ public class AppliancesPanel extends javax.swing.JPanel implements KeyListener {
     }
 
     private void initApplianceTable() {
-        tableAppliance.putClientProperty("Quaqua.Table.style", "striped" );
+        tableAppliance.putClientProperty("Quaqua.Table.style", "striped");
         tableAppliance.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         tableAppliance.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 
@@ -302,12 +302,15 @@ public class AppliancesPanel extends javax.swing.JPanel implements KeyListener {
     }
 
     private Appliance createNew(Appliance a) {
-        if(a == null) {
-            System.out.println("creating new appliance...");
+        if (a == null) {
             a = new Appliance();
         }
         a.setType(type);
-        a.setAmount(new BigDecimal(UIValidator.MoneyCommaRemover(txtEstValue.getText())).doubleValue());
+        if (txtEstValue.getText().equals("")) {
+            a.setAmount(0);
+        } else {
+            a.setAmount(new BigDecimal(UIValidator.MoneyCommaRemover(txtEstValue.getText())).doubleValue());
+        }
         return a;
     }
 }

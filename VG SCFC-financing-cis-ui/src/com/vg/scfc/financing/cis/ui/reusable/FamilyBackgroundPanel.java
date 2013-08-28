@@ -239,6 +239,7 @@ public class FamilyBackgroundPanel extends javax.swing.JPanel implements KeyList
     @Override
     public void keyReleased(KeyEvent e) {
         switch (e.getKeyCode()) {
+            case KeyEvent.VK_TAB:
             case KeyEvent.VK_ENTER:
                 if (txtFatherName.isFocusOwner()) {
                 txtFatherAddress.requestFocus();

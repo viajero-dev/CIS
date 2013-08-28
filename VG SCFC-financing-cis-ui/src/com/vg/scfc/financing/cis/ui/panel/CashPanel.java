@@ -170,7 +170,6 @@ public class CashPanel extends javax.swing.JPanel implements KeyListener {
         jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        txtSearch.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
         txtSearch.setText("Search");
         txtSearch.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -180,6 +179,7 @@ public class CashPanel extends javax.swing.JPanel implements KeyListener {
         jPanel1.add(txtSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 250, -1));
 
         tableCashCustomer.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        tableCashCustomer.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
         org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, cashCustomers, tableCashCustomer);
         org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${lastName}"));
@@ -491,6 +491,7 @@ public class CashPanel extends javax.swing.JPanel implements KeyListener {
     @Override
     public void keyReleased(KeyEvent e) {
         switch (e.getKeyCode()) {
+            case KeyEvent.VK_TAB:
             case KeyEvent.VK_ENTER:
                 if (txtLastname.isFocusOwner()) {
                 if (txtFirstname.isEditable()) {

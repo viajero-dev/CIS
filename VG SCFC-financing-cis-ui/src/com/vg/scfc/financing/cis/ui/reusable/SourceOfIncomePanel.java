@@ -448,6 +448,7 @@ public class SourceOfIncomePanel extends javax.swing.JPanel implements KeyListen
     @Override
     public void keyReleased(KeyEvent e) {
         switch (e.getKeyCode()) {
+            case KeyEvent.VK_TAB:
             case KeyEvent.VK_ENTER:
                 if (checkMonthlySalaryCompensation.isFocusOwner()) {
                 if (checkMonthlySalaryCompensation.isSelected()) {
@@ -672,7 +673,11 @@ public class SourceOfIncomePanel extends javax.swing.JPanel implements KeyListen
 
     private SourceOfIncome createNew(SourceOfIncome s) throws ParseException {
         if (checkMonthlySalaryCompensation.isSelected()) {
-            s.setIncSalary(new BigDecimal(UIValidator.MoneyCommaRemover(txtMonthlySalaryCompensation.getText())).doubleValue());
+            if (txtMonthlySalaryCompensation.getText().equals("")) {
+                s.setIncSalary(0);
+            } else {
+                s.setIncSalary(new BigDecimal(UIValidator.MoneyCommaRemover(txtMonthlySalaryCompensation.getText())).doubleValue());
+            }
         } else {
             s.setIncSalary(0);
         }
@@ -701,8 +706,16 @@ public class SourceOfIncomePanel extends javax.swing.JPanel implements KeyListen
                 s.setIncLiveStock("");
             }
             s.setIncHarvestDate(DateUtil.toString(txtFarmHarvestSchedule.getDate(), "yyyy-MM-dd"));
-            s.setIncAverageProd(new BigDecimal(UIValidator.MoneyCommaRemover(txtFarmAvgProductIncome.getText())).doubleValue());
-            s.setIncFarm(new BigDecimal(UIValidator.MoneyCommaRemover(txtMonthlyIncomeForFarmProducts.getText())).doubleValue());
+            if (txtFarmAvgProductIncome.getText().equals("")) {
+                s.setIncAverageProd(0);
+            } else {
+                s.setIncAverageProd(new BigDecimal(UIValidator.MoneyCommaRemover(txtFarmAvgProductIncome.getText())).doubleValue());
+            }
+            if (txtMonthlyIncomeForFarmProducts.getText().equals("")) {
+                s.setIncFarm(0);
+            } else {
+                s.setIncFarm(new BigDecimal(UIValidator.MoneyCommaRemover(txtMonthlyIncomeForFarmProducts.getText())).doubleValue());
+            }
         } else {
             s.setIncArgriculture("");
             s.setIncLiveStock("");
@@ -711,7 +724,11 @@ public class SourceOfIncomePanel extends javax.swing.JPanel implements KeyListen
         }
         if (checkSourceOthers.isSelected()) {
             s.setIncOtherSource(txtOtherSourceDesc.getText());
-            s.setIncOther(new BigDecimal(UIValidator.MoneyCommaRemover(txtMonthlyIncomeForOtherSources.getText())).doubleValue());
+            if (txtMonthlyIncomeForOtherSources.getText().equals("")) {
+                s.setIncOther(0);
+            } else {
+                s.setIncOther(new BigDecimal(UIValidator.MoneyCommaRemover(txtMonthlyIncomeForOtherSources.getText())).doubleValue());
+            }
         } else {
             s.setIncOtherSource("");
             s.setIncOther(0);

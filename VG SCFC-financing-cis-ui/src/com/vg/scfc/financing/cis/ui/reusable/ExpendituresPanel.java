@@ -350,36 +350,37 @@ public class ExpendituresPanel extends javax.swing.JPanel implements KeyListener
     @Override
     public void keyReleased(KeyEvent e) {
         switch (e.getKeyCode()) {
+            case KeyEvent.VK_TAB:
             case KeyEvent.VK_ENTER:
                 if (txtMonthlyDeduction.isFocusOwner()) {
-                txtMonthlyHouseholdBill.requestFocus();
-            } else if (txtMonthlyHouseholdBill.isFocusOwner()) {
-                txtAmortization.requestFocus();
-            } else if (txtAmortization.isFocusOwner()) {
-                txtMaintenanceDesc.requestFocus();
-            } else if (txtMaintenanceDesc.isFocusOwner()) {
-                if (Validator.getInstance().isEmpty(txtMaintenanceDesc.getText())) {
-                    txtMaintenance.setEnabled(false);
-                    txtMaintenanceDesc.setEnabled(false);
+                    txtMonthlyHouseholdBill.requestFocus();
+                } else if (txtMonthlyHouseholdBill.isFocusOwner()) {
+                    txtAmortization.requestFocus();
+                } else if (txtAmortization.isFocusOwner()) {
+                    txtMaintenanceDesc.requestFocus();
+                } else if (txtMaintenanceDesc.isFocusOwner()) {
+                    if (Validator.getInstance().isEmpty(txtMaintenanceDesc.getText())) {
+                        txtMaintenance.setEnabled(false);
+                        txtMaintenanceDesc.setEnabled(false);
+                        txtLivingAllowance.requestFocus();
+                    } else {
+                        txtMaintenance.requestFocus();
+                    }
+                } else if (txtMaintenance.isFocusOwner()) {
                     txtLivingAllowance.requestFocus();
-                } else {
-                    txtMaintenance.requestFocus();
-                }
-            } else if (txtMaintenance.isFocusOwner()) {
-                txtLivingAllowance.requestFocus();
-            } else if (txtLivingAllowance.isFocusOwner()) {
-                txtEducationDesc.requestFocus();
-            } else if (txtEducationDesc.isFocusOwner()) {
-                if (Validator.getInstance().isEmpty(txtEducationDesc.getText())) {
-                    txtEducation.setEnabled(false);
-                    txtEducationDesc.setEnabled(false);
+                } else if (txtLivingAllowance.isFocusOwner()) {
+                    txtEducationDesc.requestFocus();
+                } else if (txtEducationDesc.isFocusOwner()) {
+                    if (Validator.getInstance().isEmpty(txtEducationDesc.getText())) {
+                        txtEducation.setEnabled(false);
+                        txtEducationDesc.setEnabled(false);
+                        txtOthers.requestFocus();
+                    } else {
+                        txtEducation.requestFocus();
+                    }
+                } else if (txtEducation.isFocusOwner()) {
                     txtOthers.requestFocus();
-                } else {
-                    txtEducation.requestFocus();
                 }
-            } else if (txtEducation.isFocusOwner()) {
-                txtOthers.requestFocus();
-            }
                 break;
             case KeyEvent.VK_UP:
                 if (txtOthers.isFocusOwner()) {
@@ -540,7 +541,11 @@ public class ExpendituresPanel extends javax.swing.JPanel implements KeyListener
                 ex = new Expenditure();
                 ex.setExpenditureType(eType);
                 ex.setAdditionalInfo("");
-                ex.setAmount(new BigDecimal(UIValidator.MoneyCommaRemover(txtMonthlyDeduction.getText())).doubleValue());
+                if (txtMonthlyDeduction.getText().equals("")) {
+                    ex.setAmount(0);
+                } else {
+                    ex.setAmount(new BigDecimal(UIValidator.MoneyCommaRemover(txtMonthlyDeduction.getText())).doubleValue());
+                }
                 ex.setTxFormNo(headerPanel.getFormNo());
                 results.add(ex);
             }
@@ -551,7 +556,11 @@ public class ExpendituresPanel extends javax.swing.JPanel implements KeyListener
                 ex = new Expenditure();
                 ex.setExpenditureType(eType);
                 ex.setAdditionalInfo("");
-                ex.setAmount(new BigDecimal(UIValidator.MoneyCommaRemover(txtMonthlyHouseholdBill.getText())).doubleValue());
+                if (txtMonthlyHouseholdBill.getText().equals("")) {
+                    ex.setAmount(0);
+                } else {
+                    ex.setAmount(new BigDecimal(UIValidator.MoneyCommaRemover(txtMonthlyHouseholdBill.getText())).doubleValue());
+                }
                 ex.setTxFormNo(headerPanel.getFormNo());
                 results.add(ex);
             }
@@ -562,7 +571,11 @@ public class ExpendituresPanel extends javax.swing.JPanel implements KeyListener
                 ex = new Expenditure();
                 ex.setExpenditureType(eType);
                 ex.setAdditionalInfo("");
-                ex.setAmount(new BigDecimal(UIValidator.MoneyCommaRemover(txtAmortization.getText())).doubleValue());
+                if (txtAmortization.getText().equals("")) {
+                    ex.setAmount(0);
+                } else {
+                    ex.setAmount(new BigDecimal(UIValidator.MoneyCommaRemover(txtAmortization.getText())).doubleValue());
+                }
                 ex.setTxFormNo(headerPanel.getFormNo());
                 results.add(ex);
             }
@@ -573,7 +586,11 @@ public class ExpendituresPanel extends javax.swing.JPanel implements KeyListener
                 ex = new Expenditure();
                 ex.setExpenditureType(eType);
                 ex.setAdditionalInfo(txtMaintenanceDesc.getText());
-                ex.setAmount(new BigDecimal(UIValidator.MoneyCommaRemover(txtMaintenance.getText())).doubleValue());
+                if (txtMaintenance.getText().equals("")) {
+                    ex.setAmount(0);
+                } else {
+                    ex.setAmount(new BigDecimal(UIValidator.MoneyCommaRemover(txtMaintenance.getText())).doubleValue());
+                }
                 ex.setTxFormNo(headerPanel.getFormNo());
                 results.add(ex);
             }
@@ -584,7 +601,11 @@ public class ExpendituresPanel extends javax.swing.JPanel implements KeyListener
                 ex = new Expenditure();
                 ex.setExpenditureType(eType);
                 ex.setAdditionalInfo("");
-                ex.setAmount(new BigDecimal(UIValidator.MoneyCommaRemover(txtLivingAllowance.getText())).doubleValue());
+                if (txtLivingAllowance.getText().equals("")) {
+                    ex.setAmount(0);
+                } else {
+                    ex.setAmount(new BigDecimal(UIValidator.MoneyCommaRemover(txtLivingAllowance.getText())).doubleValue());
+                }
                 ex.setTxFormNo(headerPanel.getFormNo());
                 results.add(ex);
             }
@@ -595,7 +616,11 @@ public class ExpendituresPanel extends javax.swing.JPanel implements KeyListener
                 ex = new Expenditure();
                 ex.setExpenditureType(eType);
                 ex.setAdditionalInfo(txtEducationDesc.getText());
-                ex.setAmount(new BigDecimal(UIValidator.MoneyCommaRemover(txtEducation.getText())).doubleValue());
+                if (txtEducation.getText().equals("")) {
+                    ex.setAmount(0);
+                } else {
+                    ex.setAmount(new BigDecimal(UIValidator.MoneyCommaRemover(txtEducation.getText())).doubleValue());
+                }
                 ex.setTxFormNo(headerPanel.getFormNo());
                 results.add(ex);
             }
@@ -606,7 +631,11 @@ public class ExpendituresPanel extends javax.swing.JPanel implements KeyListener
                 ex = new Expenditure();
                 ex.setExpenditureType(eType);
                 ex.setAdditionalInfo("");
-                ex.setAmount(new BigDecimal(UIValidator.MoneyCommaRemover(txtOthers.getText())).doubleValue());
+                if (txtOthers.getText().equals("")) {
+                    ex.setAmount(0);
+                } else {
+                    ex.setAmount(new BigDecimal(UIValidator.MoneyCommaRemover(txtOthers.getText())).doubleValue());
+                }
                 ex.setTxFormNo(headerPanel.getFormNo());
                 results.add(ex);
             }

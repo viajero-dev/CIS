@@ -5,7 +5,6 @@
  */
 package com.vg.scfc.financing.cis.ui.panel;
 
-import com.vg.commons.util.DateUtil;
 import com.vg.scfc.financing.cis.ent.Company;
 import com.vg.scfc.financing.cis.ui.controller.CompanyController;
 import com.vg.scfc.financing.cis.ui.reusable.HeaderPanel;
@@ -251,6 +250,7 @@ public class CompanyPanel extends javax.swing.JPanel implements KeyListener {
     @Override
     public void keyReleased(KeyEvent e) {
         switch (e.getKeyCode()) {
+            case KeyEvent.VK_TAB:
             case KeyEvent.VK_ENTER:
                 if (txtOwner.isFocusOwner()) {
                 txtOfficeAddress.requestFocus();

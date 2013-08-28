@@ -218,23 +218,24 @@ public class CharacterReferenceDependentPanel extends javax.swing.JPanel impleme
     @Override
     public void keyReleased(KeyEvent e) {
         switch (e.getKeyCode()) {
+            case KeyEvent.VK_TAB:
             case KeyEvent.VK_ENTER:
                 if (txtRefName.isFocusOwner()) {
-                txtRefAddress.requestFocus();
-            } else if (txtRefAddress.isFocusOwner()) {
-                txtRefContact.requestFocus();
-            } else if (txtRefContact.isFocusOwner()) {
-                txtRefRelationship.requestFocus();
-            }
-                break;
-            case KeyEvent.VK_UP:
-                if (txtRefRelationship.isFocusOwner()) {
-                txtRefContact.requestFocus();
-            } else if (txtRefContact.isFocusOwner()) {
-                txtRefAddress.requestFocus();
-            } else if (txtRefAddress.isFocusOwner()) {
-                txtRefName.requestFocus();
-            }
+                    txtRefAddress.requestFocus();
+                } else if (txtRefAddress.isFocusOwner()) {
+                    txtRefContact.requestFocus();
+                } else if (txtRefContact.isFocusOwner()) {
+                    txtRefRelationship.requestFocus();
+                }
+                    break;
+                case KeyEvent.VK_UP:
+                    if (txtRefRelationship.isFocusOwner()) {
+                    txtRefContact.requestFocus();
+                } else if (txtRefContact.isFocusOwner()) {
+                    txtRefAddress.requestFocus();
+                } else if (txtRefAddress.isFocusOwner()) {
+                    txtRefName.requestFocus();
+                }
                 break;
         }
     }

@@ -272,6 +272,7 @@ public class CompanyInformationPanel extends javax.swing.JPanel implements KeyLi
     @Override
     public void keyReleased(KeyEvent e) {
         switch (e.getKeyCode()) {
+            case KeyEvent.VK_TAB:
             case KeyEvent.VK_ENTER:
                 if (txtOwner.isFocusOwner()) {
                 txtOfficeAddress.requestFocus();

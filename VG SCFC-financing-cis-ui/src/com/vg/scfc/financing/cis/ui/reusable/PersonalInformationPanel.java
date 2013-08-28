@@ -19,7 +19,6 @@ import com.vg.scfc.financing.cis.ui.dialog.PersonalInfoDialog;
 import com.vg.scfc.financing.cis.ui.panel.MainPanel;
 import com.vg.scfc.financing.cis.ui.settings.UISetting;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
-import com.vg.scfc.financing.commons.ent.LiveUpdate;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.text.ParseException;
@@ -28,7 +27,6 @@ import java.util.List;
 import javax.swing.JTextField;
 import net.java.balloontip.BalloonTip;
 import net.java.balloontip.utils.FadingUtils;
-import net.java.balloontip.utils.ToolTipUtils;
 import vg.img.service.Caller;
 import vg.img.ui.WebCamDlg;
 
@@ -261,14 +259,12 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
         jLabel106.setText("Tribe");
         jPanel4.add(jLabel106, new org.netbeans.lib.awtextra.AbsoluteConstraints(625, 35, -1, -1));
 
-        comboTribe.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         jPanel4.add(comboTribe, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 30, 144, -1));
 
         jLabel107.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel107.setText("Religion");
         jPanel4.add(jLabel107, new org.netbeans.lib.awtextra.AbsoluteConstraints(625, 60, -1, -1));
 
-        comboReligion.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         jPanel4.add(comboReligion, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 55, 144, -1));
 
         jLabel108.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
@@ -279,7 +275,6 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
         jLabel109.setText("Status");
         jPanel4.add(jLabel109, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 60, -1, -1));
 
-        comboStatus.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         comboStatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Single", "Married" }));
         comboStatus.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -292,7 +287,6 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
         jLabel110.setText("If Married");
         jPanel4.add(jLabel110, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 85, -1, -1));
 
-        comboMarriedOption.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         comboMarriedOption.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Living Together", "Widower", "Legally Seperated", "Mutually Seperated" }));
         comboMarriedOption.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -301,7 +295,6 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
         });
         jPanel4.add(comboMarriedOption, new org.netbeans.lib.awtextra.AbsoluteConstraints(455, 80, 144, -1));
 
-        comboEducationStatus.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         comboEducationStatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "ELEMENTARY", "HIGH SCHOOL", "SOME COLLEGE", "COLLEGE GRADUATE" }));
         jPanel4.add(comboEducationStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 5, 144, -1));
 
@@ -345,7 +338,7 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
         });
         jPanel4.add(txtPresentAddress, new org.netbeans.lib.awtextra.AbsoluteConstraints(125, 131, 710, -1));
 
-        txtBirthDate.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
+        txtBirthDate.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
         txtBirthDate.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtBirthDateFocusLost(evt);
@@ -364,7 +357,6 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
         lblPhoto.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel4.add(lblPhoto, new org.netbeans.lib.awtextra.AbsoluteConstraints(855, 10, 130, 120));
 
-        txtCitizenship.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtCitizenship.setText("FILIPINO");
         txtCitizenship.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -567,6 +559,7 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
     @Override
     public void keyReleased(KeyEvent e) {
         switch (e.getKeyCode()) {
+            case KeyEvent.VK_TAB:
             case KeyEvent.VK_ENTER:
                 if (txtLastName.isFocusOwner()) {
                 txtFirstName.requestFocus();

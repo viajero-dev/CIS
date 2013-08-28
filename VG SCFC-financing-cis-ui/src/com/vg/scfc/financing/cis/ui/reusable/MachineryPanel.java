@@ -40,7 +40,7 @@ public class MachineryPanel extends javax.swing.JPanel implements KeyListener {
     }
 
     private void initMachineryTable() {
-        tableMachinery.putClientProperty("Quaqua.Table.style", "striped" );
+        tableMachinery.putClientProperty("Quaqua.Table.style", "striped");
         tableMachinery.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         tableMachinery.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 
@@ -200,6 +200,7 @@ public class MachineryPanel extends javax.swing.JPanel implements KeyListener {
     @Override
     public void keyReleased(KeyEvent e) {
         switch (e.getKeyCode()) {
+            case KeyEvent.VK_TAB:
             case KeyEvent.VK_ENTER:
                 if (txtMachineType.isFocusOwner()) {
                 txtMachineQty.requestFocus();
@@ -221,13 +222,13 @@ public class MachineryPanel extends javax.swing.JPanel implements KeyListener {
         txtMachineType.setEditable(value);
         txtMachineQty.setEditable(value);
         txtMachineEstValue.setEditable(value);
-        
+
         txtMachineType.setFocusable(value);
         txtMachineQty.setFocusable(value);
         txtMachineEstValue.setFocusable(value);
         tableMachinery.setFocusable(value);
-        
-        if(value) {
+
+        if (value) {
             txtMachineType.requestFocus();
         }
     }
@@ -274,7 +275,11 @@ public class MachineryPanel extends javax.swing.JPanel implements KeyListener {
     private Machinery createNew(Machinery m) {
         m.setType(txtMachineType.getText());
         m.setQuantity(Integer.parseInt(txtMachineQty.getText()));
-        m.setAmount(new BigDecimal(UIValidator.MoneyCommaRemover(txtMachineEstValue.getText())).doubleValue());
+        if (txtMachineEstValue.getText().equals("")) {
+            m.setAmount(0);
+        } else {
+            m.setAmount(new BigDecimal(UIValidator.MoneyCommaRemover(txtMachineEstValue.getText())).doubleValue());
+        }
         return m;
     }
 }

@@ -216,14 +216,15 @@ public class DependentPanel extends javax.swing.JPanel implements KeyListener {
     @Override
     public void keyReleased(KeyEvent e) {
         switch (e.getKeyCode()) {
+            case KeyEvent.VK_TAB:
             case KeyEvent.VK_ENTER:
                 if (txtRefName.isFocusOwner()) {
-                txtRefAddress.requestFocus();
-            } else if (txtRefAddress.isFocusOwner()) {
-                txtRefContact.requestFocus();
-            } else if (txtRefContact.isFocusOwner()) {
-                txtRefRelationship.requestFocus();
-            }
+                    txtRefAddress.requestFocus();
+                } else if (txtRefAddress.isFocusOwner()) {
+                    txtRefContact.requestFocus();
+                } else if (txtRefContact.isFocusOwner()) {
+                    txtRefRelationship.requestFocus();
+                }
                 break;
             case KeyEvent.VK_UP:
                 if (txtRefRelationship.isFocusOwner()) {

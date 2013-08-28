@@ -210,6 +210,7 @@ public class EmploymentDataPanel extends javax.swing.JPanel implements KeyListen
     @Override
     public void keyReleased(KeyEvent e) {
         switch (e.getKeyCode()) {
+            case KeyEvent.VK_TAB:
             case KeyEvent.VK_ENTER:
                 if (comboEmploymentStatus.isFocusOwner()) {
                 txtPositionDepartment.requestFocus();

@@ -39,7 +39,7 @@ public class VehiclePanel extends javax.swing.JPanel implements KeyListener {
     }
 
     private void initVehicleTable() {
-        tableVehicle.putClientProperty("Quaqua.Table.style", "striped" );
+        tableVehicle.putClientProperty("Quaqua.Table.style", "striped");
         tableVehicle.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         tableVehicle.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 
@@ -222,6 +222,7 @@ public class VehiclePanel extends javax.swing.JPanel implements KeyListener {
     @Override
     public void keyReleased(KeyEvent e) {
         switch (e.getKeyCode()) {
+            case KeyEvent.VK_TAB:
             case KeyEvent.VK_ENTER:
                 if (txtTypeModel.isFocusOwner()) {
                 txtYrsUsed.requestFocus();
@@ -248,14 +249,14 @@ public class VehiclePanel extends javax.swing.JPanel implements KeyListener {
         txtYrsUsed.setEditable(value);
         comboUsed.setEnabled(value);
         txtEstValue.setEditable(value);
-        
+
         txtTypeModel.setFocusable(value);
         txtYrsUsed.setFocusable(value);
         comboUsed.setFocusable(value);
         txtEstValue.setFocusable(value);
         tableVehicle.setFocusable(value);
-        
-        if(value) {
+
+        if (value) {
             txtTypeModel.requestFocus();
         }
     }
@@ -312,8 +313,11 @@ public class VehiclePanel extends javax.swing.JPanel implements KeyListener {
         v.setType(txtTypeModel.getText());
         v.setAge(Integer.parseInt(txtYrsUsed.getText()));
         v.setUse((String) comboUsed.getSelectedItem());
-        v.setAmount(new BigDecimal(txtEstValue.getText()).doubleValue());
-        
+        if (txtEstValue.getText().equals("")) {
+            v.setAmount(0);
+        } else {
+            v.setAmount(new BigDecimal(txtEstValue.getText()).doubleValue());
+        }
         return v;
     }
 

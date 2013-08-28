@@ -339,11 +339,11 @@ public class LandPanel extends javax.swing.JPanel implements KeyListener {
     }//GEN-LAST:event_txtLocationAgriFocusLost
 
     private void txtEstValueAgriFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEstValueAgriFocusLost
-        txtEstValueAgri.setText(NumberUtils.doubleToString(new BigDecimal(UIValidator.isNumeric(txtEstValueAgri)).doubleValue())); 
+        txtEstValueAgri.setText(NumberUtils.doubleToString(new BigDecimal(UIValidator.isNumeric(txtEstValueAgri)).doubleValue()));
     }//GEN-LAST:event_txtEstValueAgriFocusLost
 
     private void txtAreaCommercialFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtAreaCommercialFocusLost
-        txtAreaCommercial.setText(NumberUtils.doubleToString(new BigDecimal(UIValidator.isNumeric(txtAreaCommercial)).doubleValue())); 
+        txtAreaCommercial.setText(NumberUtils.doubleToString(new BigDecimal(UIValidator.isNumeric(txtAreaCommercial)).doubleValue()));
     }//GEN-LAST:event_txtAreaCommercialFocusLost
 
     private void txtLocationCommercialFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtLocationCommercialFocusLost
@@ -355,7 +355,7 @@ public class LandPanel extends javax.swing.JPanel implements KeyListener {
     }//GEN-LAST:event_txtEstValueCommercialFocusLost
 
     private void txtAreaResidentialFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtAreaResidentialFocusLost
-       txtAreaResidential.setText(NumberUtils.doubleToString(new BigDecimal(UIValidator.isNumeric(txtAreaResidential)).doubleValue()));
+        txtAreaResidential.setText(NumberUtils.doubleToString(new BigDecimal(UIValidator.isNumeric(txtAreaResidential)).doubleValue()));
     }//GEN-LAST:event_txtAreaResidentialFocusLost
 
     private void txtLocationResidentialFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtLocationResidentialFocusLost
@@ -456,6 +456,7 @@ public class LandPanel extends javax.swing.JPanel implements KeyListener {
     @Override
     public void keyReleased(KeyEvent e) {
         switch (e.getKeyCode()) {
+            case KeyEvent.VK_TAB:
             case KeyEvent.VK_ENTER:
                 if (checkAgricultural.isFocusOwner()) {
                 if (checkAgricultural.isSelected()) {
@@ -631,7 +632,7 @@ public class LandPanel extends javax.swing.JPanel implements KeyListener {
                         break;
                 }
             }
-             txtTotalEstValue.setText(NumberUtils.doubleToString(LandAssetController.getInstance().computeTotalEstimatedValue(l)));
+            txtTotalEstValue.setText(NumberUtils.doubleToString(LandAssetController.getInstance().computeTotalEstimatedValue(l)));
         }
     }
 
@@ -649,7 +650,7 @@ public class LandPanel extends javax.swing.JPanel implements KeyListener {
         txtLocationCommercial.setEditable(value);
         txtEstValueResidential.setEditable(value);
         txtOtherDesc.setEditable(value);
-        
+
         checkAgricultural.setFocusable(value);
         txtAreaAgri.setFocusable(value);
         txtLocationAgri.setFocusable(value);
@@ -663,8 +664,8 @@ public class LandPanel extends javax.swing.JPanel implements KeyListener {
         txtLocationCommercial.setFocusable(value);
         txtEstValueResidential.setFocusable(value);
         txtOtherDesc.setFocusable(value);
-        
-        if(value) {
+
+        if (value) {
             checkAgricultural.requestFocus();
         }
     }
@@ -710,10 +711,13 @@ public class LandPanel extends javax.swing.JPanel implements KeyListener {
                 Land agriLand = new Land();
                 agriLand.setArea(new BigDecimal(UIValidator.MoneyCommaRemover(txtAreaAgri.getText())).doubleValue());
                 agriLand.setAddress(txtLocationAgri.getText());
-                agriLand.setAmount(new BigDecimal(UIValidator.MoneyCommaRemover(txtEstValueAgri.getText())).doubleValue());
+                if (txtEstValueAgri.getText().equals("")) {
+                    agriLand.setAmount(0);
+                } else {
+                    agriLand.setAmount(new BigDecimal(UIValidator.MoneyCommaRemover(txtEstValueAgri.getText())).doubleValue());
+                }
                 agriLand.setAdditionalInfo("");
                 LandType l = LandAssetController.getInstance().findLandTypeByID(1);
-                System.out.println(l == null);
                 agriLand.setLandType(l);
                 results.add(agriLand);
             }
@@ -723,7 +727,11 @@ public class LandPanel extends javax.swing.JPanel implements KeyListener {
                 Land commLand = new Land();
                 commLand.setArea(new BigDecimal(UIValidator.MoneyCommaRemover(txtAreaCommercial.getText())).doubleValue());
                 commLand.setAddress(txtLocationCommercial.getText());
-                commLand.setAmount(new BigDecimal(UIValidator.MoneyCommaRemover(txtEstValueCommercial.getText())).doubleValue());
+                if (txtEstValueCommercial.getText().equals("")) {
+                    commLand.setAmount(0);
+                } else {
+                    commLand.setAmount(new BigDecimal(UIValidator.MoneyCommaRemover(txtEstValueCommercial.getText())).doubleValue());
+                }
                 commLand.setAdditionalInfo("");
                 commLand.setLandType(LandAssetController.getInstance().findLandTypeByID(2));
                 results.add(commLand);
@@ -734,7 +742,11 @@ public class LandPanel extends javax.swing.JPanel implements KeyListener {
                 Land resLand = new Land();
                 resLand.setArea(new BigDecimal(UIValidator.MoneyCommaRemover(txtAreaResidential.getText())).doubleValue());
                 resLand.setAddress(txtLocationResidential.getText());
-                resLand.setAmount(new BigDecimal(UIValidator.MoneyCommaRemover(txtEstValueResidential.getText())).doubleValue());
+                if (txtEstValueResidential.getText().equals("")) {
+                    resLand.setAmount(0);
+                } else {
+                    resLand.setAmount(new BigDecimal(UIValidator.MoneyCommaRemover(txtEstValueResidential.getText())).doubleValue());
+                }
                 if (optionConcrete.isSelected()) {
                     resLand.setAdditionalInfo("CONCRETE");
                 }
@@ -761,7 +773,11 @@ public class LandPanel extends javax.swing.JPanel implements KeyListener {
                         if (checkAgricultural.isSelected()) {
                         land.setArea(new BigDecimal(UIValidator.MoneyCommaRemover(txtAreaAgri.getText())).doubleValue());
                         land.setAddress(txtLocationAgri.getText());
-                        land.setAmount(new BigDecimal(UIValidator.MoneyCommaRemover(txtEstValueAgri.getText())).doubleValue());
+                        if (txtEstValueAgri.getText().equals("")) {
+                            land.setAmount(0);
+                        } else {
+                            land.setAmount(new BigDecimal(UIValidator.MoneyCommaRemover(txtEstValueAgri.getText())).doubleValue());
+                        }
                     } else {
                         land.setArea(0);
                         land.setAddress("");
@@ -772,7 +788,11 @@ public class LandPanel extends javax.swing.JPanel implements KeyListener {
                         if (checkCommercial.isSelected()) {
                         land.setArea(new BigDecimal(UIValidator.MoneyCommaRemover(txtAreaCommercial.getText())).doubleValue());
                         land.setAddress(txtLocationCommercial.getText());
-                        land.setAmount(new BigDecimal(UIValidator.MoneyCommaRemover(txtEstValueAgri.getText())).doubleValue());
+                        if (txtEstValueCommercial.getText().equals("")) {
+                            land.setAmount(0);
+                        } else {
+                            land.setAmount(new BigDecimal(UIValidator.MoneyCommaRemover(txtEstValueCommercial.getText())).doubleValue());
+                        }
                     } else {
                         land.setArea(0);
                         land.setAddress("");
@@ -798,7 +818,11 @@ public class LandPanel extends javax.swing.JPanel implements KeyListener {
                         if (optionOthers.isSelected()) {
                             land.setAdditionalInfo(txtOtherDesc.getText());
                         }
-                        land.setAmount(new BigDecimal(UIValidator.MoneyCommaRemover(txtEstValueResidential.getText())).doubleValue());
+                        if (txtEstValueResidential.getText().equals("")) {
+                            land.setAmount(0);
+                        } else {
+                            land.setAmount(new BigDecimal(UIValidator.MoneyCommaRemover(txtEstValueResidential.getText())).doubleValue());
+                        }
                     } else {
                         land.setArea(0);
                         land.setAddress("");

@@ -288,6 +288,7 @@ public class RidersToBuyerPanel extends javax.swing.JPanel implements KeyListene
     @Override
     public void keyReleased(KeyEvent e) {
         switch (e.getKeyCode()) {
+            case KeyEvent.VK_TAB:
             case KeyEvent.VK_ENTER:
                 if (txtCompetent.isFocusOwner()) {
                 txtIdNo.requestFocus();
