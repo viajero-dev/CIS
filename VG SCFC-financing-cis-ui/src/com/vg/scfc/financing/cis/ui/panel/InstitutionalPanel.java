@@ -17,10 +17,10 @@ import com.vg.scfc.financing.cis.ent.TransactionForm;
 import com.vg.scfc.financing.cis.ui.controller.AddressController;
 import com.vg.scfc.financing.cis.ui.controller.CompanyController;
 import com.vg.scfc.financing.cis.ui.controller.EmploymentController;
+import com.vg.scfc.financing.cis.ui.controller.IdentificationController;
 import com.vg.scfc.financing.cis.ui.controller.PersonalInfoController;
 import com.vg.scfc.financing.cis.ui.controller.PurchaseOrderController;
 import com.vg.scfc.financing.cis.ui.controller.ReportController;
-import com.vg.scfc.financing.cis.ui.controller.RidersToBuyerController;
 import com.vg.scfc.financing.cis.ui.controller.SearchController;
 import com.vg.scfc.financing.cis.ui.dialog.AddressDialog;
 import com.vg.scfc.financing.cis.ui.dialog.ApplicationFormDlg;
@@ -447,6 +447,61 @@ public class InstitutionalPanel extends javax.swing.JPanel implements KeyListene
     private void initRidersToBuyer() {
         ridersToBuyerPanel.setHeaderPanel(headerPanel);
         ridersToBuyerPanel.setPersonType("APP");
+        addEditID.setBasicActionListener(new BasicActionListener() {
+
+            @Override
+            public void onAdd() {
+                ridersToBuyerPanel.setFieldsEditable(true);
+                ridersToBuyerPanel.resetToDefault();
+                managedTab("tabID");
+            }
+
+            @Override
+            public boolean onSaveAdd() {
+                boolean isSaved = ridersToBuyerPanel.saveAgreement();
+                if (!isSaved) {
+                    UIValidator.promptErrorMessageOn("SAVE");
+                } else {
+                    UIValidator.promptSucessMessageFor("SAVE");
+                    ridersToBuyerPanel.setFieldsEditable(false);
+                }
+
+                enableTabs();
+                return isSaved;
+            }
+
+            @Override
+            public void onCancelAdd() {
+                ridersToBuyerPanel.setFieldsEditable(false);
+                enableTabs();
+            }
+
+            @Override
+            public void onEdit() {
+                ridersToBuyerPanel.setFieldsEditable(true);
+                managedTab("tabID");
+            }
+
+            @Override
+            public boolean onSaveEdit() {
+                boolean isUpdated = ridersToBuyerPanel.updateAgreement();
+                if (!isUpdated) {
+                    UIValidator.promptErrorMessageOn("EDIT");
+                } else {
+                    UIValidator.promptSucessMessageFor("EDIT");
+                    ridersToBuyerPanel.setFieldsEditable(false);
+                }
+
+                enableTabs();
+                return isUpdated;
+            }
+
+            @Override
+            public void onCancelEdit() {
+                ridersToBuyerPanel.setFieldsEditable(false);
+                enableTabs();
+            }
+        });
     }
 
     public void refreshSearch(String formNo) {
@@ -492,7 +547,7 @@ public class InstitutionalPanel extends javax.swing.JPanel implements KeyListene
                 headerPanel.setApplicationStatus("");
                 panelPurchaseOrder.setPurchaseOrder(null);
             }
-            Identification i = RidersToBuyerController.getInstance().findByFormNo(form.getTxFormNo());
+            Identification i = IdentificationController.getInstance().findByFormNo(form.getTxFormNo());
             if (i != null) {
                 ridersToBuyerPanel.setIdentification(i);
             } else {
@@ -568,7 +623,7 @@ public class InstitutionalPanel extends javax.swing.JPanel implements KeyListene
         panelRepresentative2Employment = new com.vg.scfc.financing.cis.ui.panel.EmploymentRepresentativePanel();
         tabID = new javax.swing.JPanel();
         ridersToBuyerPanel = new com.vg.scfc.financing.cis.ui.reusable.RidersToBuyerPanel();
-        btnAgree = new javax.swing.JButton();
+        addEditID = new com.vg.scfc.financing.cis.ui.reusable.AddEditButtonPanel();
         tabPO = new javax.swing.JPanel();
         addEditPurchaseOrder = new com.vg.scfc.financing.cis.ui.reusable.AddEditButtonPanel();
         panelPurchaseOrder = new com.vg.scfc.financing.cis.ui.reusable.PurchaseOrderPanel2();
@@ -632,15 +687,8 @@ public class InstitutionalPanel extends javax.swing.JPanel implements KeyListene
 
         tabID.setName("tabID"); // NOI18N
         tabID.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        tabID.add(ridersToBuyerPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, -1, -1));
-
-        btnAgree.setText("Agree");
-        btnAgree.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgreeActionPerformed(evt);
-            }
-        });
-        tabID.add(btnAgree, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 245, 130, -1));
+        tabID.add(ridersToBuyerPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 15, -1, -1));
+        tabID.add(addEditID, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 150, -1, -1));
 
         jTabbedPane1.addTab("RIDERS TO BUYERS", tabID);
 
@@ -692,15 +740,6 @@ public class InstitutionalPanel extends javax.swing.JPanel implements KeyListene
         add(tabCompany, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 85, 1050, 250));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnAgreeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgreeActionPerformed
-        boolean isSaved = ridersToBuyerPanel.saveAgreement();
-        if (isSaved) {
-            UIValidator.promptSucessMessageFor("SAVE");
-        } else {
-            UIValidator.promptErrorMessageOn("SAVE");
-        }
-    }//GEN-LAST:event_btnAgreeActionPerformed
-
     private void txtCompanyNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCompanyNameFocusLost
         txtCompanyName.setText(txtCompanyName.getText().toUpperCase());
     }//GEN-LAST:event_txtCompanyNameFocusLost
@@ -711,12 +750,12 @@ public class InstitutionalPanel extends javax.swing.JPanel implements KeyListene
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.vg.scfc.financing.cis.ui.reusable.AddEditButtonPanel addEditCompanyInfo;
+    private com.vg.scfc.financing.cis.ui.reusable.AddEditButtonPanel addEditID;
     private com.vg.scfc.financing.cis.ui.reusable.AddEditButtonPanel addEditPurchaseOrder;
     private com.vg.scfc.financing.cis.ui.reusable.AddEditButtonPanel addEditRepresentative1Employment;
     private com.vg.scfc.financing.cis.ui.reusable.AddEditButtonPanel addEditRepresentative1PersonalInfo;
     private com.vg.scfc.financing.cis.ui.reusable.AddEditButtonPanel addEditRepresentative2Employment;
     private com.vg.scfc.financing.cis.ui.reusable.AddEditButtonPanel addEditRepresentative2PersonalInfo;
-    private javax.swing.JButton btnAgree;
     private javax.swing.JButton btnPrint;
     private com.vg.scfc.financing.cis.ui.reusable.HeaderPanel headerPanel;
     private javax.swing.JLabel jLabel1;

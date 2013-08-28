@@ -14,13 +14,13 @@ import com.vg.scfc.financing.cis.ui.validator.UIValidator;
  *
  * @author rodel
  */
-public class RidersToBuyerController {
+public class IdentificationController {
 
-    private static RidersToBuyerController instance;
+    private static IdentificationController instance;
 
-    public static RidersToBuyerController getInstance() {
+    public static IdentificationController getInstance() {
         if (instance == null) {
-            instance = new RidersToBuyerController();
+            instance = new IdentificationController();
         }
         return instance;
     }
@@ -30,9 +30,6 @@ public class RidersToBuyerController {
         try {
             i.setTxFormNo(formNo);
             PersonType ptype = UISetting.getPersonTypeService().findById(personTypeID);
-            if(ptype == null) {
-                System.out.println("NULL person type.");
-            }
             i.setPersonType(ptype);
             i.setUser(UISetting.getSystemUser());
             i.setLocation(UISetting.getStoreLocation());
@@ -40,11 +37,25 @@ public class RidersToBuyerController {
             boolean isSaved = UISetting.getIdentificationService().insert(i);
             if(isSaved) {
                 result = UISetting.getIdentificationService().findById(formNo, personTypeID);
-            } else {
-                System.out.println("Failed to insert...");
-            }
+            } 
         } catch (Exception ex) {
-            UIValidator.log(ex, RidersToBuyerController.class);
+            UIValidator.log(ex, IdentificationController.class);
+        }
+        return result;
+    }
+    
+    public Identification update(String formNo, String personTypeID, Identification i) {
+        Identification result = null;
+        try {
+            i.setUser(UISetting.getSystemUser());
+            i.setLocation(UISetting.getStoreLocation());
+            i.setStation(UISetting.getComputerName());
+            boolean isSaved = UISetting.getIdentificationService().update(i);
+            if(isSaved) {
+                result = UISetting.getIdentificationService().findById(formNo, personTypeID);
+            } 
+        } catch (Exception ex) {
+            UIValidator.log(ex, IdentificationController.class);
         }
         return result;
     }
@@ -54,7 +65,7 @@ public class RidersToBuyerController {
         try {
             result = UISetting.getIdentificationService().findById(formNo, "APP");
         } catch (Exception ex) {
-            UIValidator.log(ex, RidersToBuyerController.class);
+            UIValidator.log(ex, IdentificationController.class);
         }
         return result;
     }
@@ -64,7 +75,7 @@ public class RidersToBuyerController {
         try {
             result = UISetting.getIdentificationService().findById(formNo, personTypeID);
         } catch (Exception ex) {
-            UIValidator.log(ex, RidersToBuyerController.class);
+            UIValidator.log(ex, IdentificationController.class);
         }
         return result;
     }

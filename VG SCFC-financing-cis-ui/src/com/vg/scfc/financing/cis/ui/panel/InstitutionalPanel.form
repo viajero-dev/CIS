@@ -232,20 +232,14 @@
             <Component class="com.vg.scfc.financing.cis.ui.reusable.RidersToBuyerPanel" name="ridersToBuyerPanel">
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="50" y="50" width="-1" height="-1"/>
+                  <AbsoluteConstraints x="15" y="15" width="-1" height="-1"/>
                 </Constraint>
               </Constraints>
             </Component>
-            <Component class="javax.swing.JButton" name="btnAgree">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Agree"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAgreeActionPerformed"/>
-              </Events>
+            <Component class="com.vg.scfc.financing.cis.ui.reusable.AddEditButtonPanel" name="addEditID">
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="790" y="245" width="130" height="-1"/>
+                  <AbsoluteConstraints x="270" y="150" width="-1" height="-1"/>
                 </Constraint>
               </Constraints>
             </Component>
