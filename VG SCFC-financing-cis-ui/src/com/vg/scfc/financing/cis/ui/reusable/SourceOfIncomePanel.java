@@ -5,11 +5,13 @@
  */
 package com.vg.scfc.financing.cis.ui.reusable;
 
+import com.vg.commons.renderer.IndexedFocusTraversalPolicy;
 import com.vg.commons.util.DateUtil;
 import com.vg.commons.util.NumberUtils;
 import com.vg.scfc.financing.cis.ent.SourceOfIncome;
 import com.vg.scfc.financing.cis.ui.controller.SourceOfIncomeController;
 import com.vg.scfc.financing.cis.ui.panel.MainPanel;
+import com.vg.scfc.financing.cis.ui.settings.UISetting;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -31,8 +33,30 @@ public class SourceOfIncomePanel extends javax.swing.JPanel implements KeyListen
         initOptions();
         initKeyListener();
         startUpSettings();
+        policySetting();
     }
-
+    
+    public final void policySetting() {
+        UISetting.policy.addIndexedComponent(checkMonthlySalaryCompensation);
+        UISetting.policy.addIndexedComponent(checkSourceBusiness);
+        UISetting.policy.addIndexedComponent(checkSourceFarmProducts);
+        UISetting.policy.addIndexedComponent(checkSourceOthers);
+        UISetting.policy.addIndexedComponent(checkFarmAgri);
+        UISetting.policy.addIndexedComponent(checkFarmLiveStock);
+        UISetting.policy.addIndexedComponent(txtMonthlySalaryCompensation);
+        UISetting.policy.addIndexedComponent(txtBusinessNature);
+        UISetting.policy.addIndexedComponent(optionBusinessRegistered);
+        UISetting.policy.addIndexedComponent(optionBusinessNotRegistered);
+        UISetting.policy.addIndexedComponent(txtMonthlyIncomeForBusiness);
+        UISetting.policy.addIndexedComponent(txtFarmHarvestSchedule);
+        UISetting.policy.addIndexedComponent(txtFarmAvgProductIncome);
+        UISetting.policy.addIndexedComponent(txtMonthlyIncomeForFarmProducts);
+        UISetting.policy.addIndexedComponent(txtOtherSourceDesc);
+        UISetting.policy.addIndexedComponent(txtMonthlyIncomeForOtherSources);
+        UISetting.policy.addIndexedComponent(txtAgri);
+        UISetting.policy.addIndexedComponent(txtLiveStock);
+    }
+    
     private void startUpSettings() {
         setFieldsEditable(false);
     }
@@ -448,58 +472,58 @@ public class SourceOfIncomePanel extends javax.swing.JPanel implements KeyListen
     @Override
     public void keyReleased(KeyEvent e) {
         switch (e.getKeyCode()) {
-            case KeyEvent.VK_TAB:
-            case KeyEvent.VK_ENTER:
-                if (checkMonthlySalaryCompensation.isFocusOwner()) {
-                if (checkMonthlySalaryCompensation.isSelected()) {
-                    txtMonthlySalaryCompensation.requestFocus();
-                } else {
-                    checkSourceBusiness.requestFocus();
-                }
-            } else if (txtMonthlySalaryCompensation.isFocusOwner()) {
-                checkSourceBusiness.requestFocus();
-            } else if (checkSourceBusiness.isFocusOwner()) {
-                if (checkSourceBusiness.isSelected()) {
-                    txtBusinessNature.requestFocus();
-                } else {
-                    checkSourceFarmProducts.requestFocus();
-                }
-            } else if (txtBusinessNature.isFocusOwner()) {
-                optionBusinessRegistered.requestFocus();
-            } else if (optionBusinessRegistered.isFocusOwner()) {
-                optionBusinessNotRegistered.requestFocus();
-            } else if (optionBusinessNotRegistered.isFocusOwner()) {
-                txtMonthlyIncomeForBusiness.requestFocus();
-            } else if (txtMonthlyIncomeForBusiness.isFocusOwner()) {
-                checkSourceFarmProducts.requestFocus();
-            } else if (checkSourceFarmProducts.isFocusOwner()) {
-                if (checkSourceFarmProducts.isSelected()) {
-                    checkFarmAgri.requestFocus();
-                } else {
-                    checkSourceOthers.requestFocus();
-                }
-            } else if (checkFarmAgri.isFocusOwner()) {
-                txtAgri.requestFocus();
-            } else if (txtAgri.isFocusOwner()) {
-                checkFarmLiveStock.requestFocus();
-            } else if (checkFarmLiveStock.isFocusOwner()) {
-                txtLiveStock.requestFocus();
-            } else if (txtLiveStock.isFocusOwner()) {
-                txtFarmHarvestSchedule.requestFocus();
-            } else if (txtFarmHarvestSchedule.isFocusOwner()) {
-                txtFarmAvgProductIncome.requestFocus();
-            } else if (txtFarmAvgProductIncome.isFocusOwner()) {
-                txtMonthlyIncomeForFarmProducts.requestFocus();
-            } else if (txtMonthlyIncomeForFarmProducts.isFocusOwner()) {
-                checkSourceOthers.requestFocus();
-            } else if (checkSourceOthers.isFocusOwner()) {
-                if (checkSourceOthers.isSelected()) {
-                    txtOtherSourceDesc.requestFocus();
-                }
-            } else if (txtOtherSourceDesc.isFocusOwner()) {
-                txtMonthlyIncomeForOtherSources.requestFocus();
-            }
-                break;
+//            case KeyEvent.VK_TAB:
+//            case KeyEvent.VK_ENTER:
+//                if (checkMonthlySalaryCompensation.isFocusOwner()) {
+//                if (checkMonthlySalaryCompensation.isSelected()) {
+//                    txtMonthlySalaryCompensation.requestFocus();
+//                } else {
+//                    checkSourceBusiness.requestFocus();
+//                }
+//            } else if (txtMonthlySalaryCompensation.isFocusOwner()) {
+//                checkSourceBusiness.requestFocus();
+//            } else if (checkSourceBusiness.isFocusOwner()) {
+//                if (checkSourceBusiness.isSelected()) {
+//                    txtBusinessNature.requestFocus();
+//                } else {
+//                    checkSourceFarmProducts.requestFocus();
+//                }
+//            } else if (txtBusinessNature.isFocusOwner()) {
+//                optionBusinessRegistered.requestFocus();
+//            } else if (optionBusinessRegistered.isFocusOwner()) {
+//                optionBusinessNotRegistered.requestFocus();
+//            } else if (optionBusinessNotRegistered.isFocusOwner()) {
+//                txtMonthlyIncomeForBusiness.requestFocus();
+//            } else if (txtMonthlyIncomeForBusiness.isFocusOwner()) {
+//                checkSourceFarmProducts.requestFocus();
+//            } else if (checkSourceFarmProducts.isFocusOwner()) {
+//                if (checkSourceFarmProducts.isSelected()) {
+//                    checkFarmAgri.requestFocus();
+//                } else {
+//                    checkSourceOthers.requestFocus();
+//                }
+//            } else if (checkFarmAgri.isFocusOwner()) {
+//                txtAgri.requestFocus();
+//            } else if (txtAgri.isFocusOwner()) {
+//                checkFarmLiveStock.requestFocus();
+//            } else if (checkFarmLiveStock.isFocusOwner()) {
+//                txtLiveStock.requestFocus();
+//            } else if (txtLiveStock.isFocusOwner()) {
+//                txtFarmHarvestSchedule.requestFocus();
+//            } else if (txtFarmHarvestSchedule.isFocusOwner()) {
+//                txtFarmAvgProductIncome.requestFocus();
+//            } else if (txtFarmAvgProductIncome.isFocusOwner()) {
+//                txtMonthlyIncomeForFarmProducts.requestFocus();
+//            } else if (txtMonthlyIncomeForFarmProducts.isFocusOwner()) {
+//                checkSourceOthers.requestFocus();
+//            } else if (checkSourceOthers.isFocusOwner()) {
+//                if (checkSourceOthers.isSelected()) {
+//                    txtOtherSourceDesc.requestFocus();
+//                }
+//            } else if (txtOtherSourceDesc.isFocusOwner()) {
+//                txtMonthlyIncomeForOtherSources.requestFocus();
+//            }
+//                break;
             case KeyEvent.VK_UP:
                 break;
         }

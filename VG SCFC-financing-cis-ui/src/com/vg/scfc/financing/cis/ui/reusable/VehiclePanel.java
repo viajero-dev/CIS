@@ -5,8 +5,10 @@
  */
 package com.vg.scfc.financing.cis.ui.reusable;
 
+import com.vg.commons.renderer.IndexedFocusTraversalPolicy;
 import com.vg.scfc.financing.cis.ent.Vehicle;
 import com.vg.scfc.financing.cis.ui.controller.VehicleAssetsController;
+import com.vg.scfc.financing.cis.ui.settings.UISetting;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -30,8 +32,16 @@ public class VehiclePanel extends javax.swing.JPanel implements KeyListener {
     public VehiclePanel() {
         initComponents();
         startUpSettings();
+        policySetting();
     }
-
+    
+    public final void policySetting() {
+        UISetting.policy.addIndexedComponent(txtTypeModel);
+        UISetting.policy.addIndexedComponent(txtYrsUsed);
+        UISetting.policy.addIndexedComponent(comboUsed);
+        UISetting.policy.addIndexedComponent(txtEstValue);
+    }
+    
     private void startUpSettings() {
         setFieldsEditable(false);
         initKeyListeners();
@@ -222,16 +232,16 @@ public class VehiclePanel extends javax.swing.JPanel implements KeyListener {
     @Override
     public void keyReleased(KeyEvent e) {
         switch (e.getKeyCode()) {
-            case KeyEvent.VK_TAB:
-            case KeyEvent.VK_ENTER:
-                if (txtTypeModel.isFocusOwner()) {
-                txtYrsUsed.requestFocus();
-            } else if (txtYrsUsed.isFocusOwner()) {
-                comboUsed.requestFocus();
-            } else if (comboUsed.isFocusOwner()) {
-                txtEstValue.requestFocus();
-            }
-                break;
+//            case KeyEvent.VK_TAB:
+//            case KeyEvent.VK_ENTER:
+//                if (txtTypeModel.isFocusOwner()) {
+//                txtYrsUsed.requestFocus();
+//            } else if (txtYrsUsed.isFocusOwner()) {
+//                comboUsed.requestFocus();
+//            } else if (comboUsed.isFocusOwner()) {
+//                txtEstValue.requestFocus();
+//            }
+//                break;
             case KeyEvent.VK_UP:
                 if (txtEstValue.isFocusOwner()) {
                 comboUsed.requestFocus();

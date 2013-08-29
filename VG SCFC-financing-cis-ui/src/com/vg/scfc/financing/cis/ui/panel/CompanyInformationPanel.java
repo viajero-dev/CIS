@@ -5,6 +5,7 @@
  */
 package com.vg.scfc.financing.cis.ui.panel;
 
+import com.vg.commons.renderer.IndexedFocusTraversalPolicy;
 import com.vg.scfc.financing.cis.ent.Address;
 import com.vg.scfc.financing.cis.ent.Company;
 import com.vg.scfc.financing.cis.ent.Customer;
@@ -33,6 +34,23 @@ public class CompanyInformationPanel extends javax.swing.JPanel implements KeyLi
         initComponents();
         initKeyListener();
     }
+    
+    public IndexedFocusTraversalPolicy getPolicy() {
+        IndexedFocusTraversalPolicy policy = new IndexedFocusTraversalPolicy();
+        policy.addForwardTraversalKeys(this, KeyEvent.VK_ENTER);
+        policy.addIndexedComponent(txtOwner);
+        policy.addIndexedComponent(txtOfficeAddress);
+        policy.addIndexedComponent(txtNatureBusiness);
+        policy.addIndexedComponent(txtYearOfOperation);
+        policy.addIndexedComponent(txtContact);
+        policy.addIndexedComponent(txtTIN);
+        policy.addIndexedComponent(txtEmail);
+        policy.addIndexedComponent(txtBussPermitNo);
+        policy.addIndexedComponent(txtIssuedOn);
+        policy.addIndexedComponent(txtExpireOn);
+
+        return policy;
+    } 
 
     private void initKeyListener() {
         txtOwner.addKeyListener(this);
@@ -272,28 +290,28 @@ public class CompanyInformationPanel extends javax.swing.JPanel implements KeyLi
     @Override
     public void keyReleased(KeyEvent e) {
         switch (e.getKeyCode()) {
-            case KeyEvent.VK_TAB:
-            case KeyEvent.VK_ENTER:
-                if (txtOwner.isFocusOwner()) {
-                txtOfficeAddress.requestFocus();
-            } else if (txtOfficeAddress.isFocusOwner()) {
-                txtNatureBusiness.requestFocus();
-            } else if (txtNatureBusiness.isFocusOwner()) {
-                txtYearOfOperation.requestFocus();
-            } else if (txtYearOfOperation.isFocusOwner()) {
-                txtContact.requestFocus();
-            } else if (txtContact.isFocusOwner()) {
-                txtTIN.requestFocus();
-            } else if (txtTIN.isFocusOwner()) {
-                txtEmail.requestFocus();
-            } else if (txtEmail.isFocusOwner()) {
-                txtBussPermitNo.requestFocus();
-            } else if (txtBussPermitNo.isFocusOwner()) {
-                txtIssuedOn.requestFocus();
-            } else if (txtIssuedOn.isFocusOwner()) {
-                txtExpireOn.requestFocus();
-            }
-                break;
+//            case KeyEvent.VK_TAB:
+//            case KeyEvent.VK_ENTER:
+//                if (txtOwner.isFocusOwner()) {
+//                txtOfficeAddress.requestFocus();
+//            } else if (txtOfficeAddress.isFocusOwner()) {
+//                txtNatureBusiness.requestFocus();
+//            } else if (txtNatureBusiness.isFocusOwner()) {
+//                txtYearOfOperation.requestFocus();
+//            } else if (txtYearOfOperation.isFocusOwner()) {
+//                txtContact.requestFocus();
+//            } else if (txtContact.isFocusOwner()) {
+//                txtTIN.requestFocus();
+//            } else if (txtTIN.isFocusOwner()) {
+//                txtEmail.requestFocus();
+//            } else if (txtEmail.isFocusOwner()) {
+//                txtBussPermitNo.requestFocus();
+//            } else if (txtBussPermitNo.isFocusOwner()) {
+//                txtIssuedOn.requestFocus();
+//            } else if (txtIssuedOn.isFocusOwner()) {
+//                txtExpireOn.requestFocus();
+//            }
+//                break;
             case KeyEvent.VK_UP:
                 if (txtExpireOn.isFocusOwner()) {
                 txtIssuedOn.requestFocus();

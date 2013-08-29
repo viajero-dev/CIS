@@ -5,9 +5,11 @@
  */
 package com.vg.scfc.financing.cis.ui.reusable;
 
+import com.vg.commons.renderer.IndexedFocusTraversalPolicy;
 import com.vg.commons.util.NumberUtils;
 import com.vg.scfc.financing.cis.ent.Appliance;
 import com.vg.scfc.financing.cis.ui.controller.ApplianceAssetsController;
+import com.vg.scfc.financing.cis.ui.settings.UISetting;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -32,13 +34,20 @@ public class AppliancesPanel extends javax.swing.JPanel implements KeyListener {
     public AppliancesPanel() {
         initComponents();
         startUpSettings();
+        policySetting();
     }
 
     private void initKeyListeners() {
         comboApplianceType.addKeyListener(this);
         txtEstValue.addKeyListener(this);
     }
-
+    
+    public final void policySetting() {
+        UISetting.policy.addForwardTraversalKeys(this, KeyEvent.VK_ENTER);
+        UISetting.policy.addIndexedComponent(comboApplianceType);
+        UISetting.policy.addIndexedComponent(txtEstValue);
+    }
+    
     private void startUpSettings() {
         setFieldsEditable(false);
         initKeyListeners();
@@ -215,11 +224,11 @@ public class AppliancesPanel extends javax.swing.JPanel implements KeyListener {
     @Override
     public void keyReleased(KeyEvent e) {
         switch (e.getKeyCode()) {
-            case KeyEvent.VK_ENTER:
-                if (comboApplianceType.isFocusOwner()) {
-                txtEstValue.requestFocus();
-            }
-                break;
+//            case KeyEvent.VK_ENTER:
+//                if (comboApplianceType.isFocusOwner()) {
+//                txtEstValue.requestFocus();
+//            }
+//                break;
             case KeyEvent.VK_UP:
                 if (txtEstValue.isFocusOwner()) {
                 comboApplianceType.requestFocus();

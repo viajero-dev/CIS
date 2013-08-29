@@ -8,6 +8,7 @@ package com.vg.scfc.financing.cis.ui.panel;
 import ch.randelshofer.quaqua.JSheet;
 import ch.randelshofer.quaqua.SheetEvent;
 import ch.randelshofer.quaqua.SheetListener;
+import com.vg.commons.renderer.IndexedFocusTraversalPolicy;
 import com.vg.commons.util.UIMgr;
 import com.vg.scfc.financing.cis.ent.CustomerCashInfo;
 import com.vg.scfc.financing.cis.ui.controller.CashController;
@@ -44,6 +45,21 @@ public class CashPanel extends javax.swing.JPanel implements KeyListener {
         txtSearch.setText("Search");
         setFieldsEditable(false, true);
     }
+    
+    public IndexedFocusTraversalPolicy getPolicy() {
+        IndexedFocusTraversalPolicy policy = new IndexedFocusTraversalPolicy();
+        policy.addForwardTraversalKeys(this, KeyEvent.VK_ENTER);
+        policy.addIndexedComponent(txtLastname);
+        policy.addIndexedComponent(txtFirstname);
+        policy.addIndexedComponent(txtMiddlename);
+        policy.addIndexedComponent(txtBarangayCode);
+        policy.addIndexedComponent(txtAddress);
+        policy.addIndexedComponent(txtZipCode);
+        policy.addIndexedComponent(txtContact);
+        policy.addIndexedComponent(txtSearch);
+
+        return policy;
+    } 
 
     private void initKeyListeners() {
         txtLastname.addKeyListener(this);
@@ -491,28 +507,28 @@ public class CashPanel extends javax.swing.JPanel implements KeyListener {
     @Override
     public void keyReleased(KeyEvent e) {
         switch (e.getKeyCode()) {
-            case KeyEvent.VK_TAB:
-            case KeyEvent.VK_ENTER:
-                if (txtLastname.isFocusOwner()) {
-                if (txtFirstname.isEditable()) {
-                    txtFirstname.requestFocus();
-                } else {
-                    txtBarangayCode.requestFocus();
-                }
-            } else if (txtFirstname.isFocusOwner()) {
-                txtMiddlename.requestFocus();
-            } else if (txtMiddlename.isFocusOwner()) {
-                txtBarangayCode.requestFocus();
-            } else if (txtBarangayCode.isFocusOwner()) {
-                txtAddress.requestFocus();
-            } else if (txtAddress.isFocusOwner()) {
-                txtZipCode.requestFocus();
-            } else if (txtZipCode.isFocusOwner()) {
-                txtContact.requestFocus();
-            } else if (txtSearch.isFocusOwner()) {
-                refreshSearchTable(CashController.getInstance().findBySearchCriteria(txtSearch.getText()));
-            }
-                break;
+//            case KeyEvent.VK_TAB:
+//            case KeyEvent.VK_ENTER:
+//                if (txtLastname.isFocusOwner()) {
+//                if (txtFirstname.isEditable()) {
+//                    txtFirstname.requestFocus();
+//                } else {
+//                    txtBarangayCode.requestFocus();
+//                }
+//            } else if (txtFirstname.isFocusOwner()) {
+//                txtMiddlename.requestFocus();
+//            } else if (txtMiddlename.isFocusOwner()) {
+//                txtBarangayCode.requestFocus();
+//            } else if (txtBarangayCode.isFocusOwner()) {
+//                txtAddress.requestFocus();
+//            } else if (txtAddress.isFocusOwner()) {
+//                txtZipCode.requestFocus();
+//            } else if (txtZipCode.isFocusOwner()) {
+//                txtContact.requestFocus();
+//            } else if (txtSearch.isFocusOwner()) {
+//                refreshSearchTable(CashController.getInstance().findBySearchCriteria(txtSearch.getText()));
+//            }
+//                break;
             case KeyEvent.VK_UP:
                 if (txtContact.isFocusOwner()) {
                 txtZipCode.requestFocus();

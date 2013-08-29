@@ -5,6 +5,7 @@
  */
 package com.vg.scfc.financing.cis.ui.panel;
 
+import com.vg.commons.renderer.IndexedFocusTraversalPolicy;
 import com.vg.commons.util.NumberUtils;
 import com.vg.scfc.financing.cis.ent.RepresentativeEmployment;
 import com.vg.scfc.financing.cis.ui.controller.EmploymentController;
@@ -27,6 +28,18 @@ public class EmploymentRepresentativePanel extends javax.swing.JPanel implements
         initComponents();
         initKeyListener();
     }
+    
+    public IndexedFocusTraversalPolicy getPolicy() {
+        IndexedFocusTraversalPolicy policy = new IndexedFocusTraversalPolicy();
+        policy.addForwardTraversalKeys(this, KeyEvent.VK_ENTER);
+        policy.addIndexedComponent(comboEmploymentStatus);
+        policy.addIndexedComponent(txtPosition);
+        policy.addIndexedComponent(txtDepartment);
+        policy.addIndexedComponent(txtYearInService);
+        policy.addIndexedComponent(txtMonthlyCompensation);
+
+        return policy;
+    } 
 
     private void initKeyListener() {
         comboEmploymentStatus.addKeyListener(this);
@@ -194,18 +207,18 @@ public class EmploymentRepresentativePanel extends javax.swing.JPanel implements
     @Override
     public void keyReleased(KeyEvent e) {
         switch (e.getKeyCode()) {
-            case KeyEvent.VK_TAB:
-            case KeyEvent.VK_ENTER:
-                if (comboEmploymentStatus.isFocusOwner()) {
-                txtPosition.requestFocus();
-            } else if (txtPosition.isFocusOwner()) {
-                txtYearInService.requestFocus();
-            } else if (txtYearInService.isFocusOwner()) {
-                txtDepartment.requestFocus();
-            } else if (txtDepartment.isFocusOwner()) {
-                txtMonthlyCompensation.requestFocus();
-            }
-                break;
+//            case KeyEvent.VK_TAB:
+//            case KeyEvent.VK_ENTER:
+//                if (comboEmploymentStatus.isFocusOwner()) {
+//                txtPosition.requestFocus();
+//            } else if (txtPosition.isFocusOwner()) {
+//                txtYearInService.requestFocus();
+//            } else if (txtYearInService.isFocusOwner()) {
+//                txtDepartment.requestFocus();
+//            } else if (txtDepartment.isFocusOwner()) {
+//                txtMonthlyCompensation.requestFocus();
+//            }
+//                break;
             case KeyEvent.VK_UP:
                 if (txtMonthlyCompensation.isFocusOwner()) {
                 txtDepartment.requestFocus();

@@ -8,13 +8,16 @@ package com.vg.scfc.financing.cis.ui.panel;
 import com.vg.commons.dlg.WaitSplashScreen;
 import com.vg.commons.listener.DoJasperPrintReport;
 import com.vg.scfc.financing.cis.ui.controller.ReportController;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import javax.swing.JDialog;
 import net.sf.jasperreports.engine.JasperPrint;
 
 /**
  *
  * @author rodel
  */
-public class CAFReportPanel extends javax.swing.JPanel implements DoJasperPrintReport {
+public class CAFReportPanel extends javax.swing.JPanel implements DoJasperPrintReport, KeyListener {
 
     /**
      * Creates new form CAFReportPanel
@@ -22,6 +25,7 @@ public class CAFReportPanel extends javax.swing.JPanel implements DoJasperPrintR
     public CAFReportPanel() {
         initComponents();
         initOptionGroup();
+        initKeyListeners();
     }
 
     private void initOptionGroup() {
@@ -29,6 +33,16 @@ public class CAFReportPanel extends javax.swing.JPanel implements DoJasperPrintR
         optionGroup.add(optionBack);
         optionGroup.add(optionCM1);
         optionGroup.add(optionCM2);
+        optionGroup.add(optionPO);
+    }
+    
+    private void initKeyListeners() {
+        optionBack.addKeyListener(this);
+        optionCM1.addKeyListener(this);
+        optionCM2.addKeyListener(this);
+        optionFront.addKeyListener(this);
+        optionPO.addKeyListener(this);
+        btnPrint.addKeyListener(this);
     }
 
     /**
@@ -47,6 +61,7 @@ public class CAFReportPanel extends javax.swing.JPanel implements DoJasperPrintR
         optionCM2 = new javax.swing.JRadioButton();
         jSeparator1 = new javax.swing.JSeparator();
         btnPrint = new javax.swing.JButton();
+        optionPO = new javax.swing.JRadioButton();
 
         optionFront.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         optionFront.setSelected(true);
@@ -68,6 +83,9 @@ public class CAFReportPanel extends javax.swing.JPanel implements DoJasperPrintR
             }
         });
 
+        optionPO.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        optionPO.setText("P.O.");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -76,14 +94,15 @@ public class CAFReportPanel extends javax.swing.JPanel implements DoJasperPrintR
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSeparator1)
+                    .addComponent(btnPrint, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(optionFront)
                             .addComponent(optionBack)
                             .addComponent(optionCM1)
-                            .addComponent(optionCM2))
-                        .addGap(0, 17, Short.MAX_VALUE))
-                    .addComponent(btnPrint, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(optionCM2)
+                            .addComponent(optionPO))
+                        .addGap(0, 17, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -98,6 +117,8 @@ public class CAFReportPanel extends javax.swing.JPanel implements DoJasperPrintR
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(optionCM2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(optionPO)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnPrint)
@@ -117,8 +138,14 @@ public class CAFReportPanel extends javax.swing.JPanel implements DoJasperPrintR
     private javax.swing.JRadioButton optionCM2;
     private javax.swing.JRadioButton optionFront;
     private javax.swing.ButtonGroup optionGroup;
+    private javax.swing.JRadioButton optionPO;
     // End of variables declaration//GEN-END:variables
     private String formNo;
+    private JDialog dlg;
+
+    public void setDlg(JDialog dlg) {
+        this.dlg = dlg;
+    }
 
     public void setFormNo(String formNo) {
         this.formNo = formNo;
@@ -139,12 +166,31 @@ public class CAFReportPanel extends javax.swing.JPanel implements DoJasperPrintR
             jasperPrint = ReportController.getInstance().print(formNo, 3, "CM1");
         } else if (optionCM2.isSelected()) {
             jasperPrint = ReportController.getInstance().print(formNo, 4, "CM2");
+        } else if (optionPO.isSelected()) {
+            jasperPrint = ReportController.getInstance().printPurchaseOrder(formNo);;
         }
 
         if (jasperPrint == null) {
             throw new Exception();
         } else {
             return jasperPrint;
+        }
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        switch (e.getKeyCode()) {
+            case KeyEvent.VK_ESCAPE:
+                dlg.setVisible(false);
+                break;
         }
     }
 

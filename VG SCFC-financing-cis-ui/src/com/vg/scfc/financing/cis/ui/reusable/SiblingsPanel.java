@@ -5,9 +5,11 @@
  */
 package com.vg.scfc.financing.cis.ui.reusable;
 
+import com.vg.commons.renderer.IndexedFocusTraversalPolicy;
 import com.vg.scfc.financing.cis.ent.Sibling;
 import com.vg.scfc.financing.cis.ui.controller.SiblingController;
 import com.vg.scfc.financing.cis.ui.panel.MainPanel;
+import com.vg.scfc.financing.cis.ui.settings.UISetting;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -30,8 +32,15 @@ public class SiblingsPanel extends javax.swing.JPanel implements KeyListener {
     public SiblingsPanel() {
         initComponents();
         startUpSettings();
+        policySetting();
     }
-
+    
+    public final void policySetting() {
+        UISetting.policy.addIndexedComponent(txtSiblingName);
+        UISetting.policy.addIndexedComponent(txtSiblingAddress);
+        UISetting.policy.addIndexedComponent(txtSiblingContact);
+    }
+    
     private void startUpSettings() {
         setFieldsEditable(false);
         initTextBoxesListener();
@@ -199,14 +208,14 @@ public class SiblingsPanel extends javax.swing.JPanel implements KeyListener {
     @Override
     public void keyReleased(KeyEvent e) {
         switch (e.getKeyCode()) {
-            case KeyEvent.VK_TAB:
-            case KeyEvent.VK_ENTER:
-                if (txtSiblingName.isFocusOwner()) {
-                txtSiblingAddress.requestFocus();
-            } else if (txtSiblingAddress.isFocusOwner()) {
-                txtSiblingContact.requestFocus();
-            }
-                break;
+//            case KeyEvent.VK_TAB:
+//            case KeyEvent.VK_ENTER:
+//                if (txtSiblingName.isFocusOwner()) {
+//                txtSiblingAddress.requestFocus();
+//            } else if (txtSiblingAddress.isFocusOwner()) {
+//                txtSiblingContact.requestFocus();
+//            }
+//                break;
             case KeyEvent.VK_UP:
                 if (txtSiblingContact.isFocusOwner()) {
                 txtSiblingAddress.requestFocus();

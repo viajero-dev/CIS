@@ -5,6 +5,7 @@
  */
 package com.vg.scfc.financing.cis.ui.reusable;
 
+import com.vg.commons.renderer.IndexedFocusTraversalPolicy;
 import com.vg.commons.util.DateUtil;
 import com.vg.commons.util.NumberUtils;
 import com.vg.commons.util.UIMgr;
@@ -45,7 +46,29 @@ public class PurchaseOrderPanel2 extends javax.swing.JPanel implements KeyListen
         txtColorCode.putClientProperty("Quaqua.TextField.style", "search");
         txtModelCode.putClientProperty("Quaqua.TextField.style", "search");
         txtCICode.putClientProperty("Quaqua.TextField.style", "search");
+        policySetting();
     }
+    
+    public final void policySetting() {
+        UISetting.policy.addIndexedComponent(comboPurpose);
+        UISetting.policy.addIndexedComponent(comboMotorStatus);
+        UISetting.policy.addIndexedComponent(txtMakeCode);
+        UISetting.policy.addIndexedComponent(txtColorCode);
+        UISetting.policy.addIndexedComponent(txtModelCode);
+        UISetting.policy.addIndexedComponent(txtDownPayment);
+        UISetting.policy.addIndexedComponent(txtTerm);
+        UISetting.policy.addIndexedComponent(txtMA);
+        UISetting.policy.addIndexedComponent(txtPrice);
+        UISetting.policy.addIndexedComponent(txtBal);
+        UISetting.policy.addIndexedComponent(txtInsAmount);
+        UISetting.policy.addIndexedComponent(txtInsComp);
+        UISetting.policy.addIndexedComponent(txtReleasedDate);
+        UISetting.policy.addIndexedComponent(checkApproved);
+        UISetting.policy.addIndexedComponent(checkDisApproved);
+        UISetting.policy.addIndexedComponent(txtCICode);
+        UISetting.policy.addIndexedComponent(txtRemarks);
+    }
+    
 
     private void initKeyListener() {
         comboPurpose.addKeyListener(this);
@@ -123,7 +146,7 @@ public class PurchaseOrderPanel2 extends javax.swing.JPanel implements KeyListen
         add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 10, -1, -1));
 
         comboPurpose.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "PERSONAL", "BUSINESS", "OTHERS" }));
-        add(comboPurpose, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 5, 100, -1));
+        add(comboPurpose, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 5, 130, -1));
 
         txtMakeDesc.setEditable(false);
         txtMakeDesc.setFocusable(false);
@@ -275,7 +298,7 @@ public class PurchaseOrderPanel2 extends javax.swing.JPanel implements KeyListen
         add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 155, 735, -1));
 
         comboMotorStatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "REPO", "BRAND NEW" }));
-        add(comboMotorStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 5, 110, -1));
+        add(comboMotorStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 5, 120, -1));
 
         txtCICode.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -445,38 +468,38 @@ public class PurchaseOrderPanel2 extends javax.swing.JPanel implements KeyListen
     @Override
     public void keyReleased(KeyEvent e) {
         switch (e.getKeyCode()) {
-            case KeyEvent.VK_TAB:
-            case KeyEvent.VK_ENTER:
-                if (comboPurpose.isFocusOwner()) {
-                comboMotorStatus.requestFocus();
-            } else if (comboMotorStatus.isFocusOwner()) {
-                txtMakeCode.requestFocus();
-            } else if (txtMakeCode.isFocusOwner()) {
-                txtColorCode.requestFocus();
-            } else if (txtColorCode.isFocusOwner()) {
-                txtModelCode.requestFocus();
-            } else if (txtModelCode.isFocusOwner()) {
-                txtDownPayment.requestFocus();
-            } else if (txtDownPayment.isFocusOwner()) {
-                txtTerm.requestFocus();
-            } else if (txtTerm.isFocusOwner()) {
-                txtMA.requestFocus();
-            } else if (txtMA.isFocusOwner()) {
-                txtInsAmount.requestFocus();
-            } else if (txtInsAmount.isFocusOwner()) {
-                txtInsComp.requestFocus();
-            } else if (txtInsComp.isFocusOwner()) {
-                txtReleasedDate.requestFocus();
-            } else if (txtReleasedDate.isFocusOwner()) {
-                checkApproved.requestFocus();
-            } else if (checkApproved.isFocusOwner()) {
-                checkDisApproved.requestFocus();
-            } else if (checkDisApproved.isFocusOwner()) {
-                txtCICode.requestFocus();
-            } else if (txtCICode.isFocusOwner()) {
-                txtRemarks.requestFocus();
-            }
-                break;
+//            case KeyEvent.VK_TAB:
+//            case KeyEvent.VK_ENTER:
+//                if (comboPurpose.isFocusOwner()) {
+//                comboMotorStatus.requestFocus();
+//            } else if (comboMotorStatus.isFocusOwner()) {
+//                txtMakeCode.requestFocus();
+//            } else if (txtMakeCode.isFocusOwner()) {
+//                txtColorCode.requestFocus();
+//            } else if (txtColorCode.isFocusOwner()) {
+//                txtModelCode.requestFocus();
+//            } else if (txtModelCode.isFocusOwner()) {
+//                txtDownPayment.requestFocus();
+//            } else if (txtDownPayment.isFocusOwner()) {
+//                txtTerm.requestFocus();
+//            } else if (txtTerm.isFocusOwner()) {
+//                txtMA.requestFocus();
+//            } else if (txtMA.isFocusOwner()) {
+//                txtInsAmount.requestFocus();
+//            } else if (txtInsAmount.isFocusOwner()) {
+//                txtInsComp.requestFocus();
+//            } else if (txtInsComp.isFocusOwner()) {
+//                txtReleasedDate.requestFocus();
+//            } else if (txtReleasedDate.isFocusOwner()) {
+//                checkApproved.requestFocus();
+//            } else if (checkApproved.isFocusOwner()) {
+//                checkDisApproved.requestFocus();
+//            } else if (checkDisApproved.isFocusOwner()) {
+//                txtCICode.requestFocus();
+//            } else if (txtCICode.isFocusOwner()) {
+//                txtRemarks.requestFocus();
+//            }
+//                break;
             case KeyEvent.VK_UP:
                 if (txtRemarks.isFocusOwner()) {
                 txtCICode.requestFocus();
@@ -540,7 +563,7 @@ public class PurchaseOrderPanel2 extends javax.swing.JPanel implements KeyListen
                 if (modelDlg.getSelectedModel() != null) {
                     setModel(modelDlg.getSelectedModel());
                     txtModelCode.setText(model.getCode().toUpperCase());
-                    txtModelDesc.setText(model.getDescription().toUpperCase());
+                    txtModelDesc.setText(model.getName().toUpperCase() + " " + model.getDescription().toUpperCase());
                 }
             } else if (txtCICode.isFocusOwner()) {
                 EmployeesDlg employeeDlg = new EmployeesDlg(null, true);
@@ -575,8 +598,8 @@ public class PurchaseOrderPanel2 extends javax.swing.JPanel implements KeyListen
         txtCICode.setEditable(value);
         txtRemarks.setEditable(value);
 
-        comboPurpose.setFocusable(value);
-        comboMotorStatus.setFocusable(value);
+        comboPurpose.setEnabled(value);
+        comboMotorStatus.setEnabled(value);
         txtMakeCode.setFocusable(value);
         txtColorCode.setFocusable(value);
         txtModelCode.setFocusable(value);
@@ -586,8 +609,8 @@ public class PurchaseOrderPanel2 extends javax.swing.JPanel implements KeyListen
         txtInsAmount.setFocusable(value);
         txtInsComp.setFocusable(value);
         txtReleasedDate.setFocusable(value);
-        checkApproved.setFocusable(value);
-        checkDisApproved.setFocusable(value);
+        checkApproved.setEnabled(value);
+        checkDisApproved.setEnabled(value);
         txtCICode.setFocusable(value);
         txtRemarks.setFocusable(value);
 

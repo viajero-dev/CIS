@@ -5,9 +5,11 @@
  */
 package com.vg.scfc.financing.cis.ui.reusable;
 
+import com.vg.commons.renderer.IndexedFocusTraversalPolicy;
 import com.vg.scfc.financing.cis.ent.Family;
 import com.vg.scfc.financing.cis.ui.controller.FamilyBackgroundController;
 import com.vg.scfc.financing.cis.ui.panel.MainPanel;
+import com.vg.scfc.financing.cis.ui.settings.UISetting;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -27,8 +29,20 @@ public class FamilyBackgroundPanel extends javax.swing.JPanel implements KeyList
         initComponents();
         initTextBoxListener();
         startUpSettings();
+        policySetting();
     }
-
+    
+    public final void policySetting() {
+        UISetting.policy.addIndexedComponent(txtFatherName);
+        UISetting.policy.addIndexedComponent(txtFatherAddress);
+        UISetting.policy.addIndexedComponent(txtFatherOccupation);
+        UISetting.policy.addIndexedComponent(txtFatherAge);
+        UISetting.policy.addIndexedComponent(txtMotherName);
+        UISetting.policy.addIndexedComponent(txtMotherAddress);
+        UISetting.policy.addIndexedComponent(txtMotherOccupation);
+        UISetting.policy.addIndexedComponent(txtMotherAge);
+    }
+    
     private void startUpSettings() {
         setFieldsEditable(false);
     }
@@ -239,24 +253,24 @@ public class FamilyBackgroundPanel extends javax.swing.JPanel implements KeyList
     @Override
     public void keyReleased(KeyEvent e) {
         switch (e.getKeyCode()) {
-            case KeyEvent.VK_TAB:
-            case KeyEvent.VK_ENTER:
-                if (txtFatherName.isFocusOwner()) {
-                txtFatherAddress.requestFocus();
-            } else if (txtFatherAddress.isFocusOwner()) {
-                txtFatherOccupation.requestFocus();
-            } else if (txtFatherOccupation.isFocusOwner()) {
-                txtFatherAge.requestFocus();
-            } else if (txtFatherAge.isFocusOwner()) {
-                txtMotherName.requestFocus();
-            } else if (txtMotherName.isFocusOwner()) {
-                txtMotherAddress.requestFocus();
-            } else if (txtMotherAddress.isFocusOwner()) {
-                txtMotherOccupation.requestFocus();
-            } else if (txtMotherOccupation.isFocusOwner()) {
-                txtMotherAge.requestFocus();
-            }
-                break;
+//            case KeyEvent.VK_TAB:
+//            case KeyEvent.VK_ENTER:
+//                if (txtFatherName.isFocusOwner()) {
+//                txtFatherAddress.requestFocus();
+//            } else if (txtFatherAddress.isFocusOwner()) {
+//                txtFatherOccupation.requestFocus();
+//            } else if (txtFatherOccupation.isFocusOwner()) {
+//                txtFatherAge.requestFocus();
+//            } else if (txtFatherAge.isFocusOwner()) {
+//                txtMotherName.requestFocus();
+//            } else if (txtMotherName.isFocusOwner()) {
+//                txtMotherAddress.requestFocus();
+//            } else if (txtMotherAddress.isFocusOwner()) {
+//                txtMotherOccupation.requestFocus();
+//            } else if (txtMotherOccupation.isFocusOwner()) {
+//                txtMotherAge.requestFocus();
+//            }
+//                break;
             case KeyEvent.VK_UP:
                 if (txtMotherAge.isFocusOwner()) {
                 txtMotherOccupation.requestFocus();

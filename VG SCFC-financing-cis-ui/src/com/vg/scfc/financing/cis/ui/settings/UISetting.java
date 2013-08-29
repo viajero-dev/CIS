@@ -5,6 +5,7 @@
  */
 package com.vg.scfc.financing.cis.ui.settings;
 
+import com.vg.commons.renderer.IndexedFocusTraversalPolicy;
 import com.vg.hrm.user.ent.Employee;
 import com.vg.hrm.user.service.EmployeeService;
 import com.vg.scfc.financing.cis.service.AddressService;
@@ -53,6 +54,7 @@ import vg.img.service.ImageHandlingService;
  * @author rodel
  */
 public class UISetting {
+    public static IndexedFocusTraversalPolicy policy = new IndexedFocusTraversalPolicy();
 
     private static Location storeLocation;
     private static Employee systemUser;

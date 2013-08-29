@@ -5,8 +5,10 @@
  */
 package com.vg.scfc.financing.cis.ui.reusable;
 
+import com.vg.commons.renderer.IndexedFocusTraversalPolicy;
 import com.vg.scfc.financing.cis.ent.Identification;
 import com.vg.scfc.financing.cis.ui.controller.IdentificationController;
+import com.vg.scfc.financing.cis.ui.settings.UISetting;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -24,8 +26,16 @@ public class RidersToBuyerPanel extends javax.swing.JPanel implements KeyListene
     public RidersToBuyerPanel() {
         initComponents();
         initKeyListeners();
+        policySetting();
     }
-
+    
+    public final void policySetting() {
+        UISetting.policy.addIndexedComponent(txtCompetent);
+        UISetting.policy.addIndexedComponent(txtIdNo);
+        UISetting.policy.addIndexedComponent(txtPlaceOfIssue);
+        UISetting.policy.addIndexedComponent(txtIssueDate);
+    }
+    
     private void initKeyListeners() {
         txtCompetent.addKeyListener(this);
         txtIdNo.addKeyListener(this);
@@ -196,16 +206,16 @@ public class RidersToBuyerPanel extends javax.swing.JPanel implements KeyListene
     @Override
     public void keyReleased(KeyEvent e) {
         switch (e.getKeyCode()) {
-            case KeyEvent.VK_TAB:
-            case KeyEvent.VK_ENTER:
-                if (txtCompetent.isFocusOwner()) {
-                txtIdNo.requestFocus();
-            } else if (txtIdNo.isFocusOwner()) {
-                txtPlaceOfIssue.requestFocus();
-            } else if (txtPlaceOfIssue.isFocusOwner()) {
-                txtIssueDate.requestFocus();
-            }
-                break;
+//            case KeyEvent.VK_TAB:
+//            case KeyEvent.VK_ENTER:
+//                if (txtCompetent.isFocusOwner()) {
+//                txtIdNo.requestFocus();
+//            } else if (txtIdNo.isFocusOwner()) {
+//                txtPlaceOfIssue.requestFocus();
+//            } else if (txtPlaceOfIssue.isFocusOwner()) {
+//                txtIssueDate.requestFocus();
+//            }
+//                break;
         }
     }
 

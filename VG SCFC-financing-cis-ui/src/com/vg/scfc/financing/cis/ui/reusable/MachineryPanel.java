@@ -5,9 +5,11 @@
  */
 package com.vg.scfc.financing.cis.ui.reusable;
 
+import com.vg.commons.renderer.IndexedFocusTraversalPolicy;
 import com.vg.commons.util.NumberUtils;
 import com.vg.scfc.financing.cis.ent.Machinery;
 import com.vg.scfc.financing.cis.ui.controller.MachineryAssetsController;
+import com.vg.scfc.financing.cis.ui.settings.UISetting;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -31,8 +33,15 @@ public class MachineryPanel extends javax.swing.JPanel implements KeyListener {
     public MachineryPanel() {
         initComponents();
         startUpSettings();
+        policySetting();
     }
-
+    
+    public final void policySetting() {
+        UISetting.policy.addIndexedComponent(txtMachineType);
+        UISetting.policy.addIndexedComponent(txtMachineQty);
+        UISetting.policy.addIndexedComponent(txtMachineEstValue);
+    }
+    
     private void startUpSettings() {
         setFieldsEditable(false);
         initKeyListeners();
@@ -200,14 +209,14 @@ public class MachineryPanel extends javax.swing.JPanel implements KeyListener {
     @Override
     public void keyReleased(KeyEvent e) {
         switch (e.getKeyCode()) {
-            case KeyEvent.VK_TAB:
-            case KeyEvent.VK_ENTER:
-                if (txtMachineType.isFocusOwner()) {
-                txtMachineQty.requestFocus();
-            } else if (txtMachineQty.isFocusOwner()) {
-                txtMachineEstValue.requestFocus();
-            }
-                break;
+//            case KeyEvent.VK_TAB:
+//            case KeyEvent.VK_ENTER:
+//                if (txtMachineType.isFocusOwner()) {
+//                txtMachineQty.requestFocus();
+//            } else if (txtMachineQty.isFocusOwner()) {
+//                txtMachineEstValue.requestFocus();
+//            }
+//                break;
             case KeyEvent.VK_UP:
                 if (txtMachineEstValue.isFocusOwner()) {
                 txtMachineQty.requestFocus();

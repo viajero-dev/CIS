@@ -5,8 +5,10 @@
  */
 package com.vg.scfc.financing.cis.ui.reusable;
 
+import com.vg.commons.renderer.IndexedFocusTraversalPolicy;
 import com.vg.scfc.financing.cis.ent.Dependent;
 import com.vg.scfc.financing.cis.ui.controller.CharacterReferenceDependentController;
+import com.vg.scfc.financing.cis.ui.settings.UISetting;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -29,8 +31,17 @@ public class DependentPanel extends javax.swing.JPanel implements KeyListener {
     public DependentPanel() {
         initComponents();
         startUpSettings();
+        policySetting();
     }
-
+    
+    public final void policySetting() {
+        UISetting.policy.addForwardTraversalKeys(this, KeyEvent.VK_ENTER);
+        UISetting.policy.addIndexedComponent(txtRefName);
+        UISetting.policy.addIndexedComponent(txtRefAddress);
+        UISetting.policy.addIndexedComponent(txtRefContact);
+        UISetting.policy.addIndexedComponent(txtRefRelationship);
+    }
+    
     private void initTableDependent() {
         tableDependent.putClientProperty("Quaqua.Table.style", "striped");
         tableDependent.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -216,16 +227,16 @@ public class DependentPanel extends javax.swing.JPanel implements KeyListener {
     @Override
     public void keyReleased(KeyEvent e) {
         switch (e.getKeyCode()) {
-            case KeyEvent.VK_TAB:
-            case KeyEvent.VK_ENTER:
-                if (txtRefName.isFocusOwner()) {
-                    txtRefAddress.requestFocus();
-                } else if (txtRefAddress.isFocusOwner()) {
-                    txtRefContact.requestFocus();
-                } else if (txtRefContact.isFocusOwner()) {
-                    txtRefRelationship.requestFocus();
-                }
-                break;
+//            case KeyEvent.VK_TAB:
+//            case KeyEvent.VK_ENTER:
+//                if (txtRefName.isFocusOwner()) {
+//                    txtRefAddress.requestFocus();
+//                } else if (txtRefAddress.isFocusOwner()) {
+//                    txtRefContact.requestFocus();
+//                } else if (txtRefContact.isFocusOwner()) {
+//                    txtRefRelationship.requestFocus();
+//                }
+//                break;
             case KeyEvent.VK_UP:
                 if (txtRefRelationship.isFocusOwner()) {
                 txtRefContact.requestFocus();

@@ -5,9 +5,11 @@
  */
 package com.vg.scfc.financing.cis.ui.reusable;
 
+import com.vg.commons.renderer.IndexedFocusTraversalPolicy;
 import com.vg.scfc.financing.cis.ent.Employment;
 import com.vg.scfc.financing.cis.ui.controller.EmploymentController;
 import com.vg.scfc.financing.cis.ui.panel.MainPanel;
+import com.vg.scfc.financing.cis.ui.settings.UISetting;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -25,8 +27,19 @@ public class EmploymentDataPanel extends javax.swing.JPanel implements KeyListen
         initComponents();
         initUIListener();
         startUpSettings();
+        policySetting();
     }
-
+    
+    public final void policySetting() {
+        UISetting.policy.addIndexedComponent(comboEmploymentStatus);
+        UISetting.policy.addIndexedComponent(txtPositionDepartment);
+        UISetting.policy.addIndexedComponent(txtCompanyEmployer);
+        UISetting.policy.addIndexedComponent(txtEmployerAddress);
+        UISetting.policy.addIndexedComponent(txtEmployerContact);
+        UISetting.policy.addIndexedComponent(txtYearInService);
+        UISetting.policy.addIndexedComponent(txtEmployerBusinessNature);
+    }
+    
     private void startUpSettings() {
         setFieldsEditable(false);
     }
@@ -210,22 +223,22 @@ public class EmploymentDataPanel extends javax.swing.JPanel implements KeyListen
     @Override
     public void keyReleased(KeyEvent e) {
         switch (e.getKeyCode()) {
-            case KeyEvent.VK_TAB:
-            case KeyEvent.VK_ENTER:
-                if (comboEmploymentStatus.isFocusOwner()) {
-                txtPositionDepartment.requestFocus();
-            } else if (txtPositionDepartment.isFocusOwner()) {
-                txtCompanyEmployer.requestFocus();
-            } else if (txtCompanyEmployer.isFocusOwner()) {
-                txtEmployerAddress.requestFocus();
-            } else if (txtEmployerAddress.isFocusOwner()) {
-                txtEmployerContact.requestFocus();
-            } else if (txtEmployerContact.isFocusOwner()) {
-                txtYearInService.requestFocus();
-            } else if (txtYearInService.isFocusOwner()) {
-                txtEmployerBusinessNature.requestFocus();
-            }
-                break;
+//            case KeyEvent.VK_TAB:
+//            case KeyEvent.VK_ENTER:
+//                if (comboEmploymentStatus.isFocusOwner()) {
+//                txtPositionDepartment.requestFocus();
+//            } else if (txtPositionDepartment.isFocusOwner()) {
+//                txtCompanyEmployer.requestFocus();
+//            } else if (txtCompanyEmployer.isFocusOwner()) {
+//                txtEmployerAddress.requestFocus();
+//            } else if (txtEmployerAddress.isFocusOwner()) {
+//                txtEmployerContact.requestFocus();
+//            } else if (txtEmployerContact.isFocusOwner()) {
+//                txtYearInService.requestFocus();
+//            } else if (txtYearInService.isFocusOwner()) {
+//                txtEmployerBusinessNature.requestFocus();
+//            }
+//                break;
             case KeyEvent.VK_UP:
                 if (txtEmployerBusinessNature.isFocusOwner()) {
                 txtYearInService.requestFocus();

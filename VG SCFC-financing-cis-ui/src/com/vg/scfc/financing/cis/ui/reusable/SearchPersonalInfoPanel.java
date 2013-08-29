@@ -101,7 +101,6 @@ public class SearchPersonalInfoPanel extends javax.swing.JPanel {
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        txtSearch.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtSearch.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtSearchFocusGained(evt);
@@ -109,7 +108,7 @@ public class SearchPersonalInfoPanel extends javax.swing.JPanel {
         });
         add(txtSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 230, -1));
 
-        tablePersonalInfo.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
+        tablePersonalInfo.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         tablePersonalInfo.getTableHeader().setReorderingAllowed(false);
 
         org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, personalInfos, tablePersonalInfo);
@@ -128,7 +127,6 @@ public class SearchPersonalInfoPanel extends javax.swing.JPanel {
 
         add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 30, 370, 250));
 
-        btnSearch.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
         btnSearch.setText("Search");
         btnSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

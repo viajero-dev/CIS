@@ -17,6 +17,7 @@ public class CAFReportDlg extends javax.swing.JDialog {
     public CAFReportDlg(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        cAFReportPanel1.setDlg(this);
     }
     
     public void setFormNo(String formNo) {

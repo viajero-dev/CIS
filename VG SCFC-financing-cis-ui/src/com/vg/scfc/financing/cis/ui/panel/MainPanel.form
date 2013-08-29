@@ -64,7 +64,7 @@
             <Component class="com.vg.scfc.financing.cis.ui.reusable.PersonalInformationPanel" name="panelPersonalInfo">
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="3" y="5" width="-1" height="-1"/>
+                  <AbsoluteConstraints x="3" y="0" width="-1" height="190"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -374,7 +374,6 @@
                   <SubComponents>
                     <Container class="javax.swing.JTabbedPane" name="tabAsset">
                       <Properties>
-                        <Property name="tabPlacement" type="int" value="3"/>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Arial" size="11" style="1"/>
                         </Property>
@@ -633,7 +632,7 @@
             <Component class="com.vg.scfc.financing.cis.ui.reusable.AddEditButtonPanel" name="addEditPersonalInfo">
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="15" y="190" width="-1" height="-1"/>
+                  <AbsoluteConstraints x="15" y="192" width="-1" height="-1"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -658,7 +657,7 @@
             <Component class="com.vg.scfc.financing.cis.ui.reusable.PersonalInformationPanel" name="panelSpousePersonalInfo">
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="0" y="5" width="-1" height="-1"/>
+                  <AbsoluteConstraints x="0" y="0" width="-1" height="-1"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -809,7 +808,7 @@
             <Component class="com.vg.scfc.financing.cis.ui.reusable.AddEditButtonPanel" name="addEditSpousePersonalInfo">
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="15" y="190" width="-1" height="-1"/>
+                  <AbsoluteConstraints x="15" y="195" width="-1" height="-1"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -901,7 +900,7 @@
                     <Component class="com.vg.scfc.financing.cis.ui.reusable.PersonalInformationPanel" name="panelCoMakerPersonalInformation">
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                          <AbsoluteConstraints x="-6" y="5" width="-1" height="-1"/>
+                          <AbsoluteConstraints x="-5" y="0" width="-1" height="-1"/>
                         </Constraint>
                       </Constraints>
                     </Component>
@@ -1018,7 +1017,6 @@
                   <SubComponents>
                     <Container class="javax.swing.JTabbedPane" name="jTabbedPane5">
                       <Properties>
-                        <Property name="tabPlacement" type="int" value="3"/>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Arial" size="11" style="1"/>
                         </Property>
@@ -1050,7 +1048,7 @@
                             <Component class="com.vg.scfc.financing.cis.ui.reusable.PersonalInformationPanel" name="panelCoMakerSpousePersonalInformation">
                               <Constraints>
                                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                                  <AbsoluteConstraints x="-11" y="5" width="-1" height="-1"/>
+                                  <AbsoluteConstraints x="-11" y="0" width="-1" height="-1"/>
                                 </Constraint>
                               </Constraints>
                             </Component>

@@ -133,7 +133,6 @@ public class SearchPanelInstitution extends javax.swing.JPanel implements DoJasp
 
         add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 30, 250, 320));
 
-        txtSearch.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtSearchActionPerformed(evt);

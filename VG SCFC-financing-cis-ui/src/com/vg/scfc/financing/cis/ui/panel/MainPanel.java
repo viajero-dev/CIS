@@ -7,6 +7,7 @@ package com.vg.scfc.financing.cis.ui.panel;
 
 import com.vg.commons.dlg.WaitSplashScreen;
 import com.vg.commons.listener.DoJasperPrintReport;
+import com.vg.commons.renderer.IndexedFocusTraversalPolicy;
 import com.vg.commons.util.NumberUtils;
 import com.vg.commons.util.UIMgr;
 import com.vg.scfc.financing.cis.ent.Customer;
@@ -35,7 +36,25 @@ import com.vg.scfc.financing.cis.ui.controller.VehicleAssetsController;
 import com.vg.scfc.financing.cis.ui.dialog.ApplicationFormDlg;
 import com.vg.scfc.financing.cis.ui.listener.AddEditChangeListener;
 import com.vg.scfc.financing.cis.ui.listener.BasicActionListener;
+import com.vg.scfc.financing.cis.ui.reusable.AddressPanel;
+import com.vg.scfc.financing.cis.ui.reusable.AppliancesPanel;
+import com.vg.scfc.financing.cis.ui.reusable.CharacterReferenceDependentPanel;
+import com.vg.scfc.financing.cis.ui.reusable.CreditReferencePanel;
+import com.vg.scfc.financing.cis.ui.reusable.DependentPanel;
+import com.vg.scfc.financing.cis.ui.reusable.EmploymentDataPanel;
+import com.vg.scfc.financing.cis.ui.reusable.ExpendituresPanel;
+import com.vg.scfc.financing.cis.ui.reusable.FamilyBackgroundPanel;
+import com.vg.scfc.financing.cis.ui.reusable.LandPanel;
+import com.vg.scfc.financing.cis.ui.reusable.MachineryPanel;
+import com.vg.scfc.financing.cis.ui.reusable.PersonalInformationPanel;
+import com.vg.scfc.financing.cis.ui.reusable.PurchaseOrderPanel2;
+import com.vg.scfc.financing.cis.ui.reusable.RidersToBuyerPanel;
+import com.vg.scfc.financing.cis.ui.reusable.SiblingsPanel;
+import com.vg.scfc.financing.cis.ui.reusable.SourceOfIncomePanel;
+import com.vg.scfc.financing.cis.ui.reusable.VehiclePanel;
+import com.vg.scfc.financing.cis.ui.settings.UISetting;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
+import java.awt.event.KeyEvent;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -2113,7 +2132,7 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
                 enableTabs();
             }
         });
-        
+
         panelCoMakerRidersToBuyer.setHeaderPanel(headerPanel);
 //        panelCoMakerRidersToBuyer.setPersonType("SPO");
         addEditCMID.setBasicActionListener(new BasicActionListener() {
@@ -2419,6 +2438,13 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
 
         UIValidator.enableTabs(panels);
     }
+    
+    public IndexedFocusTraversalPolicy getPolicy() {
+        IndexedFocusTraversalPolicy policy =UISetting.policy;
+        policy.addForwardTraversalKeys(this, KeyEvent.VK_ENTER);
+
+        return policy;
+    } 
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -2548,7 +2574,7 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
 
         tabAppPersonalInfo.setName("tabAppPersonalInfo"); // NOI18N
         tabAppPersonalInfo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        tabAppPersonalInfo.add(panelPersonalInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(3, 5, -1, -1));
+        tabAppPersonalInfo.add(panelPersonalInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(3, 0, -1, 190));
 
         jTabbedPane1.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
 
@@ -2617,7 +2643,6 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
 
         jPanel10.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        tabAsset.setTabPlacement(javax.swing.JTabbedPane.BOTTOM);
         tabAsset.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
 
         tabAssetLand.setName("tabAssetLand"); // NOI18N
@@ -2682,13 +2707,13 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
         jTabbedPane1.addTab("Identification", tabID);
 
         tabAppPersonalInfo.add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 225, 1020, 360));
-        tabAppPersonalInfo.add(addEditPersonalInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 190, -1, -1));
+        tabAppPersonalInfo.add(addEditPersonalInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 192, -1, -1));
 
         tabMain.addTab("Applicant Personal Information", tabAppPersonalInfo);
 
         tabSpousePersonalInfo.setName("tabSpousePersonalInfo"); // NOI18N
         tabSpousePersonalInfo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        tabSpousePersonalInfo.add(panelSpousePersonalInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 5, -1, -1));
+        tabSpousePersonalInfo.add(panelSpousePersonalInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         jTabbedPane3.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
 
@@ -2721,7 +2746,7 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
         jTabbedPane3.addTab("Identification", tabSpouseID);
 
         tabSpousePersonalInfo.add(jTabbedPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 235, 1020, 350));
-        tabSpousePersonalInfo.add(addEditSpousePersonalInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 190, -1, -1));
+        tabSpousePersonalInfo.add(addEditSpousePersonalInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 195, -1, -1));
 
         tabMain.addTab("Spouse Information", tabSpousePersonalInfo);
 
@@ -2751,7 +2776,7 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
 
         tabCoMakerPersonalInfo.setName("tabCoMakerPersonalInfo"); // NOI18N
         tabCoMakerPersonalInfo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        tabCoMakerPersonalInfo.add(panelCoMakerPersonalInformation, new org.netbeans.lib.awtextra.AbsoluteConstraints(-6, 5, -1, -1));
+        tabCoMakerPersonalInfo.add(panelCoMakerPersonalInformation, new org.netbeans.lib.awtextra.AbsoluteConstraints(-5, 0, -1, -1));
 
         jTabbedPane4.addTab("Personal Info", tabCoMakerPersonalInfo);
 
@@ -2778,12 +2803,11 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
 
         jPanel23.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTabbedPane5.setTabPlacement(javax.swing.JTabbedPane.BOTTOM);
         jTabbedPane5.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
 
         tabCoMakerSpousePersonalInfo.setName("tabCoMakerSpousePersonalInfo"); // NOI18N
         tabCoMakerSpousePersonalInfo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        tabCoMakerSpousePersonalInfo.add(panelCoMakerSpousePersonalInformation, new org.netbeans.lib.awtextra.AbsoluteConstraints(-11, 5, -1, -1));
+        tabCoMakerSpousePersonalInfo.add(panelCoMakerSpousePersonalInformation, new org.netbeans.lib.awtextra.AbsoluteConstraints(-11, 0, -1, -1));
         tabCoMakerSpousePersonalInfo.add(addEditCoMakerSpousePersonalInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 210, -1, -1));
 
         jTabbedPane5.addTab("Personal Info", tabCoMakerSpousePersonalInfo);
@@ -3010,6 +3034,130 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
         } else {
             return result;
         }
+    }
+
+    public PersonalInformationPanel getPanelPersonalInfo() {
+        return panelPersonalInfo;
+    }
+
+    public AddressPanel getPanelAddress() {
+        return panelAddress;
+    }
+
+    public AppliancesPanel getPanelAppliance() {
+        return panelAppliance;
+    }
+
+    public CharacterReferenceDependentPanel getPanelCharacterReference() {
+        return panelCharacterReference;
+    }
+
+    public AddressPanel getPanelCoMakerAddress() {
+        return panelCoMakerAddress;
+    }
+
+    public EmploymentDataPanel getPanelCoMakerEmploymentData() {
+        return panelCoMakerEmploymentData;
+    }
+
+    public FamilyBackgroundPanel getPanelCoMakerFamilyBackground() {
+        return panelCoMakerFamilyBackground;
+    }
+
+    public PersonalInformationPanel getPanelCoMakerPersonalInformation() {
+        return panelCoMakerPersonalInformation;
+    }
+
+    public RidersToBuyerPanel getPanelCoMakerRidersToBuyer() {
+        return panelCoMakerRidersToBuyer;
+    }
+
+    public SourceOfIncomePanel getPanelCoMakerSourceOfIncome() {
+        return panelCoMakerSourceOfIncome;
+    }
+
+    public AddressPanel getPanelCoMakerSpouseAddress() {
+        return panelCoMakerSpouseAddress;
+    }
+
+    public EmploymentDataPanel getPanelCoMakerSpouseEmploymentData() {
+        return panelCoMakerSpouseEmploymentData;
+    }
+
+    public FamilyBackgroundPanel getPanelCoMakerSpouseFamilyBackground() {
+        return panelCoMakerSpouseFamilyBackground;
+    }
+
+    public PersonalInformationPanel getPanelCoMakerSpousePersonalInformation() {
+        return panelCoMakerSpousePersonalInformation;
+    }
+
+    public CreditReferencePanel getPanelCreditReference() {
+        return panelCreditReference;
+    }
+
+    public DependentPanel getPanelDependents() {
+        return panelDependents;
+    }
+
+    public EmploymentDataPanel getPanelEmploymentData() {
+        return panelEmploymentData;
+    }
+
+    public ExpendituresPanel getPanelExpenditures() {
+        return panelExpenditures;
+    }
+
+    public FamilyBackgroundPanel getPanelFamilyBackground() {
+        return panelFamilyBackground;
+    }
+
+    public LandPanel getPanelLandAssets() {
+        return panelLandAssets;
+    }
+
+    public MachineryPanel getPanelMachinery() {
+        return panelMachinery;
+    }
+
+    public PurchaseOrderPanel2 getPanelPO() {
+        return panelPO;
+    }
+
+    public RidersToBuyerPanel getPanelRidersToBuyer() {
+        return panelRidersToBuyer;
+    }
+
+    public SiblingsPanel getPanelSibling() {
+        return panelSibling;
+    }
+
+    public SourceOfIncomePanel getPanelSourceOfIncome() {
+        return panelSourceOfIncome;
+    }
+
+    public AddressPanel getPanelSpouseAddress() {
+        return panelSpouseAddress;
+    }
+
+    public EmploymentDataPanel getPanelSpouseEmployment() {
+        return panelSpouseEmployment;
+    }
+
+    public FamilyBackgroundPanel getPanelSpouseFamilyBackground() {
+        return panelSpouseFamilyBackground;
+    }
+
+    public PersonalInformationPanel getPanelSpousePersonalInfo() {
+        return panelSpousePersonalInfo;
+    }
+
+    public RidersToBuyerPanel getPanelSpouseRidersToBuyer() {
+        return panelSpouseRidersToBuyer;
+    }
+
+    public VehiclePanel getPanelVehicle() {
+        return panelVehicle;
     }
 
 }

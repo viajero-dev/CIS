@@ -5,10 +5,12 @@
  */
 package com.vg.scfc.financing.cis.ui.reusable;
 
+import com.vg.commons.renderer.IndexedFocusTraversalPolicy;
 import com.vg.commons.util.NumberUtils;
 import com.vg.scfc.financing.cis.ent.Land;
 import com.vg.scfc.financing.cis.ent.LandType;
 import com.vg.scfc.financing.cis.ui.controller.LandAssetController;
+import com.vg.scfc.financing.cis.ui.settings.UISetting;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -30,8 +32,30 @@ public class LandPanel extends javax.swing.JPanel implements KeyListener {
         initKeyListener();
         initResidentialOptions();
         startUpSettings();
+        policySetting();
     }
-
+    
+    public final void policySetting() {
+        UISetting.policy.addIndexedComponent(checkAgricultural);
+        UISetting.policy.addIndexedComponent(checkCommercial);
+        UISetting.policy.addIndexedComponent(checkResidential);
+        UISetting.policy.addIndexedComponent(txtAreaAgri);
+        UISetting.policy.addIndexedComponent(txtAreaCommercial);
+        UISetting.policy.addIndexedComponent(txtAreaResidential);
+        UISetting.policy.addIndexedComponent(txtLocationAgri);
+        UISetting.policy.addIndexedComponent(txtLocationCommercial);
+        UISetting.policy.addIndexedComponent(txtLocationResidential);
+        UISetting.policy.addIndexedComponent(txtEstValueAgri);
+        UISetting.policy.addIndexedComponent(txtEstValueCommercial);
+        UISetting.policy.addIndexedComponent(txtEstValueResidential);
+        UISetting.policy.addIndexedComponent(optionConcrete);
+        UISetting.policy.addIndexedComponent(optionHouse);
+        UISetting.policy.addIndexedComponent(optionOthers);
+        UISetting.policy.addIndexedComponent(optionSemiConcrete);
+        UISetting.policy.addIndexedComponent(optionShanity);
+        UISetting.policy.addIndexedComponent(txtOtherDesc);
+    }
+    
     private void startUpSettings() {
         setFieldsEditable(false);
     }
@@ -456,58 +480,58 @@ public class LandPanel extends javax.swing.JPanel implements KeyListener {
     @Override
     public void keyReleased(KeyEvent e) {
         switch (e.getKeyCode()) {
-            case KeyEvent.VK_TAB:
-            case KeyEvent.VK_ENTER:
-                if (checkAgricultural.isFocusOwner()) {
-                if (checkAgricultural.isSelected()) {
-                    txtAreaAgri.requestFocus();
-                } else {
-                    checkCommercial.requestFocus();
-                }
-            } else if (txtAreaAgri.isFocusOwner()) {
-                txtLocationAgri.requestFocus();
-            } else if (txtLocationAgri.isFocusOwner()) {
-                txtEstValueAgri.requestFocus();
-            } else if (txtEstValueAgri.isFocusOwner()) {
-                checkCommercial.requestFocus();
-            } else if (checkCommercial.isFocusOwner()) {
-                if (checkCommercial.isSelected()) {
-                    txtAreaCommercial.requestFocus();
-                } else {
-                    checkResidential.requestFocus();
-                }
-            } else if (txtAreaCommercial.isFocusOwner()) {
-                txtLocationCommercial.requestFocus();
-            } else if (txtLocationCommercial.isFocusOwner()) {
-                txtEstValueCommercial.requestFocus();
-            } else if (txtEstValueCommercial.isFocusOwner()) {
-                checkResidential.requestFocus();
-            } else if (checkResidential.isFocusOwner()) {
-                if (checkResidential.isSelected()) {
-                    txtAreaResidential.requestFocus();
-                }
-            } else if (txtAreaResidential.isFocusOwner()) {
-                txtLocationResidential.requestFocus();
-            } else if (txtLocationResidential.isFocusOwner()) {
-                optionHouse.requestFocus();
-            } else if (optionHouse.isFocusOwner()) {
-                optionConcrete.requestFocus();
-            } else if (optionConcrete.isFocusOwner()) {
-                optionSemiConcrete.requestFocus();
-            } else if (optionSemiConcrete.isFocusOwner()) {
-                optionShanity.requestFocus();
-            } else if (optionShanity.isFocusOwner()) {
-                optionOthers.requestFocus();
-            } else if (optionOthers.isFocusOwner()) {
-                if (optionOthers.isSelected()) {
-                    txtOtherDesc.requestFocus();
-                } else {
-                    txtEstValueResidential.requestFocus();
-                }
-            } else if (txtOtherDesc.isFocusOwner()) {
-                txtEstValueResidential.requestFocus();
-            }
-                break;
+//            case KeyEvent.VK_TAB:
+//            case KeyEvent.VK_ENTER:
+//                if (checkAgricultural.isFocusOwner()) {
+//                if (checkAgricultural.isSelected()) {
+//                    txtAreaAgri.requestFocus();
+//                } else {
+//                    checkCommercial.requestFocus();
+//                }
+//            } else if (txtAreaAgri.isFocusOwner()) {
+//                txtLocationAgri.requestFocus();
+//            } else if (txtLocationAgri.isFocusOwner()) {
+//                txtEstValueAgri.requestFocus();
+//            } else if (txtEstValueAgri.isFocusOwner()) {
+//                checkCommercial.requestFocus();
+//            } else if (checkCommercial.isFocusOwner()) {
+//                if (checkCommercial.isSelected()) {
+//                    txtAreaCommercial.requestFocus();
+//                } else {
+//                    checkResidential.requestFocus();
+//                }
+//            } else if (txtAreaCommercial.isFocusOwner()) {
+//                txtLocationCommercial.requestFocus();
+//            } else if (txtLocationCommercial.isFocusOwner()) {
+//                txtEstValueCommercial.requestFocus();
+//            } else if (txtEstValueCommercial.isFocusOwner()) {
+//                checkResidential.requestFocus();
+//            } else if (checkResidential.isFocusOwner()) {
+//                if (checkResidential.isSelected()) {
+//                    txtAreaResidential.requestFocus();
+//                }
+//            } else if (txtAreaResidential.isFocusOwner()) {
+//                txtLocationResidential.requestFocus();
+//            } else if (txtLocationResidential.isFocusOwner()) {
+//                optionHouse.requestFocus();
+//            } else if (optionHouse.isFocusOwner()) {
+//                optionConcrete.requestFocus();
+//            } else if (optionConcrete.isFocusOwner()) {
+//                optionSemiConcrete.requestFocus();
+//            } else if (optionSemiConcrete.isFocusOwner()) {
+//                optionShanity.requestFocus();
+//            } else if (optionShanity.isFocusOwner()) {
+//                optionOthers.requestFocus();
+//            } else if (optionOthers.isFocusOwner()) {
+//                if (optionOthers.isSelected()) {
+//                    txtOtherDesc.requestFocus();
+//                } else {
+//                    txtEstValueResidential.requestFocus();
+//                }
+//            } else if (txtOtherDesc.isFocusOwner()) {
+//                txtEstValueResidential.requestFocus();
+//            }
+//                break;
             case KeyEvent.VK_UP:
                 if (txtEstValueResidential.isFocusOwner()) {
                 if (txtOtherDesc.isEnabled()) {

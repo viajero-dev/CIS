@@ -5,6 +5,7 @@
  */
 package com.vg.scfc.financing.cis.ui.reusable;
 
+import com.vg.commons.renderer.IndexedFocusTraversalPolicy;
 import com.vg.scfc.financing.cis.ent.Address;
 import com.vg.scfc.financing.cis.ui.controller.AddressController;
 import com.vg.scfc.financing.cis.ui.settings.UISetting;
@@ -29,6 +30,18 @@ public class SimpleAddressPanel extends javax.swing.JPanel implements KeyListene
         initComponents();
         initKeyListeners();
         initOptionGroup();
+        policySetting();
+    }
+    
+    public final void policySetting() {
+        UISetting.policy.addIndexedComponent(txtBrgy);
+        UISetting.policy.addIndexedComponent(txtZipcode);
+        UISetting.policy.addIndexedComponent(txtStreet);
+        UISetting.policy.addIndexedComponent(optionAddressOwned);
+        UISetting.policy.addIndexedComponent(optionAddressRenting);
+        UISetting.policy.addIndexedComponent(optionAddressLiving);
+        UISetting.policy.addIndexedComponent(optionAddressOthers);
+        UISetting.policy.addIndexedComponent(txtYrsOfStay);
     }
     
     private void initKeyListeners() {
@@ -244,24 +257,24 @@ public class SimpleAddressPanel extends javax.swing.JPanel implements KeyListene
     @Override
     public void keyReleased(KeyEvent e) {
         switch (e.getKeyCode()) {
-            case KeyEvent.VK_TAB:
-            case KeyEvent.VK_ENTER:
-                if (txtBrgy.isFocusOwner()) {
-                txtZipcode.requestFocus();
-            } else if (txtZipcode.isFocusOwner()) {
-                txtStreet.requestFocus();
-            } else if (txtStreet.isFocusOwner()) {
-                optionAddressOwned.requestFocus();
-            } else if (optionAddressOwned.isFocusOwner()) {
-                optionAddressRenting.requestFocus();
-            } else if (optionAddressRenting.isFocusOwner()) {
-                optionAddressLiving.requestFocus();
-            } else if (optionAddressLiving.isFocusOwner()) {
-                optionAddressOthers.requestFocus();
-            } else if (optionAddressOthers.isFocusOwner()) {
-                txtYrsOfStay.requestFocus();
-            }
-                break;
+//            case KeyEvent.VK_TAB:
+//            case KeyEvent.VK_ENTER:
+//                if (txtBrgy.isFocusOwner()) {
+//                txtZipcode.requestFocus();
+//            } else if (txtZipcode.isFocusOwner()) {
+//                txtStreet.requestFocus();
+//            } else if (txtStreet.isFocusOwner()) {
+//                optionAddressOwned.requestFocus();
+//            } else if (optionAddressOwned.isFocusOwner()) {
+//                optionAddressRenting.requestFocus();
+//            } else if (optionAddressRenting.isFocusOwner()) {
+//                optionAddressLiving.requestFocus();
+//            } else if (optionAddressLiving.isFocusOwner()) {
+//                optionAddressOthers.requestFocus();
+//            } else if (optionAddressOthers.isFocusOwner()) {
+//                txtYrsOfStay.requestFocus();
+//            }
+//                break;
             case KeyEvent.VK_UP:
                 if (txtYrsOfStay.isFocusOwner()) {
                 optionAddressOthers.requestFocus();

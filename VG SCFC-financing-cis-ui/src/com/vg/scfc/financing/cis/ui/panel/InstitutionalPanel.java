@@ -643,8 +643,6 @@ public class InstitutionalPanel extends javax.swing.JPanel implements KeyListene
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTabbedPane2.setTabPlacement(javax.swing.JTabbedPane.BOTTOM);
-
         tabR1PersonalInfo.setName("tabR1PersonalInfo"); // NOI18N
         tabR1PersonalInfo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         tabR1PersonalInfo.add(panelRepresentative1PersonalInformation, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1020, -1));
@@ -664,8 +662,6 @@ public class InstitutionalPanel extends javax.swing.JPanel implements KeyListene
         jTabbedPane1.addTab("1st Representative", jPanel1);
 
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jTabbedPane3.setTabPlacement(javax.swing.JTabbedPane.BOTTOM);
 
         tabR2PersonalInfo.setName("tabR2PersonalInfo"); // NOI18N
         tabR2PersonalInfo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -708,7 +704,7 @@ public class InstitutionalPanel extends javax.swing.JPanel implements KeyListene
         jTabbedPane1.addTab("Purchase Order", tabPO);
 
         add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 340, 1050, 350));
-        add(headerPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 0, -1, -1));
+        add(headerPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 0, -1, -1));
         add(searchPanelInstitution, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 85, -1, -1));
 
         tabCompany.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -717,27 +713,24 @@ public class InstitutionalPanel extends javax.swing.JPanel implements KeyListene
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel1.setText("Company Name");
-        tabCompany.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, -1, -1));
+        tabCompany.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel2.setText("Complete Address");
         tabCompany.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, -1, -1));
 
-        txtCompanyName.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
         txtCompanyName.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtCompanyNameFocusLost(evt);
             }
         });
-        tabCompany.add(txtCompanyName, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 15, 535, -1));
-
-        txtCompleteAddress.setFont(new java.awt.Font("Monospaced", 0, 9)); // NOI18N
+        tabCompany.add(txtCompanyName, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 5, 535, -1));
         tabCompany.add(txtCompleteAddress, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 35, 535, -1));
         tabCompany.add(panelCompanyInformation, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 70, 670, -1));
         tabCompany.add(addEditCompanyInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 205, -1, -1));
         tabCompany.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 1070, 10));
 
-        add(tabCompany, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 85, 1050, 250));
+        add(tabCompany, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 95, 1050, 240));
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtCompanyNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCompanyNameFocusLost

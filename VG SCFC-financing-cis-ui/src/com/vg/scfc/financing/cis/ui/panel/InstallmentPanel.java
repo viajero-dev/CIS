@@ -44,6 +44,10 @@ public class InstallmentPanel extends javax.swing.JPanel {
     private Date applicationDate;
     private JInternalFrame owner;
 
+    public MainPanel getMainPanel() {
+        return mainPanel;
+    }
+
     public void setOwner(JInternalFrame owner) {
         this.owner = owner;
     }

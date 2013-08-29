@@ -18,7 +18,8 @@ public class InstallmentFrame extends javax.swing.JFrame {
      */
     public InstallmentFrame() {
         initComponents();
-       this.setExtendedState(this.getExtendedState() | JFrame.MAXIMIZED_BOTH);
+        this.setExtendedState(this.getExtendedState() | JFrame.MAXIMIZED_BOTH);
+        setFocusTraversalPolicy(installmentPanel1.getMainPanel().getPolicy());
     }
 
     /**
