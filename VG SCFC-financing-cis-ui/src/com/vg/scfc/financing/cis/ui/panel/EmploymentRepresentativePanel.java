@@ -5,11 +5,11 @@
  */
 package com.vg.scfc.financing.cis.ui.panel;
 
-import com.vg.commons.renderer.IndexedFocusTraversalPolicy;
 import com.vg.commons.util.NumberUtils;
 import com.vg.scfc.financing.cis.ent.RepresentativeEmployment;
 import com.vg.scfc.financing.cis.ui.controller.EmploymentController;
 import com.vg.scfc.financing.cis.ui.reusable.HeaderPanel;
+import com.vg.scfc.financing.cis.ui.settings.UISetting;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -27,20 +27,17 @@ public class EmploymentRepresentativePanel extends javax.swing.JPanel implements
     public EmploymentRepresentativePanel() {
         initComponents();
         initKeyListener();
+        policySetting();
     }
     
-    public IndexedFocusTraversalPolicy getPolicy() {
-        IndexedFocusTraversalPolicy policy = new IndexedFocusTraversalPolicy();
-        policy.addForwardTraversalKeys(this, KeyEvent.VK_ENTER);
-        policy.addIndexedComponent(comboEmploymentStatus);
-        policy.addIndexedComponent(txtPosition);
-        policy.addIndexedComponent(txtDepartment);
-        policy.addIndexedComponent(txtYearInService);
-        policy.addIndexedComponent(txtMonthlyCompensation);
-
-        return policy;
-    } 
-
+    public final void policySetting() {
+        UISetting.policy.addIndexedComponent(comboEmploymentStatus);
+        UISetting.policy.addIndexedComponent(txtPosition);
+        UISetting.policy.addIndexedComponent(txtDepartment);
+        UISetting.policy.addIndexedComponent(txtYearInService);
+        UISetting.policy.addIndexedComponent(txtMonthlyCompensation);
+    }
+    
     private void initKeyListener() {
         comboEmploymentStatus.addKeyListener(this);
         txtPosition.addKeyListener(this);

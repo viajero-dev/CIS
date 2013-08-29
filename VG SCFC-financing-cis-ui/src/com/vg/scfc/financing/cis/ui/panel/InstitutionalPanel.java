@@ -7,6 +7,7 @@ package com.vg.scfc.financing.cis.ui.panel;
 
 import com.vg.commons.dlg.WaitSplashScreen;
 import com.vg.commons.listener.DoJasperPrintReport;
+import com.vg.commons.renderer.IndexedFocusTraversalPolicy;
 import com.vg.commons.util.UIMgr;
 import com.vg.scfc.financing.cis.ent.Address;
 import com.vg.scfc.financing.cis.ent.Company;
@@ -25,6 +26,7 @@ import com.vg.scfc.financing.cis.ui.controller.SearchController;
 import com.vg.scfc.financing.cis.ui.dialog.AddressDialog;
 import com.vg.scfc.financing.cis.ui.dialog.ApplicationFormDlg;
 import com.vg.scfc.financing.cis.ui.listener.BasicActionListener;
+import com.vg.scfc.financing.cis.ui.settings.UISetting;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -56,6 +58,13 @@ public class InstitutionalPanel extends javax.swing.JPanel implements KeyListene
         searchPanelInstitution.setInstitutionalPanel(this);
         initFields();
     }
+    
+    public IndexedFocusTraversalPolicy getPolicy() {
+        IndexedFocusTraversalPolicy policy = UISetting.policy;
+        policy.addForwardTraversalKeys(this, KeyEvent.VK_ENTER);
+
+        return policy;
+    } 
 
     private void initCompanyInfoAddEditListener() {
         panelCompanyInformation.setHeaderPanel(headerPanel);

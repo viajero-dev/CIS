@@ -17,6 +17,7 @@ public class CashFrame extends javax.swing.JFrame {
     public CashFrame() {
         initComponents();
         cashPanel.setFrame(this);
+        setFocusTraversalPolicy(cashPanel.getPolicy()); 
     }
 
     /**

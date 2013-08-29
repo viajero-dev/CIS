@@ -19,6 +19,7 @@ public class InstitutionFrame extends javax.swing.JFrame {
     public InstitutionFrame() {
         initComponents();
         this.setExtendedState(this.getExtendedState() | JFrame.MAXIMIZED_BOTH);
+        setFocusTraversalPolicy(institutionalPanel1.getPolicy()); 
     }
 
     /**

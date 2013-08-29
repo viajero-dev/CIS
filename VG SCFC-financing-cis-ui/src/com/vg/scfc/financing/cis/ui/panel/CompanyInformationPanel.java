@@ -5,7 +5,6 @@
  */
 package com.vg.scfc.financing.cis.ui.panel;
 
-import com.vg.commons.renderer.IndexedFocusTraversalPolicy;
 import com.vg.scfc.financing.cis.ent.Address;
 import com.vg.scfc.financing.cis.ent.Company;
 import com.vg.scfc.financing.cis.ent.Customer;
@@ -13,6 +12,7 @@ import com.vg.scfc.financing.cis.ui.controller.AddressController;
 import com.vg.scfc.financing.cis.ui.controller.CompanyController;
 import com.vg.scfc.financing.cis.ui.controller.SearchController;
 import com.vg.scfc.financing.cis.ui.reusable.HeaderPanel;
+import com.vg.scfc.financing.cis.ui.settings.UISetting;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -33,25 +33,22 @@ public class CompanyInformationPanel extends javax.swing.JPanel implements KeyLi
     public CompanyInformationPanel() {
         initComponents();
         initKeyListener();
+        policySetting();
     }
     
-    public IndexedFocusTraversalPolicy getPolicy() {
-        IndexedFocusTraversalPolicy policy = new IndexedFocusTraversalPolicy();
-        policy.addForwardTraversalKeys(this, KeyEvent.VK_ENTER);
-        policy.addIndexedComponent(txtOwner);
-        policy.addIndexedComponent(txtOfficeAddress);
-        policy.addIndexedComponent(txtNatureBusiness);
-        policy.addIndexedComponent(txtYearOfOperation);
-        policy.addIndexedComponent(txtContact);
-        policy.addIndexedComponent(txtTIN);
-        policy.addIndexedComponent(txtEmail);
-        policy.addIndexedComponent(txtBussPermitNo);
-        policy.addIndexedComponent(txtIssuedOn);
-        policy.addIndexedComponent(txtExpireOn);
-
-        return policy;
-    } 
-
+    public final void policySetting() {
+        UISetting.policy.addIndexedComponent(txtOwner);
+        UISetting.policy.addIndexedComponent(txtOfficeAddress);
+        UISetting.policy.addIndexedComponent(txtNatureBusiness);
+        UISetting.policy.addIndexedComponent(txtYearOfOperation);
+        UISetting.policy.addIndexedComponent(txtContact);
+        UISetting.policy.addIndexedComponent(txtTIN);
+        UISetting.policy.addIndexedComponent(txtEmail);
+        UISetting.policy.addIndexedComponent(txtBussPermitNo);
+        UISetting.policy.addIndexedComponent(txtIssuedOn);
+        UISetting.policy.addIndexedComponent(txtExpireOn);
+    }
+    
     private void initKeyListener() {
         txtOwner.addKeyListener(this);
         txtOfficeAddress.addKeyListener(this);

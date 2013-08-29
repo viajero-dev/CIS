@@ -60,7 +60,7 @@ public class CashPanel extends javax.swing.JPanel implements KeyListener {
 
         return policy;
     } 
-
+    
     private void initKeyListeners() {
         txtLastname.addKeyListener(this);
         txtFirstname.addKeyListener(this);
