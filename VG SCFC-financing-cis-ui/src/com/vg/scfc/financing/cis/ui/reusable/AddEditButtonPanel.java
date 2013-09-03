@@ -7,6 +7,7 @@ package com.vg.scfc.financing.cis.ui.reusable;
 
 import com.vg.scfc.financing.cis.ui.listener.BasicActionListener;
 import com.vg.scfc.financing.cis.ui.settings.UISetting;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 /**
@@ -27,6 +28,11 @@ public class AddEditButtonPanel extends javax.swing.JPanel implements BasicActio
         UISetting.registerEnterKeyboardAction(btnAdd);
         UISetting.registerEnterKeyboardAction(btnEdit);
     }
+    
+    private void initIcons(){
+        btnAdd.setIcon(new ImageIcon("src/resources/icons/appIcon.png"));
+        btnEdit.setIcon(new ImageIcon("src/resources/icons/editIcon.png"));
+    }
 
     /**
      * Creates new form AddEditButtonPanel
@@ -35,7 +41,7 @@ public class AddEditButtonPanel extends javax.swing.JPanel implements BasicActio
         initComponents();
         initActionState();
         initButtonAction();
-        
+        initIcons();
     }
 
     private void initActionState() {
@@ -119,6 +125,10 @@ public class AddEditButtonPanel extends javax.swing.JPanel implements BasicActio
     @Override
     public void onAdd() {
         if (btnAdd.getText().equals("Add")) {
+            /* Set Icons */
+            btnAdd.setIcon(new ImageIcon("src/resources/icons/cancelIcon.png"));
+            btnEdit.setIcon(new ImageIcon("src/resources/icons/saveIcon.png"));
+            
             actionState = ActionState.SAVE;
             btnAdd.setText("Cancel");
             btnEdit.setText("Save");
@@ -131,15 +141,16 @@ public class AddEditButtonPanel extends javax.swing.JPanel implements BasicActio
     @Override
     public boolean onSaveAdd() {
         boolean isSaved = basicActionListener.onSaveAdd();
-//        if (!isSaved) {
-//            onAdd();
-//        }
+        if(isSaved) {
+            initIcons();
+        }
         return isSaved;
     }
 
     @Override
     public void onCancelAdd() {
         basicActionListener.onCancelAdd();
+        initIcons();
     }
 
     @Override
@@ -157,15 +168,16 @@ public class AddEditButtonPanel extends javax.swing.JPanel implements BasicActio
     @Override
     public boolean onSaveEdit() {
         boolean isEdited = basicActionListener.onSaveEdit();
-//        if (!isEdited) {
-//            onEdit();
-//        }
+        if(isEdited) {
+            initIcons();
+        }
         return isEdited;
     }
 
     @Override
     public void onCancelEdit() {
         basicActionListener.onCancelEdit();
+        initIcons();
     }
 
     public void resetActionStateToDefault() {

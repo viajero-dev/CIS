@@ -267,7 +267,7 @@ public class AddressPanel extends javax.swing.JPanel implements KeyListener {
                 optionPreviousItemStateChanged(evt);
             }
         });
-        add(optionPrevious, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 189, -1, -1));
+        add(optionPrevious, new org.netbeans.lib.awtextra.AbsoluteConstraints(205, 189, -1, -1));
 
         bindingGroup.bind();
     }// </editor-fold>//GEN-END:initComponents

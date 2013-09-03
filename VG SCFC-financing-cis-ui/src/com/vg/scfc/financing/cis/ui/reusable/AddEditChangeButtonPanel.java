@@ -7,6 +7,7 @@ package com.vg.scfc.financing.cis.ui.reusable;
 
 import com.vg.scfc.financing.cis.ui.listener.AddEditChangeListener;
 import com.vg.scfc.financing.cis.ui.settings.UISetting;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 /**
@@ -22,8 +23,9 @@ public class AddEditChangeButtonPanel extends javax.swing.JPanel implements AddE
         initComponents();
         initActionState();
         initButtonAction();
+        initIcons();
     }
-    
+
     private void initButtonAction() {
         UISetting.registerEnterKeyboardAction(buttonAdd);
         UISetting.registerEnterKeyboardAction(buttonEdit);
@@ -32,6 +34,12 @@ public class AddEditChangeButtonPanel extends javax.swing.JPanel implements AddE
 
     private void initActionState() {
         actionState = ActionState.DEFAULT;
+    }
+
+    private void initIcons() {
+        buttonAdd.setIcon(new ImageIcon("src/resources/icons/appIcon.png"));
+        buttonEdit.setIcon(new ImageIcon("src/resources/icons/editIcon.png"));
+        buttonChange.setIcon(new ImageIcon("src/resources/icons/changeIcon.png"));
     }
 
     /**
@@ -160,6 +168,10 @@ public class AddEditChangeButtonPanel extends javax.swing.JPanel implements AddE
     public void onAdd() {
         if (buttonAdd.getText().equals("Add")) {
             actionState = ActionState.SAVE;
+
+            buttonAdd.setIcon(new ImageIcon("src/resources/icons/cancelIcon.png"));
+            buttonEdit.setIcon(new ImageIcon("src/resources/icons/saveIcon.png"));
+
             buttonAdd.setText("Cancel");
             buttonEdit.setText("Save");
             buttonListener.onAdd();
@@ -174,6 +186,8 @@ public class AddEditChangeButtonPanel extends javax.swing.JPanel implements AddE
         boolean isSaved = buttonListener.onSaveAdd();
         if (!isSaved) {
             onAdd();
+        } else {
+            initIcons();
         }
         return isSaved;
     }
@@ -182,12 +196,17 @@ public class AddEditChangeButtonPanel extends javax.swing.JPanel implements AddE
     public void onCancelAdd() {
         buttonListener.onCancelAdd();
         buttonChange.setEnabled(true);
+        initIcons();
     }
 
     @Override
     public void onEdit() {
         if (buttonEdit.getText().equals("Edit")) {
             actionState = ActionState.EDIT;
+            
+            buttonAdd.setIcon(new ImageIcon("src/resources/icons/saveIcon.png"));
+            buttonEdit.setIcon(new ImageIcon("src/resources/icons/cancelIcon.png"));
+            
             buttonAdd.setText("Save");
             buttonEdit.setText("Cancel");
             buttonListener.onEdit();
@@ -203,6 +222,8 @@ public class AddEditChangeButtonPanel extends javax.swing.JPanel implements AddE
         boolean isEdited = buttonListener.onSaveEdit();
         if (!isEdited) {
             onEdit();
+        } else {
+            initIcons();
         }
         return isEdited;
     }
@@ -211,12 +232,17 @@ public class AddEditChangeButtonPanel extends javax.swing.JPanel implements AddE
     public void onCancelEdit() {
         buttonListener.onCancelEdit();
         buttonChange.setEnabled(true);
+        initIcons();
     }
 
     @Override
     public void onChange() {
         if (buttonChange.getText().equals("Change")) {
             actionState = ActionState.CHANGE;
+            
+            buttonChange.setIcon(new ImageIcon("src/resources/icons/saveIcon.png"));
+            buttonEdit.setIcon(new ImageIcon("src/resources/icons/cancelIcon.png"));
+            
             buttonChange.setText("Save");
             buttonEdit.setText("Cancel");
             buttonListener.onChange();
@@ -232,6 +258,8 @@ public class AddEditChangeButtonPanel extends javax.swing.JPanel implements AddE
         boolean isChanged = buttonListener.onSaveChange();
         if (!isChanged) {
             onChange();
+        } else {
+            initIcons();
         }
         return isChanged;
     }
@@ -240,6 +268,7 @@ public class AddEditChangeButtonPanel extends javax.swing.JPanel implements AddE
     public void onCancelChange() {
         buttonListener.onCancelChange();
         buttonAdd.setEnabled(true);
+        initIcons();
     }
 
     private void resetActionStateToDefault() {
@@ -247,6 +276,7 @@ public class AddEditChangeButtonPanel extends javax.swing.JPanel implements AddE
         buttonAdd.setText("Add");
         buttonEdit.setText("Edit");
         buttonChange.setText("Change");
+        initIcons();
     }
 
     public void enableAdd(boolean value) {

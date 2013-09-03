@@ -214,7 +214,11 @@ public class UIValidator {
     public static void enableTabs(List<JPanel> panels) {
         for (JPanel panel : panels) {
             for (Component c : panel.getComponents()) {
-                c.setEnabled(true);
+                if (c instanceof JComboBox) {
+                    c.setEnabled(false);
+                } else {
+                    c.setEnabled(true);
+                }
                 if (c instanceof Container) {
                     for (Component component : ((Container) c).getComponents()) {
                         component.setEnabled(true);

@@ -20,6 +20,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.LinkedList;
 import java.util.List;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
@@ -44,6 +45,7 @@ public class CashPanel extends javax.swing.JPanel implements KeyListener {
         txtSearch.putClientProperty("Quaqua.TextField.style", "search");
         txtSearch.setText("Search");
         setFieldsEditable(false, true);
+        btnSearch.setIcon(new ImageIcon("src/resources/icons/searchIcon.png"));
     }
 
     public IndexedFocusTraversalPolicy getPolicy() {

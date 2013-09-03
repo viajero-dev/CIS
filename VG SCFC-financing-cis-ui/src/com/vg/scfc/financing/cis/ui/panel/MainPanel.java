@@ -62,6 +62,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
@@ -112,7 +113,7 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
         initPurchaseOrderAddEditListener();
         initIdentification();
         initCoMakerTable();
-        initTabs();
+        btnPrint.setIcon(new ImageIcon("src/resources/icons/printIcon.png"));
     }
 
     private void initTabs() {

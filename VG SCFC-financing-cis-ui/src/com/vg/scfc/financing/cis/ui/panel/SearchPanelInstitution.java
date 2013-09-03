@@ -19,6 +19,7 @@ import java.awt.event.KeyEvent;
 import java.text.SimpleDateFormat;
 import java.util.LinkedList;
 import java.util.List;
+import javax.swing.ImageIcon;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -46,6 +47,12 @@ public class SearchPanelInstitution extends javax.swing.JPanel implements DoJasp
         initTransactionFormTable();
         policySetting();
         initSearchListener();
+        initIcons();
+    }
+    
+    private void initIcons() {
+        btnSearch.setIcon(new ImageIcon("src/resources/icons/searchIcon.png"));
+        btnPrintVersion.setIcon(new ImageIcon("src/resources/icons/printIcon.png"));
     }
 
     private void policySetting() {

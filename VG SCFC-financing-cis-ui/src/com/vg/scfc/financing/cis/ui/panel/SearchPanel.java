@@ -20,6 +20,7 @@ import java.awt.event.KeyEvent;
 import java.text.SimpleDateFormat;
 import java.util.LinkedList;
 import java.util.List;
+import javax.swing.ImageIcon;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -46,6 +47,12 @@ public class SearchPanel extends javax.swing.JPanel {
         txtSearch.setText("Search");
         policySetting();
         initSearchListener();
+        initIcons();
+    }
+    
+    private void initIcons() {
+        btnSearch.setIcon(new ImageIcon("src/resources/icons/searchIcon.png"));
+        btnPrint.setIcon(new ImageIcon("src/resources/icons/printIcon.png"));
     }
     
     private void policySetting() {
@@ -207,7 +214,6 @@ public class SearchPanel extends javax.swing.JPanel {
         lblRecordCount.setText("RECORD(S): 0");
         add(lblRecordCount, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 545, 250, -1));
 
-        btnSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/searchIcon.png"))); // NOI18N
         btnSearch.setText("Search");
         btnSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
