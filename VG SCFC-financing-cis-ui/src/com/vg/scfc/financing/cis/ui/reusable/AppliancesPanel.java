@@ -195,6 +195,10 @@ public class AppliancesPanel extends javax.swing.JPanel implements KeyListener {
     private HeaderPanel headerPanel;
     private AddEditButtonPanel buttonPanel;
 
+    public Appliance getAppliance() {
+        return appliance;
+    }
+
     public void setButtonPanel(AddEditButtonPanel buttonPanel) {
         this.buttonPanel = buttonPanel;
     }

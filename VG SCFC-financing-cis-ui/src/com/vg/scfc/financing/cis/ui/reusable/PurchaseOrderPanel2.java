@@ -455,6 +455,10 @@ public class PurchaseOrderPanel2 extends javax.swing.JPanel implements KeyListen
     BalloonTip ciCodeTip;
     private AddEditButtonPanel buttonPanel;
 
+    public PurchaseOrder getPurchaseOrder() {
+        return purchaseOrder;
+    }
+
     public void setButtonPanel(AddEditButtonPanel buttonPanel) {
         this.buttonPanel = buttonPanel;
     }

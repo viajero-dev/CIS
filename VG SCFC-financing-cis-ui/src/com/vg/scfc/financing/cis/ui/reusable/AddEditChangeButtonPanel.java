@@ -37,7 +37,7 @@ public class AddEditChangeButtonPanel extends javax.swing.JPanel implements AddE
     }
 
     private void initIcons() {
-        buttonAdd.setIcon(new ImageIcon("src/resources/icons/appIcon.png"));
+        buttonAdd.setIcon(new ImageIcon("src/resources/icons/add.png"));
         buttonEdit.setIcon(new ImageIcon("src/resources/icons/editIcon.png"));
         buttonChange.setIcon(new ImageIcon("src/resources/icons/changeIcon.png"));
     }
@@ -271,7 +271,7 @@ public class AddEditChangeButtonPanel extends javax.swing.JPanel implements AddE
         initIcons();
     }
 
-    private void resetActionStateToDefault() {
+    public void resetActionStateToDefault() {
         actionState = ActionState.DEFAULT;
         buttonAdd.setText("Add");
         buttonEdit.setText("Edit");

@@ -190,6 +190,10 @@ public class MachineryPanel extends javax.swing.JPanel implements KeyListener {
     private HeaderPanel headerPanel;
     private AddEditButtonPanel buttonPanel;
 
+    public Machinery getMachinery() {
+        return machinery;
+    }
+
     public void setButtonPanel(AddEditButtonPanel buttonPanel) {
         this.buttonPanel = buttonPanel;
     }

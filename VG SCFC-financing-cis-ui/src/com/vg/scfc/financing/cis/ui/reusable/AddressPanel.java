@@ -361,6 +361,10 @@ public class AddressPanel extends javax.swing.JPanel implements KeyListener {
     private AddEditChangeButtonPanel buttonPanel;
     private Address address;
 
+    public Address getAddress() {
+        return address;
+    }
+
     public void setAddress(Address address) {
         this.address = address;
         setAddressData(this.address);

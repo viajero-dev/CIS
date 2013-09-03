@@ -204,6 +204,10 @@ public class VehiclePanel extends javax.swing.JPanel implements KeyListener {
     private HeaderPanel headerPanel;
     private AddEditButtonPanel buttonPanel;
 
+    public Vehicle getVehicle() {
+        return vehicle;
+    }
+
     public void setButtonPanel(AddEditButtonPanel buttonPanel) {
         this.buttonPanel = buttonPanel;
     }

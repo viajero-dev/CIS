@@ -819,6 +819,10 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
 
             @Override
             public void onEdit() {
+                if(panelLandAssets.getLands().isEmpty()) {
+                    addEditLandAssets.resetActionStateToDefault();
+                    return;
+                }
                 panelLandAssets.setFieldsEditable(true);
                 managedTab("tabAssetLand");
                 enableSearch(false);
@@ -890,6 +894,10 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
 
             @Override
             public void onEdit() {
+                if(panelVehicle.getVehicle() == null) {
+                    addEditVehicle.resetActionStateToDefault();
+                    return;
+                }
                 panelVehicle.setFieldsEditable(true);
                 managedTab("tabAssetVehicle");
                 enableSearch(false);
@@ -961,6 +969,10 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
 
             @Override
             public void onEdit() {
+                if(panelAppliance.getAppliance() == null) {
+                    addEditAppliance.resetActionStateToDefault();
+                    return;
+                }
                 panelAppliance.setFieldsEditable(true);
                 managedTab("tabAssetAppliance");
                 enableSearch(false);
@@ -1032,6 +1044,10 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
 
             @Override
             public void onEdit() {
+                if(panelMachinery.getMachinery() == null) {
+                    addEditMachinery.resetActionStateToDefault();
+                    return;
+                }
                 enableSearch(false);
                 panelMachinery.setFieldsEditable(true);
                 managedTab("tabAssetMachinery");
@@ -1835,6 +1851,10 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
 
             @Override
             public void onEdit() {
+                if(panelAddress.getAddress() == null) {
+                    addEditChangeAddress.resetActionStateToDefault();
+                    return;
+                }
                 panelAddress.setFieldsEditable(true);
                 managedTab("tabAddress");
                 enableSearch(false);
@@ -1941,6 +1961,10 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
 
             @Override
             public void onEdit() {
+                if(panelSpouseAddress.getAddress() == null) {
+                    addEditChangeSpouseAddress.resetActionStateToDefault();
+                    return;
+                }
                 panelSpouseAddress.setFieldsEditable(true);
                 managedTab("tabSpouseAddress");
                 enableSearch(false);
@@ -2046,6 +2070,10 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
 
             @Override
             public void onEdit() {
+                if(panelCoMakerAddress.getAddress() == null) {
+                    addEditChangeCoMakerAddress.resetActionStateToDefault();
+                    return;
+                }
                 panelCoMakerAddress.setFieldsEditable(true);
                 managedTab("tabCoMakerAddress");
                 enableSearch(false);
@@ -2149,6 +2177,10 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
 
             @Override
             public void onEdit() {
+                if(panelCoMakerSpouseAddress.getAddress() == null) {
+                    addEditChangeCoMakerSpouseAddress.resetActionStateToDefault();
+                    return;
+                }
                 panelCoMakerSpouseAddress.setFieldsEditable(true);
                 managedTab("tabCoMakerSpouseAddress");
                 enableSearch(false);
@@ -2255,6 +2287,10 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
 
             @Override
             public void onEdit() {
+                if(panelPO.getPurchaseOrder() == null) {
+                    addEditPO.resetActionStateToDefault();
+                    return;
+                }
                 panelPO.setFieldsEditable(true);
                 managedTab("tabPO");
                 enableSearch(false);
@@ -2327,6 +2363,10 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
 
             @Override
             public void onEdit() {
+                if(panelRidersToBuyer.getIdentification() == null) {
+                    addEditIdentification.resetActionStateToDefault();
+                    return;
+                }
                 panelRidersToBuyer.setFieldsEditable(true);
                 managedTab("tabID");
                 enableSearch(false);
@@ -2395,6 +2435,10 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
 
             @Override
             public void onEdit() {
+                if(panelSpouseRidersToBuyer.getIdentification() == null) {
+                    addEditSpouseID.resetActionStateToDefault();
+                    return;
+                }
                 panelSpouseRidersToBuyer.setFieldsEditable(true);
                 managedTab("tabSpouseID");
                 enableSearch(false);
@@ -2462,6 +2506,10 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
 
             @Override
             public void onEdit() {
+                if(panelCoMakerRidersToBuyer.getIdentification() == null) {
+                    addEditCMID.resetActionStateToDefault();
+                    return;
+                }
                 panelCoMakerRidersToBuyer.setFieldsEditable(true);
                 managedTab("tabCoMakerID");
                 enableSearch(false);
@@ -2996,7 +3044,7 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
 
         tabAsset.addTab("Machinery", tabAssetMachinery);
 
-        jPanel10.add(tabAsset, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 290));
+        jPanel10.add(tabAsset, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 310));
 
         tabDetails.addTab("Assets", jPanel10);
 

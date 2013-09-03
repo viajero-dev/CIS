@@ -130,6 +130,10 @@ public class InstitutionalPanel extends javax.swing.JPanel implements KeyListene
 
             @Override
             public void onEdit() {
+                if(panelCompanyInformation.getCompany() == null) {
+                    addEditCompanyInfo.resetActionStateToDefault();
+                    return;
+                }
                 panelCompanyInformation.setHeaderPanel(headerPanel);
                 panelCompanyInformation.setTxtCompanyName(txtCompanyName);
                 panelCompanyInformation.setFieldsEditable(true);
@@ -277,6 +281,10 @@ public class InstitutionalPanel extends javax.swing.JPanel implements KeyListene
 
             @Override
             public void onEdit() {
+                if(panelRepresentative1Employment.getRepresentativeEmployment() == null) {
+                    addEditRepresentative1Employment.resetActionStateToDefault();
+                    return;
+                }
                 panelRepresentative1Employment.setFieldsEditable(true);
                 managedTab("tabR1Employment");
                 searchPanelInstitution.enableSearch(false);
@@ -421,6 +429,10 @@ public class InstitutionalPanel extends javax.swing.JPanel implements KeyListene
 
             @Override
             public void onEdit() {
+                if(panelRepresentative2Employment.getRepresentativeEmployment() == null) {
+                    addEditRepresentative2Employment.resetActionStateToDefault();
+                    return;
+                }
                 panelRepresentative2Employment.setFieldsEditable(true);
                 managedTab("tabR2Employment");
                 searchPanelInstitution.enableSearch(false);
@@ -492,6 +504,10 @@ public class InstitutionalPanel extends javax.swing.JPanel implements KeyListene
 
             @Override
             public void onEdit() {
+                if(panelPurchaseOrder.getPurchaseOrder() == null) {
+                    addEditPurchaseOrder.resetActionStateToDefault();
+                    return;
+                }
                 panelPurchaseOrder.setFieldsEditable(true);
                 managedTab("tabPO");
                 searchPanelInstitution.enableSearch(false);
@@ -565,6 +581,10 @@ public class InstitutionalPanel extends javax.swing.JPanel implements KeyListene
 
             @Override
             public void onEdit() {
+                if(ridersToBuyerPanel.getIdentification() == null) {
+                    addEditID.resetActionStateToDefault();
+                    return;
+                }
                 ridersToBuyerPanel.setFieldsEditable(true);
                 managedTab("tabID");
                 searchPanelInstitution.enableSearch(false);

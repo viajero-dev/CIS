@@ -260,6 +260,10 @@ public class CompanyInformationPanel extends javax.swing.JPanel implements KeyLi
     private InstitutionalPanel institutionalPanel;
     private AddEditButtonPanel buttonPanel;
 
+    public InstitutionalPanel getInstitutionalPanel() {
+        return institutionalPanel;
+    }
+
     public void setButtonPanel(AddEditButtonPanel buttonPanel) {
         this.buttonPanel = buttonPanel;
     }

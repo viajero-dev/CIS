@@ -30,7 +30,7 @@ public class AddEditButtonPanel extends javax.swing.JPanel implements BasicActio
     }
     
     private void initIcons(){
-        btnAdd.setIcon(new ImageIcon("src/resources/icons/appIcon.png"));
+        btnAdd.setIcon(new ImageIcon("src/resources/icons/add.png"));
         btnEdit.setIcon(new ImageIcon("src/resources/icons/editIcon.png"));
     }
 

@@ -183,6 +183,10 @@ public class EmploymentRepresentativePanel extends javax.swing.JPanel implements
     private RepresentativeEmployment representativeEmployment;
     private AddEditButtonPanel buttonPanel;
 
+    public RepresentativeEmployment getRepresentativeEmployment() {
+        return representativeEmployment;
+    }
+
     public void setButtonPanel(AddEditButtonPanel buttonPanel) {
         this.buttonPanel = buttonPanel;
     }

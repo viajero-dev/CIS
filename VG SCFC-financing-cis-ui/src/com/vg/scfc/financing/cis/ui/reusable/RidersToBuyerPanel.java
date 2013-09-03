@@ -141,6 +141,10 @@ public class RidersToBuyerPanel extends javax.swing.JPanel implements KeyListene
         this.buttonPanel = buttonPanel;
     }
 
+    public Identification getIdentification() {
+        return identification;
+    }
+
     public void setIdentification(Identification identification) {
         this.identification = identification;
         setRidersToBuyerValues(this.identification);
