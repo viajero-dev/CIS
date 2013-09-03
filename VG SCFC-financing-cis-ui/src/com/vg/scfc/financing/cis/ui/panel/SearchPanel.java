@@ -15,6 +15,8 @@ import com.vg.scfc.financing.cis.ui.controller.SearchController;
 import com.vg.scfc.financing.cis.ui.dialog.CAFReportDlg;
 import com.vg.scfc.financing.cis.ui.settings.UISetting;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.text.SimpleDateFormat;
 import java.util.LinkedList;
 import java.util.List;
@@ -42,7 +44,29 @@ public class SearchPanel extends javax.swing.JPanel {
         initTransactionFormTable();
         txtSearch.putClientProperty("Quaqua.TextField.style", "search");
         txtSearch.setText("Search");
-//        refreshCustomerTable(SearchController.getInstance().findBySearchCriteriaLocationAndMode("", UISetting.getStoreLocation().getFinStartCode(), 2));
+        policySetting();
+        initSearchListener();
+    }
+    
+    private void policySetting() {
+//        UISetting.policy.addIndexedComponent(txtSearch);
+//        UISetting.policy.addIndexedComponent(btnSearch);
+        txtSearch.setFocusTraversalKeysEnabled(false);
+    }
+    
+    private void initSearchListener() {
+        txtSearch.addKeyListener(new KeyAdapter() {
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                switch(e.getKeyCode()) {
+                    case KeyEvent.VK_ENTER:
+                        refreshCustomerTable(SearchController.getInstance().findBySearchCriteriaLocationAndMode(txtSearch.getText(), UISetting.getStoreLocation().getFinStartCode(), 2));
+                        break;
+                }
+            }
+            
+        });
     }
 
     private void initCustomerTable() {
@@ -108,6 +132,7 @@ public class SearchPanel extends javax.swing.JPanel {
         tblTransactionForm = new javax.swing.JTable();
         btnPrint = new javax.swing.JButton();
         lblRecordCount = new javax.swing.JLabel();
+        btnSearch = new javax.swing.JButton();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -124,7 +149,7 @@ public class SearchPanel extends javax.swing.JPanel {
                 txtSearchFocusLost(evt);
             }
         });
-        add(txtSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 250, -1));
+        add(txtSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 150, -1));
 
         tblCustomer.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
         tblCustomer.setRowHeight(19);
@@ -155,7 +180,7 @@ public class SearchPanel extends javax.swing.JPanel {
 
         jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, transactionForms, tblTransactionForm);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${txFormNo}"));
-        columnBinding.setColumnName("Form #");
+        columnBinding.setColumnName("Transaction #");
         columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${txApplicationDate}"));
@@ -169,6 +194,7 @@ public class SearchPanel extends javax.swing.JPanel {
 
         add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 380, 250, 160));
 
+        btnPrint.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/printIcon2.png"))); // NOI18N
         btnPrint.setText("Print Report");
         btnPrint.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -180,6 +206,15 @@ public class SearchPanel extends javax.swing.JPanel {
         lblRecordCount.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblRecordCount.setText("RECORD(S): 0");
         add(lblRecordCount, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 545, 250, -1));
+
+        btnSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/searchIcon.png"))); // NOI18N
+        btnSearch.setText("Search");
+        btnSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchActionPerformed(evt);
+            }
+        });
+        add(btnSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(155, 3, 100, -1));
 
         bindingGroup.bind();
     }// </editor-fold>//GEN-END:initComponents
@@ -202,7 +237,7 @@ public class SearchPanel extends javax.swing.JPanel {
         if (transactionForm != null) {
             reportDlg.setFormNo(transactionForm.getTxFormNo());
             PersonalInfo cm2 = PersonalInfoController.getInstance().findByFormNoAndPersonType(transactionForm.getTxFormNo(), "CM2");
-            if(cm2 != null) {
+            if (cm2 != null) {
                 reportDlg.enabledCM2Option(true);
             } else {
                 reportDlg.enabledCM2Option(false);
@@ -211,8 +246,13 @@ public class SearchPanel extends javax.swing.JPanel {
         reportDlg.setVisible(true);
     }//GEN-LAST:event_btnPrintActionPerformed
 
+    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+        refreshCustomerTable(SearchController.getInstance().findBySearchCriteriaLocationAndMode(txtSearch.getText(), UISetting.getStoreLocation().getFinStartCode(), 2));
+    }//GEN-LAST:event_btnSearchActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnPrint;
+    private javax.swing.JButton btnSearch;
     private java.util.List<Customer> customers;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -256,8 +296,11 @@ public class SearchPanel extends javax.swing.JPanel {
         customers.clear();
         customers.addAll(c);
         if (!customers.isEmpty()) {
-            lblRecordCount.setText("RECORD(S): " + customers.size());
+            lblRecordCount.setText("Search Result: " + customers.size());
             tblCustomer.setRowSelectionInterval(0, 0);
+        }
+        if (txtSearch.getText().equals("")) {
+            txtSearch.setText("Search");
         }
     }
 
@@ -271,5 +314,13 @@ public class SearchPanel extends javax.swing.JPanel {
 
     public void refresh() {
         refreshCustomerTable(SearchController.getInstance().findAllWithLimit(10));
+    }
+    
+    public void enableSearch(boolean value) {
+        txtSearch.setEnabled(value);
+        btnSearch.setEnabled(value);
+        tblCustomer.setEnabled(value);
+        tblTransactionForm.setEnabled(value);
+        btnPrint.setEnabled(value);
     }
 }

@@ -6,6 +6,8 @@
 package com.vg.scfc.financing.cis.ui.reusable;
 
 import com.vg.scfc.financing.cis.ui.listener.BasicActionListener;
+import com.vg.scfc.financing.cis.ui.settings.UISetting;
+import javax.swing.JButton;
 
 /**
  *
@@ -13,18 +15,33 @@ import com.vg.scfc.financing.cis.ui.listener.BasicActionListener;
  */
 public class AddEditButtonPanel extends javax.swing.JPanel implements BasicActionListener {
 
+    public JButton getBtnAdd() {
+        return btnAdd;
+    }
+
+    public JButton getBtnEdit() {
+        return btnEdit;
+    }
+
+    private void initButtonAction() {
+        UISetting.registerEnterKeyboardAction(btnAdd);
+        UISetting.registerEnterKeyboardAction(btnEdit);
+    }
+
     /**
      * Creates new form AddEditButtonPanel
      */
     public AddEditButtonPanel() {
         initComponents();
         initActionState();
+        initButtonAction();
+        
     }
 
     private void initActionState() {
         actionState = ActionState.DEFAULT;
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -66,8 +83,7 @@ public class AddEditButtonPanel extends javax.swing.JPanel implements BasicActio
                     resetActionStateToDefault();
                     break;
                 case EDIT:
-                    onSaveEdit();
-                    resetActionStateToDefault();
+                    if(onSaveEdit()) resetActionStateToDefault();
                     break;
             }
         }
@@ -79,8 +95,7 @@ public class AddEditButtonPanel extends javax.swing.JPanel implements BasicActio
         } else {
             switch (actionState) {
                 case SAVE:
-                    onSaveAdd();
-                    resetActionStateToDefault();
+                    if(onSaveAdd()) resetActionStateToDefault();
                     break;
                 case EDIT:
                     onCancelEdit();
@@ -116,9 +131,9 @@ public class AddEditButtonPanel extends javax.swing.JPanel implements BasicActio
     @Override
     public boolean onSaveAdd() {
         boolean isSaved = basicActionListener.onSaveAdd();
-        if(!isSaved) {
-            onAdd();
-        }
+//        if (!isSaved) {
+//            onAdd();
+//        }
         return isSaved;
     }
 
@@ -141,25 +156,26 @@ public class AddEditButtonPanel extends javax.swing.JPanel implements BasicActio
 
     @Override
     public boolean onSaveEdit() {
-       boolean isEdited = basicActionListener.onSaveEdit();
-       if(!isEdited) {
-           onEdit();
-       }
+        boolean isEdited = basicActionListener.onSaveEdit();
+//        if (!isEdited) {
+//            onEdit();
+//        }
         return isEdited;
     }
 
     @Override
     public void onCancelEdit() {
-       basicActionListener.onCancelEdit();
+        basicActionListener.onCancelEdit();
     }
 
-    private void resetActionStateToDefault() {
+    public void resetActionStateToDefault() {
         actionState = ActionState.DEFAULT;
         btnAdd.setText("Add");
         btnEdit.setText("Edit");
     }
 
     private enum ActionState {
+
         SAVE, EDIT, DEFAULT
     }
 }

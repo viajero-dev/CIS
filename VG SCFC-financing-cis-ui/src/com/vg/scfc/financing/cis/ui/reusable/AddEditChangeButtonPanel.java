@@ -6,6 +6,8 @@
 package com.vg.scfc.financing.cis.ui.reusable;
 
 import com.vg.scfc.financing.cis.ui.listener.AddEditChangeListener;
+import com.vg.scfc.financing.cis.ui.settings.UISetting;
+import javax.swing.JButton;
 
 /**
  *
@@ -19,7 +21,13 @@ public class AddEditChangeButtonPanel extends javax.swing.JPanel implements AddE
     public AddEditChangeButtonPanel() {
         initComponents();
         initActionState();
-//        resetActionStateToDefault();
+        initButtonAction();
+    }
+    
+    private void initButtonAction() {
+        UISetting.registerEnterKeyboardAction(buttonAdd);
+        UISetting.registerEnterKeyboardAction(buttonEdit);
+        UISetting.registerEnterKeyboardAction(buttonChange);
     }
 
     private void initActionState() {
@@ -41,6 +49,7 @@ public class AddEditChangeButtonPanel extends javax.swing.JPanel implements AddE
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        buttonAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/appIcon.png"))); // NOI18N
         buttonAdd.setText("Add");
         buttonAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -49,6 +58,7 @@ public class AddEditChangeButtonPanel extends javax.swing.JPanel implements AddE
         });
         add(buttonAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, 1, 100, -1));
 
+        buttonEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/editIcon2.1.png"))); // NOI18N
         buttonEdit.setText("Edit");
         buttonEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -57,13 +67,14 @@ public class AddEditChangeButtonPanel extends javax.swing.JPanel implements AddE
         });
         add(buttonEdit, new org.netbeans.lib.awtextra.AbsoluteConstraints(105, 1, 100, -1));
 
+        buttonChange.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/changeIcon.png"))); // NOI18N
         buttonChange.setText("Change");
         buttonChange.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonChangeActionPerformed(evt);
             }
         });
-        add(buttonChange, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 1, 100, -1));
+        add(buttonChange, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 1, 110, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddActionPerformed
@@ -129,6 +140,18 @@ public class AddEditChangeButtonPanel extends javax.swing.JPanel implements AddE
     private AddEditChangeListener buttonListener;
     private ActionState actionState;
 
+    public JButton getButtonAdd() {
+        return buttonAdd;
+    }
+
+    public JButton getButtonChange() {
+        return buttonChange;
+    }
+
+    public JButton getButtonEdit() {
+        return buttonEdit;
+    }
+
     public void setButtonListener(AddEditChangeListener buttonListener) {
         this.buttonListener = buttonListener;
     }
@@ -140,6 +163,7 @@ public class AddEditChangeButtonPanel extends javax.swing.JPanel implements AddE
             buttonAdd.setText("Cancel");
             buttonEdit.setText("Save");
             buttonListener.onAdd();
+            buttonChange.setEnabled(false);
         } else {
             resetActionStateToDefault();
         }
@@ -157,6 +181,7 @@ public class AddEditChangeButtonPanel extends javax.swing.JPanel implements AddE
     @Override
     public void onCancelAdd() {
         buttonListener.onCancelAdd();
+        buttonChange.setEnabled(true);
     }
 
     @Override
@@ -166,6 +191,7 @@ public class AddEditChangeButtonPanel extends javax.swing.JPanel implements AddE
             buttonAdd.setText("Save");
             buttonEdit.setText("Cancel");
             buttonListener.onEdit();
+            buttonChange.setEnabled(false);
         } else {
             resetActionStateToDefault();
         }
@@ -173,6 +199,7 @@ public class AddEditChangeButtonPanel extends javax.swing.JPanel implements AddE
 
     @Override
     public boolean onSaveEdit() {
+        buttonChange.setEnabled(false);
         boolean isEdited = buttonListener.onSaveEdit();
         if (!isEdited) {
             onEdit();
@@ -183,6 +210,7 @@ public class AddEditChangeButtonPanel extends javax.swing.JPanel implements AddE
     @Override
     public void onCancelEdit() {
         buttonListener.onCancelEdit();
+        buttonChange.setEnabled(true);
     }
 
     @Override
@@ -192,6 +220,7 @@ public class AddEditChangeButtonPanel extends javax.swing.JPanel implements AddE
             buttonChange.setText("Save");
             buttonEdit.setText("Cancel");
             buttonListener.onChange();
+            buttonAdd.setEnabled(false);
         } else {
             resetActionStateToDefault();
         }
@@ -199,6 +228,7 @@ public class AddEditChangeButtonPanel extends javax.swing.JPanel implements AddE
 
     @Override
     public boolean onSaveChange() {
+        buttonAdd.setEnabled(true);
         boolean isChanged = buttonListener.onSaveChange();
         if (!isChanged) {
             onChange();
@@ -209,6 +239,7 @@ public class AddEditChangeButtonPanel extends javax.swing.JPanel implements AddE
     @Override
     public void onCancelChange() {
         buttonListener.onCancelChange();
+        buttonAdd.setEnabled(true);
     }
 
     private void resetActionStateToDefault() {

@@ -5,7 +5,6 @@
  */
 package com.vg.scfc.financing.cis.ui.reusable;
 
-import com.vg.commons.renderer.IndexedFocusTraversalPolicy;
 import com.vg.scfc.financing.cis.ent.Family;
 import com.vg.scfc.financing.cis.ui.controller.FamilyBackgroundController;
 import com.vg.scfc.financing.cis.ui.panel.MainPanel;
@@ -225,6 +224,10 @@ public class FamilyBackgroundPanel extends javax.swing.JPanel implements KeyList
     private HeaderPanel headerPanel;
     private MainPanel mainPanel;
 
+    public List<Family> getFamilies() {
+        return families;
+    }
+
     public void setMainPanel(MainPanel mainPanel) {
         this.mainPanel = mainPanel;
     }
@@ -253,24 +256,23 @@ public class FamilyBackgroundPanel extends javax.swing.JPanel implements KeyList
     @Override
     public void keyReleased(KeyEvent e) {
         switch (e.getKeyCode()) {
-//            case KeyEvent.VK_TAB:
-//            case KeyEvent.VK_ENTER:
-//                if (txtFatherName.isFocusOwner()) {
-//                txtFatherAddress.requestFocus();
-//            } else if (txtFatherAddress.isFocusOwner()) {
-//                txtFatherOccupation.requestFocus();
-//            } else if (txtFatherOccupation.isFocusOwner()) {
-//                txtFatherAge.requestFocus();
-//            } else if (txtFatherAge.isFocusOwner()) {
-//                txtMotherName.requestFocus();
-//            } else if (txtMotherName.isFocusOwner()) {
-//                txtMotherAddress.requestFocus();
-//            } else if (txtMotherAddress.isFocusOwner()) {
-//                txtMotherOccupation.requestFocus();
-//            } else if (txtMotherOccupation.isFocusOwner()) {
-//                txtMotherAge.requestFocus();
-//            }
-//                break;
+            case KeyEvent.VK_ENTER:
+                if (txtFatherName.isFocusOwner()) {
+                txtFatherAddress.requestFocus();
+            } else if (txtFatherAddress.isFocusOwner()) {
+                txtFatherOccupation.requestFocus();
+            } else if (txtFatherOccupation.isFocusOwner()) {
+                txtFatherAge.requestFocus();
+            } else if (txtFatherAge.isFocusOwner()) {
+                txtMotherName.requestFocus();
+            } else if (txtMotherName.isFocusOwner()) {
+                txtMotherAddress.requestFocus();
+            } else if (txtMotherAddress.isFocusOwner()) {
+                txtMotherOccupation.requestFocus();
+            } else if (txtMotherOccupation.isFocusOwner()) {
+                txtMotherAge.requestFocus();
+            }
+                break;
             case KeyEvent.VK_UP:
                 if (txtMotherAge.isFocusOwner()) {
                 txtMotherOccupation.requestFocus();

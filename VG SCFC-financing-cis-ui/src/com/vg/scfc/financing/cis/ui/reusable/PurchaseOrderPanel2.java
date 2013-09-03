@@ -5,7 +5,6 @@
  */
 package com.vg.scfc.financing.cis.ui.reusable;
 
-import com.vg.commons.renderer.IndexedFocusTraversalPolicy;
 import com.vg.commons.util.DateUtil;
 import com.vg.commons.util.NumberUtils;
 import com.vg.commons.util.UIMgr;
@@ -14,6 +13,7 @@ import com.vg.hrm.user.ui.dlg.EmployeesDlg;
 import com.vg.scfc.financing.cis.ent.PurchaseOrder;
 import com.vg.scfc.financing.cis.ui.controller.PurchaseOrderController;
 import com.vg.scfc.financing.cis.ui.settings.UISetting;
+import com.vg.scfc.financing.cis.ui.validator.ProcessValidator;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 import com.vg.scfc.financing.cis.ui.validator.Validator;
 import com.vg.vmi.dealer.uts.ent.McColor;
@@ -28,7 +28,6 @@ import java.math.BigDecimal;
 import java.text.ParseException;
 import java.util.Date;
 import net.java.balloontip.BalloonTip;
-import net.java.balloontip.utils.FadingUtils;
 
 /**
  *
@@ -48,7 +47,7 @@ public class PurchaseOrderPanel2 extends javax.swing.JPanel implements KeyListen
         txtCICode.putClientProperty("Quaqua.TextField.style", "search");
         policySetting();
     }
-    
+
     public final void policySetting() {
         UISetting.policy.addIndexedComponent(comboPurpose);
         UISetting.policy.addIndexedComponent(comboMotorStatus);
@@ -68,7 +67,6 @@ public class PurchaseOrderPanel2 extends javax.swing.JPanel implements KeyListen
         UISetting.policy.addIndexedComponent(txtCICode);
         UISetting.policy.addIndexedComponent(txtRemarks);
     }
-    
 
     private void initKeyListener() {
         comboPurpose.addKeyListener(this);
@@ -159,12 +157,18 @@ public class PurchaseOrderPanel2 extends javax.swing.JPanel implements KeyListen
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtMakeCodeFocusGained(evt);
             }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtMakeCodeFocusLost(evt);
+            }
         });
         add(txtMakeCode, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, 70, -1));
 
         txtColorCode.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtColorCodeFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtColorCodeFocusLost(evt);
             }
         });
         add(txtColorCode, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 55, 70, -1));
@@ -206,6 +210,9 @@ public class PurchaseOrderPanel2 extends javax.swing.JPanel implements KeyListen
         txtModelCode.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtModelCodeFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtModelCodeFocusLost(evt);
             }
         });
         add(txtModelCode, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 80, 70, -1));
@@ -304,6 +311,9 @@ public class PurchaseOrderPanel2 extends javax.swing.JPanel implements KeyListen
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtCICodeFocusGained(evt);
             }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtCICodeFocusLost(evt);
+            }
         });
         add(txtCICode, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 130, 70, -1));
 
@@ -340,7 +350,7 @@ public class PurchaseOrderPanel2 extends javax.swing.JPanel implements KeyListen
     private void txtMAFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtMAFocusLost
         txtMA.setText(NumberUtils.doubleToString(new BigDecimal(UIValidator.isNumeric(txtMA)).doubleValue()));
         txtPrice.setText(NumberUtils.doubleToString(PurchaseOrderController.getInstance().computePrice(new BigDecimal(UIValidator.MoneyCommaRemover(txtMA.getText())),
-                (txtTerm.getText().equals("") ? new BigDecimal("1") : new BigDecimal(UIValidator.MoneyCommaRemover(txtTerm.getText()))), 
+                (txtTerm.getText().equals("") ? new BigDecimal("1") : new BigDecimal(UIValidator.MoneyCommaRemover(txtTerm.getText()))),
                 (txtDownPayment.getText().equals("") ? new BigDecimal("0") : new BigDecimal(UIValidator.MoneyCommaRemover(txtDownPayment.getText()))))));
         txtBal.setText(NumberUtils.doubleToString(PurchaseOrderController.getInstance().computeBalance(new BigDecimal(UIValidator.MoneyCommaRemover(txtPrice.getText())),
                 new BigDecimal(UIValidator.MoneyCommaRemover(txtDownPayment.getText())))));
@@ -363,24 +373,36 @@ public class PurchaseOrderPanel2 extends javax.swing.JPanel implements KeyListen
     }//GEN-LAST:event_txtInsCompFocusLost
 
     private void txtMakeCodeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtMakeCodeFocusGained
-        BalloonTip makeCodeTip = new BalloonTip(txtMakeCode, "PRESS F5 FOR SEARCH");
-        FadingUtils.fadeOutBalloon(makeCodeTip, null, 5000, 24);
+        makeCodeTip = new BalloonTip(txtMakeCode, "PRESS F5 FOR SEARCH");
     }//GEN-LAST:event_txtMakeCodeFocusGained
 
     private void txtColorCodeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtColorCodeFocusGained
-        BalloonTip colorCodeTip = new BalloonTip(txtColorCode, "PRESS F5 FOR SEARCH");
-        FadingUtils.fadeOutBalloon(colorCodeTip, null, 5000, 24);
+        colorCodeTip = new BalloonTip(txtColorCode, "PRESS F5 FOR SEARCH");
     }//GEN-LAST:event_txtColorCodeFocusGained
 
     private void txtModelCodeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtModelCodeFocusGained
-        BalloonTip modelCodeTip = new BalloonTip(txtModelCode, "PRESS F5 FOR SEARCH");
-        FadingUtils.fadeOutBalloon(modelCodeTip, null, 5000, 24);
+        modelCodeTip = new BalloonTip(txtModelCode, "PRESS F5 FOR SEARCH");
     }//GEN-LAST:event_txtModelCodeFocusGained
 
     private void txtCICodeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCICodeFocusGained
-        BalloonTip ciCodeTip = new BalloonTip(txtCICode, "PRESS F5 FOR SEARCH");
-        FadingUtils.fadeOutBalloon(ciCodeTip, null, 5000, 24);
+        ciCodeTip = new BalloonTip(txtCICode, "PRESS F5 FOR SEARCH");
     }//GEN-LAST:event_txtCICodeFocusGained
+
+    private void txtMakeCodeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtMakeCodeFocusLost
+        makeCodeTip.closeBalloon();
+    }//GEN-LAST:event_txtMakeCodeFocusLost
+
+    private void txtColorCodeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtColorCodeFocusLost
+        colorCodeTip.closeBalloon();
+    }//GEN-LAST:event_txtColorCodeFocusLost
+
+    private void txtModelCodeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtModelCodeFocusLost
+        modelCodeTip.closeBalloon();
+    }//GEN-LAST:event_txtModelCodeFocusLost
+
+    private void txtCICodeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCICodeFocusLost
+        ciCodeTip.closeBalloon();
+    }//GEN-LAST:event_txtCICodeFocusLost
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox checkApproved;
@@ -427,6 +449,15 @@ public class PurchaseOrderPanel2 extends javax.swing.JPanel implements KeyListen
     private McColor color;
     private McModel model;
     private Employee ci;
+    BalloonTip makeCodeTip;
+    BalloonTip colorCodeTip;
+    BalloonTip modelCodeTip;
+    BalloonTip ciCodeTip;
+    private AddEditButtonPanel buttonPanel;
+
+    public void setButtonPanel(AddEditButtonPanel buttonPanel) {
+        this.buttonPanel = buttonPanel;
+    }
 
     public void setCi(Employee ci) {
         this.ci = ci;
@@ -463,43 +494,59 @@ public class PurchaseOrderPanel2 extends javax.swing.JPanel implements KeyListen
 
     @Override
     public void keyPressed(KeyEvent e) {
+        switch (e.getKeyCode()) {
+            case KeyEvent.VK_ENTER:
+                if (txtRemarks.isFocusOwner()) {
+                if (buttonPanel.getBtnAdd().getText().equals("Save")) {
+                    buttonPanel.getBtnAdd().requestFocus();
+                } else {
+                    buttonPanel.getBtnEdit().requestFocus();
+                }
+            }
+                break;
+        }
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
         switch (e.getKeyCode()) {
-//            case KeyEvent.VK_TAB:
-//            case KeyEvent.VK_ENTER:
-//                if (comboPurpose.isFocusOwner()) {
-//                comboMotorStatus.requestFocus();
-//            } else if (comboMotorStatus.isFocusOwner()) {
-//                txtMakeCode.requestFocus();
-//            } else if (txtMakeCode.isFocusOwner()) {
-//                txtColorCode.requestFocus();
-//            } else if (txtColorCode.isFocusOwner()) {
-//                txtModelCode.requestFocus();
-//            } else if (txtModelCode.isFocusOwner()) {
-//                txtDownPayment.requestFocus();
-//            } else if (txtDownPayment.isFocusOwner()) {
-//                txtTerm.requestFocus();
-//            } else if (txtTerm.isFocusOwner()) {
-//                txtMA.requestFocus();
-//            } else if (txtMA.isFocusOwner()) {
-//                txtInsAmount.requestFocus();
-//            } else if (txtInsAmount.isFocusOwner()) {
-//                txtInsComp.requestFocus();
-//            } else if (txtInsComp.isFocusOwner()) {
-//                txtReleasedDate.requestFocus();
-//            } else if (txtReleasedDate.isFocusOwner()) {
-//                checkApproved.requestFocus();
-//            } else if (checkApproved.isFocusOwner()) {
-//                checkDisApproved.requestFocus();
-//            } else if (checkDisApproved.isFocusOwner()) {
-//                txtCICode.requestFocus();
-//            } else if (txtCICode.isFocusOwner()) {
-//                txtRemarks.requestFocus();
-//            }
-//                break;
+            case KeyEvent.VK_ENTER:
+                if (comboPurpose.isFocusOwner()) {
+                comboMotorStatus.requestFocus();
+            } else if (comboMotorStatus.isFocusOwner()) {
+                txtMakeCode.requestFocus();
+            } else if (txtMakeCode.isFocusOwner()) {
+                txtColorCode.requestFocus();
+            } else if (txtColorCode.isFocusOwner()) {
+                txtModelCode.requestFocus();
+            } else if (txtModelCode.isFocusOwner()) {
+                txtDownPayment.requestFocus();
+            } else if (txtDownPayment.isFocusOwner()) {
+                txtTerm.requestFocus();
+            } else if (txtTerm.isFocusOwner()) {
+                txtMA.requestFocus();
+            } else if (txtMA.isFocusOwner()) {
+                txtInsAmount.requestFocus();
+            } else if (txtInsAmount.isFocusOwner()) {
+                txtInsComp.requestFocus();
+            } else if (txtInsComp.isFocusOwner()) {
+                txtReleasedDate.requestFocus();
+            } else if (txtReleasedDate.isFocusOwner()) {
+                checkApproved.requestFocus();
+            } else if (checkApproved.isFocusOwner()) {
+                checkDisApproved.requestFocus();
+            } else if (checkDisApproved.isFocusOwner()) {
+                txtCICode.requestFocus();
+            } else if (txtCICode.isFocusOwner()) {
+                txtRemarks.requestFocus();
+            } else if (txtRemarks.isFocusOwner()) {
+                if (buttonPanel.getBtnAdd().getText().equals("Save")) {
+                    buttonPanel.getBtnAdd().requestFocus();
+                } else {
+                    buttonPanel.getBtnEdit().requestFocus();
+                }
+            }
+                break;
             case KeyEvent.VK_UP:
                 if (txtRemarks.isFocusOwner()) {
                 txtCICode.requestFocus();
@@ -654,9 +701,21 @@ public class PurchaseOrderPanel2 extends javax.swing.JPanel implements KeyListen
         p.setMcMake(make);
         p.setMcColor(color);
         p.setMcModel(model);
-        p.setDownPayment(new BigDecimal(UIValidator.MoneyCommaRemover(txtDownPayment.getText())).doubleValue());
-        p.setTerm(Integer.parseInt(txtTerm.getText()));
-        p.setMonthlyAmortization(new BigDecimal(UIValidator.MoneyCommaRemover(txtMA.getText())).doubleValue());
+        if (txtDownPayment.getText().equals("")) {
+            p.setDownPayment(0);
+        } else {
+            p.setDownPayment(new BigDecimal(UIValidator.MoneyCommaRemover(txtDownPayment.getText())).doubleValue());
+        }
+        if (txtTerm.getText().equals("")) {
+            p.setTerm(0);
+        } else {
+            p.setTerm(Integer.parseInt(txtTerm.getText()));
+        }
+        if (txtMA.getText().equals("")) {
+            p.setMonthlyAmortization(0);
+        } else {
+            p.setMonthlyAmortization(new BigDecimal(UIValidator.MoneyCommaRemover(txtMA.getText())).doubleValue());
+        }
         if (txtInsAmount.getText().equals("")) {
             p.setInsuranceAmount(0);
         } else {
@@ -743,15 +802,54 @@ public class PurchaseOrderPanel2 extends javax.swing.JPanel implements KeyListen
         }
     }
 
-    public boolean savePurchaseOrder() {
-        PurchaseOrder p = PurchaseOrderController.getInstance().save(headerPanel.getFormNo(), createNew(new PurchaseOrder()));
+    public int savePurchaseOrder() {
+//        PurchaseOrder p = PurchaseOrderController.getInstance().save(headerPanel.getFormNo(), createNew(new PurchaseOrder()));
+        PurchaseOrder p = createNew(new PurchaseOrder());
+        if (!validPurchaseOrder(p)) {
+            return ProcessValidator.VALIDATE_ERROR;
+        }
+        p = PurchaseOrderController.getInstance().save(headerPanel.getFormNo(), p);
         setPurchaseOrder(p);
-        return p != null;
+        return (p != null ? ProcessValidator.PROCESS_COMPLETED : ProcessValidator.PROCESS_FAILED);
     }
 
-    public boolean updatePurchaseOrder() {
-        PurchaseOrder p = PurchaseOrderController.getInstance().update(headerPanel.getFormNo(), createNew(purchaseOrder));
+    public int updatePurchaseOrder() {
+//        PurchaseOrder p = PurchaseOrderController.getInstance().update(headerPanel.getFormNo(), createNew(purchaseOrder));
+        PurchaseOrder p = createNew(purchaseOrder);
+        if (!validPurchaseOrder(p)) {
+            return ProcessValidator.VALIDATE_ERROR;
+        }
+        p = PurchaseOrderController.getInstance().update(headerPanel.getFormNo(), createNew(purchaseOrder));
         setPurchaseOrder(p);
-        return p != null;
+        return (p != null ? ProcessValidator.PROCESS_COMPLETED : ProcessValidator.PROCESS_FAILED);
+    }
+
+    private boolean validPurchaseOrder(PurchaseOrder po) {
+        if (po != null) {
+            if (!UIValidator.validate(txtMakeCode, "Make is required.")) {
+                return false;
+            }
+            if (!UIValidator.validate(txtColorCode, "Color is required.")) {
+                return false;
+            }
+            if (!UIValidator.validate(txtModelCode, "Model is required.")) {
+                return false;
+            }
+            if (!UIValidator.validate(txtDownPayment, "Downpayment is required.")) {
+                return false;
+            }
+            if (!UIValidator.validate(txtTerm, "Term is required.")) {
+                return false;
+            }
+            if (!UIValidator.validate(txtMA, "M.A. is required.")) {
+                return false;
+            }
+            if (!UIValidator.validate(txtCICode, "CI Collector  is required.")) {
+                return false;
+            }
+            return true;
+        } else {
+            return false;
+        }
     }
 }

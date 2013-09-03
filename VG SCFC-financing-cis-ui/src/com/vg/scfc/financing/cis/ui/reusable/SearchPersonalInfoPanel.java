@@ -13,7 +13,6 @@ import java.awt.event.KeyEvent;
 import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -101,6 +100,11 @@ public class SearchPersonalInfoPanel extends javax.swing.JPanel {
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        txtSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSearchActionPerformed(evt);
+            }
+        });
         txtSearch.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtSearchFocusGained(evt);
@@ -145,6 +149,10 @@ public class SearchPersonalInfoPanel extends javax.swing.JPanel {
     private void txtSearchFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSearchFocusGained
         txtSearch.selectAll();
     }//GEN-LAST:event_txtSearchFocusGained
+
+    private void txtSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchActionPerformed
+        refreshTable(PersonalInfoController.getInstance().findBySearchCriteria(txtSearch.getText()));
+    }//GEN-LAST:event_txtSearchActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSearch;

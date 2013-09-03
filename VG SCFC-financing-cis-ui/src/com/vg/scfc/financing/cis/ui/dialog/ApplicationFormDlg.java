@@ -7,12 +7,17 @@ package com.vg.scfc.financing.cis.ui.dialog;
 
 import java.text.ParseException;
 import java.util.Date;
+import javax.swing.JDialog;
 
 /**
  *
  * @author rodel
  */
 public class ApplicationFormDlg extends javax.swing.JDialog {
+    
+    private JDialog getThisDialog() {
+        return this;
+    }
 
     /**
      * Creates new form ApplicationFormDlg
@@ -20,7 +25,7 @@ public class ApplicationFormDlg extends javax.swing.JDialog {
     public ApplicationFormDlg(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        pnl.setDlg(this);
+        pnl.setDlg(getThisDialog());
     }
 
     /**
@@ -34,12 +39,22 @@ public class ApplicationFormDlg extends javax.swing.JDialog {
 
         pnl = new com.vg.scfc.financing.cis.ui.reusable.ApplicationFormAndDatePanel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         getContentPane().add(pnl, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        pnl.onClosing();
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments
@@ -70,6 +85,7 @@ public class ApplicationFormDlg extends javax.swing.JDialog {
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 ApplicationFormDlg dialog = new ApplicationFormDlg(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {

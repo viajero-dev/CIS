@@ -5,10 +5,10 @@
  */
 package com.vg.scfc.financing.cis.ui.reusable;
 
-import com.vg.commons.renderer.IndexedFocusTraversalPolicy;
 import com.vg.scfc.financing.cis.ent.Vehicle;
 import com.vg.scfc.financing.cis.ui.controller.VehicleAssetsController;
 import com.vg.scfc.financing.cis.ui.settings.UISetting;
+import com.vg.scfc.financing.cis.ui.validator.ProcessValidator;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -34,14 +34,14 @@ public class VehiclePanel extends javax.swing.JPanel implements KeyListener {
         startUpSettings();
         policySetting();
     }
-    
+
     public final void policySetting() {
         UISetting.policy.addIndexedComponent(txtTypeModel);
         UISetting.policy.addIndexedComponent(txtYrsUsed);
         UISetting.policy.addIndexedComponent(comboUsed);
         UISetting.policy.addIndexedComponent(txtEstValue);
     }
-    
+
     private void startUpSettings() {
         setFieldsEditable(false);
         initKeyListeners();
@@ -202,6 +202,11 @@ public class VehiclePanel extends javax.swing.JPanel implements KeyListener {
     private String formNo;
     private Vehicle vehicle;
     private HeaderPanel headerPanel;
+    private AddEditButtonPanel buttonPanel;
+
+    public void setButtonPanel(AddEditButtonPanel buttonPanel) {
+        this.buttonPanel = buttonPanel;
+    }
 
     public void setHeaderPanel(HeaderPanel headerPanel) {
         this.headerPanel = headerPanel;
@@ -227,21 +232,37 @@ public class VehiclePanel extends javax.swing.JPanel implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
+        switch (e.getKeyCode()) {
+            case KeyEvent.VK_ENTER:
+                if (txtEstValue.isFocusOwner()) {
+                if (buttonPanel.getBtnAdd().getText().equals("Save")) {
+                    buttonPanel.getBtnAdd().requestFocus();
+                } else {
+                    buttonPanel.getBtnEdit().requestFocus();
+                }
+            }
+                break;
+        }
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
         switch (e.getKeyCode()) {
-//            case KeyEvent.VK_TAB:
-//            case KeyEvent.VK_ENTER:
-//                if (txtTypeModel.isFocusOwner()) {
-//                txtYrsUsed.requestFocus();
-//            } else if (txtYrsUsed.isFocusOwner()) {
-//                comboUsed.requestFocus();
-//            } else if (comboUsed.isFocusOwner()) {
-//                txtEstValue.requestFocus();
-//            }
-//                break;
+            case KeyEvent.VK_ENTER:
+                if (txtTypeModel.isFocusOwner()) {
+                txtYrsUsed.requestFocus();
+            } else if (txtYrsUsed.isFocusOwner()) {
+                comboUsed.requestFocus();
+            } else if (comboUsed.isFocusOwner()) {
+                txtEstValue.requestFocus();
+            } else if (txtEstValue.isFocusOwner()) {
+                if (buttonPanel.getBtnAdd().getText().equals("Save")) {
+                    buttonPanel.getBtnAdd().requestFocus();
+                } else {
+                    buttonPanel.getBtnEdit().requestFocus();
+                }
+            }
+                break;
             case KeyEvent.VK_UP:
                 if (txtEstValue.isFocusOwner()) {
                 comboUsed.requestFocus();
@@ -297,16 +318,24 @@ public class VehiclePanel extends javax.swing.JPanel implements KeyListener {
         }
     }
 
-    public boolean saveVehicleAsset() {
-        List<Vehicle> v = VehicleAssetsController.getInstance().createNew(headerPanel.getFormNo(), createNew(new Vehicle()));
+    public int saveVehicleAsset() {
+        Vehicle tempVehicle = createNew(new Vehicle());
+        if (!validVehicle(tempVehicle)) {
+            return ProcessValidator.VALIDATE_ERROR;
+        }
+        List<Vehicle> v = VehicleAssetsController.getInstance().createNew(headerPanel.getFormNo(), tempVehicle);
         refreshTable(v);
-        return !v.isEmpty();
+        return (!v.isEmpty() ? ProcessValidator.PROCESS_COMPLETED : ProcessValidator.PROCESS_FAILED);
     }
 
-    public boolean updateVehicleAsset() {
-        List<Vehicle> v = VehicleAssetsController.getInstance().update(headerPanel.getFormNo(), createNew(vehicle));
+    public int updateVehicleAsset() {
+        Vehicle tempVehicle = createNew(vehicle);
+        if (!validVehicle(tempVehicle)) {
+            return ProcessValidator.VALIDATE_ERROR;
+        }
+        List<Vehicle> v = VehicleAssetsController.getInstance().update(headerPanel.getFormNo(), tempVehicle);
         refreshTable(v);
-        return !v.isEmpty();
+        return (!v.isEmpty() ? ProcessValidator.PROCESS_COMPLETED : ProcessValidator.PROCESS_FAILED);
     }
 
     public void refreshTable(List<Vehicle> v) {
@@ -320,15 +349,36 @@ public class VehiclePanel extends javax.swing.JPanel implements KeyListener {
     }
 
     public Vehicle createNew(Vehicle v) {
-        v.setType(txtTypeModel.getText());
-        v.setAge(Integer.parseInt(txtYrsUsed.getText()));
-        v.setUse((String) comboUsed.getSelectedItem());
-        if (txtEstValue.getText().equals("")) {
-            v.setAmount(0);
+        if (v != null) {
+            v.setType(txtTypeModel.getText());
+            if (txtYrsUsed.getText().equals("")) {
+                v.setAge(0);
+            } else {
+                v.setAge(Integer.parseInt(txtYrsUsed.getText()));
+            }
+            v.setUse((String) comboUsed.getSelectedItem());
+            if (txtEstValue.getText().equals("")) {
+                v.setAmount(0);
+            } else {
+                v.setAmount(new BigDecimal(txtEstValue.getText()).doubleValue());
+            }
+            return v;
         } else {
-            v.setAmount(new BigDecimal(txtEstValue.getText()).doubleValue());
+            return null;
         }
-        return v;
     }
 
+    private boolean validVehicle(Vehicle v) {
+        if (v != null) {
+            if (!UIValidator.validate(txtTypeModel, "Type/Model is required.")) {
+                return false;
+            }
+            if (!UIValidator.validate(txtEstValue, "Estimated value is required.")) {
+                return false;
+            }
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

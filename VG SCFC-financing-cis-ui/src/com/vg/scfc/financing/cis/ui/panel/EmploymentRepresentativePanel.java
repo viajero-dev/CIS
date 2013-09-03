@@ -8,8 +8,10 @@ package com.vg.scfc.financing.cis.ui.panel;
 import com.vg.commons.util.NumberUtils;
 import com.vg.scfc.financing.cis.ent.RepresentativeEmployment;
 import com.vg.scfc.financing.cis.ui.controller.EmploymentController;
+import com.vg.scfc.financing.cis.ui.reusable.AddEditButtonPanel;
 import com.vg.scfc.financing.cis.ui.reusable.HeaderPanel;
 import com.vg.scfc.financing.cis.ui.settings.UISetting;
+import com.vg.scfc.financing.cis.ui.validator.ProcessValidator;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -29,7 +31,7 @@ public class EmploymentRepresentativePanel extends javax.swing.JPanel implements
         initKeyListener();
         policySetting();
     }
-    
+
     public final void policySetting() {
         UISetting.policy.addIndexedComponent(comboEmploymentStatus);
         UISetting.policy.addIndexedComponent(txtPosition);
@@ -37,7 +39,7 @@ public class EmploymentRepresentativePanel extends javax.swing.JPanel implements
         UISetting.policy.addIndexedComponent(txtYearInService);
         UISetting.policy.addIndexedComponent(txtMonthlyCompensation);
     }
-    
+
     private void initKeyListener() {
         comboEmploymentStatus.addKeyListener(this);
         txtPosition.addKeyListener(this);
@@ -179,6 +181,11 @@ public class EmploymentRepresentativePanel extends javax.swing.JPanel implements
     private HeaderPanel headerPanel;
     private String personType;
     private RepresentativeEmployment representativeEmployment;
+    private AddEditButtonPanel buttonPanel;
+
+    public void setButtonPanel(AddEditButtonPanel buttonPanel) {
+        this.buttonPanel = buttonPanel;
+    }
 
     public void setRepresentativeEmployment(RepresentativeEmployment representativeEmployment) {
         this.representativeEmployment = representativeEmployment;
@@ -199,23 +206,39 @@ public class EmploymentRepresentativePanel extends javax.swing.JPanel implements
 
     @Override
     public void keyPressed(KeyEvent e) {
+        switch (e.getKeyCode()) {
+            case KeyEvent.VK_ENTER:
+                if (txtMonthlyCompensation.isFocusOwner()) {
+                if (buttonPanel.getBtnAdd().getText().equals("Save")) {
+                    buttonPanel.getBtnAdd().requestFocus();
+                } else {
+                    buttonPanel.getBtnEdit().requestFocus();
+                }
+            }
+                break;
+        }
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
         switch (e.getKeyCode()) {
-//            case KeyEvent.VK_TAB:
-//            case KeyEvent.VK_ENTER:
-//                if (comboEmploymentStatus.isFocusOwner()) {
-//                txtPosition.requestFocus();
-//            } else if (txtPosition.isFocusOwner()) {
-//                txtYearInService.requestFocus();
-//            } else if (txtYearInService.isFocusOwner()) {
-//                txtDepartment.requestFocus();
-//            } else if (txtDepartment.isFocusOwner()) {
-//                txtMonthlyCompensation.requestFocus();
-//            }
-//                break;
+            case KeyEvent.VK_ENTER:
+                if (comboEmploymentStatus.isFocusOwner()) {
+                txtPosition.requestFocus();
+            } else if (txtPosition.isFocusOwner()) {
+                txtYearInService.requestFocus();
+            } else if (txtYearInService.isFocusOwner()) {
+                txtDepartment.requestFocus();
+            } else if (txtDepartment.isFocusOwner()) {
+                txtMonthlyCompensation.requestFocus();
+            } else if (txtMonthlyCompensation.isFocusOwner()) {
+                if (buttonPanel.getBtnAdd().getText().equals("Save")) {
+                    buttonPanel.getBtnAdd().requestFocus();
+                } else {
+                    buttonPanel.getBtnEdit().requestFocus();
+                }
+            }
+                break;
             case KeyEvent.VK_UP:
                 if (txtMonthlyCompensation.isFocusOwner()) {
                 txtDepartment.requestFocus();
@@ -272,16 +295,26 @@ public class EmploymentRepresentativePanel extends javax.swing.JPanel implements
         }
     }
 
-    public boolean saveEmployment() {
-        RepresentativeEmployment r = EmploymentController.getInstance().save(headerPanel.getFormNo(), personType, create(new RepresentativeEmployment()));
+    public int saveEmployment() {
+//        RepresentativeEmployment r = EmploymentController.getInstance().save(headerPanel.getFormNo(), personType, create(new RepresentativeEmployment()));
+        RepresentativeEmployment r = create(new RepresentativeEmployment());
+        if (!validEmployment(r)) {
+            return ProcessValidator.VALIDATE_ERROR;
+        }
+        r = EmploymentController.getInstance().save(headerPanel.getFormNo(), personType, r);
         setRepresentativeEmployment(r);
-        return r != null;
+        return (r != null ? ProcessValidator.PROCESS_COMPLETED : ProcessValidator.PROCESS_FAILED);
     }
 
-    public boolean updateEmployment() {
-        RepresentativeEmployment r = EmploymentController.getInstance().update(headerPanel.getFormNo(), create(representativeEmployment));
+    public int updateEmployment() {
+//        RepresentativeEmployment r = EmploymentController.getInstance().update(headerPanel.getFormNo(), create(representativeEmployment));
+        RepresentativeEmployment r = create(representativeEmployment);
+        if (!validEmployment(r)) {
+            return ProcessValidator.VALIDATE_ERROR;
+        }
+        r = EmploymentController.getInstance().update(headerPanel.getFormNo(), r);
         setRepresentativeEmployment(r);
-        return r != null;
+        return (r != null ? ProcessValidator.PROCESS_COMPLETED : ProcessValidator.PROCESS_FAILED);
     }
 
     private RepresentativeEmployment create(RepresentativeEmployment r) {
@@ -299,5 +332,22 @@ public class EmploymentRepresentativePanel extends javax.swing.JPanel implements
             r.setSalary(new BigDecimal(UIValidator.MoneyCommaRemover(txtMonthlyCompensation.getText())).doubleValue());
         }
         return r;
+    }
+
+    private boolean validEmployment(RepresentativeEmployment r) {
+        if (r != null) {
+            if (!UIValidator.validate(txtPosition, "Position is required.")) {
+                return false;
+            }
+            if (!UIValidator.validate(txtYearInService, "Year in service is required.")) {
+                return false;
+            }
+            if (!UIValidator.validate(txtMonthlyCompensation, "Monthly salary compensation is required.")) {
+                return false;
+            }
+            return true;
+        } else {
+            return false;
+        }
     }
 }

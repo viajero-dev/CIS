@@ -8,11 +8,15 @@ package com.vg.scfc.financing.cis.ui.panel;
 import com.vg.scfc.financing.cis.ent.Address;
 import com.vg.scfc.financing.cis.ent.Company;
 import com.vg.scfc.financing.cis.ent.Customer;
+import com.vg.scfc.financing.cis.ent.TransactionForm;
 import com.vg.scfc.financing.cis.ui.controller.AddressController;
 import com.vg.scfc.financing.cis.ui.controller.CompanyController;
+import com.vg.scfc.financing.cis.ui.controller.FormController;
 import com.vg.scfc.financing.cis.ui.controller.SearchController;
+import com.vg.scfc.financing.cis.ui.reusable.AddEditButtonPanel;
 import com.vg.scfc.financing.cis.ui.reusable.HeaderPanel;
 import com.vg.scfc.financing.cis.ui.settings.UISetting;
+import com.vg.scfc.financing.cis.ui.validator.ProcessValidator;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -35,7 +39,7 @@ public class CompanyInformationPanel extends javax.swing.JPanel implements KeyLi
         initKeyListener();
         policySetting();
     }
-    
+
     public final void policySetting() {
         UISetting.policy.addIndexedComponent(txtOwner);
         UISetting.policy.addIndexedComponent(txtOfficeAddress);
@@ -48,7 +52,7 @@ public class CompanyInformationPanel extends javax.swing.JPanel implements KeyLi
         UISetting.policy.addIndexedComponent(txtIssuedOn);
         UISetting.policy.addIndexedComponent(txtExpireOn);
     }
-    
+
     private void initKeyListener() {
         txtOwner.addKeyListener(this);
         txtOfficeAddress.addKeyListener(this);
@@ -254,6 +258,15 @@ public class CompanyInformationPanel extends javax.swing.JPanel implements KeyLi
     private Company company;
     private Address address;
     private InstitutionalPanel institutionalPanel;
+    private AddEditButtonPanel buttonPanel;
+
+    public void setButtonPanel(AddEditButtonPanel buttonPanel) {
+        this.buttonPanel = buttonPanel;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
 
     public void setInstitutionalPanel(InstitutionalPanel institutionalPanel) {
         this.institutionalPanel = institutionalPanel;
@@ -282,33 +295,49 @@ public class CompanyInformationPanel extends javax.swing.JPanel implements KeyLi
 
     @Override
     public void keyPressed(KeyEvent e) {
+        switch (e.getKeyCode()) {
+            case KeyEvent.VK_ENTER:
+                if (txtExpireOn.isFocusOwner()) {
+                if (buttonPanel.getBtnAdd().getText().equals("Save")) {
+                    buttonPanel.getBtnAdd().requestFocus();
+                } else {
+                    buttonPanel.getBtnEdit().requestFocus();
+                }
+            }
+                break;
+        }
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
         switch (e.getKeyCode()) {
-//            case KeyEvent.VK_TAB:
-//            case KeyEvent.VK_ENTER:
-//                if (txtOwner.isFocusOwner()) {
-//                txtOfficeAddress.requestFocus();
-//            } else if (txtOfficeAddress.isFocusOwner()) {
-//                txtNatureBusiness.requestFocus();
-//            } else if (txtNatureBusiness.isFocusOwner()) {
-//                txtYearOfOperation.requestFocus();
-//            } else if (txtYearOfOperation.isFocusOwner()) {
-//                txtContact.requestFocus();
-//            } else if (txtContact.isFocusOwner()) {
-//                txtTIN.requestFocus();
-//            } else if (txtTIN.isFocusOwner()) {
-//                txtEmail.requestFocus();
-//            } else if (txtEmail.isFocusOwner()) {
-//                txtBussPermitNo.requestFocus();
-//            } else if (txtBussPermitNo.isFocusOwner()) {
-//                txtIssuedOn.requestFocus();
-//            } else if (txtIssuedOn.isFocusOwner()) {
-//                txtExpireOn.requestFocus();
-//            }
-//                break;
+            case KeyEvent.VK_ENTER:
+                if (txtOwner.isFocusOwner()) {
+                txtOfficeAddress.requestFocus();
+            } else if (txtOfficeAddress.isFocusOwner()) {
+                txtNatureBusiness.requestFocus();
+            } else if (txtNatureBusiness.isFocusOwner()) {
+                txtYearOfOperation.requestFocus();
+            } else if (txtYearOfOperation.isFocusOwner()) {
+                txtContact.requestFocus();
+            } else if (txtContact.isFocusOwner()) {
+                txtTIN.requestFocus();
+            } else if (txtTIN.isFocusOwner()) {
+                txtEmail.requestFocus();
+            } else if (txtEmail.isFocusOwner()) {
+                txtBussPermitNo.requestFocus();
+            } else if (txtBussPermitNo.isFocusOwner()) {
+                txtIssuedOn.requestFocus();
+            } else if (txtIssuedOn.isFocusOwner()) {
+                txtExpireOn.requestFocus();
+            } else if (txtExpireOn.isFocusOwner()) {
+                if (buttonPanel.getBtnAdd().getText().equals("Save")) {
+                    buttonPanel.getBtnAdd().requestFocus();
+                } else {
+                    buttonPanel.getBtnEdit().requestFocus();
+                }
+            }
+                break;
             case KeyEvent.VK_UP:
                 if (txtExpireOn.isFocusOwner()) {
                 txtIssuedOn.requestFocus();
@@ -393,11 +422,22 @@ public class CompanyInformationPanel extends javax.swing.JPanel implements KeyLi
             if (cust != null) {
                 institutionalPanel.fillValue(cust.getName(), address);
             }
+            TransactionForm tf = FormController.getInstance().findByFormNo(c.getTxFormNo());
+            if (tf != null) {
+                headerPanel.setFormNo(tf.getTxFormNo());
+                headerPanel.setIDNo(tf.getFormNo());
+                headerPanel.setApplicationDate(tf.getTxApplicationDate());
+            }
         }
     }
 
-    public boolean saveCompanyInformation() {
-        Company c = CompanyController.getInstance().createNew(createNew(new Company()), headerPanel.getIDNo(), headerPanel.getApplicationDate(), txtCompanyName.getText());
+    public int saveCompanyInformation() {
+//        Company c = CompanyController.getInstance().createNew(createNew(new Company()), headerPanel.getIDNo(), headerPanel.getApplicationDate(), txtCompanyName.getText());
+        Company c = createNew(new Company());
+        if (!validCompany(c)) {
+            return ProcessValidator.VALIDATE_ERROR;
+        }
+        c = CompanyController.getInstance().createNew(c, headerPanel.getIDNo(), headerPanel.getApplicationDate(), txtCompanyName.getText());
         address.setAddressType("PRESENT");
         address.setTxFormNo(c.getTxFormNo());
         List<Address> a = AddressController.getInstance().save(c.getTxFormNo(), "APP", address);
@@ -406,13 +446,18 @@ public class CompanyInformationPanel extends javax.swing.JPanel implements KeyLi
         }
         headerPanel.setFormNo(c.getTxFormNo());
         setCompany(c);
-        return c != null;
+        return (c != null ? ProcessValidator.PROCESS_COMPLETED : ProcessValidator.PROCESS_FAILED);
     }
 
-    public boolean updateCompanyInformation() {
-        Company c = CompanyController.getInstance().update(createNew(company));
+    public int updateCompanyInformation() {
+//        Company c = CompanyController.getInstance().update(createNew(company));
+        Company c = createNew(company);
+        if (!validCompany(c)) {
+            return ProcessValidator.VALIDATE_ERROR;
+        }
+        c = CompanyController.getInstance().update(c);
         setCompany(c);
-        return c != null;
+        return (c != null ? ProcessValidator.PROCESS_COMPLETED : ProcessValidator.PROCESS_FAILED);
     }
 
     private Company createNew(Company c) {
@@ -435,5 +480,25 @@ public class CompanyInformationPanel extends javax.swing.JPanel implements KeyLi
             UIValidator.log(ex, CompanyPanel.class);
         }
         return c;
+    }
+
+    private boolean validCompany(Company c) {
+        if (c != null) {
+            if (!UIValidator.validate(txtOwner, "Owner/President is required.")) {
+                return false;
+            }
+            if (!UIValidator.validate(txtNatureBusiness, "Nature of Business is required.")) {
+                return false;
+            }
+            if (!UIValidator.validate(txtYearOfOperation, "Years of Operation is required.")) {
+                return false;
+            }
+            if (!UIValidator.validate(txtContact, "Contact # is required.")) {
+                return false;
+            }
+            return true;
+        } else {
+            return false;
+        }
     }
 }

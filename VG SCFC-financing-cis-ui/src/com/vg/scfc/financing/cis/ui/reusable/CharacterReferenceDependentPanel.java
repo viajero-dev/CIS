@@ -5,7 +5,6 @@
  */
 package com.vg.scfc.financing.cis.ui.reusable;
 
-import com.vg.commons.renderer.IndexedFocusTraversalPolicy;
 import com.vg.scfc.financing.cis.ent.CharacterReference;
 import com.vg.scfc.financing.cis.ui.controller.CharacterReferenceDependentController;
 import com.vg.scfc.financing.cis.ui.settings.UISetting;
@@ -229,16 +228,15 @@ public class CharacterReferenceDependentPanel extends javax.swing.JPanel impleme
     @Override
     public void keyReleased(KeyEvent e) {
         switch (e.getKeyCode()) {
-//            case KeyEvent.VK_TAB:
-//            case KeyEvent.VK_ENTER:
-//                if (txtRefName.isFocusOwner()) {
-//                    txtRefAddress.requestFocus();
-//                } else if (txtRefAddress.isFocusOwner()) {
-//                    txtRefContact.requestFocus();
-//                } else if (txtRefContact.isFocusOwner()) {
-//                    txtRefRelationship.requestFocus();
-//                }
-//                    break;
+            case KeyEvent.VK_ENTER:
+                if (txtRefName.isFocusOwner()) {
+                    txtRefAddress.requestFocus();
+                } else if (txtRefAddress.isFocusOwner()) {
+                    txtRefContact.requestFocus();
+                } else if (txtRefContact.isFocusOwner()) {
+                    txtRefRelationship.requestFocus();
+                }
+                    break;
                 case KeyEvent.VK_UP:
                     if (txtRefRelationship.isFocusOwner()) {
                     txtRefContact.requestFocus();

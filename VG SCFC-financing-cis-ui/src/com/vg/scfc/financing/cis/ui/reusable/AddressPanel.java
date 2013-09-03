@@ -5,12 +5,12 @@
  */
 package com.vg.scfc.financing.cis.ui.reusable;
 
-import com.vg.commons.renderer.IndexedFocusTraversalPolicy;
 import com.vg.commons.util.UIMgr;
 import com.vg.scfc.financing.cis.ent.Address;
 import com.vg.scfc.financing.cis.ui.controller.AddressController;
 import com.vg.scfc.financing.cis.ui.panel.MainPanel;
 import com.vg.scfc.financing.cis.ui.settings.UISetting;
+import com.vg.scfc.financing.cis.ui.validator.ProcessValidator;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 import com.vg.scfc.financing.commons.ent.Barangay;
 import com.vg.scfc.financing.commons.ui.dlg.BarangayDlg;
@@ -44,7 +44,7 @@ public class AddressPanel extends javax.swing.JPanel implements KeyListener {
         initKeyListeners();
         initAddressTable();
     }
-    
+
     public final void policySetting() {
         UISetting.policy.addIndexedComponent(txtBrgy);
         UISetting.policy.addIndexedComponent(txtZipcode);
@@ -53,9 +53,9 @@ public class AddressPanel extends javax.swing.JPanel implements KeyListener {
         UISetting.policy.addIndexedComponent(optionAddressRenting);
         UISetting.policy.addIndexedComponent(optionAddressLiving);
         UISetting.policy.addIndexedComponent(optionAddressOthers);
-       UISetting. policy.addIndexedComponent(txtYrsOfStay);
+        UISetting.policy.addIndexedComponent(txtYrsOfStay);
     }
-    
+
     private void initOptionGroup() {
         optionAddressGroup.add(optionAddressOwned);
         optionAddressGroup.add(optionAddressRenting);
@@ -74,11 +74,13 @@ public class AddressPanel extends javax.swing.JPanel implements KeyListener {
         optionAddressRenting.addKeyListener(this);
         optionAddressLiving.addKeyListener(this);
         optionAddressOthers.addKeyListener(this);
+        optionPresent.addKeyListener(this);
+        optionPrevious.addKeyListener(this);
         txtYrsOfStay.addKeyListener(this);
     }
 
     private void initAddressTable() {
-        tableAddress.putClientProperty("Quaqua.Table.style", "striped" );
+        tableAddress.putClientProperty("Quaqua.Table.style", "striped");
         tableAddress.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         tableAddress.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 
@@ -159,7 +161,7 @@ public class AddressPanel extends javax.swing.JPanel implements KeyListener {
         tableAddress.getColumnModel().getColumn(1).setMaxWidth(80);
         tableAddress.getColumnModel().getColumn(2).setResizable(false);
 
-        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 5, 570, 90));
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 5, 625, 90));
 
         jLabel1.setText("Brgy.");
         add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 120, -1, -1));
@@ -181,7 +183,7 @@ public class AddressPanel extends javax.swing.JPanel implements KeyListener {
                 txtYrsOfStayFocusLost(evt);
             }
         });
-        add(txtYrsOfStay, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 165, 80, -1));
+        add(txtYrsOfStay, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 165, 80, -1));
 
         jLabel3.setText("Street");
         add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(315, 120, -1, -1));
@@ -192,7 +194,7 @@ public class AddressPanel extends javax.swing.JPanel implements KeyListener {
                 txtStreetFocusLost(evt);
             }
         });
-        add(txtStreet, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 115, 230, -1));
+        add(txtStreet, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 115, 280, -1));
 
         jLabel4.setText("Description");
         add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 145, -1, -1));
@@ -200,7 +202,7 @@ public class AddressPanel extends javax.swing.JPanel implements KeyListener {
         txtDesc.setEditable(false);
         txtDesc.setToolTipText("Press F5 to search");
         txtDesc.setFocusable(false);
-        add(txtDesc, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 140, 500, -1));
+        add(txtDesc, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 140, 550, -1));
 
         jLabel5.setText("Status");
         add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 170, -1, -1));
@@ -219,7 +221,7 @@ public class AddressPanel extends javax.swing.JPanel implements KeyListener {
                 optionAddressRentingItemStateChanged(evt);
             }
         });
-        add(optionAddressRenting, new org.netbeans.lib.awtextra.AbsoluteConstraints(125, 165, -1, -1));
+        add(optionAddressRenting, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 165, -1, -1));
 
         optionAddressLiving.setText("Living with Parents/Relatives");
         optionAddressLiving.addItemListener(new java.awt.event.ItemListener() {
@@ -227,7 +229,7 @@ public class AddressPanel extends javax.swing.JPanel implements KeyListener {
                 optionAddressLivingItemStateChanged(evt);
             }
         });
-        add(optionAddressLiving, new org.netbeans.lib.awtextra.AbsoluteConstraints(195, 165, -1, -1));
+        add(optionAddressLiving, new org.netbeans.lib.awtextra.AbsoluteConstraints(205, 165, -1, -1));
 
         optionAddressOthers.setText("Others");
         optionAddressOthers.addItemListener(new java.awt.event.ItemListener() {
@@ -235,10 +237,10 @@ public class AddressPanel extends javax.swing.JPanel implements KeyListener {
                 optionAddressOthersItemStateChanged(evt);
             }
         });
-        add(optionAddressOthers, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 165, -1, -1));
+        add(optionAddressOthers, new org.netbeans.lib.awtextra.AbsoluteConstraints(415, 165, -1, -1));
 
         jLabel6.setText("Yrs. of stay");
-        add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 170, -1, -1));
+        add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(485, 170, -1, -1));
 
         txtZipcode.setToolTipText("Press F5 to search");
         txtZipcode.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -356,6 +358,17 @@ public class AddressPanel extends javax.swing.JPanel implements KeyListener {
     private String personType;
     private MainPanel mainPanel;
     private Barangay barangay;
+    private AddEditChangeButtonPanel buttonPanel;
+    private Address address;
+
+    public void setAddress(Address address) {
+        this.address = address;
+        setAddressData(this.address);
+    }
+
+    public void setButtonPanel(AddEditChangeButtonPanel buttonPanel) {
+        this.buttonPanel = buttonPanel;
+    }
 
     public void setBarangay(Barangay barangay) {
         this.barangay = barangay;
@@ -379,33 +392,49 @@ public class AddressPanel extends javax.swing.JPanel implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
+        switch (e.getKeyCode()) {
+            case KeyEvent.VK_ENTER:
+                if (optionPrevious.isFocusOwner()) {
+                if (buttonPanel.getButtonAdd().getText().equals("Save")) {
+                    buttonPanel.getButtonAdd().requestFocus();
+                } else {
+                    buttonPanel.getButtonEdit().requestFocus();
+                }
+            }
+                break;
+        }
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
         switch (e.getKeyCode()) {
-//            case KeyEvent.VK_TAB:
-//            case KeyEvent.VK_ENTER:
-//                if (txtBrgy.isFocusOwner()) {
-//                txtZipcode.requestFocus();
-//            } else if (txtZipcode.isFocusOwner()) {
-//                txtStreet.requestFocus();
-//            } else if (txtStreet.isFocusOwner()) {
-//                optionAddressOwned.requestFocus();
-//            } else if (optionAddressOwned.isFocusOwner()) {
-//                optionAddressRenting.requestFocus();
-//            } else if (optionAddressRenting.isFocusOwner()) {
-//                optionAddressLiving.requestFocus();
-//            } else if (optionAddressLiving.isFocusOwner()) {
-//                optionAddressOthers.requestFocus();
-//            } else if (optionAddressOthers.isFocusOwner()) {
-//                txtYrsOfStay.requestFocus();
-//            } else if (txtYrsOfStay.isFocusOwner()) {
-//                optionPresent.requestFocus();
-//            } else if (optionPresent.isFocusOwner()) {
-//                optionPrevious.requestFocus();
-//            }
-//                break;
+            case KeyEvent.VK_ENTER:
+                if (txtBrgy.isFocusOwner()) {
+                txtZipcode.requestFocus();
+            } else if (txtZipcode.isFocusOwner()) {
+                txtStreet.requestFocus();
+            } else if (txtStreet.isFocusOwner()) {
+                optionAddressOwned.requestFocus();
+            } else if (optionAddressOwned.isFocusOwner()) {
+                optionAddressRenting.requestFocus();
+            } else if (optionAddressRenting.isFocusOwner()) {
+                optionAddressLiving.requestFocus();
+            } else if (optionAddressLiving.isFocusOwner()) {
+                optionAddressOthers.requestFocus();
+            } else if (optionAddressOthers.isFocusOwner()) {
+                txtYrsOfStay.requestFocus();
+            } else if (txtYrsOfStay.isFocusOwner()) {
+                optionPresent.requestFocus();
+            } else if (optionPresent.isFocusOwner()) {
+                optionPrevious.requestFocus();
+            } else if (optionPrevious.isFocusOwner()) {
+                if (buttonPanel.getButtonAdd().getText().equals("Save")) {
+                    buttonPanel.getButtonAdd().requestFocus();
+                } else {
+                    buttonPanel.getButtonEdit().requestFocus();
+                }
+            }
+                break;
             case KeyEvent.VK_UP:
                 if (optionPrevious.isFocusOwner()) {
                 optionPresent.requestFocus();
@@ -430,18 +459,18 @@ public class AddressPanel extends javax.swing.JPanel implements KeyListener {
             }
                 break;
             case KeyEvent.VK_F5:
-                if(txtBrgy.isFocusOwner()) {
-                    BarangayDlg barangayDlg = new BarangayDlg(null, true);
-                    barangayDlg.setBarangayService(UISetting.getBarangayService());
-                    UIMgr.centerToScreen(barangayDlg);
-                    barangayDlg.setVisible(true);
-                    if(barangayDlg.getBarangay() != null) {
-                        setBarangay(barangayDlg.getBarangay());
-                        txtBrgy.setText(barangay.getCode());
-                        txtDesc.setText(barangay.getAddress());
-                    }
-                } 
-            break;
+                if (txtBrgy.isFocusOwner()) {
+                BarangayDlg barangayDlg = new BarangayDlg(null, true);
+                barangayDlg.setBarangayService(UISetting.getBarangayService());
+                UIMgr.centerToScreen(barangayDlg);
+                barangayDlg.setVisible(true);
+                if (barangayDlg.getBarangay() != null) {
+                    setBarangay(barangayDlg.getBarangay());
+                    txtBrgy.setText(barangay.getCode());
+                    txtDesc.setText(barangay.getAddress());
+                }
+            }
+                break;
         }
     }
 
@@ -456,7 +485,7 @@ public class AddressPanel extends javax.swing.JPanel implements KeyListener {
         txtYrsOfStay.setEditable(value);
         optionPresent.setEnabled(value);
         optionPrevious.setEnabled(value);
-        
+
         txtBrgy.setFocusable(value);
         txtZipcode.setFocusable(value);
         txtStreet.setFocusable(value);
@@ -468,6 +497,10 @@ public class AddressPanel extends javax.swing.JPanel implements KeyListener {
         optionPresent.setFocusable(value);
         optionPrevious.setFocusable(value);
         tableAddress.setFocusable(value);
+
+        if (value) {
+            txtBrgy.requestFocus();
+        }
     }
 
     public void resetToDefault() {
@@ -483,7 +516,7 @@ public class AddressPanel extends javax.swing.JPanel implements KeyListener {
         optionPrevious.setSelected(false);
     }
 
-    public void setAddress(Object o) {
+    public void setAddressData(Object o) {
         if (o == null) {
             resetToDefault();
         } else {
@@ -518,36 +551,66 @@ public class AddressPanel extends javax.swing.JPanel implements KeyListener {
                     optionAddressOthers.setSelected(true);
                     break;
             }
-            switch(a.getAddressType()) {
+            switch (a.getAddressType()) {
                 case "PRESENT":
                     optionPresent.setSelected(true);
                     break;
                 case "PREVIOUS":
                     optionPrevious.setSelected(true);
-                    break;    
+                    break;
             }
             txtYrsOfStay.setText(a.getYearsOfStay());
         }
     }
 
-    public boolean saveAddress() {
-        List<Address> a = AddressController.getInstance().save(headerPanel.getFormNo(), personType, createNew(new Address()));
+    public int saveAddress() {
+        Address tempAddress = createNew(new Address());
+        if (!validAddress(tempAddress)) {
+            return ProcessValidator.VALIDATE_ERROR;
+        }
+        List<Address> a = AddressController.getInstance().save(headerPanel.getFormNo(), personType, tempAddress);
         refreshTable(a);
-        return !a.isEmpty();
-    }
-    
-    public boolean saveCoMakerAddress() {
-        List<Address> a = AddressController.getInstance().save(headerPanel.getFormNo(), mainPanel.getSelectedCoMaker().getPersonType().getTypeID(), createNew(new Address()));
-        refreshTable(a);
-        return !a.isEmpty();
+        return (!a.isEmpty() ? ProcessValidator.PROCESS_COMPLETED : ProcessValidator.PROCESS_FAILED);
     }
 
-    public boolean updateAddress() {
-        return true;
+    public int saveCoMakerAddress() {
+        Address tempAddress = createNew(new Address());
+        if (!validAddress(tempAddress)) {
+            return ProcessValidator.VALIDATE_ERROR;
+        }
+        List<Address> a = AddressController.getInstance().save(headerPanel.getFormNo(), mainPanel.getSelectedCoMaker().getPersonType().getTypeID(), tempAddress);
+        refreshTable(a);
+        return (!a.isEmpty() ? ProcessValidator.PROCESS_COMPLETED : ProcessValidator.PROCESS_FAILED);
+    }
+
+    public int updateAddress() {
+        Address tempAddress = createNew(address);
+        if (!validAddress(tempAddress)) {
+            return ProcessValidator.VALIDATE_ERROR;
+        }
+        List<Address> a = AddressController.getInstance().update(headerPanel.getFormNo(), personType, tempAddress);
+        refreshTable(a);
+        return (!a.isEmpty() ? ProcessValidator.PROCESS_COMPLETED : ProcessValidator.PROCESS_FAILED);
     }
     
-    public boolean changeAddress() {
-        return true;
+    public int updateCoMakerAddress() {
+        Address tempAddress = createNew(address);
+        if (!validAddress(tempAddress)) {
+            return ProcessValidator.VALIDATE_ERROR;
+        }
+        List<Address> a = AddressController.getInstance().update(headerPanel.getFormNo(), mainPanel.getSelectedCoMaker().getPersonType().getTypeID(), tempAddress);
+        refreshTable(a);
+        return (!a.isEmpty() ? ProcessValidator.PROCESS_COMPLETED : ProcessValidator.PROCESS_FAILED);
+    }
+
+    public int changeAddress() {
+        Address tempAddress = createNew(new Address());
+        if (!validAddress(tempAddress)) {
+            return ProcessValidator.VALIDATE_ERROR;
+        }
+        List<Address> a = AddressController.getInstance().save(headerPanel.getFormNo(), personType, tempAddress);
+        refreshTable(a);
+        return (!a.isEmpty() ? ProcessValidator.PROCESS_COMPLETED : ProcessValidator.PROCESS_FAILED);
     }
 
     public void refreshTable(List<Address> a) {
@@ -559,19 +622,23 @@ public class AddressPanel extends javax.swing.JPanel implements KeyListener {
             resetToDefault();
         }
     }
-    
+
     private Address createNew(Address a) {
         a.setBrgyCode(txtBrgy.getText());
-        a.setBrgyDesc(barangay.getAddress());
+        if (barangay == null || barangay.getAddress() == null) {
+            a.setBrgyDesc("");
+        } else {
+            a.setBrgyDesc(barangay.getAddress());
+        }
         a.setZipCode(txtZipcode.getText());
         a.setAddress(txtStreet.getText());
-        if(optionPresent.isSelected()) {
+        if (optionPresent.isSelected()) {
             a.setAddressType("PRESENT");
         } else {
             a.setAddressType("PREVIOUS");
         }
         if (optionAddressOwned.isSelected()) {
-           a.setStatus("OWNED");
+            a.setStatus("OWNED");
         }
         if (optionAddressRenting.isSelected()) {
             a.setStatus("RENTING");
@@ -584,6 +651,23 @@ public class AddressPanel extends javax.swing.JPanel implements KeyListener {
         }
         a.setYearsOfStay(txtYrsOfStay.getText());
         return a;
+    }
+
+    private boolean validAddress(Address a) {
+        if (a != null) {
+            if (!UIValidator.validate(txtBrgy, "Barangay is required.")) {
+                return false;
+            }
+            if (!UIValidator.validate(txtStreet, "Address is required.")) {
+                return false;
+            }
+            if (!UIValidator.validate(txtYrsOfStay, "Years of stay is required.")) {
+                return false;
+            }
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }

@@ -45,7 +45,7 @@ public class CashPanel extends javax.swing.JPanel implements KeyListener {
         txtSearch.setText("Search");
         setFieldsEditable(false, true);
     }
-    
+
     public IndexedFocusTraversalPolicy getPolicy() {
         IndexedFocusTraversalPolicy policy = new IndexedFocusTraversalPolicy();
         policy.addForwardTraversalKeys(this, KeyEvent.VK_ENTER);
@@ -56,11 +56,14 @@ public class CashPanel extends javax.swing.JPanel implements KeyListener {
         policy.addIndexedComponent(txtAddress);
         policy.addIndexedComponent(txtZipCode);
         policy.addIndexedComponent(txtContact);
-        policy.addIndexedComponent(txtSearch);
+//        policy.addIndexedComponent(txtSearch);
+//        policy.addIndexedComponent(btnSearch);
+        txtContact.setFocusTraversalKeysEnabled(false);
+        txtSearch.setFocusTraversalKeysEnabled(false);
 
         return policy;
-    } 
-    
+    }
+
     private void initKeyListeners() {
         txtLastname.addKeyListener(this);
         txtFirstname.addKeyListener(this);
@@ -77,6 +80,7 @@ public class CashPanel extends javax.swing.JPanel implements KeyListener {
 
             @Override
             public void onAdd() {
+                enableSearch(false);
                 showSheet();
                 setFieldsEditable(true, isPerson);
                 resetToDefault();
@@ -84,11 +88,17 @@ public class CashPanel extends javax.swing.JPanel implements KeyListener {
 
             @Override
             public boolean onSaveAdd() {
-                CustomerCashInfo c = CashController.getInstance().save(createNew(new CustomerCashInfo()));
+                CustomerCashInfo c = createNew(new CustomerCashInfo());
+                if (!isValidCustomerCashInfo(c)) {
+                    return false;
+                }
+
+                c = CashController.getInstance().save(c);
                 if (c != null) {
                     UIValidator.promptSucessMessageFor("SAVE");
                     setFieldsEditable(false, isPerson);
                     setCustomerCashInfo(c);
+                    enableSearch(true);
                     return true;
                 } else {
                     UIValidator.promptErrorMessageOn("SAVE");
@@ -99,20 +109,35 @@ public class CashPanel extends javax.swing.JPanel implements KeyListener {
             @Override
             public void onCancelAdd() {
                 setFieldsEditable(false, isPerson);
+                if (customerCashInfo != null) {
+                    setCustomerCashInfo(customerCashInfo);
+                }
+                enableSearch(true);
             }
 
             @Override
             public void onEdit() {
-                setFieldsEditable(true, isPerson);
+                if (customerCashInfo != null) {
+                    setFieldsEditable(true, isPerson);
+                    enableSearch(false);
+                } else {
+                    addEditButton.resetActionStateToDefault();
+                }
             }
 
             @Override
             public boolean onSaveEdit() {
-                CustomerCashInfo c = CashController.getInstance().update(createNew(customerCashInfo));
+                CustomerCashInfo c = createNew(customerCashInfo);
+                if (!isValidCustomerCashInfo(c)) {
+                    return false;
+                }
+
+                c = CashController.getInstance().update(c);
                 if (c != null) {
                     UIValidator.promptSucessMessageFor("EDIT");
                     setFieldsEditable(false, isPerson);
                     setCustomerCashInfo(c);
+                    enableSearch(true);
                     return true;
                 } else {
                     UIValidator.promptErrorMessageOn("EDIT");
@@ -123,6 +148,7 @@ public class CashPanel extends javax.swing.JPanel implements KeyListener {
             @Override
             public void onCancelEdit() {
                 setFieldsEditable(false, isPerson);
+                enableSearch(true);
             }
         });
     }
@@ -162,6 +188,7 @@ public class CashPanel extends javax.swing.JPanel implements KeyListener {
         jScrollPane1 = new javax.swing.JScrollPane();
         tableCashCustomer = new javax.swing.JTable();
         btnSearch = new javax.swing.JButton();
+        lblResult = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         lblLastname = new javax.swing.JLabel();
         txtLastname = new javax.swing.JTextField();
@@ -192,7 +219,7 @@ public class CashPanel extends javax.swing.JPanel implements KeyListener {
                 txtSearchFocusGained(evt);
             }
         });
-        jPanel1.add(txtSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 250, -1));
+        jPanel1.add(txtSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 220, -1));
 
         tableCashCustomer.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         tableCashCustomer.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
@@ -211,16 +238,22 @@ public class CashPanel extends javax.swing.JPanel implements KeyListener {
         jTableBinding.bind();
         jScrollPane1.setViewportView(tableCashCustomer);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 40, 330, 250));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 40, 330, 240));
 
-        btnSearch.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
+        btnSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/searchIcon.png"))); // NOI18N
         btnSearch.setText("Search");
         btnSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSearchActionPerformed(evt);
             }
         });
-        jPanel1.add(btnSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 5, 75, -1));
+        jPanel1.add(btnSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(225, 5, 110, -1));
+
+        lblResult.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        lblResult.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblResult.setText("Search Result: 0");
+        lblResult.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        jPanel1.add(lblResult, new org.netbeans.lib.awtextra.AbsoluteConstraints(135, 285, 200, -1));
 
         add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 340, 310));
 
@@ -256,6 +289,8 @@ public class CashPanel extends javax.swing.JPanel implements KeyListener {
 
         lblMiddlename.setText("Middlename");
         jPanel2.add(lblMiddlename, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 75, -1, -1));
+
+        txtBarangayCode.setEditable(false);
         jPanel2.add(txtBarangayCode, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 95, 100, -1));
 
         txtBarangayDesc.setEditable(false);
@@ -349,6 +384,7 @@ public class CashPanel extends javax.swing.JPanel implements KeyListener {
     private javax.swing.JLabel lblFirstname;
     private javax.swing.JLabel lblLastname;
     private javax.swing.JLabel lblMiddlename;
+    private javax.swing.JLabel lblResult;
     private javax.swing.JTable tableCashCustomer;
     private javax.swing.JTextField txtAddress;
     private javax.swing.JTextField txtBarangayCode;
@@ -411,7 +447,7 @@ public class CashPanel extends javax.swing.JPanel implements KeyListener {
             txtBarangayCode.setText(c.getBarangayCode());
             txtBarangayDesc.setText(c.getBarangayDescription());
             txtAddress.setText(c.getAddress());
-//            txtZipCode.setText(c.get);
+            txtZipCode.setText(c.getZipCode());
             txtContact.setText(c.getContactNo());
         }
     }
@@ -421,7 +457,12 @@ public class CashPanel extends javax.swing.JPanel implements KeyListener {
         cashCustomers.addAll(c);
         if (!cashCustomers.isEmpty()) {
             tableCashCustomer.setRowSelectionInterval(0, 0);
+            tableCashCustomer.requestFocus();
         }
+        if (txtSearch.getText().equals("")) {
+            txtSearch.setText("Search");
+        }
+        countResult(cashCustomers);
     }
 
     public void setFieldsEditable(boolean value, boolean isPerson) {
@@ -443,7 +484,6 @@ public class CashPanel extends javax.swing.JPanel implements KeyListener {
             txtMiddlename.setFocusable(value);
         }
         txtLastname.setEditable(value);
-        txtBarangayCode.setEditable(value);
         txtAddress.setEditable(value);
         txtZipCode.setEditable(value);
         txtContact.setEditable(value);
@@ -455,7 +495,45 @@ public class CashPanel extends javax.swing.JPanel implements KeyListener {
 
         if (value) {
             txtLastname.requestFocus();
+            txtLastname.selectAll();
         }
+    }
+
+    private boolean isValidCustomerCashInfo(CustomerCashInfo cashInfo) {
+        if (cashInfo != null) {
+            if (cashInfo.isPerson()) {
+                if (cashInfo.getLastName().trim().isEmpty()) {
+                    JOptionPane.showMessageDialog(this, "Last Name is a required field.",
+                            "Empty Field", JOptionPane.ERROR_MESSAGE);
+                    txtLastname.requestFocus();
+                    return false;
+
+                } else if (cashInfo.getFirstName().trim().isEmpty()) {
+                    JOptionPane.showMessageDialog(this, "First Name is a required field.",
+                            "Empty Field", JOptionPane.ERROR_MESSAGE);
+                    txtFirstname.requestFocus();
+                } else if (cashInfo.getMiddleName().trim().isEmpty()) {
+                    JOptionPane.showMessageDialog(this, "Middle Name is a required field.",
+                            "Empty Field", JOptionPane.ERROR_MESSAGE);
+                    txtFirstname.requestFocus();
+                }
+            } else {
+                if (cashInfo.getLastName().trim().isEmpty()) {
+                    JOptionPane.showMessageDialog(this, "Company Name is a required field.",
+                            "Empty Field", JOptionPane.ERROR_MESSAGE);
+                    txtLastname.requestFocus();
+                }
+            }
+            if (cashInfo.getBarangayCode().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Barangay is a required field.",
+                        "Empty Field", JOptionPane.ERROR_MESSAGE);
+                txtBarangayCode.requestFocus();
+            }
+        } else {
+            return false;
+        }
+
+        return true;
     }
 
     public void resetToDefault() {
@@ -467,6 +545,10 @@ public class CashPanel extends javax.swing.JPanel implements KeyListener {
         txtAddress.setText("");
         txtZipCode.setText("");
         txtContact.setText("");
+    }
+
+    private void countResult(List<CustomerCashInfo> customers) {
+        lblResult.setText("Search Result: " + customers.size());
     }
 
     public void showSheet() {
@@ -496,39 +578,53 @@ public class CashPanel extends javax.swing.JPanel implements KeyListener {
         });
     }
 
+    private void enableSearch(boolean value) {
+        btnSearch.setEnabled(value);
+        tableCashCustomer.setEnabled(value);
+        txtSearch.setEnabled(value);
+    }
+
     @Override
     public void keyTyped(KeyEvent e) {
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
+        switch (e.getKeyCode()) {
+            case KeyEvent.VK_DOWN:
+            case KeyEvent.VK_ENTER:
+                if (txtLastname.isFocusOwner()) {
+                if (txtFirstname.isEditable()) {
+                    txtFirstname.requestFocus();
+                } else {
+                    txtBarangayCode.requestFocus();
+                }
+            } else if (txtFirstname.isFocusOwner()) {
+                txtMiddlename.requestFocus();
+            } else if (txtMiddlename.isFocusOwner()) {
+                txtBarangayCode.requestFocus();
+            } else if (txtBarangayCode.isFocusOwner()) {
+                txtAddress.requestFocus();
+            } else if (txtAddress.isFocusOwner()) {
+                txtZipCode.requestFocus();
+            } else if (txtZipCode.isFocusOwner()) {
+                txtContact.requestFocus();
+            } else if (txtSearch.isFocusOwner()) {
+                refreshSearchTable(CashController.getInstance().findBySearchCriteria(txtSearch.getText()));
+            } else if (txtContact.isFocusOwner()) {
+                if (addEditButton.getBtnAdd().getText().equals("Save")) {
+                    addEditButton.getBtnAdd().requestFocusInWindow();
+                } else {
+                    addEditButton.getBtnEdit().requestFocusInWindow();
+                }
+            }
+                break;
+        }
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
         switch (e.getKeyCode()) {
-//            case KeyEvent.VK_TAB:
-//            case KeyEvent.VK_ENTER:
-//                if (txtLastname.isFocusOwner()) {
-//                if (txtFirstname.isEditable()) {
-//                    txtFirstname.requestFocus();
-//                } else {
-//                    txtBarangayCode.requestFocus();
-//                }
-//            } else if (txtFirstname.isFocusOwner()) {
-//                txtMiddlename.requestFocus();
-//            } else if (txtMiddlename.isFocusOwner()) {
-//                txtBarangayCode.requestFocus();
-//            } else if (txtBarangayCode.isFocusOwner()) {
-//                txtAddress.requestFocus();
-//            } else if (txtAddress.isFocusOwner()) {
-//                txtZipCode.requestFocus();
-//            } else if (txtZipCode.isFocusOwner()) {
-//                txtContact.requestFocus();
-//            } else if (txtSearch.isFocusOwner()) {
-//                refreshSearchTable(CashController.getInstance().findBySearchCriteria(txtSearch.getText()));
-//            }
-//                break;
             case KeyEvent.VK_UP:
                 if (txtContact.isFocusOwner()) {
                 txtZipCode.requestFocus();
@@ -537,7 +633,11 @@ public class CashPanel extends javax.swing.JPanel implements KeyListener {
             } else if (txtAddress.isFocusOwner()) {
                 txtBarangayCode.requestFocus();
             } else if (txtBarangayCode.isFocusOwner()) {
-                txtMiddlename.requestFocus();
+                if (txtMiddlename.isFocusable()) {
+                    txtMiddlename.requestFocus();
+                } else {
+                    txtLastname.requestFocus();
+                }
             } else if (txtMiddlename.isFocusOwner()) {
                 txtFirstname.requestFocus();
             } else if (txtFirstname.isFocusOwner()) {
@@ -558,5 +658,26 @@ public class CashPanel extends javax.swing.JPanel implements KeyListener {
                 break;
         }
     }
+
+//    public boolean validCashInfo(CustomerCashInfo c) {
+//        if (c != null) {
+//            boolean result = true;
+//            if (!UIValidator.validate(txtLastname, "Lastname is required.")) {
+//                result = false;
+//            }
+//            if (!UIValidator.validate(txtFirstname, "Firstname is required.")) {
+//                result = false;
+//            }
+//            if (!UIValidator.validate(txtBarangayCode, "Barangay is required.")) {
+//                result = false;
+//            }
+//            if (!UIValidator.validate(txtContact, "Contact # is required.")) {
+//                result = false;
+//            }
+//            return result;
+//        } else {
+//            return false;
+//        }
+//    }
 
 }

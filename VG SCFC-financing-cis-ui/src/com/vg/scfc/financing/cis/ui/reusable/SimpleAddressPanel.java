@@ -6,6 +6,7 @@
 package com.vg.scfc.financing.cis.ui.reusable;
 
 import com.vg.commons.renderer.IndexedFocusTraversalPolicy;
+import com.vg.commons.util.UIMgr;
 import com.vg.scfc.financing.cis.ent.Address;
 import com.vg.scfc.financing.cis.ui.controller.AddressController;
 import com.vg.scfc.financing.cis.ui.settings.UISetting;
@@ -43,6 +44,22 @@ public class SimpleAddressPanel extends javax.swing.JPanel implements KeyListene
         UISetting.policy.addIndexedComponent(optionAddressOthers);
         UISetting.policy.addIndexedComponent(txtYrsOfStay);
     }
+    
+    public IndexedFocusTraversalPolicy getPolicy() {
+        IndexedFocusTraversalPolicy policy = new IndexedFocusTraversalPolicy();
+        policy.addForwardTraversalKeys(this, KeyEvent.VK_ENTER);
+        policy.addIndexedComponent(txtBrgy);
+        policy.addIndexedComponent(txtZipcode);
+        policy.addIndexedComponent(txtStreet);
+        policy.addIndexedComponent(optionAddressOwned);
+        policy.addIndexedComponent(optionAddressRenting);
+        policy.addIndexedComponent(optionAddressLiving);
+        policy.addIndexedComponent(optionAddressOthers);
+        policy.addIndexedComponent(txtYrsOfStay);
+
+        return policy;
+    }
+
     
     private void initKeyListeners() {
         txtBrgy.addKeyListener(this);
@@ -296,6 +313,7 @@ public class SimpleAddressPanel extends javax.swing.JPanel implements KeyListene
                 if (txtBrgy.isFocusOwner()) {
                 BarangayDlg barangayDlg = new BarangayDlg(null, true);
                 barangayDlg.setBarangayService(UISetting.getBarangayService());
+                    UIMgr.centerToScreen(barangayDlg);
                 barangayDlg.setVisible(true);
                 if (barangayDlg.getBarangay() != null) {
                     setBarangay(barangayDlg.getBarangay());

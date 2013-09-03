@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
+<Form version="1.5" maxVersion="1.8" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
   <NonVisualComponents>
     <Component class="java.util.List" name="comakers">
       <AuxValues>
@@ -34,7 +34,7 @@
           </Border>
         </Property>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Arial" size="11" style="1"/>
+          <Font name="Arial" size="14" style="1"/>
         </Property>
       </Properties>
       <Constraints>
@@ -68,10 +68,18 @@
                 </Constraint>
               </Constraints>
             </Component>
-            <Container class="javax.swing.JTabbedPane" name="jTabbedPane1">
+            <Component class="com.vg.scfc.financing.cis.ui.reusable.AddEditButtonPanel" name="addEditPersonalInfo">
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                  <AbsoluteConstraints x="15" y="192" width="-1" height="-1"/>
+                </Constraint>
+              </Constraints>
+            </Component>
+            <Container class="javax.swing.JTabbedPane" name="tabDetails">
               <Properties>
+                <Property name="tabLayoutPolicy" type="int" value="1"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Arial" size="10" style="1"/>
+                  <Font name="Arial" size="14" style="1"/>
                 </Property>
               </Properties>
               <Constraints>
@@ -184,8 +192,8 @@
                   </Properties>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                      <JTabbedPaneConstraints tabName="Character Reference">
-                        <Property name="tabTitle" type="java.lang.String" value="Character Reference"/>
+                      <JTabbedPaneConstraints tabName="Char Ref">
+                        <Property name="tabTitle" type="java.lang.String" value="Char Ref"/>
                       </JTabbedPaneConstraints>
                     </Constraint>
                   </Constraints>
@@ -248,8 +256,8 @@
                   </Properties>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                      <JTabbedPaneConstraints tabName="Credit Reference">
-                        <Property name="tabTitle" type="java.lang.String" value="Credit Reference"/>
+                      <JTabbedPaneConstraints tabName="Credit Ref">
+                        <Property name="tabTitle" type="java.lang.String" value="Credit Ref"/>
                       </JTabbedPaneConstraints>
                     </Constraint>
                   </Constraints>
@@ -280,8 +288,8 @@
                   </Properties>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                      <JTabbedPaneConstraints tabName="Src. of Income">
-                        <Property name="tabTitle" type="java.lang.String" value="Src. of Income"/>
+                      <JTabbedPaneConstraints tabName="Src. of Inc">
+                        <Property name="tabTitle" type="java.lang.String" value="Src. of Inc"/>
                       </JTabbedPaneConstraints>
                     </Constraint>
                   </Constraints>
@@ -333,8 +341,8 @@
                   </Properties>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                      <JTabbedPaneConstraints tabName="Expenditures">
-                        <Property name="tabTitle" type="java.lang.String" value="Expenditures"/>
+                      <JTabbedPaneConstraints tabName="Expenditure">
+                        <Property name="tabTitle" type="java.lang.String" value="Expenditure"/>
                       </JTabbedPaneConstraints>
                     </Constraint>
                   </Constraints>
@@ -375,7 +383,7 @@
                     <Container class="javax.swing.JTabbedPane" name="tabAsset">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="Arial" size="11" style="1"/>
+                          <Font name="Arial" size="14" style="1"/>
                         </Property>
                       </Properties>
                       <Constraints>
@@ -556,8 +564,8 @@
                   </Properties>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                      <JTabbedPaneConstraints tabName="Purchase Order">
-                        <Property name="tabTitle" type="java.lang.String" value="Purchase Order"/>
+                      <JTabbedPaneConstraints tabName="P.O.">
+                        <Property name="tabTitle" type="java.lang.String" value="P.O."/>
                       </JTabbedPaneConstraints>
                     </Constraint>
                   </Constraints>
@@ -601,8 +609,8 @@
                   </Properties>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                      <JTabbedPaneConstraints tabName="Identification">
-                        <Property name="tabTitle" type="java.lang.String" value="Identification"/>
+                      <JTabbedPaneConstraints tabName="ID">
+                        <Property name="tabTitle" type="java.lang.String" value="ID"/>
                       </JTabbedPaneConstraints>
                     </Constraint>
                   </Constraints>
@@ -629,13 +637,6 @@
                 </Container>
               </SubComponents>
             </Container>
-            <Component class="com.vg.scfc.financing.cis.ui.reusable.AddEditButtonPanel" name="addEditPersonalInfo">
-              <Constraints>
-                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="15" y="192" width="-1" height="-1"/>
-                </Constraint>
-              </Constraints>
-            </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="tabSpousePersonalInfo">
@@ -664,7 +665,7 @@
             <Container class="javax.swing.JTabbedPane" name="jTabbedPane3">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Arial" size="11" style="1"/>
+                  <Font name="Arial" size="14" style="1"/>
                 </Property>
               </Properties>
               <Constraints>
@@ -836,7 +837,7 @@
               </AuxValues>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="10" y="5" width="1000" height="70"/>
+                  <AbsoluteConstraints x="10" y="5" width="1000" height="100"/>
                 </Constraint>
               </Constraints>
 
@@ -867,10 +868,10 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Container class="javax.swing.JTabbedPane" name="jTabbedPane4">
+            <Container class="javax.swing.JTabbedPane" name="tabDetail">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Arial" size="11" style="1"/>
+                  <Font name="Arial" size="14" style="1"/>
                 </Property>
               </Properties>
               <Constraints>
@@ -901,6 +902,13 @@
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
                           <AbsoluteConstraints x="-5" y="0" width="-1" height="-1"/>
+                        </Constraint>
+                      </Constraints>
+                    </Component>
+                    <Component class="com.vg.scfc.financing.cis.ui.reusable.AddEditButtonPanel" name="addEditCoMakerPersonalInfo">
+                      <Constraints>
+                        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                          <AbsoluteConstraints x="50" y="210" width="-1" height="-1"/>
                         </Constraint>
                       </Constraints>
                     </Component>
@@ -1018,7 +1026,7 @@
                     <Container class="javax.swing.JTabbedPane" name="jTabbedPane5">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="Arial" size="11" style="1"/>
+                          <Font name="Arial" size="14" style="1"/>
                         </Property>
                       </Properties>
                       <Constraints>
@@ -1227,13 +1235,6 @@
                 </Container>
               </SubComponents>
             </Container>
-            <Component class="com.vg.scfc.financing.cis.ui.reusable.AddEditButtonPanel" name="addEditCoMakerPersonalInfo">
-              <Constraints>
-                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="15" y="80" width="-1" height="-1"/>
-                </Constraint>
-              </Constraints>
-            </Component>
           </SubComponents>
         </Container>
       </SubComponents>

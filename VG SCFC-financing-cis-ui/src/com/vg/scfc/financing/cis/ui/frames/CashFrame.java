@@ -34,7 +34,7 @@ public class CashFrame extends javax.swing.JFrame {
         setTitle("CASH ");
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(cashPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        getContentPane().add(cashPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 320));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

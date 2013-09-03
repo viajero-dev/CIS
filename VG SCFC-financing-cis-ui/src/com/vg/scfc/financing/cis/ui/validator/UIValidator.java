@@ -5,13 +5,17 @@
  */
 package com.vg.scfc.financing.cis.ui.validator;
 
+import com.vg.commons.formattedfields.FormattedSimpleDateField;
 import com.vg.commons.util.StringUtils;
 import com.vg.scfc.financing.cis.ui.messages.ErrorMessage;
 import com.vg.scfc.financing.cis.ui.messages.OtherMessage;
 import java.awt.Component;
 import java.awt.Container;
+import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -28,8 +32,46 @@ public class UIValidator {
     public static String validate(JTextField field) {
         String fieldValue = field.getText();
         if (Validator.getInstance().isEmpty(fieldValue)) {
-//            JOptionPane.showMessageDialog(null, ErrorMessage.EMPTY_FIELD, ErrorMessage.ERROR_MESSAGE_TITLE, JOptionPane.WARNING_MESSAGE);
-//            field.requestFocus();
+            return "";
+        } else {
+            return Validator.getInstance().newLineRemover(fieldValue).toUpperCase();
+        }
+    }
+
+    public static boolean validate(JComponent component, String message) {
+        if (component instanceof JTextField) {
+            String fieldValue = ((JTextField) component).getText();
+            if (fieldValue.equals("")) {
+                JOptionPane.showMessageDialog(null, message, ErrorMessage.ERROR_MESSAGE_TITLE, JOptionPane.ERROR_MESSAGE);
+                component.requestFocus();
+                return false;
+            } else {
+                return true;
+            }
+        } else if (component instanceof FormattedSimpleDateField) {
+            boolean tempResult = true;
+            try {
+                Date date = ((FormattedSimpleDateField) component).getDate();
+                if (date == null) {
+                    JOptionPane.showMessageDialog(null, message, ErrorMessage.ERROR_MESSAGE_TITLE, JOptionPane.ERROR_MESSAGE);
+                    component.requestFocus();
+                    tempResult = false;
+                } else {
+                    tempResult = true;
+                }
+            } catch (ParseException ex) {
+            }
+            return tempResult;
+        } else {
+            return false;
+        }
+    }
+
+    public static String validateRequired(JTextField field) {
+        String fieldValue = field.getText();
+        if (Validator.getInstance().isEmpty(fieldValue)) {
+            JOptionPane.showMessageDialog(null, ErrorMessage.EMPTY_FIELD, ErrorMessage.ERROR_MESSAGE_TITLE, JOptionPane.WARNING_MESSAGE);
+            field.requestFocus();
             return "";
         } else {
             return Validator.getInstance().newLineRemover(fieldValue).toUpperCase();
@@ -42,11 +84,13 @@ public class UIValidator {
         if (Validator.getInstance().isEmpty(fieldValue)) {
             return "0";
         } else {
+            fieldValue = UIValidator.MoneyCommaRemover(fieldValue);
+            fieldValue = fieldValue.replace(".00", "");
             if (Validator.getInstance().isNumeric(fieldValue)) {
                 return fieldValue;
             } else {
                 tip = new BalloonTip(field, ErrorMessage.NON_NUMERIC);
-                FadingUtils.fadeOutBalloon(tip, null, 5000, 24);
+                FadingUtils.fadeOutBalloon(tip, null, 3000, 24);
 //                JOptionPane.showMessageDialog(null, ErrorMessage.NON_NUMERIC, ErrorMessage.ERROR_MESSAGE_TITLE, JOptionPane.WARNING_MESSAGE);
                 field.requestFocus();
                 field.setText("");
@@ -131,6 +175,23 @@ public class UIValidator {
             }
         }
         return isValid;
+    }
+
+    public static Component addRequiredFields(List<Component> fields) {
+        for (Component component : fields) {
+            if (component instanceof JTextField) {
+                if (((JTextField) component).getText().isEmpty()) {
+                    return component;
+                }
+            } else if (component instanceof JComboBox) {
+                if (((JComboBox) component).getSelectedItem().toString().isEmpty()
+                        || ((JComboBox) component).getSelectedItem().toString() == null) {
+                    return component;
+                }
+            }
+        }
+
+        return null;
     }
 
     public static void manageTab(List<JPanel> panels, String tabName) {

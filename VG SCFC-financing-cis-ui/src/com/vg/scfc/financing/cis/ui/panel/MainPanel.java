@@ -22,6 +22,7 @@ import com.vg.scfc.financing.cis.ui.controller.CreditReferenceController;
 import com.vg.scfc.financing.cis.ui.controller.EmploymentController;
 import com.vg.scfc.financing.cis.ui.controller.ExpenditureController;
 import com.vg.scfc.financing.cis.ui.controller.FamilyBackgroundController;
+import com.vg.scfc.financing.cis.ui.controller.FormController;
 import com.vg.scfc.financing.cis.ui.controller.IdentificationController;
 import com.vg.scfc.financing.cis.ui.controller.LandAssetController;
 import com.vg.scfc.financing.cis.ui.controller.MachineryAssetsController;
@@ -53,8 +54,8 @@ import com.vg.scfc.financing.cis.ui.reusable.SiblingsPanel;
 import com.vg.scfc.financing.cis.ui.reusable.SourceOfIncomePanel;
 import com.vg.scfc.financing.cis.ui.reusable.VehiclePanel;
 import com.vg.scfc.financing.cis.ui.settings.UISetting;
+import com.vg.scfc.financing.cis.ui.validator.ProcessValidator;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
-import java.awt.event.KeyEvent;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -115,7 +116,7 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
     }
 
     private void initTabs() {
-        jTabbedPane1.putClientProperty("Quaqua.TabbedPane.shortenTabs", Boolean.FALSE);
+//        tabMain.setIconAt(0, null);
     }
 
     private void initFields() {
@@ -150,70 +151,92 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
     private void initPersonalInfoAddEditListener() {
         panelPersonalInfo.setHeaderPanel(headerPanel);
         panelPersonalInfo.setPersonType("APP");
+        panelPersonalInfo.setMainPanel(this);
+        panelPersonalInfo.setButtonPanel(addEditPersonalInfo);
         addEditPersonalInfo.setBasicActionListener(new BasicActionListener() {
-
             @Override
             public void onAdd() {
                 resetFields();
                 ApplicationFormDlg form = new ApplicationFormDlg(null, true);
                 UIMgr.centerToScreen(form);
                 form.setVisible(true);
-                headerPanel.setFormNo("");
-                headerPanel.setIDNo(form.getFormSeries());
-                try {
-                    headerPanel.setApplicationDate(form.getApplicationDate());
-                } catch (ParseException ex) {
-                    UIValidator.log(ex, MainPanel.class);
+                if (form.getFormSeries().trim().equals("") || form.getFormSeries().trim().equals("00000")) {
+                    addEditPersonalInfo.resetActionStateToDefault();
+                } else {
+                    headerPanel.setFormNo("");
+                    headerPanel.setIDNo(form.getFormSeries());
+                    try {
+                        headerPanel.setApplicationDate(form.getApplicationDate());
+                    } catch (ParseException ex) {
+                        UIValidator.log(ex, MainPanel.class);
+                    }
+                    headerPanel.enableFields(false);
+                    panelPersonalInfo.setFieldsEditable(true);
+                    panelPersonalInfo.enableTakePicture(false);
+                    managedTab("tabAppPersonalInfo");
+                    enableSearch(false);
                 }
-                headerPanel.enableFields(false);
-                panelPersonalInfo.setFieldsEditable(true);
-                managedTab("tabAppPersonalInfo");
             }
 
             @Override
             public boolean onSaveAdd() {
-                boolean isSaved = panelPersonalInfo.savePersonalInfo();
-                if (!isSaved) {
+                int isSaved = panelPersonalInfo.savePersonalInfo();
+                if (isSaved == PersonalInformationPanel.VALIDATE_ERROR) {
+                    return false;
+                } else if (isSaved == PersonalInformationPanel.PROCESS_FAILED) {
                     UIValidator.promptErrorMessageOn("SAVE");
+                    return false;
                 } else {
-                    UIValidator.promptSucessMessageFor("SAVE");
                     panelPersonalInfo.setFieldsEditable(false);
                     refreshSearch(headerPanel.getFormNo());
+                    enableSearch(true);
+                    enableTabs();
+                    UIValidator.promptSucessMessageFor("SAVE");
+                    return true;
                 }
-
-                enableTabs();
-                return isSaved;
             }
 
             @Override
             public void onCancelAdd() {
+                enableSearch(true);
                 enableTabs();
+                panelPersonalInfo.setPersonalInfo(panelPersonalInfo.getPersonalInfo());
+                fillValue(FormController.getInstance().findByFormNo(headerPanel.getFormNo()));
                 panelPersonalInfo.setFieldsEditable(false);
-                searchPanel.refresh();
             }
 
             @Override
             public void onEdit() {
+                if (panelPersonalInfo.getPersonalInfo() == null) {
+                    addEditPersonalInfo.resetActionStateToDefault();
+                    return;
+                }
+
+                enableSearch(false);
                 managedTab("tabAppPersonalInfo");
                 panelPersonalInfo.setFieldsEditable(true);
             }
 
             @Override
             public boolean onSaveEdit() {
-                boolean isUpdated = panelPersonalInfo.updatePersonalInfo();
-                if (!isUpdated) {
+                int isUpdated = panelPersonalInfo.updatePersonalInfo();
+                if (isUpdated == PersonalInformationPanel.VALIDATE_ERROR) {
+                    return false;
+                } else if (isUpdated == PersonalInformationPanel.PROCESS_FAILED) {
                     UIValidator.promptErrorMessageOn("EDIT");
+                    return false;
                 } else {
                     UIValidator.promptSucessMessageFor("EDIT");
                     panelPersonalInfo.setFieldsEditable(false);
+                    enableSearch(true);
+                    enableTabs();
+                    return true;
                 }
-
-                enableTabs();
-                return true;
             }
 
             @Override
             public void onCancelEdit() {
+                enableSearch(true);
                 enableTabs();
                 panelPersonalInfo.setFieldsEditable(false);
             }
@@ -224,12 +247,12 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
         panelEmploymentData.setHeaderPanel(headerPanel);
         panelEmploymentData.setPersonType("APP");
         addEditEmployment.setBasicActionListener(new BasicActionListener() {
-
             @Override
             public void onAdd() {
                 panelEmploymentData.setFieldsEditable(true);
                 panelEmploymentData.resetToDefault();
                 managedTab("tabEmployment");
+                enableSearch(false);
             }
 
             @Override
@@ -243,19 +266,23 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
                     refreshSearch(headerPanel.getFormNo());
                 }
 
+                enableSearch(true);
                 enableTabs();
                 return isSaved;
             }
 
             @Override
             public void onCancelAdd() {
+                enableSearch(true);
                 enableTabs();
+                panelEmploymentData.setEmployment(panelEmploymentData.getEmployment());
                 panelEmploymentData.setFieldsEditable(false);
                 panelEmploymentData.resetToDefault();
             }
 
             @Override
             public void onEdit() {
+                enableSearch(false);
                 managedTab("tabEmployment");
                 panelEmploymentData.setFieldsEditable(true);
             }
@@ -270,12 +297,14 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
                     panelEmploymentData.setFieldsEditable(false);
                 }
 
+                enableSearch(true);
                 enableTabs();
                 return isUpdated;
             }
 
             @Override
             public void onCancelEdit() {
+                enableSearch(true);
                 enableTabs();
                 panelEmploymentData.setFieldsEditable(false);
             }
@@ -286,12 +315,12 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
         panelFamilyBackground.setHeaderPanel(headerPanel);
         panelFamilyBackground.setPersonType("APP");
         addEditFamily.setBasicActionListener(new BasicActionListener() {
-
             @Override
             public void onAdd() {
                 panelFamilyBackground.setFieldsEditable(true);
                 panelFamilyBackground.resetToDefault();
                 managedTab("tabFamily");
+                enableSearch(false);
             }
 
             @Override
@@ -305,19 +334,23 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
                     refreshSearch(headerPanel.getFormNo());
                 }
 
+                enableSearch(true);
                 enableTabs();
                 return isSaved;
             }
 
             @Override
             public void onCancelAdd() {
+                enableSearch(true);
                 enableTabs();
+                panelFamilyBackground.setFamilies(panelFamilyBackground.getFamilies());
                 panelFamilyBackground.setFieldsEditable(false);
                 panelFamilyBackground.resetToDefault();
             }
 
             @Override
             public void onEdit() {
+                enableSearch(false);
                 managedTab("tabFamily");
                 panelFamilyBackground.setFieldsEditable(true);
             }
@@ -332,12 +365,14 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
                     panelFamilyBackground.setFieldsEditable(false);
                 }
 
+                enableSearch(true);
                 enableTabs();
                 return isUpdated;
             }
 
             @Override
             public void onCancelEdit() {
+                enableSearch(true);
                 enableTabs();
                 panelFamilyBackground.setFieldsEditable(false);
             }
@@ -347,12 +382,12 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
     private void initSiblingAddEditListener() {
         panelSibling.setHeaderPanel(headerPanel);
         addEditSibling.setBasicActionListener(new BasicActionListener() {
-
             @Override
             public void onAdd() {
                 panelSibling.setFieldsEditable(true);
                 panelSibling.resetToDefault();
                 managedTab("tabSibling");
+                enableSearch(false);
             }
 
             @Override
@@ -366,12 +401,14 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
                     refreshSearch(headerPanel.getFormNo());
                 }
 
+                enableSearch(true);
                 enableTabs();
                 return isSaved;
             }
 
             @Override
             public void onCancelAdd() {
+                enableSearch(true);
                 enableTabs();
                 panelSibling.setFieldsEditable(false);
                 panelSibling.resetToDefault();
@@ -379,6 +416,7 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
 
             @Override
             public void onEdit() {
+                enableSearch(false);
                 managedTab("tabSibling");
                 panelSibling.setFieldsEditable(true);
             }
@@ -393,12 +431,14 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
                     panelSibling.setFieldsEditable(false);
                 }
 
+                enableSearch(true);
                 enableTabs();
                 return isUpdated;
             }
 
             @Override
             public void onCancelEdit() {
+                enableSearch(true);
                 enableTabs();
                 panelSibling.setFieldsEditable(false);
             }
@@ -408,12 +448,12 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
     private void initCharacterReferenceAddEditListener() {
         panelCharacterReference.setHeaderPanel(headerPanel);
         addEditCharacterReference.setBasicActionListener(new BasicActionListener() {
-
             @Override
             public void onAdd() {
                 panelCharacterReference.setFieldsEditable(true);
                 panelCharacterReference.resetToDefault();
                 managedTab("tabCharacterRef");
+                enableSearch(false);
             }
 
             @Override
@@ -427,6 +467,7 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
                     refreshSearch(headerPanel.getFormNo());
                 }
 
+                enableSearch(true);
                 enableTabs();
                 return isSaved;
             }
@@ -436,10 +477,12 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
                 panelCharacterReference.setFieldsEditable(false);
                 panelCharacterReference.resetToDefault();
                 enableTabs();
+                enableSearch(true);
             }
 
             @Override
             public void onEdit() {
+                enableSearch(false);
                 managedTab("tabCharacterRef");
                 panelCharacterReference.setFieldsEditable(true);
             }
@@ -454,12 +497,14 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
                     panelCharacterReference.setFieldsEditable(false);
                 }
 
+                enableSearch(true);
                 enableTabs();
                 return isUpdated;
             }
 
             @Override
             public void onCancelEdit() {
+                enableSearch(true);
                 enableTabs();
                 panelCharacterReference.setFieldsEditable(false);
             }
@@ -469,12 +514,12 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
     private void initDependentsAddEditListener() {
         panelDependents.setHeaderPanel(headerPanel);
         addEditDependents.setBasicActionListener(new BasicActionListener() {
-
             @Override
             public void onAdd() {
                 panelDependents.setFieldsEditable(true);
                 panelDependents.resetToDefault();
                 managedTab("tabDependent");
+                enableSearch(false);
             }
 
             @Override
@@ -488,12 +533,14 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
                     refreshSearch(headerPanel.getFormNo());
                 }
 
+                enableSearch(true);
                 enableTabs();
                 return isSaved;
             }
 
             @Override
             public void onCancelAdd() {
+                enableSearch(true);
                 enableTabs();
                 panelDependents.setFieldsEditable(false);
                 panelDependents.resetToDefault();
@@ -501,6 +548,7 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
 
             @Override
             public void onEdit() {
+                enableSearch(false);
                 managedTab("tabDependent");
                 panelDependents.setFieldsEditable(true);
             }
@@ -515,12 +563,14 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
                     panelDependents.setFieldsEditable(false);
                 }
 
+                enableSearch(true);
                 enableTabs();
                 return isUpdated;
             }
 
             @Override
             public void onCancelEdit() {
+                enableSearch(true);
                 enableTabs();
                 panelDependents.setFieldsEditable(false);
             }
@@ -530,12 +580,12 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
     private void initCreditReferenceAddEditListener() {
         panelCreditReference.setHeaderPanel(headerPanel);
         addEditCreditReference.setBasicActionListener(new BasicActionListener() {
-
             @Override
             public void onAdd() {
                 panelCreditReference.setFieldsEditable(true);
                 panelCreditReference.resetToDefault();
                 managedTab("tabCreditRef");
+                enableSearch(false);
             }
 
             @Override
@@ -549,12 +599,14 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
                     refreshSearch(headerPanel.getFormNo());
                 }
 
+                enableSearch(true);
                 enableTabs();
                 return isSaved;
             }
 
             @Override
             public void onCancelAdd() {
+                enableSearch(true);
                 enableTabs();
                 panelCreditReference.setFieldsEditable(false);
                 panelCreditReference.resetToDefault();
@@ -562,6 +614,7 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
 
             @Override
             public void onEdit() {
+                enableSearch(false);
                 managedTab("tabCreditRef");
                 panelCreditReference.setFieldsEditable(true);
             }
@@ -576,12 +629,14 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
                     panelCreditReference.setFieldsEditable(false);
                 }
 
+                enableSearch(true);
                 enableTabs();
                 return isUpdated;
             }
 
             @Override
             public void onCancelEdit() {
+                enableSearch(true);
                 enableTabs();
                 panelCreditReference.setFieldsEditable(false);
             }
@@ -593,12 +648,12 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
         panelSourceOfIncome.setPersonType("APP");
         panelSourceOfIncome.setTxtTotalMonthlyIncome(txtTotalMonthlyIncome);
         addEditSourceOfInc.setBasicActionListener(new BasicActionListener() {
-
             @Override
             public void onAdd() {
                 panelSourceOfIncome.setFieldsEditable(true);
                 panelSourceOfIncome.resetToDefault();
                 managedTab("tabSourceOfInc");
+                enableSearch(false);
             }
 
             @Override
@@ -612,12 +667,14 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
                     refreshSearch(headerPanel.getFormNo());
                 }
 
+                enableSearch(true);
                 enableTabs();
                 return isSaved;
             }
 
             @Override
             public void onCancelAdd() {
+                enableSearch(true);
                 enableTabs();
                 panelSourceOfIncome.setFieldsEditable(false);
                 panelSourceOfIncome.resetToDefault();
@@ -627,6 +684,7 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
             public void onEdit() {
                 panelSourceOfIncome.setFieldsEditable(true);
                 managedTab("tabSourceOfInc");
+                enableSearch(false);
             }
 
             @Override
@@ -639,12 +697,14 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
                     panelSourceOfIncome.setFieldsEditable(false);
                 }
 
+                enableSearch(true);
                 enableTabs();
                 return isUpdated;
             }
 
             @Override
             public void onCancelEdit() {
+                enableSearch(true);
                 enableTabs();
                 panelSourceOfIncome.setFieldsEditable(false);
             }
@@ -655,12 +715,12 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
         panelExpenditures.setHeaderPanel(headerPanel);
         panelExpenditures.setTotalMonthlyIncome(totalMonthlyIncome);
         addEditExpenditures.setBasicActionListener(new BasicActionListener() {
-
             @Override
             public void onAdd() {
                 panelExpenditures.setFieldsEditable(true);
                 panelExpenditures.resetToDefault();
                 managedTab("tabExpenditure");
+                enableSearch(false);
             }
 
             @Override
@@ -674,12 +734,14 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
                     refreshSearch(headerPanel.getFormNo());
                 }
 
+                enableSearch(true);
                 enableTabs();
                 return isSaved;
             }
 
             @Override
             public void onCancelAdd() {
+                enableSearch(true);
                 enableTabs();
                 panelExpenditures.setFieldsEditable(false);
                 panelExpenditures.resetToDefault();
@@ -689,6 +751,7 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
             public void onEdit() {
                 panelExpenditures.setFieldsEditable(true);
                 managedTab("tabExpenditure");
+                enableSearch(false);
             }
 
             @Override
@@ -701,12 +764,14 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
                     panelExpenditures.setFieldsEditable(false);
                 }
 
+                enableSearch(true);
                 enableTabs();
                 return isUpdated;
             }
 
             @Override
             public void onCancelEdit() {
+                enableSearch(true);
                 enableTabs();
                 panelExpenditures.setFieldsEditable(false);
             }
@@ -715,32 +780,37 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
 
     private void initLandAssetsAddEditListener() {
         panelLandAssets.setHeaderPanel(headerPanel);
+        panelLandAssets.setButtonPanel(addEditLandAssets);
         addEditLandAssets.setBasicActionListener(new BasicActionListener() {
-
             @Override
             public void onAdd() {
                 panelLandAssets.setFieldsEditable(true);
                 panelLandAssets.resetToDefault();
                 managedTab("tabAssetLand");
+                enableSearch(false);
             }
 
             @Override
             public boolean onSaveAdd() {
-                boolean isSaved = panelLandAssets.saveLandAssets();
-                if (!isSaved) {
+                int isSaved = panelLandAssets.saveLandAssets();
+                if (isSaved == ProcessValidator.VALIDATE_ERROR) {
+                    return false;
+                } else if (isSaved == ProcessValidator.PROCESS_FAILED) {
                     UIValidator.promptErrorMessageOn("SAVE");
+                    return false;
                 } else {
                     UIValidator.promptSucessMessageFor("SAVE");
                     panelLandAssets.setFieldsEditable(false);
                     refreshSearch(headerPanel.getFormNo());
+                    enableSearch(true);
+                    enableTabs();
+                    return true;
                 }
-
-                enableTabs();
-                return isSaved;
             }
 
             @Override
             public void onCancelAdd() {
+                enableSearch(true);
                 enableTabs();
                 panelLandAssets.setFieldsEditable(false);
                 panelLandAssets.resetToDefault();
@@ -750,24 +820,29 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
             public void onEdit() {
                 panelLandAssets.setFieldsEditable(true);
                 managedTab("tabAssetLand");
+                enableSearch(false);
             }
 
             @Override
             public boolean onSaveEdit() {
-                boolean isUpdated = panelLandAssets.updateLandAssets();
-                if (!isUpdated) {
+                int isUpdated = panelLandAssets.updateLandAssets();
+                if (isUpdated == ProcessValidator.VALIDATE_ERROR) {
+                    return false;
+                } else if (isUpdated == ProcessValidator.PROCESS_FAILED) {
                     UIValidator.promptErrorMessageOn("EDIT");
+                    return false;
                 } else {
                     UIValidator.promptSucessMessageFor("EDIT");
                     panelLandAssets.setFieldsEditable(false);
+                    enableSearch(true);
+                    enableTabs();
+                    return true;
                 }
-
-                enableTabs();
-                return isUpdated;
             }
 
             @Override
             public void onCancelEdit() {
+                enableSearch(true);
                 enableTabs();
                 panelLandAssets.setFieldsEditable(false);
             }
@@ -776,32 +851,37 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
 
     private void initVehicleAssetsAddEditListener() {
         panelVehicle.setHeaderPanel(headerPanel);
+        panelVehicle.setButtonPanel(addEditVehicle);
         addEditVehicle.setBasicActionListener(new BasicActionListener() {
-
             @Override
             public void onAdd() {
                 panelVehicle.setFieldsEditable(true);
                 panelVehicle.resetToDefault();
-                managedTab("tabAssetVechicle");
+                managedTab("tabAssetVehicle");
+                enableSearch(false);
             }
 
             @Override
             public boolean onSaveAdd() {
-                boolean isSaved = panelVehicle.saveVehicleAsset();
-                if (!isSaved) {
+                int isSaved = panelVehicle.saveVehicleAsset();
+                if (isSaved == ProcessValidator.VALIDATE_ERROR) {
+                    return false;
+                } else if (isSaved == ProcessValidator.PROCESS_FAILED) {
                     UIValidator.promptErrorMessageOn("SAVE");
+                    return false;
                 } else {
                     UIValidator.promptSucessMessageFor("SAVE");
                     panelVehicle.setFieldsEditable(false);
                     refreshSearch(headerPanel.getFormNo());
+                    enableSearch(true);
+                    enableTabs();
+                    return true;
                 }
-
-                enableTabs();
-                return isSaved;
             }
 
             @Override
             public void onCancelAdd() {
+                enableSearch(true);
                 enableTabs();
                 panelVehicle.setFieldsEditable(false);
                 panelVehicle.resetToDefault();
@@ -811,24 +891,29 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
             public void onEdit() {
                 panelVehicle.setFieldsEditable(true);
                 managedTab("tabAssetVehicle");
+                enableSearch(false);
             }
 
             @Override
             public boolean onSaveEdit() {
-                boolean isUpdated = panelVehicle.updateVehicleAsset();
-                if (!isUpdated) {
+                int isUpdated = panelVehicle.updateVehicleAsset();
+                if (isUpdated == ProcessValidator.VALIDATE_ERROR) {
+                    return false;
+                } else if (isUpdated == ProcessValidator.PROCESS_FAILED) {
                     UIValidator.promptErrorMessageOn("EDIT");
+                    return false;
                 } else {
                     UIValidator.promptSucessMessageFor("EDIT");
                     panelVehicle.setFieldsEditable(false);
+                    enableSearch(true);
+                    enableTabs();
+                    return true;
                 }
-
-                enableTabs();
-                return isUpdated;
             }
 
             @Override
             public void onCancelEdit() {
+                enableSearch(true);
                 enableTabs();
                 panelVehicle.setFieldsEditable(false);
             }
@@ -837,28 +922,32 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
 
     private void initApplianceAssetsAddEditListener() {
         panelAppliance.setHeaderPanel(headerPanel);
+        panelAppliance.setButtonPanel(addEditAppliance);
         addEditAppliance.setBasicActionListener(new BasicActionListener() {
-
             @Override
             public void onAdd() {
                 panelAppliance.setFieldsEditable(true);
                 panelAppliance.resetToDefault();
                 managedTab("tabAssetAppliance");
+                enableSearch(false);
             }
 
             @Override
             public boolean onSaveAdd() {
-                boolean isSaved = panelAppliance.saveApplianceAsset();
-                if (!isSaved) {
+                int isSaved = panelAppliance.saveApplianceAsset();
+                if (isSaved == ProcessValidator.VALIDATE_ERROR) {
+                    return false;
+                } else if (isSaved == ProcessValidator.PROCESS_FAILED) {
                     UIValidator.promptErrorMessageOn("SAVE");
+                    return false;
                 } else {
                     UIValidator.promptSucessMessageFor("SAVE");
                     panelAppliance.setFieldsEditable(false);
                     refreshSearch(headerPanel.getFormNo());
+                    enableSearch(true);
+                    enableTabs();
+                    return true;
                 }
-
-                enableTabs();
-                return isSaved;
             }
 
             @Override
@@ -866,30 +955,37 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
                 enableTabs();
                 panelAppliance.setFieldsEditable(false);
                 panelAppliance.resetToDefault();
+                enableSearch(true);
             }
 
             @Override
             public void onEdit() {
                 panelAppliance.setFieldsEditable(true);
                 managedTab("tabAssetAppliance");
+                enableSearch(false);
             }
 
             @Override
             public boolean onSaveEdit() {
-                boolean isUpdated = panelAppliance.updateApplianceAsset();
-                if (!isUpdated) {
+                int isUpdated = panelAppliance.updateApplianceAsset();
+                if (isUpdated == ProcessValidator.VALIDATE_ERROR) {
+                    return false;
+                }
+                if (isUpdated == ProcessValidator.PROCESS_FAILED) {
                     UIValidator.promptErrorMessageOn("EDIT");
+                    return false;
                 } else {
                     UIValidator.promptSucessMessageFor("EDIT");
                     panelAppliance.setFieldsEditable(false);
+                    enableSearch(true);
+                    enableTabs();
+                    return true;
                 }
-
-                enableTabs();
-                return isUpdated;
             }
 
             @Override
             public void onCancelEdit() {
+                enableSearch(true);
                 enableTabs();
                 panelAppliance.setFieldsEditable(false);
             }
@@ -898,31 +994,36 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
 
     private void initMachineryAssetsAddEditListener() {
         panelMachinery.setHeaderPanel(headerPanel);
+        panelMachinery.setButtonPanel(addEditMachinery);
         addEditMachinery.setBasicActionListener(new BasicActionListener() {
-
             @Override
             public void onAdd() {
                 panelMachinery.setFieldsEditable(true);
                 panelMachinery.resetToDefault();
                 managedTab("tabAssetMachinery");
+                enableSearch(false);
             }
 
             @Override
             public boolean onSaveAdd() {
-                boolean isSaved = panelMachinery.saveMachinery();
-                if (!isSaved) {
+                int isSaved = panelMachinery.saveMachinery();
+                if (isSaved == ProcessValidator.VALIDATE_ERROR) {
+                    return false;
+                } else if (isSaved == ProcessValidator.PROCESS_FAILED) {
                     UIValidator.promptErrorMessageOn("SAVE");
+                    return false;
                 } else {
                     UIValidator.promptSucessMessageFor("SAVE");
                     refreshSearch(headerPanel.getFormNo());
+                    enableSearch(true);
+                    enableTabs();
+                    return true;
                 }
-
-                enableTabs();
-                return isSaved;
             }
 
             @Override
             public void onCancelAdd() {
+                enableSearch(true);
                 enableTabs();
                 panelMachinery.setFieldsEditable(false);
                 panelMachinery.resetToDefault();
@@ -930,26 +1031,32 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
 
             @Override
             public void onEdit() {
+                enableSearch(false);
                 panelMachinery.setFieldsEditable(true);
                 managedTab("tabAssetMachinery");
             }
 
             @Override
             public boolean onSaveEdit() {
-                boolean isUpdated = panelMachinery.updateMachinery();
-                if (!isUpdated) {
+                int isUpdated = panelMachinery.updateMachinery();
+                if (isUpdated == ProcessValidator.VALIDATE_ERROR) {
+                    return false;
+                }
+                if (isUpdated == ProcessValidator.PROCESS_FAILED) {
                     UIValidator.promptErrorMessageOn("EDIT");
+                    return false;
                 } else {
                     UIValidator.promptSucessMessageFor("EDIT");
                     panelMachinery.setFieldsEditable(false);
+                    enableSearch(true);
+                    enableTabs();
+                    return true;
                 }
-
-                enableTabs();
-                return isUpdated;
             }
 
             @Override
             public void onCancelEdit() {
+                enableSearch(true);
                 enableTabs();
                 panelMachinery.setFieldsEditable(false);
             }
@@ -960,62 +1067,79 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
     private void initSpousePersonalInfoAddEditListener() {
         panelSpousePersonalInfo.setHeaderPanel(headerPanel);
         panelSpousePersonalInfo.setPersonType("SPO");
-
+        panelSpousePersonalInfo.setMainPanel(this);
+        panelSpousePersonalInfo.setButtonPanel(addEditSpousePersonalInfo);
         addEditSpousePersonalInfo.setBasicActionListener(new BasicActionListener() {
-
             @Override
             public void onAdd() {
-                panelSpousePersonalInfo.setFieldsEditable(true);
                 panelSpousePersonalInfo.resetToDefault();
+                panelSpousePersonalInfo.setFieldsEditable(true);
+                panelSpousePersonalInfo.enableTakePicture(false);
                 managedTab("tabSpousePersonalInfo");
+                enableSearch(false);
             }
 
             @Override
             public boolean onSaveAdd() {
-                boolean isSaved = panelSpousePersonalInfo.saveSpousePersonalInfo();
-                if (!isSaved) {
+                int isSaved = panelSpousePersonalInfo.saveSpousePersonalInfo();
+                if (isSaved == PersonalInformationPanel.VALIDATE_ERROR) {
+                    return false;
+                } else if (isSaved == PersonalInformationPanel.PROCESS_FAILED) {
                     UIValidator.promptErrorMessageOn("SAVE");
+                    return false;
                 } else {
                     UIValidator.promptSucessMessageFor("SAVE");
                     panelSpousePersonalInfo.setFieldsEditable(false);
                     refreshSearch(headerPanel.getFormNo());
+                    enableSearch(true);
+                    enableTabs();
+                    return false;
                 }
-
-                enableTabs();
-                return isSaved;
             }
 
             @Override
             public void onCancelAdd() {
                 enableTabs();
                 panelSpousePersonalInfo.resetToDefault();
+                panelSpousePersonalInfo.setPersonalInfo(panelSpousePersonalInfo.getPersonalInfo());
                 panelSpousePersonalInfo.setFieldsEditable(false);
+                enableSearch(true);
             }
 
             @Override
             public void onEdit() {
+                if (panelSpousePersonalInfo.getPersonalInfo() == null) {
+                    addEditSpousePersonalInfo.resetActionStateToDefault();
+                    return;
+                }
+
                 panelSpousePersonalInfo.setFieldsEditable(true);
                 managedTab("tabSpousePersonalInfo");
+                enableSearch(false);
             }
 
             @Override
             public boolean onSaveEdit() {
-                boolean isUpdated = panelSpousePersonalInfo.updateSpousePersonalInfo();
-                if (!isUpdated) {
+                int isUpdated = panelSpousePersonalInfo.updateSpousePersonalInfo();
+                if (isUpdated == PersonalInformationPanel.VALIDATE_ERROR) {
+                    return false;
+                } else if (isUpdated == PersonalInformationPanel.PROCESS_FAILED) {
                     UIValidator.promptErrorMessageOn("EDIT");
+                    return false;
                 } else {
                     UIValidator.promptSucessMessageFor("EDIT");
                     panelSpousePersonalInfo.setFieldsEditable(false);
+                    enableSearch(true);
+                    enableTabs();
+                    return true;
                 }
-
-                enableTabs();
-                return isUpdated;
             }
 
             @Override
             public void onCancelEdit() {
                 enableTabs();
                 panelSpousePersonalInfo.setFieldsEditable(false);
+                enableSearch(true);
             }
         });
     }
@@ -1024,12 +1148,12 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
         panelSpouseEmployment.setHeaderPanel(headerPanel);
         panelSpouseEmployment.setPersonType("SPO");
         addEditSpouseEmployment.setBasicActionListener(new BasicActionListener() {
-
             @Override
             public void onAdd() {
                 panelSpouseEmployment.setFieldsEditable(true);
                 panelSpouseEmployment.resetToDefault();
                 managedTab("tabSpouseEmployment");
+                enableSearch(false);
             }
 
             @Override
@@ -1043,6 +1167,7 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
                     refreshSearch(headerPanel.getFormNo());
                 }
 
+                enableSearch(true);
                 enableTabs();
                 return isSaved;
             }
@@ -1050,14 +1175,17 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
             @Override
             public void onCancelAdd() {
                 enableTabs();
+                panelSpouseEmployment.setEmployment(panelSpouseEmployment.getEmployment());
                 panelSpouseEmployment.setFieldsEditable(false);
                 panelSpouseEmployment.resetToDefault();
+                enableSearch(true);
             }
 
             @Override
             public void onEdit() {
                 panelSpouseEmployment.setFieldsEditable(true);
                 managedTab("tabSpouseEmployment");
+                enableSearch(false);
             }
 
             @Override
@@ -1070,6 +1198,7 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
                     panelSpouseEmployment.setFieldsEditable(false);
                 }
 
+                enableSearch(true);
                 enableTabs();
                 return isUpdated;
             }
@@ -1078,6 +1207,7 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
             public void onCancelEdit() {
                 enableTabs();
                 panelSpouseEmployment.setFieldsEditable(false);
+                enableSearch(true);
             }
         });
     }
@@ -1086,12 +1216,12 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
         panelSpouseFamilyBackground.setHeaderPanel(headerPanel);
         panelSpouseFamilyBackground.setPersonType("SPO");
         addEditSpouseFamilyBackground.setBasicActionListener(new BasicActionListener() {
-
             @Override
             public void onAdd() {
                 panelSpouseFamilyBackground.setFieldsEditable(true);
                 panelSpouseFamilyBackground.resetToDefault();
                 managedTab("tabSpouseFamily");
+                enableSearch(false);
             }
 
             @Override
@@ -1105,6 +1235,7 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
                     refreshSearch(headerPanel.getFormNo());
                 }
 
+                enableSearch(true);
                 enableTabs();
                 return isSaved;
             }
@@ -1112,14 +1243,17 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
             @Override
             public void onCancelAdd() {
                 enableTabs();
+                panelSpouseFamilyBackground.setFamilies(panelSpouseFamilyBackground.getFamilies());
                 panelSpouseFamilyBackground.setFieldsEditable(false);
                 panelSpouseFamilyBackground.resetToDefault();
+                enableSearch(true);
             }
 
             @Override
             public void onEdit() {
                 panelSpouseFamilyBackground.setFieldsEditable(true);
                 managedTab("tabSpouseFamily");
+                enableSearch(false);
             }
 
             @Override
@@ -1133,12 +1267,14 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
                     refreshSearch(headerPanel.getFormNo());
                 }
 
+                enableSearch(true);
                 enableTabs();
                 return isUpdated;
             }
 
             @Override
             public void onCancelEdit() {
+                enableSearch(true);
                 enableTabs();
                 panelSpouseFamilyBackground.setFieldsEditable(false);
             }
@@ -1149,60 +1285,77 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
     private void initCoMakerPersonalInfoAddEditListener() {
         panelCoMakerPersonalInformation.setHeaderPanel(headerPanel);
         panelCoMakerPersonalInformation.setMainPanel(this);
+        panelCoMakerPersonalInformation.setButtonPanel(addEditCoMakerPersonalInfo);
         addEditCoMakerPersonalInfo.setBasicActionListener(new BasicActionListener() {
-
             @Override
             public void onAdd() {
-                panelCoMakerPersonalInformation.setFieldsEditable(true);
                 panelCoMakerPersonalInformation.resetToDefault();
+                panelCoMakerPersonalInformation.setFieldsEditable(true);
+                panelCoMakerPersonalInformation.enableTakePicture(false);
                 managedTab("tabCoMakerPersonalInfo");
+                enableSearch(false);
             }
 
             @Override
             public boolean onSaveAdd() {
-                boolean isSaved = panelCoMakerPersonalInformation.saveCoMakerPersonalInfo();
-                if (!isSaved) {
+                int isSaved = panelCoMakerPersonalInformation.saveCoMakerPersonalInfo();
+                if (isSaved == PersonalInformationPanel.VALIDATE_ERROR) {
+                    return false;
+                } else if (isSaved == PersonalInformationPanel.PROCESS_FAILED) {
                     UIValidator.promptErrorMessageOn("SAVE");
+                    return false;
                 } else {
                     UIValidator.promptSucessMessageFor("SAVE");
                     panelCoMakerPersonalInformation.setFieldsEditable(false);
                     refreshComakerTable(PersonalInfoController.getInstance().findCoMakersByFormNo(headerPanel.getFormNo()));
+                    enableSearch(true);
+                    enableTabs();
+                    return true;
                 }
-
-                enableTabs();
-                return isSaved;
             }
 
             @Override
             public void onCancelAdd() {
                 panelCoMakerPersonalInformation.resetToDefault();
+                panelCoMakerPersonalInformation.setPersonalInfo(panelCoMakerPersonalInformation.getPersonalInfo());
                 panelCoMakerPersonalInformation.setFieldsEditable(false);
                 enableTabs();
+                enableSearch(true);
             }
 
             @Override
             public void onEdit() {
+                if (panelCoMakerPersonalInformation.getPersonalInfo() == null) {
+                    addEditCoMakerPersonalInfo.resetActionStateToDefault();
+                    return;
+                }
+
                 panelCoMakerPersonalInformation.setFieldsEditable(true);
                 managedTab("tabCoMakerPersonalInfo");
+                enableSearch(false);
             }
 
             @Override
             public boolean onSaveEdit() {
-                boolean isUpdated = panelCoMakerPersonalInformation.updateCoMakerPersonalInfo();
-                if (!isUpdated) {
+                int isUpdated = panelCoMakerPersonalInformation.updateCoMakerPersonalInfo();
+                if (isUpdated == PersonalInformationPanel.VALIDATE_ERROR) {
+                    return false;
+                } else if (isUpdated == PersonalInformationPanel.PROCESS_FAILED) {
                     UIValidator.promptErrorMessageOn("EDIT");
+                    return false;
                 } else {
                     UIValidator.promptSucessMessageFor("EDIT");
                     panelCoMakerPersonalInformation.setFieldsEditable(false);
                     refreshComakerTable(PersonalInfoController.getInstance().findCoMakersByFormNo(headerPanel.getFormNo()));
+                    enableSearch(true);
+                    enableTabs();
+                    return true;
                 }
-
-                enableTabs();
-                return isUpdated;
             }
 
             @Override
             public void onCancelEdit() {
+                enableSearch(true);
                 enableTabs();
                 panelCoMakerPersonalInformation.setFieldsEditable(false);
             }
@@ -1213,12 +1366,12 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
         panelCoMakerEmploymentData.setHeaderPanel(headerPanel);
         panelCoMakerEmploymentData.setMainPanel(this);
         addEditCoMakerEmployment.setBasicActionListener(new BasicActionListener() {
-
             @Override
             public void onAdd() {
                 panelCoMakerEmploymentData.setFieldsEditable(true);
                 panelCoMakerEmploymentData.resetToDefault();
                 managedTab("tabCoMakerEmployment");
+                enableSearch(false);
             }
 
             @Override
@@ -1232,13 +1385,16 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
                     refreshSearch(headerPanel.getFormNo());
                 }
 
+                enableSearch(true);
                 enableTabs();
                 return isSaved;
             }
 
             @Override
             public void onCancelAdd() {
+                enableSearch(true);
                 enableTabs();
+                panelCoMakerEmploymentData.setEmployment(panelCoMakerEmploymentData.getEmployment());
                 panelCoMakerEmploymentData.setFieldsEditable(false);
                 panelCoMakerEmploymentData.resetToDefault();
             }
@@ -1247,6 +1403,7 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
             public void onEdit() {
                 panelCoMakerEmploymentData.setFieldsEditable(true);
                 managedTab("tabCoMakerEmployment");
+                enableSearch(false);
             }
 
             @Override
@@ -1260,12 +1417,14 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
                     refreshSearch(headerPanel.getFormNo());
                 }
 
+                enableSearch(true);
                 enableTabs();
                 return isUpdated;
             }
 
             @Override
             public void onCancelEdit() {
+                enableSearch(true);
                 enableTabs();
                 panelCoMakerEmploymentData.setFieldsEditable(false);
             }
@@ -1276,12 +1435,12 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
         panelCoMakerFamilyBackground.setHeaderPanel(headerPanel);
         panelCoMakerFamilyBackground.setMainPanel(this);
         addEditCoMakerFamilyBackground.setBasicActionListener(new BasicActionListener() {
-
             @Override
             public void onAdd() {
                 panelCoMakerFamilyBackground.setFieldsEditable(true);
                 panelCoMakerFamilyBackground.resetToDefault();
                 managedTab("tabCoMakerFamily");
+                enableSearch(false);
             }
 
             @Override
@@ -1295,6 +1454,7 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
                     refreshSearch(headerPanel.getFormNo());
                 }
 
+                enableSearch(true);
                 enableTabs();
                 return isSaved;
             }
@@ -1302,14 +1462,17 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
             @Override
             public void onCancelAdd() {
                 enableTabs();
+                panelCoMakerFamilyBackground.setFamilies(panelCoMakerFamilyBackground.getFamilies());
                 panelCoMakerFamilyBackground.setFieldsEditable(false);
                 panelCoMakerFamilyBackground.resetToDefault();
+                enableSearch(true);
             }
 
             @Override
             public void onEdit() {
                 panelCoMakerFamilyBackground.setFieldsEditable(true);
                 managedTab("tabCoMakerFamily");
+                enableSearch(false);
             }
 
             @Override
@@ -1323,12 +1486,14 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
                     refreshSearch(headerPanel.getFormNo());
                 }
 
+                enableSearch(true);
                 enableTabs();
                 return isUpdated;
             }
 
             @Override
             public void onCancelEdit() {
+                enableSearch(true);
                 enableTabs();
                 panelCoMakerFamilyBackground.setFieldsEditable(false);
             }
@@ -1343,12 +1508,12 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
             panelCoMakerSourceOfIncome.setClientNo(searchPanel.getCustomer().getClientNo());
         }
         addEditCoMakerSourceOfIncome.setBasicActionListener(new BasicActionListener() {
-
             @Override
             public void onAdd() {
                 panelCoMakerSourceOfIncome.setFieldsEditable(true);
                 panelCoMakerSourceOfIncome.resetToDefault();
-                managedTab("tabCoMakerSourceOfInc");
+                managedTab("tabCoMakerSourceOfIncome");
+                enableSearch(false);
             }
 
             @Override
@@ -1362,12 +1527,14 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
                     refreshSearch(headerPanel.getFormNo());
                 }
 
+                enableSearch(true);
                 enableTabs();
                 return isSaved;
             }
 
             @Override
             public void onCancelAdd() {
+                enableSearch(true);
                 enableTabs();
                 panelCoMakerSourceOfIncome.setFieldsEditable(false);
                 panelCoMakerSourceOfIncome.resetToDefault();
@@ -1376,7 +1543,8 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
             @Override
             public void onEdit() {
                 panelCoMakerSourceOfIncome.setFieldsEditable(true);
-                managedTab("tabCoMakerSourceOfInc");
+                managedTab("tabCoMakerSourceOfIncome");
+                enableSearch(false);
             }
 
             @Override
@@ -1390,12 +1558,14 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
                     refreshSearch(headerPanel.getFormNo());
                 }
 
+                enableSearch(true);
                 enableTabs();
                 return isUpdated;
             }
 
             @Override
             public void onCancelEdit() {
+                enableSearch(true);
                 enableTabs();
                 panelCoMakerSourceOfIncome.setFieldsEditable(false);
             }
@@ -1406,62 +1576,79 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
     private void initCoMakerSpousePersonalInfoAddEditListener() {
         panelCoMakerSpousePersonalInformation.setHeaderPanel(headerPanel);
         panelCoMakerSpousePersonalInformation.setMainPanel(this);
+        panelCoMakerSpousePersonalInformation.setButtonPanel(addEditCoMakerSpousePersonalInfo);
         addEditCoMakerSpousePersonalInfo.setBasicActionListener(new BasicActionListener() {
-
             @Override
             public void onAdd() {
-                panelCoMakerSpousePersonalInformation.setFieldsEditable(true);
                 panelCoMakerSpousePersonalInformation.resetToDefault();
+                panelCoMakerSpousePersonalInformation.setFieldsEditable(true);
+                panelCoMakerSpousePersonalInformation.enableTakePicture(false);
                 managedTab("tabCoMakerSpousePersonalInfo");
+                enableSearch(false);
             }
 
             @Override
             public boolean onSaveAdd() {
-                boolean isSaved = panelCoMakerSpousePersonalInformation.saveCoMakerSpousePersonalInfo();
-                if (!isSaved) {
+                int isSaved = panelCoMakerSpousePersonalInformation.saveCoMakerSpousePersonalInfo();
+                if (isSaved == PersonalInformationPanel.VALIDATE_ERROR) {
+                    return false;
+                } else if (isSaved == PersonalInformationPanel.PROCESS_FAILED) {
                     UIValidator.promptErrorMessageOn("SAVE");
+                    return false;
                 } else {
                     UIValidator.promptSucessMessageFor("SAVE");
                     panelCoMakerSpousePersonalInformation.setFieldsEditable(false);
                     refreshSearch(headerPanel.getFormNo());
+                    enableSearch(true);
+                    enableTabs();
+                    return false;
                 }
-
-                enableTabs();
-                return isSaved;
             }
 
             @Override
             public void onCancelAdd() {
                 panelCoMakerSpousePersonalInformation.resetToDefault();
+                panelCoMakerSpousePersonalInformation.setPersonalInfo(panelCoMakerSpousePersonalInformation.getPersonalInfo());
                 panelCoMakerSpousePersonalInformation.setFieldsEditable(false);
                 enableTabs();
+                enableSearch(true);
             }
 
             @Override
             public void onEdit() {
+                if (panelCoMakerSpousePersonalInformation.getPersonalInfo() == null) {
+                    addEditCoMakerSpousePersonalInfo.resetActionStateToDefault();
+                    return;
+                }
+
                 panelCoMakerSpousePersonalInformation.setFieldsEditable(true);
                 managedTab("tabCoMakerSpousePersonalInfo");
+                enableSearch(false);
             }
 
             @Override
             public boolean onSaveEdit() {
-                boolean isUpdated = panelCoMakerSpousePersonalInformation.updateCoMakerSpousePersonalInfo();
-                if (!isUpdated) {
+                int isUpdated = panelCoMakerSpousePersonalInformation.updateCoMakerSpousePersonalInfo();
+                if (isUpdated == PersonalInformationPanel.VALIDATE_ERROR) {
+                    return false;
+                } else if (isUpdated == PersonalInformationPanel.PROCESS_FAILED) {
                     UIValidator.promptErrorMessageOn("EDIT");
+                    return false;
                 } else {
                     UIValidator.promptSucessMessageFor("EDIT");
                     panelCoMakerSpousePersonalInformation.setFieldsEditable(false);
                     refreshSearch(headerPanel.getFormNo());
+                    enableSearch(true);
+                    enableTabs();
+                    return true;
                 }
-
-                enableTabs();
-                return isUpdated;
             }
 
             @Override
             public void onCancelEdit() {
                 panelCoMakerSpousePersonalInformation.setFieldsEditable(false);
                 enableTabs();
+                enableSearch(true);
             }
         });
     }
@@ -1471,12 +1658,12 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
         panelCoMakerSpouseEmploymentData.setMainPanel(this);
 
         addEditCoMakerSpouseEmployment.setBasicActionListener(new BasicActionListener() {
-
             @Override
             public void onAdd() {
                 panelCoMakerSpouseEmploymentData.setFieldsEditable(true);
                 panelCoMakerSpouseEmploymentData.resetToDefault();
                 managedTab("tabCoMakerSpouseEmployment");
+                enableSearch(false);
             }
 
             @Override
@@ -1490,21 +1677,25 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
                     refreshSearch(headerPanel.getFormNo());
                 }
 
+                enableSearch(true);
                 enableTabs();
                 return isSaved;
             }
 
             @Override
             public void onCancelAdd() {
+                panelCoMakerSpouseEmploymentData.setEmployment(panelCoMakerSpouseEmploymentData.getEmployment());
                 panelCoMakerSpouseEmploymentData.setFieldsEditable(false);
                 panelCoMakerSpouseEmploymentData.resetToDefault();
                 enableTabs();
+                enableSearch(true);
             }
 
             @Override
             public void onEdit() {
                 panelCoMakerSpouseEmploymentData.setFieldsEditable(true);
                 managedTab("tabCoMakerSpouseEmployment");
+                enableSearch(false);
             }
 
             @Override
@@ -1518,6 +1709,7 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
                     refreshSearch(headerPanel.getFormNo());
                 }
 
+                enableSearch(true);
                 enableTabs();
                 return isUpdated;
             }
@@ -1526,6 +1718,7 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
             public void onCancelEdit() {
                 panelCoMakerSpouseEmploymentData.setFieldsEditable(false);
                 enableTabs();
+                enableSearch(true);
             }
         });
     }
@@ -1534,12 +1727,12 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
         panelCoMakerSpouseFamilyBackground.setHeaderPanel(headerPanel);
         panelCoMakerSpouseFamilyBackground.setMainPanel(this);
         addEditCoMakerSpouseFamilyBackground.setBasicActionListener(new BasicActionListener() {
-
             @Override
             public void onAdd() {
                 panelCoMakerSpouseFamilyBackground.setFieldsEditable(true);
                 panelCoMakerSpouseFamilyBackground.resetToDefault();
                 managedTab("tabCoMakerSpouseFamily");
+                enableSearch(false);
             }
 
             @Override
@@ -1553,21 +1746,25 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
                     refreshSearch(headerPanel.getFormNo());
                 }
 
+                enableSearch(true);
                 enableTabs();
                 return isSaved;
             }
 
             @Override
             public void onCancelAdd() {
+                panelCoMakerSpouseFamilyBackground.setFamilies(panelCoMakerSpouseFamilyBackground.getFamilies());
                 panelCoMakerSpouseFamilyBackground.setFieldsEditable(false);
                 panelCoMakerSpouseFamilyBackground.resetToDefault();
                 enableTabs();
+                enableSearch(true);
             }
 
             @Override
             public void onEdit() {
                 panelCoMakerSpouseFamilyBackground.setFieldsEditable(true);
                 managedTab("tabCoMakerSpouseFamily");
+                enableSearch(false);
             }
 
             @Override
@@ -1581,12 +1778,14 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
                     refreshSearch(headerPanel.getFormNo());
                 }
 
+                enableSearch(true);
                 enableTabs();
                 return isUpdated;
             }
 
             @Override
             public void onCancelEdit() {
+                enableSearch(true);
                 panelCoMakerSpouseFamilyBackground.setFieldsEditable(false);
                 enableTabs();
             }
@@ -1597,62 +1796,72 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
     private void initAddressAddEditChangeListener() {
         panelAddress.setHeaderPanel(headerPanel);
         panelAddress.setPersonType("APP");
+        panelAddress.setButtonPanel(addEditChangeAddress);
         addEditChangeAddress.setButtonListener(new AddEditChangeListener() {
-
             @Override
             public void onAdd() {
                 panelAddress.setFieldsEditable(true);
                 panelAddress.resetToDefault();
                 managedTab("tabAddress");
+                enableSearch(false);
             }
 
             @Override
             public boolean onSaveAdd() {
-                boolean isSaved = panelAddress.saveAddress();
-                if (!isSaved) {
+                int isSaved = panelAddress.saveAddress();
+                if (isSaved == ProcessValidator.VALIDATE_ERROR) {
+                    return false;
+                } else if (isSaved == ProcessValidator.PROCESS_FAILED) {
                     UIValidator.promptErrorMessageOn("SAVE");
+                    return false;
                 } else {
                     UIValidator.promptSucessMessageFor("SAVE");
                     panelAddress.setFieldsEditable(false);
                     refreshSearch(headerPanel.getFormNo());
                     refreshSearch(headerPanel.getFormNo());
+                    enableSearch(true);
+                    enableTabs();
+                    return true;
                 }
-
-                enableTabs();
-                return isSaved;
             }
 
             @Override
             public void onCancelAdd() {
                 panelAddress.setFieldsEditable(false);
                 enableTabs();
+                enableSearch(true);
             }
 
             @Override
             public void onEdit() {
                 panelAddress.setFieldsEditable(true);
                 managedTab("tabAddress");
+                enableSearch(false);
             }
 
             @Override
             public boolean onSaveEdit() {
-                boolean isUpdated = panelAddress.updateAddress();
-                if (!isUpdated) {
+                int isUpdated = panelAddress.updateAddress();
+                if (isUpdated == ProcessValidator.VALIDATE_ERROR) {
+                    return false;
+                } else if (isUpdated == ProcessValidator.VALIDATE_ERROR) {
                     UIValidator.promptErrorMessageOn("EDIT");
+                    return false;
                 } else {
                     UIValidator.promptSucessMessageFor("EDIT");
                     panelAddress.setFieldsEditable(false);
                     refreshSearch(headerPanel.getFormNo());
+                    enableSearch(true);
+                    enableTabs();
+                    return true;
                 }
-
-                enableTabs();
-                return isUpdated;
             }
 
             @Override
             public void onCancelEdit() {
                 panelAddress.setFieldsEditable(false);
                 enableTabs();
+                enableSearch(true);
             }
 
             @Override
@@ -1660,27 +1869,33 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
                 panelAddress.setFieldsEditable(true);
                 panelAddress.resetToDefault();
                 managedTab("tabAddress");
+                enableSearch(false);
             }
 
             @Override
             public boolean onSaveChange() {
-                boolean isChanged = panelAddress.changeAddress();
-                if (!isChanged) {
+                int isChanged = panelAddress.changeAddress();
+                if (isChanged == ProcessValidator.VALIDATE_ERROR) {
+                    return false;
+                }
+                if (isChanged == ProcessValidator.PROCESS_FAILED) {
                     UIValidator.promptErrorMessageOn("SAVE");
+                    return false;
                 } else {
                     UIValidator.promptSucessMessageFor("SAVE");
                     panelAddress.setFieldsEditable(false);
                     refreshSearch(headerPanel.getFormNo());
+                    enableSearch(true);
+                    enableTabs();
+                    return true;
                 }
-
-                enableTabs();
-                return isChanged;
             }
 
             @Override
             public void onCancelChange() {
                 panelAddress.setFieldsEditable(false);
                 enableTabs();
+                enableSearch(true);
             }
         });
     }
@@ -1688,61 +1903,71 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
     private void initSpouseAddressAddEditChangeListener() {
         panelSpouseAddress.setHeaderPanel(headerPanel);
         panelSpouseAddress.setPersonType("SPO");
+        panelSpouseAddress.setButtonPanel(addEditChangeSpouseAddress);
         addEditChangeSpouseAddress.setButtonListener(new AddEditChangeListener() {
-
             @Override
             public void onAdd() {
                 panelSpouseAddress.setFieldsEditable(true);
                 panelSpouseAddress.resetToDefault();
                 managedTab("tabSpouseAddress");
+                enableSearch(false);
             }
 
             @Override
             public boolean onSaveAdd() {
-                boolean isSaved = panelSpouseAddress.saveAddress();
-                if (!isSaved) {
+                int isSaved = panelSpouseAddress.saveAddress();
+                if (isSaved == ProcessValidator.VALIDATE_ERROR) {
+                    return false;
+                } else if (isSaved == ProcessValidator.PROCESS_FAILED) {
                     UIValidator.promptErrorMessageOn("SAVE");
+                    return false;
                 } else {
                     UIValidator.promptSucessMessageFor("SAVE");
                     panelSpouseAddress.setFieldsEditable(false);
                     refreshSearch(headerPanel.getFormNo());
+                    enableSearch(true);
+                    enableTabs();
+                    return true;
                 }
-
-                enableTabs();
-                return isSaved;
             }
 
             @Override
             public void onCancelAdd() {
                 panelSpouseAddress.setFieldsEditable(false);
                 enableTabs();
+                enableSearch(true);
             }
 
             @Override
             public void onEdit() {
                 panelSpouseAddress.setFieldsEditable(true);
                 managedTab("tabSpouseAddress");
+                enableSearch(false);
             }
 
             @Override
             public boolean onSaveEdit() {
-                boolean isUpdated = panelSpouseAddress.updateAddress();
-                if (!isUpdated) {
+                int isUpdated = panelSpouseAddress.updateAddress();
+                if (isUpdated == ProcessValidator.VALIDATE_ERROR) {
+                    return false;
+                } else if (isUpdated == ProcessValidator.PROCESS_FAILED) {
                     UIValidator.promptErrorMessageOn("EDIT");
+                    return false;
                 } else {
                     UIValidator.promptSucessMessageFor("EDIT");
                     panelSpouseAddress.setFieldsEditable(false);
                     refreshSearch(headerPanel.getFormNo());
+                    enableSearch(true);
+                    enableTabs();
+                    return true;
                 }
-
-                enableTabs();
-                return isUpdated;
             }
 
             @Override
             public void onCancelEdit() {
                 panelSpouseAddress.setFieldsEditable(false);
                 enableTabs();
+                enableSearch(true);
             }
 
             @Override
@@ -1750,27 +1975,32 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
                 panelSpouseAddress.setFieldsEditable(true);
                 panelSpouseAddress.resetToDefault();
                 managedTab("tabSpouseAddress");
+                enableSearch(false);
             }
 
             @Override
             public boolean onSaveChange() {
-                boolean isChanged = panelSpouseAddress.changeAddress();
-                if (!isChanged) {
+                int isChanged = panelSpouseAddress.changeAddress();
+                if (isChanged == ProcessValidator.VALIDATE_ERROR) {
+                    return false;
+                } else if (isChanged == ProcessValidator.PROCESS_FAILED) {
                     UIValidator.promptErrorMessageOn("SAVE");
+                    return false;
                 } else {
                     UIValidator.promptSucessMessageFor("SAVE");
                     panelSpouseAddress.setFieldsEditable(false);
                     refreshSearch(headerPanel.getFormNo());
+                    enableSearch(true);
+                    enableTabs();
+                    return true;
                 }
-
-                enableTabs();
-                return isChanged;
             }
 
             @Override
             public void onCancelChange() {
                 panelSpouseAddress.setFieldsEditable(false);
                 enableTabs();
+                enableSearch(true);
             }
         });
     }
@@ -1778,61 +2008,71 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
     private void initCoMakerAddressAddEditChangeListener() {
         panelCoMakerAddress.setHeaderPanel(headerPanel);
         panelCoMakerAddress.setMainPanel(this);
+        panelCoMakerAddress.setButtonPanel(addEditChangeCoMakerAddress);
         addEditChangeCoMakerAddress.setButtonListener(new AddEditChangeListener() {
-
             @Override
             public void onAdd() {
                 panelCoMakerAddress.setFieldsEditable(true);
                 panelCoMakerAddress.resetToDefault();
                 managedTab("tabCoMakerAddress");
+                enableSearch(false);
             }
 
             @Override
             public boolean onSaveAdd() {
-                boolean isSaved = panelCoMakerAddress.saveCoMakerAddress();
-                if (!isSaved) {
+                int isSaved = panelCoMakerAddress.saveCoMakerAddress();
+                if (isSaved == ProcessValidator.VALIDATE_ERROR) {
+                    return false;
+                } else if (isSaved == ProcessValidator.PROCESS_FAILED) {
                     UIValidator.promptErrorMessageOn("SAVE");
+                    return false;
                 } else {
                     UIValidator.promptSucessMessageFor("SAVE");
                     panelCoMakerAddress.setFieldsEditable(false);
                     refreshSearch(headerPanel.getFormNo());
+                    enableSearch(true);
+                    enableTabs();
+                    return true;
                 }
-
-                enableTabs();
-                return isSaved;
             }
 
             @Override
             public void onCancelAdd() {
                 panelCoMakerAddress.setFieldsEditable(false);
                 enableTabs();
+                enableSearch(true);
             }
 
             @Override
             public void onEdit() {
                 panelCoMakerAddress.setFieldsEditable(true);
                 managedTab("tabCoMakerAddress");
+                enableSearch(false);
             }
 
             @Override
             public boolean onSaveEdit() {
-                boolean isUpdated = panelCoMakerAddress.updateAddress();
-                if (!isUpdated) {
+                int isUpdated = panelCoMakerAddress.updateCoMakerAddress();
+                if (isUpdated == ProcessValidator.VALIDATE_ERROR) {
+                    return false;
+                } else if (isUpdated == ProcessValidator.PROCESS_FAILED) {
                     UIValidator.promptErrorMessageOn("EDIT");
+                    return false;
                 } else {
                     UIValidator.promptSucessMessageFor("EDIT");
                     panelCoMakerAddress.setFieldsEditable(false);
                     refreshSearch(headerPanel.getFormNo());
+                    enableSearch(true);
+                    enableTabs();
+                    return true;
                 }
-
-                enableTabs();
-                return isUpdated;
             }
 
             @Override
             public void onCancelEdit() {
                 panelCoMakerAddress.setFieldsEditable(false);
                 enableTabs();
+                enableSearch(true);
             }
 
             @Override
@@ -1840,87 +2080,103 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
                 panelCoMakerAddress.setFieldsEditable(true);
                 panelCoMakerAddress.resetToDefault();
                 managedTab("tabCoMakerAddress");
+                enableSearch(false);
             }
 
             @Override
             public boolean onSaveChange() {
-                boolean isChanged = panelCoMakerAddress.changeAddress();
-                if (!isChanged) {
+                int isSaved = panelCoMakerAddress.saveCoMakerAddress();
+                if (isSaved == ProcessValidator.VALIDATE_ERROR) {
+                    return false;
+                } else if (isSaved == ProcessValidator.PROCESS_FAILED) {
                     UIValidator.promptErrorMessageOn("SAVE");
+                    return false;
                 } else {
                     UIValidator.promptSucessMessageFor("SAVE");
-                    panelCoMakerAddress.setFieldsEditable(true);
+                    panelCoMakerAddress.setFieldsEditable(false);
                     refreshSearch(headerPanel.getFormNo());
+                    enableSearch(true);
+                    enableTabs();
+                    return true;
                 }
-
-                enableTabs();
-                return isChanged;
             }
 
             @Override
             public void onCancelChange() {
                 panelCoMakerAddress.setFieldsEditable(false);
                 enableTabs();
+                enableSearch(true);
             }
         });
     }
 
     private void initCoMakerSpouseAddressAddEditChangeListener() {
+        panelCoMakerSpouseAddress.setButtonPanel(addEditChangeCoMakerSpouseAddress);
         addEditChangeCoMakerSpouseAddress.setButtonListener(new AddEditChangeListener() {
-
             @Override
             public void onAdd() {
                 panelCoMakerSpouseAddress.setFieldsEditable(true);
                 panelCoMakerSpouseAddress.resetToDefault();
                 managedTab("tabCoMakerSpouseAddress");
+                enableSearch(false);
             }
 
             @Override
             public boolean onSaveAdd() {
-                boolean isSaved = panelCoMakerSpouseAddress.saveAddress();
-                if (!isSaved) {
+                int isSaved = panelCoMakerSpouseAddress.saveAddress();
+                if (isSaved == ProcessValidator.VALIDATE_ERROR) {
+                    return false;
+                } else if (isSaved == ProcessValidator.PROCESS_FAILED) {
                     UIValidator.promptErrorMessageOn("SAVE");
+                    return false;
                 } else {
                     UIValidator.promptSucessMessageFor("SAVE");
                     panelCoMakerSpouseAddress.setFieldsEditable(false);
                     refreshSearch(headerPanel.getFormNo());
+                    enableSearch(true);
+                    enableTabs();
+                    return true;
                 }
-
-                enableTabs();
-                return isSaved;
             }
 
             @Override
             public void onCancelAdd() {
                 panelCoMakerSpouseAddress.setFieldsEditable(false);
                 enableTabs();
+                enableSearch(true);
             }
 
             @Override
             public void onEdit() {
                 panelCoMakerSpouseAddress.setFieldsEditable(true);
                 managedTab("tabCoMakerSpouseAddress");
+                enableSearch(false);
             }
 
             @Override
             public boolean onSaveEdit() {
-                boolean isUpdated = panelCoMakerSpouseAddress.updateAddress();
-                if (!isUpdated) {
+                int isUpdated = panelCoMakerSpouseAddress.updateCoMakerAddress();
+                if (isUpdated == ProcessValidator.VALIDATE_ERROR) {
+                    return false;
+                }
+                if (isUpdated == ProcessValidator.PROCESS_FAILED) {
                     UIValidator.promptErrorMessageOn("EDIT");
+                    return false;
                 } else {
                     UIValidator.promptSucessMessageFor("EDIT");
                     refreshSearch(headerPanel.getFormNo());
                     panelCoMakerSpouseAddress.setFieldsEditable(false);
+                    enableSearch(true);
+                    enableTabs();
+                    return true;
                 }
-
-                enableTabs();
-                return isUpdated;
             }
 
             @Override
             public void onCancelEdit() {
                 panelCoMakerSpouseAddress.setFieldsEditable(false);
                 enableTabs();
+                enableSearch(true);
             }
 
             @Override
@@ -1928,27 +2184,32 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
                 panelCoMakerSpouseAddress.setFieldsEditable(true);
                 panelCoMakerSpouseAddress.resetToDefault();
                 managedTab("tabCoMakerSpouseAddress");
+                enableSearch(false);
             }
 
             @Override
             public boolean onSaveChange() {
-                boolean isChanged = panelCoMakerSpouseAddress.changeAddress();
-                if (!isChanged) {
+                int isSaved = panelCoMakerAddress.saveCoMakerAddress();
+                if (isSaved == ProcessValidator.VALIDATE_ERROR) {
+                    return false;
+                } else if (isSaved == ProcessValidator.PROCESS_FAILED) {
                     UIValidator.promptErrorMessageOn("SAVE");
+                    return false;
                 } else {
                     UIValidator.promptSucessMessageFor("SAVE");
-                    panelCoMakerSpouseAddress.setFieldsEditable(false);
+                    panelCoMakerAddress.setFieldsEditable(false);
                     refreshSearch(headerPanel.getFormNo());
+                    enableSearch(true);
+                    enableTabs();
+                    return true;
                 }
-
-                enableTabs();
-                return isChanged;
             }
 
             @Override
             public void onCancelChange() {
                 panelCoMakerSpouseAddress.setFieldsEditable(false);
                 enableTabs();
+                enableSearch(true);
             }
         });
     }
@@ -1956,61 +2217,71 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
     /* Purchase Order  */
     private void initPurchaseOrderAddEditListener() {
         panelPO.setHeaderPanel(headerPanel);
+        panelPO.setButtonPanel(addEditPO);
         addEditPO.setBasicActionListener(new BasicActionListener() {
-
             @Override
             public void onAdd() {
                 panelPO.setFieldsEditable(true);
                 panelPO.resetToDefault();
                 managedTab("tabPO");
+                enableSearch(false);
             }
 
             @Override
             public boolean onSaveAdd() {
-                boolean isSaved = panelPO.savePurchaseOrder();
-                if (!isSaved) {
+                int isSaved = panelPO.savePurchaseOrder();
+                if (isSaved == ProcessValidator.VALIDATE_ERROR) {
+                    return false;
+                } else if (isSaved == ProcessValidator.PROCESS_FAILED) {
                     UIValidator.promptErrorMessageOn("SAVE");
+                    return false;
                 } else {
                     UIValidator.promptSucessMessageFor("SAVE");
                     panelPO.setFieldsEditable(false);
                     refreshSearch(headerPanel.getFormNo());
+                    enableSearch(true);
+                    enableTabs();
+                    return true;
                 }
-
-                enableTabs();
-                return isSaved;
             }
 
             @Override
             public void onCancelAdd() {
                 panelPO.setFieldsEditable(false);
                 enableTabs();
+                enableSearch(true);
             }
 
             @Override
             public void onEdit() {
                 panelPO.setFieldsEditable(true);
                 managedTab("tabPO");
+                enableSearch(false);
             }
 
             @Override
             public boolean onSaveEdit() {
-                boolean isUpdated = panelPO.updatePurchaseOrder();
-                if (!isUpdated) {
+                int isUpdated = panelPO.updatePurchaseOrder();
+                if (isUpdated == ProcessValidator.VALIDATE_ERROR) {
+                    return false;
+                } else if (isUpdated == ProcessValidator.PROCESS_FAILED) {
                     UIValidator.promptErrorMessageOn("EDIT");
+                    return false;
                 } else {
                     UIValidator.promptSucessMessageFor("EDIT");
                     panelPO.setFieldsEditable(false);
                     refreshSearch(headerPanel.getFormNo());
+                    enableSearch(false);
+                    enableTabs();
+                    return true;
                 }
-
-                enableTabs();
-                return isUpdated;
             }
 
             @Override
             public void onCancelEdit() {
                 panelPO.setFieldsEditable(false);
                 enableTabs();
+                enableSearch(false);
             }
         });
     }
@@ -2019,175 +2290,204 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
     private void initIdentification() {
         panelRidersToBuyer.setHeaderPanel(headerPanel);
         panelRidersToBuyer.setPersonType("APP");
+        panelRidersToBuyer.setButtonPanel(addEditIdentification);
         addEditIdentification.setBasicActionListener(new BasicActionListener() {
-
             @Override
             public void onAdd() {
                 panelRidersToBuyer.setFieldsEditable(true);
                 panelRidersToBuyer.resetToDefault();
                 managedTab("tabID");
+                enableSearch(false);
             }
 
             @Override
             public boolean onSaveAdd() {
-                boolean isSaved = panelRidersToBuyer.saveAgreement();
-                if (!isSaved) {
+                int isSaved = panelRidersToBuyer.saveAgreement();
+                if (isSaved == ProcessValidator.VALIDATE_ERROR) {
+                    return false;
+                } else if (isSaved == ProcessValidator.PROCESS_FAILED) {
                     UIValidator.promptErrorMessageOn("SAVE");
+                    return false;
                 } else {
                     UIValidator.promptSucessMessageFor("SAVE");
                     panelRidersToBuyer.setFieldsEditable(false);
+                    enableSearch(true);
+                    enableTabs();
+                    return true;
                 }
-
-                enableTabs();
-                return isSaved;
             }
 
             @Override
             public void onCancelAdd() {
                 panelRidersToBuyer.setFieldsEditable(false);
                 enableTabs();
+                enableSearch(true);
             }
 
             @Override
             public void onEdit() {
                 panelRidersToBuyer.setFieldsEditable(true);
                 managedTab("tabID");
+                enableSearch(false);
             }
 
             @Override
             public boolean onSaveEdit() {
-                boolean isUpdated = panelRidersToBuyer.updateAgreement();
-                if (!isUpdated) {
+                int isUpdated = panelRidersToBuyer.updateAgreement();
+                if (isUpdated == ProcessValidator.VALIDATE_ERROR) {
+                    return false;
+                } else if (isUpdated == ProcessValidator.PROCESS_FAILED) {
                     UIValidator.promptErrorMessageOn("EDIT");
+                    return false;
                 } else {
                     UIValidator.promptSucessMessageFor("EDIT");
                     panelRidersToBuyer.setFieldsEditable(false);
+                    enableSearch(true);
+                    enableTabs();
+                    return true;
                 }
-
-                enableTabs();
-                return isUpdated;
             }
 
             @Override
             public void onCancelEdit() {
                 panelRidersToBuyer.setFieldsEditable(false);
                 enableTabs();
+                enableSearch(true);
             }
         });
 
         panelSpouseRidersToBuyer.setHeaderPanel(headerPanel);
         panelSpouseRidersToBuyer.setPersonType("SPO");
+        panelSpouseRidersToBuyer.setButtonPanel(addEditSpouseID);
         addEditSpouseID.setBasicActionListener(new BasicActionListener() {
-
             @Override
             public void onAdd() {
                 panelSpouseRidersToBuyer.setFieldsEditable(true);
                 panelSpouseRidersToBuyer.resetToDefault();
                 managedTab("tabSpouseID");
+                enableSearch(false);
             }
 
             @Override
             public boolean onSaveAdd() {
-                boolean isSaved = panelSpouseRidersToBuyer.saveAgreement();
-                if (!isSaved) {
+                int isSaved = panelSpouseRidersToBuyer.saveAgreement();
+                if (isSaved == ProcessValidator.VALIDATE_ERROR) {
+                    return false;
+                } else if (isSaved == ProcessValidator.PROCESS_FAILED) {
                     UIValidator.promptErrorMessageOn("SAVE");
+                    return false;
                 } else {
                     UIValidator.promptSucessMessageFor("SAVE");
                     panelSpouseRidersToBuyer.setFieldsEditable(false);
+                    enableSearch(true);
+                    enableTabs();
+                    return true;
                 }
-
-                enableTabs();
-                return isSaved;
             }
 
             @Override
             public void onCancelAdd() {
                 panelSpouseRidersToBuyer.setFieldsEditable(false);
                 enableTabs();
+                enableSearch(true);
             }
 
             @Override
             public void onEdit() {
                 panelSpouseRidersToBuyer.setFieldsEditable(true);
                 managedTab("tabSpouseID");
+                enableSearch(false);
             }
 
             @Override
             public boolean onSaveEdit() {
-                boolean isUpdated = panelSpouseRidersToBuyer.updateAgreement();
-                if (!isUpdated) {
+                int isUpdated = panelSpouseRidersToBuyer.updateAgreement();
+                if (isUpdated == ProcessValidator.VALIDATE_ERROR) {
+                    return false;
+                } else if (isUpdated == ProcessValidator.PROCESS_FAILED) {
                     UIValidator.promptErrorMessageOn("EDIT");
+                    return false;
                 } else {
                     UIValidator.promptSucessMessageFor("EDIT");
                     panelSpouseRidersToBuyer.setFieldsEditable(false);
+                    enableSearch(true);
+                    enableTabs();
+                    return true;
                 }
-
-                enableTabs();
-                return isUpdated;
             }
 
             @Override
             public void onCancelEdit() {
                 panelSpouseRidersToBuyer.setFieldsEditable(false);
                 enableTabs();
+                enableSearch(true);
             }
         });
 
         panelCoMakerRidersToBuyer.setHeaderPanel(headerPanel);
-//        panelCoMakerRidersToBuyer.setPersonType("SPO");
+        panelCoMakerRidersToBuyer.setButtonPanel(addEditCMID);
         addEditCMID.setBasicActionListener(new BasicActionListener() {
-
             @Override
             public void onAdd() {
                 panelCoMakerRidersToBuyer.setFieldsEditable(true);
                 panelCoMakerRidersToBuyer.resetToDefault();
-                managedTab("tabSpouseID");
+                managedTab("tabCoMakerID");
+                enableSearch(false);
             }
 
             @Override
             public boolean onSaveAdd() {
-                boolean isSaved = panelCoMakerRidersToBuyer.saveAgreement();
-                if (!isSaved) {
+                int isSaved = panelCoMakerRidersToBuyer.saveAgreement();
+                if (isSaved == ProcessValidator.VALIDATE_ERROR) {
+                    return false;
+                } else if (isSaved == ProcessValidator.PROCESS_FAILED) {
                     UIValidator.promptErrorMessageOn("SAVE");
+                    return false;
                 } else {
                     UIValidator.promptSucessMessageFor("SAVE");
                     panelCoMakerRidersToBuyer.setFieldsEditable(false);
+                    enableSearch(true);
+                    enableTabs();
+                    return true;
                 }
-
-                enableTabs();
-                return isSaved;
             }
 
             @Override
             public void onCancelAdd() {
                 panelCoMakerRidersToBuyer.setFieldsEditable(false);
                 enableTabs();
+                enableSearch(true);
             }
 
             @Override
             public void onEdit() {
                 panelCoMakerRidersToBuyer.setFieldsEditable(true);
-                managedTab("tabSpouseID");
+                managedTab("tabCoMakerID");
+                enableSearch(false);
             }
 
             @Override
             public boolean onSaveEdit() {
-                boolean isUpdated = panelCoMakerRidersToBuyer.updateAgreement();
-                if (!isUpdated) {
+                int isUpdated = panelCoMakerRidersToBuyer.updateAgreement();
+                if (isUpdated == ProcessValidator.VALIDATE_ERROR) {
+                    return false;
+                } else if (isUpdated == ProcessValidator.PROCESS_FAILED) {
                     UIValidator.promptErrorMessageOn("EDIT");
+                    return false;
                 } else {
                     UIValidator.promptSucessMessageFor("EDIT");
                     panelCoMakerRidersToBuyer.setFieldsEditable(false);
+                    enableSearch(true);
+                    enableTabs();
+                    return true;
                 }
-
-                enableTabs();
-                return isUpdated;
             }
 
             @Override
             public void onCancelEdit() {
                 panelCoMakerRidersToBuyer.setFieldsEditable(false);
                 enableTabs();
+                enableSearch(true);
             }
         });
     }
@@ -2196,7 +2496,6 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
         tableCoMaker.putClientProperty("Quaqua.Table.style", "striped");
         tableCoMaker.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         tableCoMaker.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-
             @Override
             public void valueChanged(ListSelectionEvent lse) {
                 try {
@@ -2382,7 +2681,7 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
         panels.add(tabSpouseID);
 
         /* Co Maker */
-//        panels.add(tabCoMaker);
+        panels.add(tabCoMaker);
         panels.add(tabCoMakerAddress);
         panels.add(tabCoMakerEmployment);
         panels.add(tabCoMakerFamily);
@@ -2395,6 +2694,20 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
         panels.add(tabCoMakerSpousePersonalInfo);
 
         UIValidator.manageTab(panels, tabName);
+        tabDetail.setEnabled(false);
+        tabDetails.setEnabled(false);
+        tabMain.setEnabled(false);
+//        switch(tabName) {
+//            case "tabAppPersonalInfo":
+//            case "tabSpousePersonalInfo":
+//            case "tabCoMakerPersonalInfo":
+//                tabDetail.setEnabled(false);
+//                break;
+//            default:
+//                tabDetail.setEnabled(false);
+//                tabMain.setEnabled(false);
+//                break;
+//        }
     }
 
     public void enableTabs() {
@@ -2424,7 +2737,7 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
         panels.add(tabSpouseID);
 
         /* Co Maker */
-//        panels.add(tabCoMaker);
+        panels.add(tabCoMaker);
         panels.add(tabCoMakerAddress);
         panels.add(tabCoMakerEmployment);
         panels.add(tabCoMakerFamily);
@@ -2437,14 +2750,21 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
         panels.add(tabCoMakerSpousePersonalInfo);
 
         UIValidator.enableTabs(panels);
+
+        tabMain.setEnabled(true);
+        tabDetail.setEnabled(true);
+        tabDetails.setEnabled(true);
     }
-    
+
     public IndexedFocusTraversalPolicy getPolicy() {
-        IndexedFocusTraversalPolicy policy =UISetting.policy;
-        policy.addForwardTraversalKeys(this, KeyEvent.VK_ENTER);
+        IndexedFocusTraversalPolicy policy = UISetting.policy;
 
         return policy;
-    } 
+    }
+
+    public void enableSearch(boolean value) {
+        searchPanel.enableSearch(value);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -2460,7 +2780,8 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
         tabMain = new javax.swing.JTabbedPane();
         tabAppPersonalInfo = new javax.swing.JPanel();
         panelPersonalInfo = new com.vg.scfc.financing.cis.ui.reusable.PersonalInformationPanel();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        addEditPersonalInfo = new com.vg.scfc.financing.cis.ui.reusable.AddEditButtonPanel();
+        tabDetails = new javax.swing.JTabbedPane();
         tabEmployment = new javax.swing.JPanel();
         panelEmploymentData = new com.vg.scfc.financing.cis.ui.reusable.EmploymentDataPanel();
         addEditEmployment = new com.vg.scfc.financing.cis.ui.reusable.AddEditButtonPanel();
@@ -2511,7 +2832,6 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
         tabID = new javax.swing.JPanel();
         panelRidersToBuyer = new com.vg.scfc.financing.cis.ui.reusable.RidersToBuyerPanel();
         addEditIdentification = new com.vg.scfc.financing.cis.ui.reusable.AddEditButtonPanel();
-        addEditPersonalInfo = new com.vg.scfc.financing.cis.ui.reusable.AddEditButtonPanel();
         tabSpousePersonalInfo = new javax.swing.JPanel();
         panelSpousePersonalInfo = new com.vg.scfc.financing.cis.ui.reusable.PersonalInformationPanel();
         jTabbedPane3 = new javax.swing.JTabbedPane();
@@ -2531,9 +2851,10 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
         tabCoMaker = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
         tableCoMaker = new javax.swing.JTable();
-        jTabbedPane4 = new javax.swing.JTabbedPane();
+        tabDetail = new javax.swing.JTabbedPane();
         tabCoMakerPersonalInfo = new javax.swing.JPanel();
         panelCoMakerPersonalInformation = new com.vg.scfc.financing.cis.ui.reusable.PersonalInformationPanel();
+        addEditCoMakerPersonalInfo = new com.vg.scfc.financing.cis.ui.reusable.AddEditButtonPanel();
         tabCoMakerEmployment = new javax.swing.JPanel();
         panelCoMakerEmploymentData = new com.vg.scfc.financing.cis.ui.reusable.EmploymentDataPanel();
         addEditCoMakerEmployment = new com.vg.scfc.financing.cis.ui.reusable.AddEditButtonPanel();
@@ -2563,62 +2884,63 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
         tabCoMakerID = new javax.swing.JPanel();
         panelCoMakerRidersToBuyer = new com.vg.scfc.financing.cis.ui.reusable.RidersToBuyerPanel();
         addEditCMID = new com.vg.scfc.financing.cis.ui.reusable.AddEditButtonPanel();
-        addEditCoMakerPersonalInfo = new com.vg.scfc.financing.cis.ui.reusable.AddEditButtonPanel();
         headerPanel = new com.vg.scfc.financing.cis.ui.reusable.HeaderPanel();
         searchPanel = new com.vg.scfc.financing.cis.ui.panel.SearchPanel();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         tabMain.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        tabMain.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
+        tabMain.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
 
         tabAppPersonalInfo.setName("tabAppPersonalInfo"); // NOI18N
         tabAppPersonalInfo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         tabAppPersonalInfo.add(panelPersonalInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(3, 0, -1, 190));
+        tabAppPersonalInfo.add(addEditPersonalInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 192, -1, -1));
 
-        jTabbedPane1.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
+        tabDetails.setTabLayoutPolicy(javax.swing.JTabbedPane.SCROLL_TAB_LAYOUT);
+        tabDetails.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
 
         tabEmployment.setName("tabEmployment"); // NOI18N
         tabEmployment.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         tabEmployment.add(panelEmploymentData, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 5, -1, -1));
         tabEmployment.add(addEditEmployment, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 215, -1, -1));
 
-        jTabbedPane1.addTab("Employment", tabEmployment);
+        tabDetails.addTab("Employment", tabEmployment);
 
         tabFamily.setName("tabFamily"); // NOI18N
         tabFamily.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         tabFamily.add(panelFamilyBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 5, -1, -1));
         tabFamily.add(addEditFamily, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 165, -1, -1));
 
-        jTabbedPane1.addTab("Family", tabFamily);
+        tabDetails.addTab("Family", tabFamily);
 
         tabSibling.setName("tabSibling"); // NOI18N
         tabSibling.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         tabSibling.add(panelSibling, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
         tabSibling.add(addEditSibling, new org.netbeans.lib.awtextra.AbsoluteConstraints(92, 185, -1, -1));
 
-        jTabbedPane1.addTab("Siblings", tabSibling);
+        tabDetails.addTab("Siblings", tabSibling);
 
         tabCharacterRef.setName("tabCharacterRef"); // NOI18N
         tabCharacterRef.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         tabCharacterRef.add(panelCharacterReference, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
         tabCharacterRef.add(addEditCharacterReference, new org.netbeans.lib.awtextra.AbsoluteConstraints(92, 215, -1, -1));
 
-        jTabbedPane1.addTab("Character Reference", tabCharacterRef);
+        tabDetails.addTab("Char Ref", tabCharacterRef);
 
         tabDependent.setName("tabDependent"); // NOI18N
         tabDependent.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         tabDependent.add(addEditDependents, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 220, -1, -1));
         tabDependent.add(panelDependents, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 5, 620, -1));
 
-        jTabbedPane1.addTab("Dependents", tabDependent);
+        tabDetails.addTab("Dependents", tabDependent);
 
         tabCreditRef.setName("tabCreditRef"); // NOI18N
         tabCreditRef.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         tabCreditRef.add(panelCreditReference, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
         tabCreditRef.add(addEditCreditReference, new org.netbeans.lib.awtextra.AbsoluteConstraints(105, 240, -1, -1));
 
-        jTabbedPane1.addTab("Credit Reference", tabCreditRef);
+        tabDetails.addTab("Credit Ref", tabCreditRef);
 
         tabSourceOfInc.setName("tabSourceOfInc"); // NOI18N
         tabSourceOfInc.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -2632,18 +2954,18 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
         txtTotalMonthlyIncome.setFocusable(false);
         tabSourceOfInc.add(txtTotalMonthlyIncome, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 285, 127, -1));
 
-        jTabbedPane1.addTab("Src. of Income", tabSourceOfInc);
+        tabDetails.addTab("Src. of Inc", tabSourceOfInc);
 
         tabExpenditure.setName("tabExpenditure"); // NOI18N
         tabExpenditure.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         tabExpenditure.add(panelExpenditures, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 5, -1, -1));
         tabExpenditure.add(addEditExpenditures, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 240, -1, -1));
 
-        jTabbedPane1.addTab("Expenditures", tabExpenditure);
+        tabDetails.addTab("Expenditure", tabExpenditure);
 
         jPanel10.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        tabAsset.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
+        tabAsset.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
 
         tabAssetLand.setName("tabAssetLand"); // NOI18N
         tabAssetLand.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -2675,14 +2997,14 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
 
         jPanel10.add(tabAsset, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 290));
 
-        jTabbedPane1.addTab("Assets", jPanel10);
+        tabDetails.addTab("Assets", jPanel10);
 
         tabAddress.setName("tabAddress"); // NOI18N
         tabAddress.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         tabAddress.add(panelAddress, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, -1, -1));
         tabAddress.add(addEditChangeAddress, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 230, -1, -1));
 
-        jTabbedPane1.addTab("Address", tabAddress);
+        tabDetails.addTab("Address", tabAddress);
 
         tabPO.setName("tabPO"); // NOI18N
         tabPO.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -2697,17 +3019,16 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
         });
         tabPO.add(btnPrint, new org.netbeans.lib.awtextra.AbsoluteConstraints(725, 260, 90, -1));
 
-        jTabbedPane1.addTab("Purchase Order", tabPO);
+        tabDetails.addTab("P.O.", tabPO);
 
         tabID.setName("tabID"); // NOI18N
         tabID.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         tabID.add(panelRidersToBuyer, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 15, -1, -1));
         tabID.add(addEditIdentification, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 150, -1, -1));
 
-        jTabbedPane1.addTab("Identification", tabID);
+        tabDetails.addTab("ID", tabID);
 
-        tabAppPersonalInfo.add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 225, 1020, 360));
-        tabAppPersonalInfo.add(addEditPersonalInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 192, -1, -1));
+        tabAppPersonalInfo.add(tabDetails, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 225, 1020, 360));
 
         tabMain.addTab("Applicant Personal Information", tabAppPersonalInfo);
 
@@ -2715,7 +3036,7 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
         tabSpousePersonalInfo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         tabSpousePersonalInfo.add(panelSpousePersonalInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
-        jTabbedPane3.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
+        jTabbedPane3.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
 
         tabSpouseEmployment.setName("tabSpouseEmployment"); // NOI18N
         tabSpouseEmployment.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -2770,40 +3091,41 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
         jTableBinding.bind();
         jScrollPane5.setViewportView(tableCoMaker);
 
-        tabCoMaker.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 5, 1000, 70));
+        tabCoMaker.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 5, 1000, 100));
 
-        jTabbedPane4.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
+        tabDetail.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
 
         tabCoMakerPersonalInfo.setName("tabCoMakerPersonalInfo"); // NOI18N
         tabCoMakerPersonalInfo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         tabCoMakerPersonalInfo.add(panelCoMakerPersonalInformation, new org.netbeans.lib.awtextra.AbsoluteConstraints(-5, 0, -1, -1));
+        tabCoMakerPersonalInfo.add(addEditCoMakerPersonalInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 210, -1, -1));
 
-        jTabbedPane4.addTab("Personal Info", tabCoMakerPersonalInfo);
+        tabDetail.addTab("Personal Info", tabCoMakerPersonalInfo);
 
         tabCoMakerEmployment.setName("tabCoMakerEmployment"); // NOI18N
         tabCoMakerEmployment.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         tabCoMakerEmployment.add(panelCoMakerEmploymentData, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 5, -1, -1));
         tabCoMakerEmployment.add(addEditCoMakerEmployment, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 215, -1, -1));
 
-        jTabbedPane4.addTab("Employment", tabCoMakerEmployment);
+        tabDetail.addTab("Employment", tabCoMakerEmployment);
 
         tabCoMakerFamily.setName("tabCoMakerFamily"); // NOI18N
         tabCoMakerFamily.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         tabCoMakerFamily.add(panelCoMakerFamilyBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 5, -1, -1));
         tabCoMakerFamily.add(addEditCoMakerFamilyBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 215, -1, -1));
 
-        jTabbedPane4.addTab("Family", tabCoMakerFamily);
+        tabDetail.addTab("Family", tabCoMakerFamily);
 
         tabCoMakerSourceOfIncome.setName("tabCoMakerSourceOfIncome"); // NOI18N
         tabCoMakerSourceOfIncome.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         tabCoMakerSourceOfIncome.add(panelCoMakerSourceOfIncome, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 5, -1, -1));
         tabCoMakerSourceOfIncome.add(addEditCoMakerSourceOfIncome, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, -1, -1));
 
-        jTabbedPane4.addTab("Source of Income", tabCoMakerSourceOfIncome);
+        tabDetail.addTab("Source of Income", tabCoMakerSourceOfIncome);
 
         jPanel23.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTabbedPane5.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
+        jTabbedPane5.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
 
         tabCoMakerSpousePersonalInfo.setName("tabCoMakerSpousePersonalInfo"); // NOI18N
         tabCoMakerSpousePersonalInfo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -2835,24 +3157,23 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
 
         jPanel23.add(jTabbedPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1010, 400));
 
-        jTabbedPane4.addTab("Spouse Information", jPanel23);
+        tabDetail.addTab("Spouse Information", jPanel23);
 
         tabCoMakerAddress.setName("tabCoMakerAddress"); // NOI18N
         tabCoMakerAddress.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         tabCoMakerAddress.add(panelCoMakerAddress, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, -1, -1));
         tabCoMakerAddress.add(addEditChangeCoMakerAddress, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 230, -1, -1));
 
-        jTabbedPane4.addTab("Address", tabCoMakerAddress);
+        tabDetail.addTab("Address", tabCoMakerAddress);
 
         tabCoMakerID.setName("tabCoMakerID"); // NOI18N
         tabCoMakerID.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         tabCoMakerID.add(panelCoMakerRidersToBuyer, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 15, -1, -1));
         tabCoMakerID.add(addEditCMID, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 160, -1, -1));
 
-        jTabbedPane4.addTab("Identification", tabCoMakerID);
+        tabDetail.addTab("Identification", tabCoMakerID);
 
-        tabCoMaker.add(jTabbedPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 120, 1030, 440));
-        tabCoMaker.add(addEditCoMakerPersonalInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 80, -1, -1));
+        tabCoMaker.add(tabDetail, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 120, 1030, 440));
 
         tabMain.addTab("Co-Maker", tabCoMaker);
 
@@ -2866,7 +3187,6 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
     private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
         new WaitSplashScreen(null, true, this, "PURCHASE ORDER").getThisDlg();
     }//GEN-LAST:event_btnPrintActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.vg.scfc.financing.cis.ui.reusable.AddEditButtonPanel addEditAppliance;
     private com.vg.scfc.financing.cis.ui.reusable.AddEditButtonPanel addEditCMID;
@@ -2905,9 +3225,7 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel23;
     private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane3;
-    private javax.swing.JTabbedPane jTabbedPane4;
     private javax.swing.JTabbedPane jTabbedPane5;
     private javax.swing.JLabel lblAvgMonthlyIncomeForOtherSources;
     private com.vg.scfc.financing.cis.ui.reusable.AddressPanel panelAddress;
@@ -2963,6 +3281,8 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
     private javax.swing.JPanel tabCoMakerSpousePersonalInfo;
     private javax.swing.JPanel tabCreditRef;
     private javax.swing.JPanel tabDependent;
+    private javax.swing.JTabbedPane tabDetail;
+    private javax.swing.JTabbedPane tabDetails;
     private javax.swing.JPanel tabEmployment;
     private javax.swing.JPanel tabExpenditure;
     private javax.swing.JPanel tabFamily;
@@ -3159,5 +3479,4 @@ public class MainPanel extends javax.swing.JPanel implements DoJasperPrintReport
     public VehiclePanel getPanelVehicle() {
         return panelVehicle;
     }
-
 }

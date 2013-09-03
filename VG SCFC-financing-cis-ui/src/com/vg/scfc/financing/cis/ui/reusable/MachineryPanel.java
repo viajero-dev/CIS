@@ -5,11 +5,11 @@
  */
 package com.vg.scfc.financing.cis.ui.reusable;
 
-import com.vg.commons.renderer.IndexedFocusTraversalPolicy;
 import com.vg.commons.util.NumberUtils;
 import com.vg.scfc.financing.cis.ent.Machinery;
 import com.vg.scfc.financing.cis.ui.controller.MachineryAssetsController;
 import com.vg.scfc.financing.cis.ui.settings.UISetting;
+import com.vg.scfc.financing.cis.ui.validator.ProcessValidator;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -35,13 +35,13 @@ public class MachineryPanel extends javax.swing.JPanel implements KeyListener {
         startUpSettings();
         policySetting();
     }
-    
+
     public final void policySetting() {
         UISetting.policy.addIndexedComponent(txtMachineType);
         UISetting.policy.addIndexedComponent(txtMachineQty);
         UISetting.policy.addIndexedComponent(txtMachineEstValue);
     }
-    
+
     private void startUpSettings() {
         setFieldsEditable(false);
         initKeyListeners();
@@ -188,6 +188,11 @@ public class MachineryPanel extends javax.swing.JPanel implements KeyListener {
     private int selectedIndex;
     private Machinery machinery;
     private HeaderPanel headerPanel;
+    private AddEditButtonPanel buttonPanel;
+
+    public void setButtonPanel(AddEditButtonPanel buttonPanel) {
+        this.buttonPanel = buttonPanel;
+    }
 
     public void setHeaderPanel(HeaderPanel headerPanel) {
         this.headerPanel = headerPanel;
@@ -204,19 +209,35 @@ public class MachineryPanel extends javax.swing.JPanel implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
+        switch (e.getKeyCode()) {
+            case KeyEvent.VK_ENTER:
+                if (txtMachineEstValue.isFocusOwner()) {
+                if (buttonPanel.getBtnAdd().getText().equals("Save")) {
+                    buttonPanel.getBtnAdd().requestFocus();
+                } else {
+                    buttonPanel.getBtnEdit().requestFocus();
+                }
+            }
+                break;
+        }
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
         switch (e.getKeyCode()) {
-//            case KeyEvent.VK_TAB:
-//            case KeyEvent.VK_ENTER:
-//                if (txtMachineType.isFocusOwner()) {
-//                txtMachineQty.requestFocus();
-//            } else if (txtMachineQty.isFocusOwner()) {
-//                txtMachineEstValue.requestFocus();
-//            }
-//                break;
+            case KeyEvent.VK_ENTER:
+                if (txtMachineType.isFocusOwner()) {
+                txtMachineQty.requestFocus();
+            } else if (txtMachineQty.isFocusOwner()) {
+                txtMachineEstValue.requestFocus();
+            } else if (txtMachineEstValue.isFocusOwner()) {
+                if (buttonPanel.getBtnAdd().getText().equals("Save")) {
+                    buttonPanel.getBtnAdd().requestFocus();
+                } else {
+                    buttonPanel.getBtnEdit().requestFocus();
+                }
+            }
+                break;
             case KeyEvent.VK_UP:
                 if (txtMachineEstValue.isFocusOwner()) {
                 txtMachineQty.requestFocus();
@@ -259,16 +280,24 @@ public class MachineryPanel extends javax.swing.JPanel implements KeyListener {
         }
     }
 
-    public boolean saveMachinery() {
-        List<Machinery> m = MachineryAssetsController.getInstance().createNew(headerPanel.getFormNo(), createNew(new Machinery()));
+    public int saveMachinery() {
+        Machinery tempMachine = createNew(new Machinery());
+        if (!validMachinery(tempMachine)) {
+            return ProcessValidator.VALIDATE_ERROR;
+        }
+        List<Machinery> m = MachineryAssetsController.getInstance().createNew(headerPanel.getFormNo(), tempMachine);
         refreshTable(m);
-        return !m.isEmpty();
+        return (!m.isEmpty() ? ProcessValidator.PROCESS_COMPLETED : ProcessValidator.PROCESS_FAILED);
     }
 
-    public boolean updateMachinery() {
-        List<Machinery> m = MachineryAssetsController.getInstance().update(headerPanel.getFormNo(), createNew(machinery));
+    public int updateMachinery() {
+        Machinery tempMachine = createNew(machinery);
+        if (!validMachinery(tempMachine)) {
+            return ProcessValidator.VALIDATE_ERROR;
+        }
+        List<Machinery> m = MachineryAssetsController.getInstance().update(headerPanel.getFormNo(), tempMachine);
         refreshTable(m);
-        return !m.isEmpty();
+        return (!m.isEmpty() ? ProcessValidator.PROCESS_COMPLETED : ProcessValidator.PROCESS_FAILED);
     }
 
     public void refreshTable(List<Machinery> m) {
@@ -283,12 +312,30 @@ public class MachineryPanel extends javax.swing.JPanel implements KeyListener {
 
     private Machinery createNew(Machinery m) {
         m.setType(txtMachineType.getText());
-        m.setQuantity(Integer.parseInt(txtMachineQty.getText()));
+        if (txtMachineQty.getText().equals("")) {
+            m.setQuantity(0);
+        } else {
+            m.setQuantity(Integer.parseInt(txtMachineQty.getText()));
+        }
         if (txtMachineEstValue.getText().equals("")) {
             m.setAmount(0);
         } else {
             m.setAmount(new BigDecimal(UIValidator.MoneyCommaRemover(txtMachineEstValue.getText())).doubleValue());
         }
         return m;
+    }
+
+    private boolean validMachinery(Machinery m) {
+        if (m != null) {
+            if (!UIValidator.validate(txtMachineType, "Machine type is required.")) {
+                return false;
+            }
+            if (!UIValidator.validate(txtMachineEstValue, "Estimated value is required.")) {
+                return false;
+            }
+            return true;
+        } else {
+            return false;
+        }
     }
 }

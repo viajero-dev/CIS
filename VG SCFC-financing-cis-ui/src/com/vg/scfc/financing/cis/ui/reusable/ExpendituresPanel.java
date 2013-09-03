@@ -5,7 +5,6 @@
  */
 package com.vg.scfc.financing.cis.ui.reusable;
 
-import com.vg.commons.renderer.IndexedFocusTraversalPolicy;
 import com.vg.commons.util.NumberUtils;
 import com.vg.scfc.financing.cis.ent.Expenditure;
 import com.vg.scfc.financing.cis.ent.ExpenditureType;
@@ -14,6 +13,7 @@ import com.vg.scfc.financing.cis.ui.controller.ExpenditureController;
 import com.vg.scfc.financing.cis.ui.controller.SourceOfIncomeController;
 import com.vg.scfc.financing.cis.ui.settings.UISetting;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
+import com.vg.scfc.financing.cis.ui.validator.Validator;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.math.BigDecimal;
@@ -364,38 +364,37 @@ public class ExpendituresPanel extends javax.swing.JPanel implements KeyListener
     @Override
     public void keyReleased(KeyEvent e) {
         switch (e.getKeyCode()) {
-//            case KeyEvent.VK_TAB:
-//            case KeyEvent.VK_ENTER:
-//                if (txtMonthlyDeduction.isFocusOwner()) {
-//                    txtMonthlyHouseholdBill.requestFocus();
-//                } else if (txtMonthlyHouseholdBill.isFocusOwner()) {
-//                    txtAmortization.requestFocus();
-//                } else if (txtAmortization.isFocusOwner()) {
-//                    txtMaintenanceDesc.requestFocus();
-//                } else if (txtMaintenanceDesc.isFocusOwner()) {
-//                    if (Validator.getInstance().isEmpty(txtMaintenanceDesc.getText())) {
-//                        txtMaintenance.setEnabled(false);
-//                        txtMaintenanceDesc.setEnabled(false);
-//                        txtLivingAllowance.requestFocus();
-//                    } else {
-//                        txtMaintenance.requestFocus();
-//                    }
-//                } else if (txtMaintenance.isFocusOwner()) {
-//                    txtLivingAllowance.requestFocus();
-//                } else if (txtLivingAllowance.isFocusOwner()) {
-//                    txtEducationDesc.requestFocus();
-//                } else if (txtEducationDesc.isFocusOwner()) {
-//                    if (Validator.getInstance().isEmpty(txtEducationDesc.getText())) {
-//                        txtEducation.setEnabled(false);
-//                        txtEducationDesc.setEnabled(false);
-//                        txtOthers.requestFocus();
-//                    } else {
-//                        txtEducation.requestFocus();
-//                    }
-//                } else if (txtEducation.isFocusOwner()) {
-//                    txtOthers.requestFocus();
-//                }
-//                break;
+            case KeyEvent.VK_ENTER:
+                if (txtMonthlyDeduction.isFocusOwner()) {
+                    txtMonthlyHouseholdBill.requestFocus();
+                } else if (txtMonthlyHouseholdBill.isFocusOwner()) {
+                    txtAmortization.requestFocus();
+                } else if (txtAmortization.isFocusOwner()) {
+                    txtMaintenanceDesc.requestFocus();
+                } else if (txtMaintenanceDesc.isFocusOwner()) {
+                    if (Validator.getInstance().isEmpty(txtMaintenanceDesc.getText())) {
+                        txtMaintenance.setEnabled(false);
+                        txtMaintenanceDesc.setEnabled(false);
+                        txtLivingAllowance.requestFocus();
+                    } else {
+                        txtMaintenance.requestFocus();
+                    }
+                } else if (txtMaintenance.isFocusOwner()) {
+                    txtLivingAllowance.requestFocus();
+                } else if (txtLivingAllowance.isFocusOwner()) {
+                    txtEducationDesc.requestFocus();
+                } else if (txtEducationDesc.isFocusOwner()) {
+                    if (Validator.getInstance().isEmpty(txtEducationDesc.getText())) {
+                        txtEducation.setEnabled(false);
+                        txtEducationDesc.setEnabled(false);
+                        txtOthers.requestFocus();
+                    } else {
+                        txtEducation.requestFocus();
+                    }
+                } else if (txtEducation.isFocusOwner()) {
+                    txtOthers.requestFocus();
+                }
+                break;
             case KeyEvent.VK_UP:
                 if (txtOthers.isFocusOwner()) {
                 if (txtEducation.isEnabled()) {

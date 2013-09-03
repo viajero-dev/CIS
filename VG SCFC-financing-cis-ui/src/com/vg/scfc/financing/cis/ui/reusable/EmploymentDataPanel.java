@@ -5,7 +5,6 @@
  */
 package com.vg.scfc.financing.cis.ui.reusable;
 
-import com.vg.commons.renderer.IndexedFocusTraversalPolicy;
 import com.vg.scfc.financing.cis.ent.Employment;
 import com.vg.scfc.financing.cis.ui.controller.EmploymentController;
 import com.vg.scfc.financing.cis.ui.panel.MainPanel;
@@ -195,6 +194,10 @@ public class EmploymentDataPanel extends javax.swing.JPanel implements KeyListen
     private HeaderPanel headerPanel;
     private MainPanel mainPanel;
 
+    public Employment getEmployment() {
+        return employment;
+    }
+
     public void setMainPanel(MainPanel mainPanel) {
         this.mainPanel = mainPanel;
     }
@@ -223,22 +226,21 @@ public class EmploymentDataPanel extends javax.swing.JPanel implements KeyListen
     @Override
     public void keyReleased(KeyEvent e) {
         switch (e.getKeyCode()) {
-//            case KeyEvent.VK_TAB:
-//            case KeyEvent.VK_ENTER:
-//                if (comboEmploymentStatus.isFocusOwner()) {
-//                txtPositionDepartment.requestFocus();
-//            } else if (txtPositionDepartment.isFocusOwner()) {
-//                txtCompanyEmployer.requestFocus();
-//            } else if (txtCompanyEmployer.isFocusOwner()) {
-//                txtEmployerAddress.requestFocus();
-//            } else if (txtEmployerAddress.isFocusOwner()) {
-//                txtEmployerContact.requestFocus();
-//            } else if (txtEmployerContact.isFocusOwner()) {
-//                txtYearInService.requestFocus();
-//            } else if (txtYearInService.isFocusOwner()) {
-//                txtEmployerBusinessNature.requestFocus();
-//            }
-//                break;
+            case KeyEvent.VK_ENTER:
+                if (comboEmploymentStatus.isFocusOwner()) {
+                txtPositionDepartment.requestFocus();
+            } else if (txtPositionDepartment.isFocusOwner()) {
+                txtCompanyEmployer.requestFocus();
+            } else if (txtCompanyEmployer.isFocusOwner()) {
+                txtEmployerAddress.requestFocus();
+            } else if (txtEmployerAddress.isFocusOwner()) {
+                txtEmployerContact.requestFocus();
+            } else if (txtEmployerContact.isFocusOwner()) {
+                txtYearInService.requestFocus();
+            } else if (txtYearInService.isFocusOwner()) {
+                txtEmployerBusinessNature.requestFocus();
+            }
+                break;
             case KeyEvent.VK_UP:
                 if (txtEmployerBusinessNature.isFocusOwner()) {
                 txtYearInService.requestFocus();

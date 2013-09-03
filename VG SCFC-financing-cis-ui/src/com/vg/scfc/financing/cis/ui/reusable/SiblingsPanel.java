@@ -5,7 +5,6 @@
  */
 package com.vg.scfc.financing.cis.ui.reusable;
 
-import com.vg.commons.renderer.IndexedFocusTraversalPolicy;
 import com.vg.scfc.financing.cis.ent.Sibling;
 import com.vg.scfc.financing.cis.ui.controller.SiblingController;
 import com.vg.scfc.financing.cis.ui.panel.MainPanel;
@@ -208,14 +207,13 @@ public class SiblingsPanel extends javax.swing.JPanel implements KeyListener {
     @Override
     public void keyReleased(KeyEvent e) {
         switch (e.getKeyCode()) {
-//            case KeyEvent.VK_TAB:
-//            case KeyEvent.VK_ENTER:
-//                if (txtSiblingName.isFocusOwner()) {
-//                txtSiblingAddress.requestFocus();
-//            } else if (txtSiblingAddress.isFocusOwner()) {
-//                txtSiblingContact.requestFocus();
-//            }
-//                break;
+            case KeyEvent.VK_ENTER:
+                if (txtSiblingName.isFocusOwner()) {
+                txtSiblingAddress.requestFocus();
+            } else if (txtSiblingAddress.isFocusOwner()) {
+                txtSiblingContact.requestFocus();
+            }
+                break;
             case KeyEvent.VK_UP:
                 if (txtSiblingContact.isFocusOwner()) {
                 txtSiblingAddress.requestFocus();

@@ -47,6 +47,10 @@ import com.vg.scfc.financing.commons.service.ReportHeaderService;
 import com.vg.vmi.dealer.uts.service.McColorService;
 import com.vg.vmi.dealer.uts.service.McMakeService;
 import com.vg.vmi.dealer.uts.service.McModelService;
+import java.awt.event.KeyEvent;
+import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.KeyStroke;
 import vg.img.service.ImageHandlingService;
 
 /**
@@ -101,6 +105,20 @@ public class UISetting {
     private static ImageHandlingService imageService;
     private static ReportHeaderService reportHeaderService;
     private static LiveUpdatePictureService liveUpdatePictureService;
+    
+    public static void registerEnterKeyboardAction(JButton button) {
+        button.registerKeyboardAction(
+                button.getActionForKeyStroke(
+                KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, false)),
+                KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0, false),
+                JComponent.WHEN_FOCUSED);
+
+        button.registerKeyboardAction(
+                button.getActionForKeyStroke(
+                KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, true)),
+                KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0, true),
+                JComponent.WHEN_FOCUSED);
+    }
 
     public static ReportHeader getReportHeader() throws Exception {
         return reportHeaderService.findByLocationID(storeLocation.getFinCode());

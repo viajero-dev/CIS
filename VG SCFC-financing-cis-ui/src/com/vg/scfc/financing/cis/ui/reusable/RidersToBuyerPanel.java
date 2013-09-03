@@ -5,10 +5,10 @@
  */
 package com.vg.scfc.financing.cis.ui.reusable;
 
-import com.vg.commons.renderer.IndexedFocusTraversalPolicy;
 import com.vg.scfc.financing.cis.ent.Identification;
 import com.vg.scfc.financing.cis.ui.controller.IdentificationController;
 import com.vg.scfc.financing.cis.ui.settings.UISetting;
+import com.vg.scfc.financing.cis.ui.validator.ProcessValidator;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -28,14 +28,14 @@ public class RidersToBuyerPanel extends javax.swing.JPanel implements KeyListene
         initKeyListeners();
         policySetting();
     }
-    
+
     public final void policySetting() {
         UISetting.policy.addIndexedComponent(txtCompetent);
         UISetting.policy.addIndexedComponent(txtIdNo);
         UISetting.policy.addIndexedComponent(txtPlaceOfIssue);
         UISetting.policy.addIndexedComponent(txtIssueDate);
     }
-    
+
     private void initKeyListeners() {
         txtCompetent.addKeyListener(this);
         txtIdNo.addKeyListener(this);
@@ -135,6 +135,11 @@ public class RidersToBuyerPanel extends javax.swing.JPanel implements KeyListene
     private Identification identification;
     private HeaderPanel headerPanel;
     private String personType;
+    private AddEditButtonPanel buttonPanel;
+
+    public void setButtonPanel(AddEditButtonPanel buttonPanel) {
+        this.buttonPanel = buttonPanel;
+    }
 
     public void setIdentification(Identification identification) {
         this.identification = identification;
@@ -201,33 +206,85 @@ public class RidersToBuyerPanel extends javax.swing.JPanel implements KeyListene
 
     @Override
     public void keyPressed(KeyEvent e) {
+        switch (e.getKeyCode()) {
+            case KeyEvent.VK_ENTER:
+                if (txtCompetent.isFocusOwner()) {
+                txtIdNo.requestFocus();
+            } else if (txtIdNo.isFocusOwner()) {
+                txtPlaceOfIssue.requestFocus();
+            } else if (txtPlaceOfIssue.isFocusOwner()) {
+                txtIssueDate.requestFocus();
+            } else if (txtIssueDate.isFocusOwner()) {
+                if (buttonPanel.getBtnAdd().getText().equals("Save")) {
+                    buttonPanel.getBtnAdd().requestFocus();
+                } else {
+                    buttonPanel.getBtnEdit().requestFocus();
+                }
+            }
+                break;
+        }
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
         switch (e.getKeyCode()) {
-//            case KeyEvent.VK_TAB:
-//            case KeyEvent.VK_ENTER:
-//                if (txtCompetent.isFocusOwner()) {
-//                txtIdNo.requestFocus();
-//            } else if (txtIdNo.isFocusOwner()) {
-//                txtPlaceOfIssue.requestFocus();
-//            } else if (txtPlaceOfIssue.isFocusOwner()) {
-//                txtIssueDate.requestFocus();
-//            }
-//                break;
+            case KeyEvent.VK_ENTER:
+                if (txtCompetent.isFocusOwner()) {
+                txtIdNo.requestFocus();
+            } else if (txtIdNo.isFocusOwner()) {
+                txtPlaceOfIssue.requestFocus();
+            } else if (txtPlaceOfIssue.isFocusOwner()) {
+                txtIssueDate.requestFocus();
+            } else if (txtIssueDate.isFocusOwner()) {
+                if (buttonPanel.getBtnAdd().getText().equals("Save")) {
+                    buttonPanel.getBtnAdd().requestFocus();
+                } else {
+                    buttonPanel.getBtnEdit().requestFocus();
+                }
+            }
+                break;
         }
     }
 
-    public boolean saveAgreement() {
-        Identification i = IdentificationController.getInstance().save(headerPanel.getFormNo(), personType, createNew(new Identification()));
+    public int saveAgreement() {
+//        Identification i = IdentificationController.getInstance().save(headerPanel.getFormNo(), personType, createNew(new Identification()));
+        Identification i = createNew(new Identification());
+        if (!validIdentification(i)) {
+            return ProcessValidator.VALIDATE_ERROR;
+        }
+        i = IdentificationController.getInstance().save(headerPanel.getFormNo(), personType, i);
         setIdentification(i);
-        return i != null;
+        return (i != null ? ProcessValidator.PROCESS_COMPLETED : ProcessValidator.PROCESS_FAILED);
     }
 
-    public boolean updateAgreement() {
-        Identification i = IdentificationController.getInstance().update(headerPanel.getFormNo(), personType, createNew(identification));
+    public int updateAgreement() {
+//        Identification i = IdentificationController.getInstance().update(headerPanel.getFormNo(), personType, createNew(identification));
+        Identification i = createNew(identification);
+        if (!validIdentification(i)) {
+            return ProcessValidator.VALIDATE_ERROR;
+        }
+        i = IdentificationController.getInstance().update(headerPanel.getFormNo(), personType, i);
         setIdentification(i);
-        return i != null;
+        return (i != null ? ProcessValidator.PROCESS_COMPLETED : ProcessValidator.PROCESS_FAILED);
+    }
+
+    public boolean validIdentification(Identification i) {
+        if (i != null) {
+            if (!UIValidator.validate(txtCompetent, "Competent Evidence of Identity is requried.")) {
+                return false;
+            }
+            if (!UIValidator.validate(txtIdNo, "ID No. is required.")) {
+                return false;
+            }
+            if (!UIValidator.validate(txtPlaceOfIssue, "Place of Issue is required.")) {
+                return false;
+            }
+            if (!UIValidator.validate(txtIssueDate, "Issued Date is required.")) {
+                return false;
+            }
+            return true;
+        } else {
+            return false;
+        }
     }
 }

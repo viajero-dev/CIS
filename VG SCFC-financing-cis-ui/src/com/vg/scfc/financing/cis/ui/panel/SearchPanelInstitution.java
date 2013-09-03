@@ -14,6 +14,8 @@ import com.vg.scfc.financing.cis.ui.controller.ReportController;
 import com.vg.scfc.financing.cis.ui.controller.SearchController;
 import com.vg.scfc.financing.cis.ui.settings.UISetting;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.text.SimpleDateFormat;
 import java.util.LinkedList;
 import java.util.List;
@@ -42,7 +44,27 @@ public class SearchPanelInstitution extends javax.swing.JPanel implements DoJasp
     private void startUpSetUp() {
         initCustomerTable();
         initTransactionFormTable();
-//        refreshCustomerTable(SearchController.getInstance().findBySearchCriteriaLocationAndMode("", UISetting.getStoreLocation().getFinStartCode(), 3));
+        policySetting();
+        initSearchListener();
+    }
+
+    private void policySetting() {
+        txtSearch.setFocusTraversalKeysEnabled(false);
+    }
+
+    private void initSearchListener() {
+        txtSearch.addKeyListener(new KeyAdapter() {
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                switch(e.getKeyCode()) {
+                    case KeyEvent.VK_ENTER:
+                        refreshCustomerTable(SearchController.getInstance().findBySearchCriteriaLocationAndMode(txtSearch.getText(), UISetting.getStoreLocation().getFinStartCode(), 3));
+                        break;
+                }
+            }
+            
+        });
     }
 
     private void initCustomerTable() {
@@ -108,6 +130,7 @@ public class SearchPanelInstitution extends javax.swing.JPanel implements DoJasp
         tblTransactionForm = new javax.swing.JTable();
         btnPrintVersion = new javax.swing.JButton();
         lblRecordCount = new javax.swing.JLabel();
+        btnSearch = new javax.swing.JButton();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -146,7 +169,7 @@ public class SearchPanelInstitution extends javax.swing.JPanel implements DoJasp
                 txtSearchFocusLost(evt);
             }
         });
-        add(txtSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 250, -1));
+        add(txtSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 150, -1));
 
         tblTransactionForm.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         tblTransactionForm.setShowHorizontalLines(false);
@@ -154,7 +177,7 @@ public class SearchPanelInstitution extends javax.swing.JPanel implements DoJasp
 
         jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, transactionForms, tblTransactionForm);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${txFormNo}"));
-        columnBinding.setColumnName("Form #");
+        columnBinding.setColumnName("Transaction #");
         columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${txApplicationDate}"));
@@ -168,17 +191,27 @@ public class SearchPanelInstitution extends javax.swing.JPanel implements DoJasp
 
         add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 360, 250, 160));
 
+        btnPrintVersion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/printIcon2.png"))); // NOI18N
         btnPrintVersion.setText("Print Report");
         btnPrintVersion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPrintVersionActionPerformed(evt);
             }
         });
-        add(btnPrintVersion, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 580, 250, -1));
+        add(btnPrintVersion, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 570, 250, -1));
 
         lblRecordCount.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblRecordCount.setText("RECORD(S): 0");
         add(lblRecordCount, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 530, 220, -1));
+
+        btnSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/searchIcon.png"))); // NOI18N
+        btnSearch.setText("Search");
+        btnSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchActionPerformed(evt);
+            }
+        });
+        add(btnSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(155, 3, 100, -1));
 
         bindingGroup.bind();
     }// </editor-fold>//GEN-END:initComponents
@@ -199,8 +232,13 @@ public class SearchPanelInstitution extends javax.swing.JPanel implements DoJasp
         new WaitSplashScreen(null, true, this, "CREDIT APPLICATION FORM").getThisDlg();
     }//GEN-LAST:event_btnPrintVersionActionPerformed
 
+    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+        refreshCustomerTable(SearchController.getInstance().findBySearchCriteriaLocationAndMode(txtSearch.getText(), UISetting.getStoreLocation().getFinStartCode(), 3));
+    }//GEN-LAST:event_btnSearchActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnPrintVersion;
+    private javax.swing.JButton btnSearch;
     private java.util.List<Customer> customers;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -250,8 +288,11 @@ public class SearchPanelInstitution extends javax.swing.JPanel implements DoJasp
         customers.clear();
         customers.addAll(c);
         if (!customers.isEmpty()) {
-            lblRecordCount.setText("RECORD(S): " + customers.size());
+            lblRecordCount.setText("Search Result: " + customers.size());
             tblCustomer.setRowSelectionInterval(0, 0);
+        }
+        if (txtSearch.getText().equals("")) {
+            txtSearch.setText("Search");
         }
     }
 
@@ -270,5 +311,13 @@ public class SearchPanelInstitution extends javax.swing.JPanel implements DoJasp
         } else {
             return null;
         }
+    }
+    
+    public void enableSearch(boolean value) {
+        txtSearch.setEnabled(value);
+        btnSearch.setEnabled(value);
+        tblCustomer.setEnabled(value);
+        tblTransactionForm.setEnabled(value);
+        btnPrintVersion.setEnabled(value);
     }
 }

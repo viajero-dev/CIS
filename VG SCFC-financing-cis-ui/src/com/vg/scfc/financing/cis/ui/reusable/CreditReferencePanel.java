@@ -5,7 +5,6 @@
  */
 package com.vg.scfc.financing.cis.ui.reusable;
 
-import com.vg.commons.renderer.IndexedFocusTraversalPolicy;
 import com.vg.commons.util.NumberUtils;
 import com.vg.scfc.financing.cis.ent.CreditRef;
 import com.vg.scfc.financing.cis.ui.controller.CreditReferenceController;
@@ -302,24 +301,23 @@ public class CreditReferencePanel extends javax.swing.JPanel implements KeyListe
     @Override
     public void keyReleased(KeyEvent e) {
         switch (e.getKeyCode()) {
-//            case KeyEvent.VK_TAB:
-//            case KeyEvent.VK_ENTER:
-//                if (txtCRName.isFocusOwner()) {
-//                    txtCRAddress.requestFocus();
-//                } else if (txtCRAddress.isFocusOwner()) {
-//                    txtCRItemOnCredit.requestFocus();
-//                } else if (txtCRItemOnCredit.isFocusOwner()) {
-//                    txtCRLoanAmount.requestFocus();
-//                } else if (txtCRLoanAmount.isFocusOwner()) {
-//                    txtCRMonthlyAmort.requestFocus();
-//                } else if (txtCRMonthlyAmort.isFocusOwner()) {
-//                    txtCRTerm.requestFocus();
-//                } else if (txtCRTerm.isFocusOwner()) {
-//                    txtCRAmountPaid.requestFocus();
-//                } else if (txtCRAmountPaid.isFocusOwner()) {
-//                    txtCRRemainingBal.requestFocus();
-//                }
-//                break;
+            case KeyEvent.VK_ENTER:
+                if (txtCRName.isFocusOwner()) {
+                    txtCRAddress.requestFocus();
+                } else if (txtCRAddress.isFocusOwner()) {
+                    txtCRItemOnCredit.requestFocus();
+                } else if (txtCRItemOnCredit.isFocusOwner()) {
+                    txtCRLoanAmount.requestFocus();
+                } else if (txtCRLoanAmount.isFocusOwner()) {
+                    txtCRMonthlyAmort.requestFocus();
+                } else if (txtCRMonthlyAmort.isFocusOwner()) {
+                    txtCRTerm.requestFocus();
+                } else if (txtCRTerm.isFocusOwner()) {
+                    txtCRAmountPaid.requestFocus();
+                } else if (txtCRAmountPaid.isFocusOwner()) {
+                    txtCRRemainingBal.requestFocus();
+                }
+                break;
             case KeyEvent.VK_UP:
                 if (txtCRRemainingBal.isFocusOwner()) {
                 txtCRAmountPaid.requestFocus();

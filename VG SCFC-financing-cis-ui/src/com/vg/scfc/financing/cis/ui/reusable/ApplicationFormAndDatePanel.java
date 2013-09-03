@@ -6,12 +6,14 @@
 package com.vg.scfc.financing.cis.ui.reusable;
 
 import com.vg.commons.formattedfields.JTextFieldLimit;
+import com.vg.scfc.financing.cis.ui.settings.UISetting;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.text.ParseException;
 import java.util.Date;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -25,6 +27,7 @@ public class ApplicationFormAndDatePanel extends javax.swing.JPanel implements K
     public ApplicationFormAndDatePanel() {
         initComponents();
         initKeyListener();
+        UISetting.registerEnterKeyboardAction(btnFinish);
     }
 
     private void initKeyListener() {
@@ -55,15 +58,10 @@ public class ApplicationFormAndDatePanel extends javax.swing.JPanel implements K
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setText("Form Series");
+        jLabel1.setText("Form No");
         add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 10, -1, -1));
 
         txtFormSeries.setDocument(new JTextFieldLimit(5));
-        txtFormSeries.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtFormSeriesFocusLost(evt);
-            }
-        });
         add(txtFormSeries, new org.netbeans.lib.awtextra.AbsoluteConstraints(124, 5, 152, -1));
 
         txtAppDate.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
@@ -73,7 +71,7 @@ public class ApplicationFormAndDatePanel extends javax.swing.JPanel implements K
         add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 35, -1, -1));
         add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 55, 290, 10));
 
-        btnFinish.setText("Finish");
+        btnFinish.setText("OK");
         btnFinish.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnFinishActionPerformed(evt);
@@ -82,12 +80,10 @@ public class ApplicationFormAndDatePanel extends javax.swing.JPanel implements K
         add(btnFinish, new org.netbeans.lib.awtextra.AbsoluteConstraints(195, 60, 80, -1));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtFormSeriesFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFormSeriesFocusLost
-        txtFormSeries.setText(UIValidator.generateFormSeries(UIValidator.validate(txtFormSeries)));
-    }//GEN-LAST:event_txtFormSeriesFocusLost
-
     private void btnFinishActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinishActionPerformed
-        dlg.setVisible(false);
+        if (validForm()) {
+            dlg.setVisible(false);
+        }
     }//GEN-LAST:event_btnFinishActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -102,6 +98,13 @@ public class ApplicationFormAndDatePanel extends javax.swing.JPanel implements K
 
     public void setDlg(JDialog dlg) {
         this.dlg = dlg;
+    }
+
+    public void onClosing() {
+        int ask = JOptionPane.showConfirmDialog(dlg, "Cancel adding new customer?", "Cancel Add", JOptionPane.YES_NO_OPTION);
+        if (ask == JOptionPane.YES_OPTION) {
+            dlg.setVisible(false);
+        }
     }
 
     public String getFormSeries() {
@@ -125,17 +128,30 @@ public class ApplicationFormAndDatePanel extends javax.swing.JPanel implements K
         switch (e.getKeyCode()) {
             case KeyEvent.VK_ENTER:
                 if (txtFormSeries.isFocusOwner()) {
-                    txtAppDate.requestFocus();
-                } else if(txtAppDate.isFocusOwner()) {
-                    btnFinish.requestFocus();
-                }
+                txtFormSeries.setText(UIValidator.generateFormSeries(txtFormSeries.getText()));
+                txtAppDate.requestFocus();
+            } else if (txtAppDate.isFocusOwner()) {
+                btnFinish.requestFocus();
+            }
                 break;
             case KeyEvent.VK_UP:
                 if (txtAppDate.isFocusOwner()) {
                 txtFormSeries.requestFocus();
             }
                 break;
+            case KeyEvent.VK_ESCAPE:
+                onClosing();
+                break;
         }
     }
 
+    private boolean validForm() {
+        if (!UIValidator.validate(txtFormSeries, "Form Series is required.")) {
+            return false;
+        }
+        if (!UIValidator.validate(txtAppDate, "Application Date is required.")) {
+            return false;
+        }
+        return true;
+    }
 }

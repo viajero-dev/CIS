@@ -19,6 +19,7 @@ public class SimpleAddressFrame extends javax.swing.JFrame {
      */
     public SimpleAddressFrame() {
         initComponents();
+        setFocusTraversalPolicy(simpleAddressPanel.getPolicy()); 
     }
 
     public SimpleAddressPanel getSimpleAddressPanel1() {

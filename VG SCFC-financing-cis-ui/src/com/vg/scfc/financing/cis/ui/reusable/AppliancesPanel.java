@@ -5,11 +5,11 @@
  */
 package com.vg.scfc.financing.cis.ui.reusable;
 
-import com.vg.commons.renderer.IndexedFocusTraversalPolicy;
 import com.vg.commons.util.NumberUtils;
 import com.vg.scfc.financing.cis.ent.Appliance;
 import com.vg.scfc.financing.cis.ui.controller.ApplianceAssetsController;
 import com.vg.scfc.financing.cis.ui.settings.UISetting;
+import com.vg.scfc.financing.cis.ui.validator.ProcessValidator;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -41,13 +41,12 @@ public class AppliancesPanel extends javax.swing.JPanel implements KeyListener {
         comboApplianceType.addKeyListener(this);
         txtEstValue.addKeyListener(this);
     }
-    
+
     public final void policySetting() {
-        UISetting.policy.addForwardTraversalKeys(this, KeyEvent.VK_ENTER);
         UISetting.policy.addIndexedComponent(comboApplianceType);
         UISetting.policy.addIndexedComponent(txtEstValue);
     }
-    
+
     private void startUpSettings() {
         setFieldsEditable(false);
         initKeyListeners();
@@ -194,6 +193,11 @@ public class AppliancesPanel extends javax.swing.JPanel implements KeyListener {
     private String formNo;
     private Appliance appliance;
     private HeaderPanel headerPanel;
+    private AddEditButtonPanel buttonPanel;
+
+    public void setButtonPanel(AddEditButtonPanel buttonPanel) {
+        this.buttonPanel = buttonPanel;
+    }
 
     public void setHeaderPanel(HeaderPanel headerPanel) {
         this.headerPanel = headerPanel;
@@ -219,16 +223,33 @@ public class AppliancesPanel extends javax.swing.JPanel implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
+        switch (e.getKeyCode()) {
+            case KeyEvent.VK_ENTER:
+                if (txtEstValue.isFocusOwner()) {
+                    if (buttonPanel.getBtnAdd().getText().equals("Save")) {
+                        buttonPanel.getBtnAdd().requestFocus();
+                    } else {
+                        buttonPanel.getBtnEdit().requestFocus();
+                    }
+                }
+                break;
+        }
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
         switch (e.getKeyCode()) {
-//            case KeyEvent.VK_ENTER:
-//                if (comboApplianceType.isFocusOwner()) {
-//                txtEstValue.requestFocus();
-//            }
-//                break;
+            case KeyEvent.VK_ENTER:
+                if (comboApplianceType.isFocusOwner()) {
+                    txtEstValue.requestFocus();
+                } else if (txtEstValue.isFocusOwner()) {
+                    if (buttonPanel.getBtnAdd().getText().equals("Save")) {
+                        buttonPanel.getBtnAdd().requestFocus();
+                    } else {
+                        buttonPanel.getBtnEdit().requestFocus();
+                    }
+                }
+                break;
             case KeyEvent.VK_UP:
                 if (txtEstValue.isFocusOwner()) {
                 comboApplianceType.requestFocus();
@@ -288,16 +309,24 @@ public class AppliancesPanel extends javax.swing.JPanel implements KeyListener {
         }
     }
 
-    public boolean saveApplianceAsset() {
-        List<Appliance> a = ApplianceAssetsController.getInstance().createNew(headerPanel.getFormNo(), createNew(new Appliance()));
+    public int saveApplianceAsset() {
+        Appliance tempAppliance = createNew(new Appliance());
+        if (!validAppliance(tempAppliance)) {
+            return ProcessValidator.VALIDATE_ERROR;
+        }
+        List<Appliance> a = ApplianceAssetsController.getInstance().createNew(headerPanel.getFormNo(), tempAppliance);
         refreshTable(a);
-        return !a.isEmpty();
+        return (!a.isEmpty() ? ProcessValidator.PROCESS_COMPLETED : ProcessValidator.PROCESS_FAILED);
     }
 
-    public boolean updateApplianceAsset() {
-        List<Appliance> a = ApplianceAssetsController.getInstance().update(headerPanel.getFormNo(), createNew(appliance));
+    public int updateApplianceAsset() {
+        Appliance tempAppliance = createNew(appliance);
+        if (!validAppliance(tempAppliance)) {
+            return ProcessValidator.VALIDATE_ERROR;
+        }
+        List<Appliance> a = ApplianceAssetsController.getInstance().update(headerPanel.getFormNo(), tempAppliance);
         refreshTable(a);
-        return !a.isEmpty();
+        return (!a.isEmpty() ? ProcessValidator.PROCESS_COMPLETED : ProcessValidator.PROCESS_FAILED);
     }
 
     public void refreshTable(List<Appliance> a) {
@@ -321,5 +350,16 @@ public class AppliancesPanel extends javax.swing.JPanel implements KeyListener {
             a.setAmount(new BigDecimal(UIValidator.MoneyCommaRemover(txtEstValue.getText())).doubleValue());
         }
         return a;
+    }
+
+    private boolean validAppliance(Appliance a) {
+        if (a != null) {
+            if (!UIValidator.validate(txtEstValue, "Estimated value is required.")) {
+                return false;
+            }
+            return true;
+        } else {
+            return false;
+        }
     }
 }

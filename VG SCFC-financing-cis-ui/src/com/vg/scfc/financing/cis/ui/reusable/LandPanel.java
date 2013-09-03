@@ -5,18 +5,20 @@
  */
 package com.vg.scfc.financing.cis.ui.reusable;
 
-import com.vg.commons.renderer.IndexedFocusTraversalPolicy;
 import com.vg.commons.util.NumberUtils;
 import com.vg.scfc.financing.cis.ent.Land;
 import com.vg.scfc.financing.cis.ent.LandType;
 import com.vg.scfc.financing.cis.ui.controller.LandAssetController;
+import com.vg.scfc.financing.cis.ui.messages.ErrorMessage;
 import com.vg.scfc.financing.cis.ui.settings.UISetting;
+import com.vg.scfc.financing.cis.ui.validator.ProcessValidator;
 import com.vg.scfc.financing.cis.ui.validator.UIValidator;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -30,11 +32,10 @@ public class LandPanel extends javax.swing.JPanel implements KeyListener {
     public LandPanel() {
         initComponents();
         initKeyListener();
-        initResidentialOptions();
         startUpSettings();
         policySetting();
     }
-    
+
     public final void policySetting() {
         UISetting.policy.addIndexedComponent(checkAgricultural);
         UISetting.policy.addIndexedComponent(checkCommercial);
@@ -55,20 +56,9 @@ public class LandPanel extends javax.swing.JPanel implements KeyListener {
         UISetting.policy.addIndexedComponent(optionShanity);
         UISetting.policy.addIndexedComponent(txtOtherDesc);
     }
-    
+
     private void startUpSettings() {
         setFieldsEditable(false);
-    }
-
-    /**
-     * Setup OptionButton
-     */
-    private void initResidentialOptions() {
-        optionResidentialGroup.add(optionHouse);
-        optionResidentialGroup.add(optionConcrete);
-        optionResidentialGroup.add(optionSemiConcrete);
-        optionResidentialGroup.add(optionShanity);
-        optionResidentialGroup.add(optionOthers);
     }
 
     /**
@@ -296,15 +286,35 @@ public class LandPanel extends javax.swing.JPanel implements KeyListener {
         add(txtTotalEstValue, new org.netbeans.lib.awtextra.AbsoluteConstraints(825, 120, 120, -1));
 
         optionConcrete.setText("CONCRETE");
+        optionConcrete.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                optionConcreteItemStateChanged(evt);
+            }
+        });
         add(optionConcrete, new org.netbeans.lib.awtextra.AbsoluteConstraints(95, 96, -1, -1));
 
         optionSemiConcrete.setText("SEMI CONCRETE");
+        optionSemiConcrete.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                optionSemiConcreteItemStateChanged(evt);
+            }
+        });
         add(optionSemiConcrete, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 96, -1, -1));
 
         optionShanity.setText("SHANITY");
+        optionShanity.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                optionShanityItemStateChanged(evt);
+            }
+        });
         add(optionShanity, new org.netbeans.lib.awtextra.AbsoluteConstraints(335, 96, -1, -1));
 
         optionOthers.setText("OTHERS");
+        optionOthers.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                optionOthersItemStateChanged(evt);
+            }
+        });
         add(optionOthers, new org.netbeans.lib.awtextra.AbsoluteConstraints(425, 96, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
@@ -337,20 +347,12 @@ public class LandPanel extends javax.swing.JPanel implements KeyListener {
             txtAreaResidential.setEnabled(true);
             txtLocationResidential.setEnabled(true);
             txtEstValueResidential.setEnabled(true);
-            optionConcrete.setEnabled(true);
             optionHouse.setEnabled(true);
-            optionOthers.setEnabled(true);
-            optionSemiConcrete.setEnabled(true);
-            optionShanity.setEnabled(true);
         } else {
             txtAreaResidential.setEnabled(false);
             txtLocationResidential.setEnabled(false);
             txtEstValueResidential.setEnabled(false);
-            optionConcrete.setEnabled(false);
             optionHouse.setEnabled(false);
-            optionOthers.setEnabled(false);
-            optionSemiConcrete.setEnabled(false);
-            optionShanity.setEnabled(false);
         }
     }//GEN-LAST:event_checkResidentialItemStateChanged
 
@@ -383,7 +385,7 @@ public class LandPanel extends javax.swing.JPanel implements KeyListener {
     }//GEN-LAST:event_txtAreaResidentialFocusLost
 
     private void txtLocationResidentialFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtLocationResidentialFocusLost
-        txtLocationResidential.setText(UIValidator.validate(txtLocationResidential));
+        txtLocationResidential.setText(txtLocationResidential.getText().toUpperCase());
     }//GEN-LAST:event_txtLocationResidentialFocusLost
 
     private void txtEstValueResidentialFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEstValueResidentialFocusLost
@@ -393,12 +395,50 @@ public class LandPanel extends javax.swing.JPanel implements KeyListener {
     private void optionHouseItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_optionHouseItemStateChanged
         if (optionHouse.isSelected()) {
             additionalInfo = "HOUSE";
+            enableHouseOptions(true);
+        } else {
+            enableHouseOptions(false);
         }
     }//GEN-LAST:event_optionHouseItemStateChanged
 
     private void txtOtherDescFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtOtherDescFocusLost
         additionalInfo = UIValidator.validate(txtOtherDesc);
     }//GEN-LAST:event_txtOtherDescFocusLost
+
+    private void optionConcreteItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_optionConcreteItemStateChanged
+        if (optionConcrete.isSelected()) {
+            optionSemiConcrete.setSelected(false);
+            optionShanity.setSelected(false);
+            optionOthers.setSelected(false);
+        }
+    }//GEN-LAST:event_optionConcreteItemStateChanged
+
+    private void optionSemiConcreteItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_optionSemiConcreteItemStateChanged
+        if (optionSemiConcrete.isSelected()) {
+            optionConcrete.setSelected(false);
+            optionShanity.setSelected(false);
+            optionOthers.setSelected(false);
+        }
+    }//GEN-LAST:event_optionSemiConcreteItemStateChanged
+
+    private void optionShanityItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_optionShanityItemStateChanged
+        if (optionShanity.isSelected()) {
+            optionConcrete.setSelected(false);
+            optionSemiConcrete.setSelected(false);
+            optionOthers.setSelected(false);
+        }
+    }//GEN-LAST:event_optionShanityItemStateChanged
+
+    private void optionOthersItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_optionOthersItemStateChanged
+        if (optionOthers.isSelected()) {
+            optionConcrete.setSelected(false);
+            optionSemiConcrete.setSelected(false);
+            optionShanity.setSelected(false);
+            txtOtherDesc.setEnabled(true);
+        } else {
+            txtOtherDesc.setEnabled(false);
+        }
+    }//GEN-LAST:event_optionOthersItemStateChanged
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox checkAgricultural;
@@ -448,6 +488,11 @@ public class LandPanel extends javax.swing.JPanel implements KeyListener {
     private List<Land> lands;
     private String formNo;
     private HeaderPanel headerPanel;
+    private AddEditButtonPanel buttonPanel;
+
+    public void setButtonPanel(AddEditButtonPanel buttonPanel) {
+        this.buttonPanel = buttonPanel;
+    }
 
     public void setHeaderPanel(HeaderPanel headerPanel) {
         this.headerPanel = headerPanel;
@@ -475,63 +520,79 @@ public class LandPanel extends javax.swing.JPanel implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
+        switch (e.getKeyCode()) {
+            case KeyEvent.VK_ENTER:
+                if (txtEstValueResidential.isFocusOwner()) {
+                if (buttonPanel.getBtnAdd().getText().equals("Save")) {
+                    buttonPanel.getBtnAdd().requestFocus();
+                } else {
+                    buttonPanel.getBtnEdit().requestFocus();
+                }
+            }
+                break;
+        }
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
         switch (e.getKeyCode()) {
-//            case KeyEvent.VK_TAB:
-//            case KeyEvent.VK_ENTER:
-//                if (checkAgricultural.isFocusOwner()) {
-//                if (checkAgricultural.isSelected()) {
-//                    txtAreaAgri.requestFocus();
-//                } else {
-//                    checkCommercial.requestFocus();
-//                }
-//            } else if (txtAreaAgri.isFocusOwner()) {
-//                txtLocationAgri.requestFocus();
-//            } else if (txtLocationAgri.isFocusOwner()) {
-//                txtEstValueAgri.requestFocus();
-//            } else if (txtEstValueAgri.isFocusOwner()) {
-//                checkCommercial.requestFocus();
-//            } else if (checkCommercial.isFocusOwner()) {
-//                if (checkCommercial.isSelected()) {
-//                    txtAreaCommercial.requestFocus();
-//                } else {
-//                    checkResidential.requestFocus();
-//                }
-//            } else if (txtAreaCommercial.isFocusOwner()) {
-//                txtLocationCommercial.requestFocus();
-//            } else if (txtLocationCommercial.isFocusOwner()) {
-//                txtEstValueCommercial.requestFocus();
-//            } else if (txtEstValueCommercial.isFocusOwner()) {
-//                checkResidential.requestFocus();
-//            } else if (checkResidential.isFocusOwner()) {
-//                if (checkResidential.isSelected()) {
-//                    txtAreaResidential.requestFocus();
-//                }
-//            } else if (txtAreaResidential.isFocusOwner()) {
-//                txtLocationResidential.requestFocus();
-//            } else if (txtLocationResidential.isFocusOwner()) {
-//                optionHouse.requestFocus();
-//            } else if (optionHouse.isFocusOwner()) {
-//                optionConcrete.requestFocus();
-//            } else if (optionConcrete.isFocusOwner()) {
-//                optionSemiConcrete.requestFocus();
-//            } else if (optionSemiConcrete.isFocusOwner()) {
-//                optionShanity.requestFocus();
-//            } else if (optionShanity.isFocusOwner()) {
-//                optionOthers.requestFocus();
-//            } else if (optionOthers.isFocusOwner()) {
-//                if (optionOthers.isSelected()) {
-//                    txtOtherDesc.requestFocus();
-//                } else {
-//                    txtEstValueResidential.requestFocus();
-//                }
-//            } else if (txtOtherDesc.isFocusOwner()) {
-//                txtEstValueResidential.requestFocus();
-//            }
-//                break;
+            case KeyEvent.VK_ENTER:
+                if (checkAgricultural.isFocusOwner()) {
+                if (checkAgricultural.isSelected()) {
+                    txtAreaAgri.requestFocus();
+                } else {
+                    checkCommercial.requestFocus();
+                }
+            } else if (txtAreaAgri.isFocusOwner()) {
+                txtLocationAgri.requestFocus();
+            } else if (txtLocationAgri.isFocusOwner()) {
+                txtEstValueAgri.requestFocus();
+            } else if (txtEstValueAgri.isFocusOwner()) {
+                checkCommercial.requestFocus();
+            } else if (checkCommercial.isFocusOwner()) {
+                if (checkCommercial.isSelected()) {
+                    txtAreaCommercial.requestFocus();
+                } else {
+                    checkResidential.requestFocus();
+                }
+            } else if (txtAreaCommercial.isFocusOwner()) {
+                txtLocationCommercial.requestFocus();
+            } else if (txtLocationCommercial.isFocusOwner()) {
+                txtEstValueCommercial.requestFocus();
+            } else if (txtEstValueCommercial.isFocusOwner()) {
+                checkResidential.requestFocus();
+            } else if (checkResidential.isFocusOwner()) {
+                if (checkResidential.isSelected()) {
+                    txtAreaResidential.requestFocus();
+                }
+            } else if (txtAreaResidential.isFocusOwner()) {
+                txtLocationResidential.requestFocus();
+            } else if (txtLocationResidential.isFocusOwner()) {
+                optionHouse.requestFocus();
+            } else if (optionHouse.isFocusOwner()) {
+                optionConcrete.requestFocus();
+            } else if (optionConcrete.isFocusOwner()) {
+                optionSemiConcrete.requestFocus();
+            } else if (optionSemiConcrete.isFocusOwner()) {
+                optionShanity.requestFocus();
+            } else if (optionShanity.isFocusOwner()) {
+                optionOthers.requestFocus();
+            } else if (optionOthers.isFocusOwner()) {
+                if (optionOthers.isSelected()) {
+                    txtOtherDesc.requestFocus();
+                } else {
+                    txtEstValueResidential.requestFocus();
+                }
+            } else if (txtOtherDesc.isFocusOwner()) {
+                txtEstValueResidential.requestFocus();
+            } else if (txtEstValueResidential.isFocusOwner()) {
+                if (buttonPanel.getBtnAdd().getText().equals("Save")) {
+                    buttonPanel.getBtnAdd().requestFocus();
+                } else {
+                    buttonPanel.getBtnEdit().requestFocus();
+                }
+            }
+                break;
             case KeyEvent.VK_UP:
                 if (txtEstValueResidential.isFocusOwner()) {
                 if (txtOtherDesc.isEnabled()) {
@@ -612,43 +673,20 @@ public class LandPanel extends javax.swing.JPanel implements KeyListener {
                         txtLocationResidential.setText(land.getAddress());
                         txtEstValueResidential.setText(NumberUtils.doubleToString(land.getAmount()));
                         switch (land.getAdditionalInfo()) {
-                            case "HOUSE":
-                                optionHouse.setSelected(true);
-                                optionConcrete.setSelected(false);
-                                optionSemiConcrete.setSelected(false);
-                                optionShanity.setSelected(false);
-                                optionOthers.setSelected(false);
-                                txtOtherDesc.setEnabled(false);
-                                break;
                             case "CONCRETE":
-//                                optionHouse.setSelected(false);
+                                optionHouse.setSelected(true);
                                 optionConcrete.setSelected(true);
-//                                optionSemiConcrete.setSelected(false);
-//                                optionShanity.setSelected(false);
-//                                optionOthers.setSelected(false);
-//                                txtOtherDesc.setEnabled(false);
                                 break;
                             case "SEMI CONCRETE":
-//                                optionHouse.setSelected(false);
-//                                optionConcrete.setSelected(false);
+                                optionHouse.setSelected(true);
                                 optionSemiConcrete.setSelected(true);
-//                                optionShanity.setSelected(false);
-//                                optionOthers.setSelected(false);
-//                                txtOtherDesc.setEnabled(false);
                                 break;
                             case "SHANITY":
-//                                optionHouse.setSelected(false);
-//                                optionConcrete.setSelected(false);
-//                                optionSemiConcrete.setSelected(false);
+                                optionHouse.setSelected(true);
                                 optionShanity.setSelected(true);
-//                                optionOthers.setSelected(false);
-//                                txtOtherDesc.setEnabled(false);
                                 break;
                             default:
-//                                optionHouse.setSelected(false);
-//                                optionConcrete.setSelected(false);
-//                                optionSemiConcrete.setSelected(false);
-//                                optionShanity.setSelected(false);
+                                optionHouse.setSelected(false);
                                 optionOthers.setSelected(true);
                                 txtOtherDesc.setText(land.getAdditionalInfo());
                                 break;
@@ -671,7 +709,7 @@ public class LandPanel extends javax.swing.JPanel implements KeyListener {
         txtEstValueCommercial.setEditable(value);
         checkResidential.setEnabled(value);
         txtAreaResidential.setEditable(value);
-        txtLocationCommercial.setEditable(value);
+        txtLocationResidential.setEditable(value);
         txtEstValueResidential.setEditable(value);
         txtOtherDesc.setEditable(value);
 
@@ -685,10 +723,13 @@ public class LandPanel extends javax.swing.JPanel implements KeyListener {
         txtEstValueCommercial.setFocusable(value);
         checkResidential.setFocusable(value);
         txtAreaResidential.setFocusable(value);
-        txtLocationCommercial.setFocusable(value);
+        txtLocationResidential.setFocusable(value);
         txtEstValueResidential.setFocusable(value);
         txtOtherDesc.setFocusable(value);
 
+        optionHouse.setSelected(false);
+        optionHouse.setEnabled(false);
+        enableHouseOptions(false);
         if (value) {
             checkAgricultural.requestFocus();
         }
@@ -715,16 +756,24 @@ public class LandPanel extends javax.swing.JPanel implements KeyListener {
         optionHouse.setSelected(false);
     }
 
-    public boolean saveLandAssets() {
-        List<Land> l = LandAssetController.getInstance().createNew(createNew(new ArrayList<Land>()), headerPanel.getFormNo());
+    public int saveLandAssets() {
+        List<Land> l = createNew(new ArrayList<Land>());
+        if (!validLandAsset(l)) {
+            return ProcessValidator.VALIDATE_ERROR;
+        }
+        l = LandAssetController.getInstance().createNew(l, headerPanel.getFormNo());
         setLands(l);
-        return !l.isEmpty();
+        return (!l.isEmpty() ? ProcessValidator.PROCESS_COMPLETED : ProcessValidator.PROCESS_FAILED);
     }
 
-    public boolean updateLandAssets() {
-        List<Land> l = LandAssetController.getInstance().update(createNew(new ArrayList<Land>()), headerPanel.getFormNo());
+    public int updateLandAssets() {
+        List<Land> l = createNew(new ArrayList<Land>());
+        if (!validLandAsset(l)) {
+            return ProcessValidator.VALIDATE_ERROR;
+        }
+        l = LandAssetController.getInstance().update(l, headerPanel.getFormNo());
         setLands(l);
-        return !l.isEmpty();
+        return (!l.isEmpty() ? ProcessValidator.PROCESS_COMPLETED : ProcessValidator.PROCESS_FAILED);
     }
 
     private List<Land> createNew(List<Land> lands) {
@@ -858,5 +907,59 @@ public class LandPanel extends javax.swing.JPanel implements KeyListener {
             }
             return lands;
         }
+    }
+
+    private boolean validLandAsset(List<Land> lands) {
+        if (!lands.isEmpty()) {
+            if (checkAgricultural.isSelected()) {
+                if (!UIValidator.validate(txtAreaAgri, "Area for your Agricultural land is required.")) {
+                    return false;
+                }
+                if (!UIValidator.validate(txtLocationAgri, "Location for your Agricultural land is required.")) {
+                    return false;
+                }
+                if (!UIValidator.validate(txtEstValueAgri, "Estimated value for your Agricultural land is required.")) {
+                    return false;
+                }
+            }
+            if (checkCommercial.isSelected()) {
+                if (!UIValidator.validate(txtAreaCommercial, "Area for your Commercial land is required.")) {
+                    return false;
+                }
+                if (!UIValidator.validate(txtLocationCommercial, "Location for your Commercial land is required.")) {
+                    return false;
+                }
+                if (!UIValidator.validate(txtEstValueCommercial, "Estimated value for your Commercial land is required.")) {
+                    return false;
+                }
+            }
+            if (checkResidential.isSelected()) {
+                if (!UIValidator.validate(txtLocationResidential, "Location for your Residential land is required.")) {
+                    return false;
+                }
+                if (optionHouse.isSelected()) {
+                    if (!optionConcrete.isSelected() && !optionSemiConcrete.isSelected() && !optionShanity.isSelected() && !optionOthers.isSelected()) {
+                        JOptionPane.showMessageDialog(null, "House options is requried.", ErrorMessage.ERROR_MESSAGE_TITLE, JOptionPane.ERROR_MESSAGE);
+                        optionConcrete.setSelected(true);
+                        optionConcrete.requestFocus();
+                        return false;
+                    }
+                }
+                if (!UIValidator.validate(txtEstValueResidential, "Estimated value for your Residential land is required.")) {
+                    return false;
+                }
+            }
+            return true;
+        } else {
+            JOptionPane.showMessageDialog(null, "Fill in required fields.", ErrorMessage.ERROR_MESSAGE_TITLE, JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+    }
+
+    private void enableHouseOptions(boolean value) {
+        optionConcrete.setEnabled(value);
+        optionSemiConcrete.setEnabled(value);
+        optionShanity.setEnabled(value);
+        optionOthers.setEnabled(value);
     }
 }

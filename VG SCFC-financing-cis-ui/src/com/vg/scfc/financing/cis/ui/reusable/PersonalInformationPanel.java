@@ -5,14 +5,15 @@
  */
 package com.vg.scfc.financing.cis.ui.reusable;
 
-import com.vg.commons.renderer.IndexedFocusTraversalPolicy;
 import com.vg.commons.util.UIMgr;
 import com.vg.scfc.financing.cis.ent.Address;
 import com.vg.scfc.financing.cis.ent.LiveUpdatePicture;
 import com.vg.scfc.financing.cis.ent.PersonalInfo;
 import com.vg.scfc.financing.cis.ent.Religion;
+import com.vg.scfc.financing.cis.ent.TransactionForm;
 import com.vg.scfc.financing.cis.ent.Tribe;
 import com.vg.scfc.financing.cis.ui.controller.AddressController;
+import com.vg.scfc.financing.cis.ui.controller.FormController;
 import com.vg.scfc.financing.cis.ui.controller.PersonalInfoController;
 import com.vg.scfc.financing.cis.ui.controller.PhotoController;
 import com.vg.scfc.financing.cis.ui.dialog.AddressDialog;
@@ -25,9 +26,8 @@ import java.awt.event.KeyListener;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JTextField;
+import javax.swing.JOptionPane;
 import net.java.balloontip.BalloonTip;
-import net.java.balloontip.utils.FadingUtils;
 import vg.img.service.Caller;
 import vg.img.ui.WebCamDlg;
 
@@ -43,6 +43,7 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
     public PersonalInformationPanel() {
         initComponents();
         startUpSettings();
+        enableTakePicture(false);
     }
 
     private void startUpSettings() {
@@ -52,10 +53,11 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
         initComboBoxValues();
         initComboBoxListener();
         setFieldsEditable(false);
+        resetToDefault();
         txtLastName.putClientProperty("Quaqua.TextField.style", "search");
         policySetting();
     }
-    
+
     public final void policySetting() {
         UISetting.policy.addIndexedComponent(txtLastName);
         UISetting.policy.addIndexedComponent(txtFirstName);
@@ -151,6 +153,7 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
     private void initComponents() {
 
         optionGroupGender = new javax.swing.ButtonGroup();
+        comboMarriedOption = new javax.swing.JComboBox();
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         txtLastName = new javax.swing.JTextField();
@@ -174,7 +177,6 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
         jLabel109 = new javax.swing.JLabel();
         comboStatus = new javax.swing.JComboBox();
         jLabel110 = new javax.swing.JLabel();
-        comboMarriedOption = new javax.swing.JComboBox();
         comboEducationStatus = new javax.swing.JComboBox();
         jLabel113 = new javax.swing.JLabel();
         txtContact = new javax.swing.JTextField();
@@ -191,6 +193,13 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
         btnTakePicture = new javax.swing.JButton();
         lblPhoto = new javax.swing.JLabel();
         txtCitizenship = new javax.swing.JTextField();
+
+        comboMarriedOption.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Living Together", "Widower", "Legally Seperated", "Mutually Seperated" }));
+        comboMarriedOption.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                comboMarriedOptionItemStateChanged(evt);
+            }
+        });
 
         jPanel4.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -215,6 +224,9 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
         jPanel4.add(jLabel100, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 35, -1, -1));
 
         txtFirstName.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtFirstNameFocusGained(evt);
+            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtFirstNameFocusLost(evt);
             }
@@ -228,6 +240,11 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
         txtMiddleName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtMiddleNameActionPerformed(evt);
+            }
+        });
+        txtMiddleName.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtMiddleNameFocusGained(evt);
             }
         });
         jPanel4.add(txtMiddleName, new org.netbeans.lib.awtextra.AbsoluteConstraints(93, 55, 255, -1));
@@ -299,14 +316,6 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
         jLabel110.setText("If Married");
         jPanel4.add(jLabel110, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 85, -1, -1));
 
-        comboMarriedOption.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Living Together", "Widower", "Legally Seperated", "Mutually Seperated" }));
-        comboMarriedOption.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                comboMarriedOptionItemStateChanged(evt);
-            }
-        });
-        jPanel4.add(comboMarriedOption, new org.netbeans.lib.awtextra.AbsoluteConstraints(455, 80, 144, -1));
-
         comboEducationStatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "ELEMENTARY", "HIGH SCHOOL", "SOME COLLEGE", "COLLEGE GRADUATE" }));
         jPanel4.add(comboEducationStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 5, 144, -1));
 
@@ -317,6 +326,11 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
         txtContact.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtContactActionPerformed(evt);
+            }
+        });
+        txtContact.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtContactFocusGained(evt);
             }
         });
         jPanel4.add(txtContact, new org.netbeans.lib.awtextra.AbsoluteConstraints(455, 30, 144, -1));
@@ -330,6 +344,9 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
         jPanel4.add(jLabel116, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 136, -1, -1));
 
         txtBirthPlace.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtBirthPlaceFocusGained(evt);
+            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtBirthPlaceFocusLost(evt);
             }
@@ -351,11 +368,6 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
         jPanel4.add(txtPresentAddress, new org.netbeans.lib.awtextra.AbsoluteConstraints(125, 131, 710, -1));
 
         txtBirthDate.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
-        txtBirthDate.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtBirthDateFocusLost(evt);
-            }
-        });
         jPanel4.add(txtBirthDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(93, 80, 120, -1));
 
         btnTakePicture.setText("Take Picture");
@@ -371,6 +383,9 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
 
         txtCitizenship.setText("FILIPINO");
         txtCitizenship.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtCitizenshipFocusGained(evt);
+            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtCitizenshipFocusLost(evt);
             }
@@ -399,6 +414,7 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
 
     private void txtLastNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtLastNameFocusLost
         txtLastName.setText(txtLastName.getText().toUpperCase());
+        lastnameTip.closeBalloon();
     }//GEN-LAST:event_txtLastNameFocusLost
 
     private void txtFirstNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFirstNameFocusLost
@@ -422,19 +438,13 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
 
     private void txtPresentAddressFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPresentAddressFocusLost
         txtPresentAddress.setText(txtPresentAddress.getText().toUpperCase());
+        addressTip.closeBalloon();
     }//GEN-LAST:event_txtPresentAddressFocusLost
 
     private void txtPreviousAddressFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPreviousAddressFocusLost
         txtPreviousAddress.setText(txtPreviousAddress.getText().toUpperCase());
+        addressTip.closeBalloon();
     }//GEN-LAST:event_txtPreviousAddressFocusLost
-
-    private void txtBirthDateFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBirthDateFocusLost
-        try {
-            txtBirthDate.setDate(txtBirthDate.getDate());
-        } catch (ParseException ex) {
-            UIValidator.log(ex, PersonalInfoController.class);
-        }
-    }//GEN-LAST:event_txtBirthDateFocusLost
 
     private void btnTakePictureActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTakePictureActionPerformed
         WebCamDlg dlg = new WebCamDlg(null, true);
@@ -467,19 +477,38 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
 
     private void txtLastNameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtLastNameFocusGained
         lastnameTip = new BalloonTip(txtLastName, "PRESS F5 FOR EXISTING RECORDS");
-        FadingUtils.fadeOutBalloon(lastnameTip, null, 5000, 24);
+        txtLastName.selectAll();
     }//GEN-LAST:event_txtLastNameFocusGained
 
     private void txtPresentAddressFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPresentAddressFocusGained
         addressTip = new BalloonTip(txtPresentAddress, "PRESS F5 FOR ADDRESS DIALOG");
-        FadingUtils.fadeOutBalloon(addressTip, null, 5000, 24);
+        txtPresentAddress.selectAll();
     }//GEN-LAST:event_txtPresentAddressFocusGained
 
     private void txtPreviousAddressFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPreviousAddressFocusGained
         addressTip = new BalloonTip(txtPreviousAddress, "PRESS F5 FOR ADDRESS DIALOG");
-        FadingUtils.fadeOutBalloon(addressTip, null, 5000, 24);
+        txtPreviousAddress.selectAll();
     }//GEN-LAST:event_txtPreviousAddressFocusGained
 
+    private void txtFirstNameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFirstNameFocusGained
+        txtFirstName.selectAll();
+    }//GEN-LAST:event_txtFirstNameFocusGained
+
+    private void txtMiddleNameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtMiddleNameFocusGained
+        txtMiddleName.selectAll();
+    }//GEN-LAST:event_txtMiddleNameFocusGained
+
+    private void txtBirthPlaceFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBirthPlaceFocusGained
+        txtBirthPlace.selectAll();
+    }//GEN-LAST:event_txtBirthPlaceFocusGained
+
+    private void txtContactFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtContactFocusGained
+        txtContact.selectAll();
+    }//GEN-LAST:event_txtContactFocusGained
+
+    private void txtCitizenshipFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCitizenshipFocusGained
+        txtCitizenship.selectAll();
+    }//GEN-LAST:event_txtCitizenshipFocusGained
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnTakePicture;
     private javax.swing.JComboBox comboEducationStatus;
@@ -520,6 +549,7 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
     private javax.swing.JTextField txtPreviousAddress;
     // End of variables declaration//GEN-END:variables
     private PersonalInfo personalInfo;
+    private AddEditButtonPanel buttonPanel;
     List<Tribe> tribes = new ArrayList<>();
     List<Religion> religions = new ArrayList<>();
     private HeaderPanel headerPanel;
@@ -530,6 +560,14 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
     private Address previousAddress;
     BalloonTip lastnameTip;
     BalloonTip addressTip;
+
+    public void setButtonPanel(AddEditButtonPanel buttonPanel) {
+        this.buttonPanel = buttonPanel;
+    }
+
+    public PersonalInfo getPersonalInfo() {
+        return personalInfo;
+    }
 
     public void setPreviousAddress(Address previousAddress) {
         this.previousAddress = previousAddress;
@@ -566,111 +604,149 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
 
     @Override
     public void keyPressed(KeyEvent e) {
+        switch (e.getKeyCode()) {
+            case KeyEvent.VK_ENTER:
+                if (txtLastName.isFocusOwner()) {
+                    txtFirstName.requestFocus();
+                } else if (txtFirstName.isFocusOwner()) {
+                    txtMiddleName.requestFocus();
+                } else if (txtMiddleName.isFocusOwner()) {
+                    txtBirthDate.requestFocus();
+                } else if (txtBirthDate.isFocusOwner()) {
+                    txtBirthPlace.requestFocus();
+                } else if (txtBirthPlace.isFocusOwner()) {
+                    optionMale.requestFocus();
+                } else if (optionMale.isFocusOwner()) {
+                    optionFemale.requestFocus();
+                } else if (optionFemale.isFocusOwner()) {
+                    txtContact.requestFocus();
+                } else if (txtContact.isFocusOwner()) {
+                    comboStatus.requestFocus();
+                } else if (comboStatus.isFocusOwner()) {
+                    if (comboStatus.getSelectedIndex() == 1) {
+                        comboMarriedOption.requestFocus();
+                    } else {
+                        comboEducationStatus.requestFocus();
+                    }
+                } else if (comboMarriedOption.isFocusOwner()) {
+                    comboEducationStatus.requestFocus();
+                } else if (comboEducationStatus.isFocusOwner()) {
+                    comboTribe.requestFocus();
+                } else if (comboTribe.isFocusOwner()) {
+                    comboReligion.requestFocus();
+                } else if (comboReligion.isFocusOwner()) {
+                    txtCitizenship.requestFocus();
+                } else if (txtCitizenship.isFocusOwner()) {
+                    txtPresentAddress.requestFocus();
+                } else if (txtPresentAddress.isFocusOwner()) {
+                    txtPreviousAddress.requestFocus();
+                } else if (txtPreviousAddress.isFocusOwner()) {
+                    if (buttonPanel.getBtnAdd().getText().equals("Save")) {
+                        buttonPanel.getBtnAdd().requestFocus();
+                    } else {
+                        buttonPanel.getBtnEdit().requestFocus();
+                    }
+                }
+                break;
+        }
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
         switch (e.getKeyCode()) {
-//            case KeyEvent.VK_TAB:
-//            case KeyEvent.VK_ENTER:
-//                if (txtLastName.isFocusOwner()) {
-//                txtFirstName.requestFocus();
-//            } else if (txtFirstName.isFocusOwner()) {
-//                txtMiddleName.requestFocus();
-//            } else if (txtMiddleName.isFocusOwner()) {
-//                txtBirthDate.requestFocus();
-//            } else if (txtBirthDate.isFocusOwner()) {
-//                txtBirthPlace.requestFocus();
-//            } else if (txtBirthPlace.isFocusOwner()) {
-//                optionMale.requestFocus();
-//            } else if (optionMale.isFocusOwner()) {
-//                optionFemale.requestFocus();
-//            } else if (optionFemale.isFocusOwner()) {
-//                txtContact.requestFocus();
-//            } else if (txtContact.isFocusOwner()) {
-//                comboStatus.requestFocus();
-//            } else if (comboStatus.isFocusOwner()) {
-//                if (comboStatus.getSelectedIndex() == 1) {
-//                    comboMarriedOption.requestFocus();
-//                } else {
-//                    comboEducationStatus.requestFocus();
-//                }
-//            } else if (comboMarriedOption.isFocusOwner()) {
-//                comboEducationStatus.requestFocus();
-//            } else if (comboEducationStatus.isFocusOwner()) {
-//                comboTribe.requestFocus();
-//            } else if (comboTribe.isFocusOwner()) {
-//                comboReligion.requestFocus();
-//            } else if (comboReligion.isFocusOwner()) {
-//                txtCitizenship.requestFocus();
-//            } else if (txtCitizenship.isFocusOwner()) {
-//                txtPresentAddress.requestFocus();
-//            } else if (txtPresentAddress.isFocusOwner()) {
-//                txtPreviousAddress.requestFocus();
-//            }
-//                break;
+            case KeyEvent.VK_DOWN:
+                if (txtLastName.isFocusOwner()) {
+                    txtFirstName.requestFocus();
+                } else if (txtFirstName.isFocusOwner()) {
+                    txtMiddleName.requestFocus();
+                } else if (txtMiddleName.isFocusOwner()) {
+                    txtBirthDate.requestFocus();
+                } else if (txtBirthDate.isFocusOwner()) {
+                    txtBirthPlace.requestFocus();
+                } else if (txtBirthPlace.isFocusOwner()) {
+                    optionMale.requestFocus();
+                } else if (optionMale.isFocusOwner()) {
+                    optionFemale.requestFocus();
+                } else if (optionFemale.isFocusOwner()) {
+                    txtContact.requestFocus();
+                } else if (txtContact.isFocusOwner()) {
+                    comboStatus.requestFocus();
+                } else if (txtCitizenship.isFocusOwner()) {
+                    txtPresentAddress.requestFocus();
+                } else if (txtPresentAddress.isFocusOwner()) {
+                    txtPreviousAddress.requestFocus();
+                } else if (txtPreviousAddress.isFocusOwner()) {
+                    if (buttonPanel.getBtnAdd().getText().equals("Save")) {
+                        buttonPanel.getBtnAdd().requestFocus();
+                    } else {
+                        buttonPanel.getBtnEdit().requestFocus();
+                    }
+                }
+                break;
             case KeyEvent.VK_UP:
                 if (txtPreviousAddress.isFocusOwner()) {
-                txtPresentAddress.requestFocus();
-            } else if (txtPresentAddress.isFocusOwner()) {
-                txtCitizenship.requestFocus();
-            } else if (txtCitizenship.isFocusOwner()) {
-                comboReligion.requestFocus();
-            } else if (comboReligion.isFocusOwner()) {
-                comboTribe.requestFocus();
-            } else if (comboTribe.isFocusOwner()) {
-                comboEducationStatus.requestFocus();
-            } else if (comboEducationStatus.isFocusOwner()) {
-                if (comboMarriedOption.isEnabled()) {
-                    comboMarriedOption.requestFocus();
-                } else {
+                    txtPresentAddress.requestFocus();
+                } else if (txtPresentAddress.isFocusOwner()) {
+                    txtCitizenship.requestFocus();
+                } else if (txtCitizenship.isFocusOwner()) {
+                    comboReligion.requestFocus();
+                } else if (comboReligion.isFocusOwner()) {
+                    comboTribe.requestFocus();
+                } else if (comboTribe.isFocusOwner()) {
+                    comboEducationStatus.requestFocus();
+                } else if (comboEducationStatus.isFocusOwner()) {
+                    if (comboMarriedOption.isEnabled()) {
+                        comboMarriedOption.requestFocus();
+                    } else {
+                        comboStatus.requestFocus();
+                    }
+                } else if (comboMarriedOption.isFocusOwner()) {
                     comboStatus.requestFocus();
+                } else if (comboStatus.isFocusOwner()) {
+                    txtContact.requestFocus();
+                } else if (txtContact.isFocusOwner()) {
+                    optionFemale.requestFocus();
+                } else if (optionFemale.isFocusOwner()) {
+                    optionMale.requestFocus();
+                } else if (optionMale.isFocusOwner()) {
+                    txtBirthPlace.requestFocus();
+                } else if (txtBirthPlace.isFocusOwner()) {
+                    txtBirthDate.requestFocus();
+                } else if (txtBirthDate.isFocusOwner()) {
+                    txtMiddleName.requestFocus();
+                } else if (txtMiddleName.isFocusOwner()) {
+                    txtFirstName.requestFocus();
+                } else if (txtFirstName.isFocusOwner()) {
+                    txtLastName.requestFocus();
+                } else if (buttonPanel.getBtnAdd().isFocusOwner() || buttonPanel.getBtnEdit().isFocusOwner()) {
+                    txtPreviousAddress.requestFocus();
                 }
-            } else if (comboMarriedOption.isFocusOwner()) {
-                comboStatus.requestFocus();
-            } else if (comboStatus.isFocusOwner()) {
-                txtContact.requestFocus();
-            } else if (txtContact.isFocusOwner()) {
-                optionFemale.requestFocus();
-            } else if (optionFemale.isFocusOwner()) {
-                optionMale.requestFocus();
-            } else if (optionMale.isFocusOwner()) {
-                txtBirthPlace.requestFocus();
-            } else if (txtBirthPlace.isFocusOwner()) {
-                txtBirthDate.requestFocus();
-            } else if (txtBirthDate.isFocusOwner()) {
-                txtMiddleName.requestFocus();
-            } else if (txtMiddleName.isFocusOwner()) {
-                txtFirstName.requestFocus();
-            } else if (txtFirstName.isFocusOwner()) {
-                txtLastName.requestFocus();
-            }
                 break;
             case KeyEvent.VK_F5:
                 if (txtLastName.isFocusOwner()) {
-                PersonalInfoDialog personalInfoDlg = new PersonalInfoDialog(null, true);
-                UIMgr.centerToScreen(personalInfoDlg);
-                personalInfoDlg.setVisible(true);
-                if (personalInfoDlg.getPersonalInfo() != null) {
-                    setPersonalInfoData(personalInfoDlg.getPersonalInfo(), true);
+                    PersonalInfoDialog personalInfoDlg = new PersonalInfoDialog(null, true);
+                    UIMgr.centerToScreen(personalInfoDlg);
+                    personalInfoDlg.setVisible(true);
+                    if (personalInfoDlg.getPersonalInfo() != null) {
+                        setPersonalInfoData(personalInfoDlg.getPersonalInfo(), true);
+                    }
+                } else if (txtPresentAddress.isFocusOwner()) {
+                    AddressDialog addressDialog = new AddressDialog(null, true);
+                    UIMgr.centerToScreen(addressDialog);
+                    addressDialog.setVisible(true);
+                    if (addressDialog.getAddress() != null) {
+                        setAddress(addressDialog.getAddress());
+                    }
+                    txtPresentAddress.setText(presentAddress.getAddress());
+                } else if (txtPreviousAddress.isFocusOwner()) {
+                    AddressDialog addressDialog = new AddressDialog(null, true);
+                    UIMgr.centerToScreen(addressDialog);
+                    addressDialog.setVisible(true);
+                    if (addressDialog.getAddress() != null) {
+                        setPreviousAddress(addressDialog.getAddress());
+                    }
+                    txtPreviousAddress.setText(previousAddress.getAddress());
                 }
-            } else if (txtPresentAddress.isFocusOwner()) {
-                AddressDialog addressDialog = new AddressDialog(null, true);
-                UIMgr.centerToScreen(addressDialog);
-                addressDialog.setVisible(true);
-                if (addressDialog.getAddress() != null) {
-                    setAddress(addressDialog.getAddress());
-                }
-                txtPresentAddress.setText(presentAddress.getAddress());
-            } else if (txtPreviousAddress.isFocusOwner()) {
-                AddressDialog addressDialog = new AddressDialog(null, true);
-                UIMgr.centerToScreen(addressDialog);
-                addressDialog.setVisible(true);
-                if (addressDialog.getAddress() != null) {
-                    setPreviousAddress(addressDialog.getAddress());
-                }
-                txtPreviousAddress.setText(previousAddress.getAddress());
-            }
                 break;
         }
     }
@@ -714,6 +790,7 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
 
         if (value) {
             txtLastName.requestFocus();
+            txtCitizenship.setText("FILIPINO");
         }
     }
 
@@ -723,10 +800,10 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
         txtMiddleName.setText("");
         txtBirthPlace.setText("");
         txtAge.setText("");
-        optionMale.setSelected(true);
-        optionFemale.setSelected(true);
+        optionMale.setSelected(false);
+        optionFemale.setSelected(false);
         txtContact.setText("");
-        txtCitizenship.setText("FILIPINO");
+        txtCitizenship.setText("");
         txtPresentAddress.setText("");
         txtPreviousAddress.setText("");
         comboTribe.setSelectedItem(null);
@@ -734,7 +811,7 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
         comboMarriedOption.setSelectedItem(null);
         comboEducationStatus.setSelectedItem(null);
         comboReligion.setSelectedItem(null);
-        txtBirthDate.setText("");
+        txtBirthDate.setValue(null);
     }
 
     public void setPersonalInfoData(Object o, boolean fromSearch) {
@@ -837,143 +914,182 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
                     }
                 }
             }
+            enableTakePicture(true);
+            TransactionForm tf = FormController.getInstance().findByFormNo(p.getTxFormNo());
+            if (tf != null) {
+                headerPanel.setFormNo(tf.getTxFormNo());
+                headerPanel.setIDNo(tf.getFormNo());
+                headerPanel.setApplicationDate(tf.getTxApplicationDate());
+            }
         }
     }
+    
+    public final static int VALIDATE_ERROR = 1;
+    public final static int PROCESS_COMPLETED = 2;
+    public final static int PROCESS_FAILED = 3;
 
-    public boolean savePersonalInfo() {
-        if (validForm()) {
-            PersonalInfo p = PersonalInfoController.getInstance().save(createNew(new PersonalInfo()), headerPanel.getIDNo(), headerPanel.getApplicationDate(), personType);
-            saveAddresses(p);
-            setPersonalInfo(p);
-            headerPanel.setFormNo(p.getTxFormNo());
-            return p != null;
-        } else {
-            UIValidator.promptFormValidationMessage();
-            return false;
+    public int savePersonalInfo() {
+        PersonalInfo p = createNew(new PersonalInfo());
+        if (!isValidPersonalInfo(p)) {
+            return VALIDATE_ERROR;
         }
+
+        p = PersonalInfoController.getInstance().save(p, headerPanel.getIDNo(),
+                headerPanel.getApplicationDate(), personType);
+        saveAddresses(p);
+        setPersonalInfo(p);
+        headerPanel.setFormNo(p.getTxFormNo());
+
+        boolean tempResult;
+        tempResult = (p != null);
+        enableTakePicture(tempResult);
+        
+        return ((p != null) ? PROCESS_COMPLETED : PROCESS_FAILED);
     }
 
-    public boolean updatePersonalInfo() {
-        if (validForm()) {
-            PersonalInfo p = PersonalInfoController.getInstance().update(headerPanel.getFormNo(), personalInfo.getPersonType().getTypeID(), createNew(personalInfo));
-            setPersonalInfo(p);
-            return p != null;
-        } else {
-            UIValidator.promptFormValidationMessage();
-            return false;
+    public int updatePersonalInfo() {
+        PersonalInfo p = createNew(personalInfo);
+        if (!isValidPersonalInfo(p)) {
+            return VALIDATE_ERROR;
         }
+
+        p = PersonalInfoController.getInstance().update(headerPanel.getFormNo(),
+                personalInfo.getPersonType().getTypeID(), p);
+        setPersonalInfo(p);
+        
+        return ((p != null) ? PROCESS_COMPLETED : PROCESS_FAILED);
     }
 
-    public boolean saveSpousePersonalInfo() {
-        if (validForm()) {
-            PersonalInfo p = PersonalInfoController.getInstance().save(createNew(new PersonalInfo()), headerPanel.getFormNo(), personType, clientNo);
-            saveAddresses(p);
-            setPersonalInfo(p);
-            return p != null;
-        } else {
-            UIValidator.promptFormValidationMessage();
-            return false;
+    public int saveSpousePersonalInfo() {
+        PersonalInfo p = createNew(new PersonalInfo());
+        if (!isValidPersonalInfo(p)) {
+            return VALIDATE_ERROR;
         }
+
+        p = PersonalInfoController.getInstance().save(p, headerPanel.getFormNo(), personType, clientNo);
+        saveAddresses(p);
+        setPersonalInfo(p);
+        headerPanel.setFormNo(p.getTxFormNo());
+
+        boolean tempResult;
+        tempResult = p != null;
+        enableTakePicture(tempResult);
+        
+        return ((p != null) ? PROCESS_COMPLETED : PROCESS_FAILED);
     }
 
-    public boolean updateSpousePersonalInfo() {
-        if (validForm()) {
-            PersonalInfo p = PersonalInfoController.getInstance().update(headerPanel.getFormNo(), personType, createNew(personalInfo));
-            setPersonalInfo(p);
-            return p != null;
-        } else {
-            UIValidator.promptFormValidationMessage();
-            return false;
+    public int updateSpousePersonalInfo() {
+        PersonalInfo p = createNew(personalInfo);
+        if (!isValidPersonalInfo(p)) {
+            return VALIDATE_ERROR;
         }
+
+        p = PersonalInfoController.getInstance().update(headerPanel.getFormNo(), personType, p);
+        setPersonalInfo(p);
+        
+        return ((p != null) ? PROCESS_COMPLETED : PROCESS_FAILED);
     }
 
-    public boolean saveCoMakerPersonalInfo() {
+    public int saveCoMakerPersonalInfo() {
         String cmType;
         if (mainPanel.getComakers().isEmpty()) {
             cmType = "CM1";
         } else {
             cmType = "CM2";
         }
-        if (validForm()) {
-            PersonalInfo p = PersonalInfoController.getInstance().save(createNew(new PersonalInfo()), headerPanel.getFormNo(), cmType, clientNo);
-            saveAddresses(p);
-            setPersonalInfo(p);
-            return p != null;
-        } else {
-            UIValidator.promptFormValidationMessage();
-            return false;
+
+        PersonalInfo p = createNew(new PersonalInfo());
+        if (!isValidPersonalInfo(p)) {
+            return VALIDATE_ERROR;
         }
+
+        p = PersonalInfoController.getInstance().save(p, headerPanel.getFormNo(), cmType, clientNo);
+        saveAddresses(p);
+        setPersonalInfo(p);
+        headerPanel.setFormNo(p.getTxFormNo());
+        enableTakePicture(p != null);
+        
+        return ((p != null) ? PROCESS_COMPLETED : PROCESS_FAILED);
     }
 
-    public boolean updateCoMakerPersonalInfo() {
-        if (validForm()) {
-            PersonalInfo p = PersonalInfoController.getInstance().update(headerPanel.getFormNo(), personalInfo.getPersonType().getTypeID(), createNew(personalInfo));
-            setPersonalInfo(p);
-            return p != null;
-        } else {
-            UIValidator.promptFormValidationMessage();
-            return false;
+    public int updateCoMakerPersonalInfo() {
+        PersonalInfo p = createNew(personalInfo);
+        if (!isValidPersonalInfo(p)) {
+            return VALIDATE_ERROR;
         }
+
+        p = PersonalInfoController.getInstance().update(headerPanel.getFormNo(), personalInfo.getPersonType().getTypeID(), p);
+        setPersonalInfo(p);
+        
+        return ((p != null) ? PROCESS_COMPLETED : PROCESS_FAILED);
     }
 
-    public boolean saveCoMakerSpousePersonalInfo() {
+    public int saveCoMakerSpousePersonalInfo() {
         String cmType;
         if (mainPanel.getSelectedCoMaker().getPersonType().getTypeID().equals("CM1")) {
             cmType = "CS1";
         } else {
             cmType = "CS2";
         }
-        if (validForm()) {
-            PersonalInfo p = PersonalInfoController.getInstance().save(createNew(new PersonalInfo()), headerPanel.getFormNo(), cmType, clientNo);
-            saveAddresses(p);
-            setPersonalInfo(p);
-            return p != null;
-        } else {
-            UIValidator.promptFormValidationMessage();
-            return false;
+
+        PersonalInfo p = createNew(new PersonalInfo());
+        if (!isValidPersonalInfo(p)) {
+            return VALIDATE_ERROR;
         }
+
+        p = PersonalInfoController.getInstance().save(p, headerPanel.getFormNo(), cmType, clientNo);
+        saveAddresses(p);
+        setPersonalInfo(p);
+        headerPanel.setFormNo(p.getTxFormNo());
+        enableTakePicture(p != null);
+        
+        return ((p != null) ? PROCESS_COMPLETED : PROCESS_FAILED);
     }
 
-    public boolean updateCoMakerSpousePersonalInfo() {
+    public int updateCoMakerSpousePersonalInfo() {
         String cmType;
         if (mainPanel.getSelectedCoMaker().getPersonType().getTypeID().equals("CM1")) {
             cmType = "CS1";
         } else {
             cmType = "CS2";
         }
-        if (validForm()) {
-            PersonalInfo p = PersonalInfoController.getInstance().update(headerPanel.getFormNo(), cmType, createNew(personalInfo));
-            setPersonalInfo(p);
-            return p != null;
-        } else {
-            UIValidator.promptFormValidationMessage();
-            return false;
+
+        PersonalInfo p = createNew(personalInfo);
+        if (!isValidPersonalInfo(p)) {
+            return VALIDATE_ERROR;
         }
+
+        p = PersonalInfoController.getInstance().update(headerPanel.getFormNo(), cmType, p);
+        setPersonalInfo(p);
+        
+        return ((p != null) ? PROCESS_COMPLETED : PROCESS_FAILED);
     }
 
-    public boolean saveRepresentativePersonalInfo() {
-        if (validForm()) {
-            System.out.println("Client no: " + clientNo);
-            System.out.println("Form no: " + headerPanel.getFormNo());
-            PersonalInfo p = PersonalInfoController.getInstance().save(createNew(new PersonalInfo()), headerPanel.getFormNo(), personType, clientNo);
-            saveAddresses(p);
-            setPersonalInfo(p);
-            return p != null;
-        } else {
-            UIValidator.promptFormValidationMessage();
-            return false;
+    public int saveRepresentativePersonalInfo() {
+        PersonalInfo p = createNew(new PersonalInfo());
+        if (!isValidPersonalInfo(p)) {
+            return VALIDATE_ERROR;
         }
+
+        p = PersonalInfoController.getInstance().save(p, headerPanel.getFormNo(), personType, clientNo);
+        saveAddresses(p);
+        setPersonalInfo(p);
+        headerPanel.setFormNo(p.getTxFormNo());
+        enableTakePicture(p != null);
+        
+        return ((p != null) ? PROCESS_COMPLETED : PROCESS_FAILED);
     }
 
-    public boolean updateRepresentativePersonalInfo() {
-        if (validForm()) {
-            PersonalInfo p = PersonalInfoController.getInstance().update(headerPanel.getFormNo(), personType, createNew(personalInfo));
-            setPersonalInfo(p);
-            return p != null;
-        } else {
-            UIValidator.promptFormValidationMessage();
-            return false;
+    public int updateRepresentativePersonalInfo() {
+        PersonalInfo p = createNew(personalInfo);
+        if (!isValidPersonalInfo(p)) {
+            return VALIDATE_ERROR;
         }
+
+        p = PersonalInfoController.getInstance().update(headerPanel.getFormNo(), personType, createNew(personalInfo));
+        setPersonalInfo(p);
+        
+        return ((p != null) ? PROCESS_COMPLETED : PROCESS_FAILED);
     }
 
     public void saveAddresses(PersonalInfo p) {
@@ -990,14 +1106,50 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
         }
     }
 
-    private boolean validForm() {
-        List<JTextField> requiredFields = new ArrayList<>();
-        requiredFields.add(txtLastName);
-        requiredFields.add(txtFirstName);
-        requiredFields.add(txtContact);
-        requiredFields.add(txtPresentAddress);
-        boolean valid = UIValidator.validate(requiredFields);
-        return valid;
+    public boolean isValidPersonalInfo(PersonalInfo info) {
+        if (info != null) {
+            if (info.getLastName().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(mainPanel, "Last Name is a required field.",
+                        "Empty Field", JOptionPane.ERROR_MESSAGE);
+                txtLastName.requestFocus();
+                return false;
+            }
+            if (info.getFirstName().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(mainPanel, "First Name is a required field.",
+                        "Empty Field", JOptionPane.ERROR_MESSAGE);
+                txtFirstName.requestFocus();
+                return false;
+
+            }
+            if (info.getMiddleName().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(mainPanel, "Middle Name is a required field.",
+                        "Empty Field", JOptionPane.ERROR_MESSAGE);
+                txtMiddleName.requestFocus();
+                return false;
+            }
+            if (info.getGender().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(mainPanel, "Gender is a required field.",
+                        "Empty Field", JOptionPane.ERROR_MESSAGE);
+                optionMale.requestFocus();
+                return false;
+            }
+            if (info.getCivilStatus().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(mainPanel, "Civil Status is a required field.",
+                        "Empty Field", JOptionPane.ERROR_MESSAGE);
+                comboStatus.requestFocus();
+                return false;
+            }
+            if (txtPresentAddress.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(mainPanel, "Present Address is a required field.",
+                        "Empty Field", JOptionPane.ERROR_MESSAGE);
+                txtPresentAddress.requestFocus();
+                return false;
+            }
+        } else {
+            return false;
+        }
+
+        return true;
     }
 
     private PersonalInfo createNew(PersonalInfo p) {
@@ -1045,12 +1197,6 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
         return p;
     }
 
-//    @Override
-//    public void setPhoto(IplImage image) {
-//        if (image != null) {
-//            lblPhoto.setIcon(new VgImageIcon(image.getBufferedImage()));
-//        }
-//    }
     @Override
     public void setPhoto(vg.img.classes.VgImageIcon vii) {
         lblPhoto.setIcon(vii);
@@ -1060,4 +1206,7 @@ public class PersonalInformationPanel extends javax.swing.JPanel implements KeyL
     public void updatePhoto(vg.img.classes.VgImageIcon vii) {
     }
 
+    public void enableTakePicture(boolean value) {
+        btnTakePicture.setEnabled(value);
+    }
 }
