@@ -4,12 +4,8 @@
  */
 package com.vg.hrm.user.ent;
 
+import javax.persistence.*;
 import java.io.Serializable;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Transient;
 
 /**
  *
@@ -95,6 +91,17 @@ public class Employee implements Serializable {
         String initials = (firstname.charAt(0) + "" + ((middlename.isEmpty()) ? "" : (middlename.charAt(0))) + lastname.charAt(0)).toUpperCase();        
         return initials;        
     }
-    
-    @Override public String toString() { return getProperName(); }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "id='" + id + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", firstname='" + firstname + '\'' +
+                ", middlename='" + middlename + '\'' +
+                ", nickname='" + nickname + '\'' +
+                ", locked=" + locked +
+                ", voided=" + voided +
+                '}';
+    }
 }
